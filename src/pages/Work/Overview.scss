@@ -1,0 +1,42 @@
+.overview {
+  margin-bottom: 48px;
+
+  &.loading {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    font-family: "Roboto Slab";
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 33px;
+    color: #565656;
+  }
+
+  table > tbody > tr {
+
+    td {
+      font-family: "Source Code Pro";
+      font-size: 12px;
+      line-height: 15px;
+      color: #666666;
+      padding-bottom: 9px;
+
+      &:first-child {
+        min-width: 140px;
+      }
+
+      &:last-child {
+        font-weight: 600;
+      }
+
+      a {
+        color: #43B980;
+      }
+
+    }
+
+  }
+}

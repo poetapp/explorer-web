@@ -1,0 +1,122 @@
+@import "Modal";;
+@import '../styles/Animations';
+
+.modal-try-it-out {
+  @include modal;
+  font-family: "Roboto Slab";
+  color: #413D3B;
+  width: 480px;
+  padding: 30px 25px 20px;
+  align-items: center;
+  text-align: center;
+
+  &.loading {
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      @include animation-loading-quill;
+      $size: 100px;
+      width: $size;
+      height: $size;
+    }
+
+  }
+
+  h1 {
+    font-size: 22px;
+    line-height: 29px;
+    margin-bottom: 22px;
+  }
+
+  h2 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .option-group {
+    width: 100%;
+
+    li {
+      flex: 1 1 auto;
+    }
+  }
+
+  .text {
+    width: 100%;
+  }
+
+  .title-input {
+    margin-bottom: 14px;
+    border-radius: 0;
+  }
+
+  textarea {
+    margin-bottom: 14px;
+    resize: none;
+    height: 167px;
+    border-radius: 0;
+  }
+
+  .upload {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+
+    button {
+      font-family: Roboto;
+      padding: 36px 0 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed #E6E4E1;
+      width: 100%;
+      height: 167px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      outline: none;
+
+      img {
+        margin-bottom: 25px;
+      }
+
+      h1 {
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 11px;
+        margin-bottom: 5px;
+      }
+
+      h2 {
+        opacity: 0.5;
+        font-size: 10px;
+        line-height: 11px;
+      }
+    }
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 20px;
+  }
+
+  strong {
+    color: #DD5943;
+  }
+
+  small {
+    font-size: 10px;
+    line-height: 18px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    width: 100%;
+    height: 48px;
+  }
+}

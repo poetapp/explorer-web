@@ -1,0 +1,134 @@
+@import "../styles/Animations";
+
+.works-by-profile {
+  transition: opacity .3s;
+
+  table.works {
+    $border-radius: 4px;
+
+    width: 100%;
+    font-family: "Roboto Slab";
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #E3E1DF;
+    border-radius: $border-radius $border-radius 0 0;
+
+    thead tr td {
+      height: 36px;
+      padding: 10px 16px;
+      background-color: #F1EFEC;
+      font-size: 10px;
+      font-weight: bold;
+      color: #676767;
+
+      &:first-child {
+        border-top-left-radius: $border-radius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $border-radius;
+      }
+
+    }
+
+    tbody {
+      background-color: #FFFFFF;
+
+      tr {
+        td {
+          border-top: 1px solid #E3E1DF;
+          padding: 10px 16px;
+        }
+        &:hover td {
+          background-color: #FBFBFB;
+        }
+        td.name {
+          a {
+            font-size: 12px;
+            font-weight: bold;
+            color: #43B980;
+          }
+
+          .media-type {
+            font-size: 10px;
+            font-weight: bold;
+            color: #737373;
+            margin-right: 5px;
+          }
+
+          .content-info {
+            opacity: 0.6;
+            font-size: 10px;
+            color: #737373;
+          }
+
+        }
+
+        td.hash, td.timestamp {
+          font-family: "Source Code Pro";
+          font-size: 10px;
+          font-weight: 600;
+          color: #737373;
+        }
+
+      }
+    }
+  }
+
+  .dropdown {
+    position: relative;
+    font-family: "Roboto Slab";
+
+    button {
+      font-size: 12px;
+      font-weight: bold;
+      text-align: right;
+      color: #4A9699;
+      cursor: pointer;
+      outline: none;
+
+    }
+
+    ul {
+      position: absolute;
+      z-index: 10;
+      list-style: none;
+      margin: 0;
+      padding: 0 0;
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 24px 0 rgba(0,0,0,0.09);
+      border-radius: 3px;
+
+      li {
+        padding: 0 17px;
+        font-size: 12px;
+        line-height: 30px;
+        color: #737373;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.loading {
+
+    &:not(.no-content) {
+      transition-delay: .5s;
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    &.no-content {
+      td {
+        text-align: center;
+      }
+
+      img {
+        @include animation-loading-quill;
+        width: 50px;
+        margin: 30px;
+      }
+
+    }
+  }
+
+}

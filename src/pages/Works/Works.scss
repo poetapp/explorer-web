@@ -1,0 +1,56 @@
+.page-works > section.works {
+  font-family: 'Roboto Slab';
+  transition: .5s opacity;
+
+  &.loading {
+    transition-delay: .5s;
+    opacity: .5;
+  }
+
+  .work-count {
+    font-size: 18px;
+    font-weight: 300;
+    font-family: inherit;
+    margin-bottom: 48px;
+  }
+
+  ul.works {
+    list-style: none;
+
+    li.work-item {
+      font-size: 10px;
+
+      a {
+        color: #4A4A4A;
+      }
+
+      .name {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 19px;
+      }
+
+      .info {
+        margin-bottom: 11px;
+
+        .timestamp {
+          font-weight: bold;
+          margin-bottom: 19px;
+        }
+
+      }
+
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #E3E1DF;
+
+      .content {
+        pre {
+          white-space: pre-wrap;
+          word-wrap: break-word;
+        }
+      }
+    }
+  }
+
+}

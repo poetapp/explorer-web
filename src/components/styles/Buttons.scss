@@ -1,0 +1,53 @@
+@mixin button {
+  width: 146px;
+  height: 30px;
+  padding: 3px 6px;
+  font-family: "Roboto Slab";
+  font-size: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+
+  img {
+    margin-right: 4px;
+  }
+
+}
+
+.button-primary {
+  @include button;
+
+  background-color: #43B980;
+  color: white;
+
+  &:hover, &:focus {
+    background-color: #4BCD8E;
+    color: white;
+  }
+
+}
+
+.button-secondary {
+  @include button;
+
+  border: 1px solid #413D3B;
+  background-color: white;
+  color: #413D3B;
+
+  &:hover, &:focus {
+    background-color: #FAFAFA;
+    color: #413D3B;
+  }
+}
+
+a.button-primary, a.button-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,40 @@
+.pagination {
+  ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+
+    li {
+      $size: 27px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $size;
+      height: $size;
+      margin-right: 8px;
+
+      background-color: white;
+      border: 1px solid #D9D9D9;
+      border-radius: 4px;
+      cursor: pointer;
+
+      font-size: 12px;
+      color: #666666;
+      text-decoration: none;
+
+      user-select: none;
+
+      &.selected {
+        background-color: #43B980;
+        color: white;
+        border-color: transparent;
+      }
+
+      &.disabled {
+        color: #aaa;
+        cursor: default;
+      }
+
+    }
+  }
+}

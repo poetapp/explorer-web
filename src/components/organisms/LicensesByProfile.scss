@@ -1,0 +1,62 @@
+@import '../../components/styles/Animations';
+
+.licenses-by-profile {
+  transition: opacity .3s;
+
+  ul.licenses {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      width: 220px;
+      height: 117px;
+      border: 1px solid #E6E4E1;
+      padding: 16px;
+      margin: 16px;
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 4px 0 #EDEDED;
+      min-width: 22%;
+
+      &:hover {
+        border-color: #43B980;
+      }
+
+      header h2, header h2 a {
+        font-weight: bold;
+        font-size: 12px;
+        font-family: 'Roboto Slab';
+        color: #494949
+      }
+
+      main {
+        color: #666666;
+        font-family: 'Roboto Slab';
+        font-size: 10px;
+      }
+
+    }
+  }
+
+  &.loading {
+
+    &:not(.no-content) {
+      transition-delay: .5s;
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    &.no-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        @include animation-loading-quill;
+        width: 100px;
+      }
+    }
+
+  }
+
+}

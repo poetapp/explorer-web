@@ -1,0 +1,54 @@
+.page-account-wallet main .wallet-operations {
+  padding: 20px;
+  background-color: #FFFFFF;
+  text-align: center;
+
+  ul.wallet-tab-list {
+    margin-bottom: 28px;
+    border: none;
+    font-family: "Roboto Slab";
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 16px;
+    list-style: none;
+
+    li {
+      display: inline-block;
+      width: 50%;
+      padding: 6px 0 14px 0;
+      border: none;
+      opacity: 0.75;
+      color: #413D3B;
+      border-bottom: 3px solid #EEE;
+      cursor: pointer;
+    }
+
+    li.selected {
+      opacity: 1;
+      color: #413D3B;
+      border-color: #68625F;
+    }
+
+  }
+
+  .balance {
+    padding: 15px 0;
+    margin-bottom: 6px;
+    font-family: "Roboto Slab";
+    font-weight: bold;
+    text-align: center;
+    color: #413D3B;
+    cursor: pointer;
+
+    .primary {
+      font-size: 32px;
+      line-height: 43px;
+    }
+
+    .secondary {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+}

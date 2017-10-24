@@ -1,0 +1,37 @@
+input[type="text"], input[type="number"], input.input-text, textarea {
+  $border-color: #E6E4E1;
+  $text-color: #4A4A4A;
+
+  width: 100%;
+  height: 41px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  font-family: "Source Sans Pro";
+  font-size: 12px;
+  line-height: 18px;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  color: $text-color;
+  background-color: #FFFFFF;
+
+  &::placeholder {
+    color: lighten($text-color, 20%);
+  }
+
+  &:focus {
+    border-color: darken($border-color, 25%);
+  }
+
+  &.invalid {
+    border-color: #DD5943;
+  }
+
+}
+
+button.invalid {
+  border-color: #DD5943;
+}
+
+textarea {
+  padding: 12px;
+}

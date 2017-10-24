@@ -1,0 +1,75 @@
+.page-account-profile {
+  @import '../Account.scss';
+  margin-bottom: 48px;
+
+  main {
+    background-color: white;
+    box-shadow: 0 2px 0 0 #F0F0F0;
+    border-radius: 3px;
+    padding: 30px 20px;
+
+    .field {
+      margin-bottom: 25px;
+
+      label {
+        font-family: "Roboto Slab";
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 16px;
+        color: #413D3B;
+        padding-left: 1px;
+      }
+
+      small {
+        margin-top: 10px;
+        font-family: "Roboto Slab";
+        font-size: 10px;
+        line-height: 13px;
+        color: #2E2E2E;
+        padding-left: 1px;
+      }
+
+      textarea {
+        height: 121px;
+      }
+    }
+
+    .profile-picture {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .image-upload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+
+        img {
+          width: 150px;
+          height: 150px;
+          background-color: gray;
+          border: 1px solid #979797;
+          cursor: pointer;
+          margin: 0 0 25px 0;
+        }
+
+        &.loaded img {
+          border-color: black;
+        }
+
+        button {
+          width: 150px;
+        }
+
+      }
+
+      small {
+        text-align: center;
+      }
+    }
+
+
+  }
+
+}

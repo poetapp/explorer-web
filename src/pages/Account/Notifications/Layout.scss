@@ -1,0 +1,49 @@
+.page-account-notifications {
+  @import '../Account.scss';
+  margin-bottom: 80px;
+
+  table {
+    width: 100%;
+    border: 1px solid #E3E1DF;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 4px;
+    font-family: "Roboto Slab";
+    font-size: 12px;
+    color: #413D3B;
+    background-color: #FFFFFF;
+    transition: opacity .1s;
+
+    tbody {
+
+      tr:not(:last-child) td {
+        border-bottom: 1px solid #E6E4E1;
+      }
+
+      td {
+        padding: 20px 15px;
+      }
+
+      td:not(.read) {
+        font-weight: bold;
+      }
+
+      tr:hover td {
+        background-color: #FBFBFB;
+      }
+
+      a {
+        font-size: 12px;
+        font-weight: bold;
+        color: #43B980;
+      }
+    }
+  }
+
+  &.loading {
+    table {
+      opacity: .5;
+      pointer-events: none;
+    }
+  }
+}

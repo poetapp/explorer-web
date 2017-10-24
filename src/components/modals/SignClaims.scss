@@ -1,0 +1,89 @@
+@import "../styles/Animations";
+@import "Modal";;
+
+.modal-sign-work {
+  @include modal;
+  width: 340px;
+  border-radius: 4px;
+  font-family: "Source Sans Pro";
+  text-align: center;
+
+  &.loading {
+    justify-content: center;
+    align-items: center;
+    height: 470px; // TODO: magic number! 470px is the calculated height of the modal when showing only one claim. How can we get this value dynamically?
+
+    img {
+      @include animation-loading-quill;
+      width: 100px;
+    }
+  }
+
+  img.loading {
+    @include animation-loading-quill;
+    width: 140px;
+  }
+
+  header {
+    padding: 28px 0 15px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #D9D9D9;
+
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #666666;
+    }
+
+    a {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 15px;
+      color: #4A90E2;
+    }
+  }
+
+  main {
+    box-sizing: border-box;
+    padding: 30px 0;
+    border-bottom: 1px solid #D9D9D9;
+
+    .qr {
+      margin-bottom: 17px;
+
+      img {
+        width: 140px;
+        height: 140px;
+      }
+    }
+
+    h2 {
+      font-size: 14px;
+      line-height: 18px;
+      color: #666666;
+    }
+
+    ul.claim-details {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 10px;
+      line-height: 18px;
+      color: #666666;
+    }
+  }
+
+
+  nav {
+    padding: 15px;
+
+    button {
+      font-size: 12px;
+      line-height: 18px;
+      color: #D0021B;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+}

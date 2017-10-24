@@ -1,0 +1,86 @@
+@import '../styles/Buttons';
+
+nav.navbar {
+  display: flex;
+  align-items: center;
+  height: 61px;
+  padding: 2px 20px;
+  background-color: white;
+
+  &.shadow {
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
+  }
+
+  &.transparent {
+    background-color: transparent;
+  }
+
+  &.margin {
+    margin-bottom: 44px;
+  }
+
+  .navbar-brand {
+    padding: 14px 26px 14px 4px;
+  }
+
+  .nav-link {
+    color: #413D3B;
+    font-family: 'Roboto Slab', serif;
+    font-size: 12px;
+    font-weight: bold;
+    opacity: 0.75;
+  }
+
+  .search {
+    display: flex;
+    flex-grow: 1;
+    max-width: 560px;
+    align-items: center;
+    margin: 0 12px 0 6px;
+    padding: 10px;
+
+    &.shadow {
+      box-shadow: 2px 2px 9px 0 rgba(0,0,0,0.06);
+    }
+
+    img {
+      margin-right: 10px;
+    }
+
+    input[type=text] {
+      border: none;
+      flex-grow: 1;
+      font-size: 14px;
+      font-family: 'Roboto Slab', serif;
+
+      &::placeholder {
+        font-weight: bold;
+      }
+
+    }
+
+  }
+
+  ul.navbar-nav {
+    display: flex;
+    margin: 0 0 0 auto;
+    align-items: center;
+    list-style: none;
+
+    >li {
+      margin-left: 5px;
+      margin-right: 15px;
+    }
+
+    .login-button {
+      width: 61px;
+      height: 30px;
+    }
+
+    .try-it-out {
+      @extend .button-primary;
+      width: 109px;
+      height: 30px;
+    }
+  }
+}

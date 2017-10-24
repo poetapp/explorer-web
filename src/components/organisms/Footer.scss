@@ -1,0 +1,74 @@
+.root-layout > footer {
+  $font-color: white;
+
+  margin-top: auto;
+  padding-top: 53px;
+  padding-bottom: 33px;
+  color: $font-color;
+  background-color: #413D3B;
+
+  ul {
+    list-style: none;
+  }
+
+  a {
+    color: $font-color;
+  }
+
+  .container {
+    .links-and-address {
+      display: flex;
+      padding-bottom: 33px;
+      border-bottom: 1px solid #E6E4E1;
+      margin-bottom: 40px;
+
+      ul.links {
+        display: flex;
+
+        >li {
+          padding-right: 80px;
+          text-align: left;
+
+          h1 {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 23px;
+            color: #FFFFFF;
+          }
+
+          >ul {
+            >li {
+              font-size: 14px;
+              line-height: 23px;
+            }
+          }
+        }
+      }
+
+      address {
+        margin-left: auto;
+        align-self: center;
+        font-size: 14px;
+      }
+
+    }
+
+    .logo-and-social {
+      display: flex;
+
+      .social {
+        margin-left: auto;
+
+        img {
+          margin-left: 28px;
+
+          &:hover {
+            opacity: .5;
+          }
+        }
+
+      }
+    }
+  }
+
+}

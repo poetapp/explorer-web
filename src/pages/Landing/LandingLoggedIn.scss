@@ -1,0 +1,41 @@
+.landing-logged-in {
+  margin-top: 200px;
+  height: 100%;
+  margin-bottom: 0px;
+
+  .logo {
+    width: 256px;
+    margin-bottom: 36px;
+  }
+
+  .search {
+    padding-bottom: 200px;
+
+    input[type="text"] {
+      width: 563px;
+      height: 50px;
+      margin-bottom: 36px;
+      background-color: #FFFFFF;
+      box-shadow: 2px 2px 9px 0 rgba(0,0,0,0.06);
+      border-radius: 3px;
+    }
+
+    button {
+      width: 177.07px;
+      height: 49px;
+      background-color: #393534;
+      font-family: "Source Sans Pro";
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 18px;
+      color: #FBFBFB;
+    }
+  }
+
+  .latest-blocks-and-works {
+    padding: 0 0 16px 0;
+    border-top: 1px solid #ECECEC;
+    background-color: white;
+  }
+}

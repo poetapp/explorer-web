@@ -1,0 +1,21 @@
+.create-work .step-1-register .attributes {
+  margin-bottom: 82px;
+  .remove {
+    $size: 24px;
+    width: $size;
+    height: $size;
+  }
+
+  main {
+    margin-bottom: 12px;
+
+    .row {
+      margin-bottom: 12px;
+
+      >div {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

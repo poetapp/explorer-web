@@ -1,0 +1,26 @@
+@import "Tab";
+
+.page-work .work-tabs .content-tab {
+  @include tab-list-base;
+
+  font-family: "Source Code Pro";
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #000000;
+  padding: 43px 52px;
+
+  table {
+    margin-bottom: 30px;
+
+    > tbody > tr > td:first-child {
+      min-width: 150px;
+    }
+  }
+
+  .content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding-right: 30%;
+  }
+}

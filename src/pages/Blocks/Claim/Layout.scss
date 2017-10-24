@@ -1,0 +1,20 @@
+.singleClaim {
+
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #E3E1DF;
+
+  .title {
+    font-weight: bold;
+  }
+
+  .monospaced {
+    font-family: "DejaVu Sans Mono", "Ubuntu Mono", Inconsolata, Monospaced;
+    display: block;
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+}

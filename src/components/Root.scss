@@ -1,0 +1,56 @@
+@import "styles/Fonts";
+@import "styles/Forms";
+@import "styles/OptionGroups";
+@import "styles/Pagination";
+@import "styles/Tabs";
+@import "styles/Autocomplete";
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+.root-layout {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: "Source Sans Pro";
+  color: #4a4a4a;
+  background-color: #F8F6F4;
+}
+
+html, body, #app, .root-layout {
+  height: 100%;
+}
+
+.root-layout {
+  display: flex;
+  flex-direction: column;
+
+  >* {
+    flex-shrink: 0;
+  }
+
+  >.alpha {
+    background-color: white;
+
+    &.margin {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+// TODO: remove this definition!
+.text-center {
+  text-align: center;
+}
+
+a {
+  color: #43B980;
+}

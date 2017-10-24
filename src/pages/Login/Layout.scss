@@ -1,0 +1,124 @@
+@import "../../components/styles/Animations";
+
+.page-login {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  .top-row, .middle-row, .bottom-row {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .top-row, .bottom-row {
+    flex: 1 0 0;
+  }
+
+  .top-row {
+    justify-content: flex-end;
+
+    img {
+      width: 178px;
+      margin-bottom: 29px;
+    }
+
+    h1 {
+      font-family: "Roboto Slab";
+      font-size: 22px;
+      text-align: center;
+      line-height: 29px;
+      color: #413D3B;
+      margin-bottom: 41px;
+    }
+  }
+
+  .middle-row {
+    //text-align: center;
+    display: flex;
+
+    justify-content: center;
+
+    > section {
+      background-color: #FFFFFF;
+      box-shadow: 0 2px 0 0 #F0F0F0;
+      border-radius: 2px;
+      padding: 30px;
+
+      .qr {
+        text-align: center;
+        margin-bottom: 26px;
+      }
+
+      .loading {
+        @include animation-loading-quill;
+        width: 256px;
+        height: 256px;
+      }
+
+      h2 {
+        font-family: "Roboto Slab";
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 18px;
+        color: #413D3B;
+        margin-bottom: 26px;
+      }
+
+      .onboard, .scan {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+
+        .placeholder-box {
+          width: 34px;
+          height: 34px;
+          border: 2px solid #666666;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 17px;
+        }
+
+        h3 {
+          font-family: "Roboto Slab";
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 16px;
+          color: #413D3B;
+          text-align: left;
+          margin: 0;
+
+          a {
+            color: #43B980;
+            text-decoration: underline;
+          }
+        }
+
+        small {
+          font-family: "Roboto Slab";
+          font-size: 12px;
+          line-height: 18px;
+          color: #413D3B;
+        }
+      }
+
+    }
+    .partner-login p {
+      text-align: center;
+      max-width: 256px;
+
+      a {
+        color: #43B980;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
+}

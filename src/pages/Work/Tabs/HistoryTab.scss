@@ -1,0 +1,42 @@
+@import "Tab";
+
+.page-work .work-tabs .history-tab {
+  @include tab-list-base;
+
+  font-family: "Roboto Slab";
+  font-size: 14px;
+  line-height: 24px;
+  color: #666666;
+  padding: 43px 52px;
+
+  ul {
+    list-style: none;
+
+    li {
+      display: flex;
+
+      .icon {
+        margin-right: 16px;
+        display: flex;
+        flex-direction:column;
+        align-items: center;
+      }
+
+      &:not(:last-child) .icon:after {
+        content: '';
+        margin: 6px 0;
+        display: block;
+        width: 1px;
+        height: 48px;
+        background: #43B980;
+      }
+
+      .time {
+        margin-left: auto;
+      }
+
+
+    }
+  }
+
+}

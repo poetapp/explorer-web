@@ -1,0 +1,50 @@
+.page-works > header {
+  display: flex;
+  font-size: 10px;
+  align-items: center;
+  padding: 15px 0;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
+  background-color: white;
+  font-weight: bold;
+
+  >div {
+    display: flex;
+    align-items: center;
+
+    select {
+      padding: 5px;
+      border: 1px solid #E6E4E1;
+      border-radius: 3px;
+      font-family: 'Roboto';
+      font-size: 10px;
+      font-weight: normal;
+      color: #4A4A4A;
+      background-color: #FFFFFF;
+    }
+
+    section.sort {
+      margin-right: 14px;
+
+      span {
+        margin-right: 8px;
+      }
+    }
+
+    section.license-types {
+      margin-right: 14px;
+
+      span {
+        margin-right: 8px;
+      }
+    }
+
+    .date-picker .date-picker-separator {
+      margin: 0 8px;
+    }
+
+  }
+
+
+
+}
