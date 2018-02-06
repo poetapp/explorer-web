@@ -1,6 +1,6 @@
 # Po.et Web
 
-This is Po.et's frontend, as seen in https://alpha.po.et. 
+This is Po.et's frontend, as seen in https://app.po.et. 
 
 ## Libraries, Frameworks, Etc
 - Typescript
