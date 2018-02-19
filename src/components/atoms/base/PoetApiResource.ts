@@ -9,9 +9,9 @@ export abstract class PoetAPIResourceProvider<Resource, PropTypes, State = undef
     const poetUrl = this.poetURL();
 
     if (!isUrlObject(poetUrl) && typeof poetUrl === 'string') {
-      return { url: `${Configuration.api.explorer}${poetUrl}` }
+      return { url: `${Configuration.apiUrl}${poetUrl}` }
     } else if (isUrlObject(poetUrl)) {
-      return { url: `${Configuration.api.explorer}${urlObjectToUrl(poetUrl)}` }
+      return { url: `${Configuration.apiUrl}${urlObjectToUrl(poetUrl)}` }
     } else {
       throw new Error('poetURL must return a string | UrlObject.');
     }
