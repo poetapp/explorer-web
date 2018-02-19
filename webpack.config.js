@@ -88,7 +88,7 @@ module.exports = {
     app: [
       './src/bootstrap.ts',
       './src/index.tsx',
-      ...(development ? 'webpack-hot-middleware/client' : [])
+      ...(development ? ['webpack-hot-middleware/client'] : [])
     ],
     vendor
   },
