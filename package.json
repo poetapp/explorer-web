@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/classnames": "0.0.32",
-    "@types/react": "0.14.55",
+    "@types/react": "^16.0.38",
     "@types/react-datepicker": "^0.40.1",
     "@types/react-dom": "^0.14.20",
     "@types/react-redux": "4.4.35",
@@ -62,7 +62,7 @@
     "sass-loader": "^4.1.1",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
-    "typescript": "2.3.4",
+    "typescript": "^2.7.2",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-dev-server": "^1.16.5",
