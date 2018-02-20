@@ -120,7 +120,6 @@ module.exports = {
           ['css-loader?-autoprefixer', 'postcss-loader', 'sass-loader']
         )
         : [ 'style-loader', 'css-loader?sourceMap&importLoaders=1', 'postcss-loader', 'sass-loader?sourceMap' ]
-        // : 'style-loader!css?sourceMap&importLoaders=1!postcss!sass?sourceMap'
       },
       { test: /\.json$/, use: 'json-loader' },
       { test: /\.svg$/, use: 'file-loader' },
