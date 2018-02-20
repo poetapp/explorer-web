@@ -5,10 +5,7 @@ import { Actions } from '../../actions/index';
 import PageLoader, { ReducerDescription } from '../../components/PageLoader';
 import { WorksLayout } from './Layout';
 
-interface WorkState {
-}
-
-export class Works extends PageLoader<WorkState, Object> {
+export class Works extends PageLoader<any, Object> {
 
   component = WorksLayout;
 
@@ -20,7 +17,7 @@ export class Works extends PageLoader<WorkState, Object> {
     return [<Route path="/works" key={key} component={this.container()} />]
   }
 
-  reducerHook<State>(): ReducerDescription<WorkState> {
+  reducerHook<State>(): ReducerDescription<any> {
     return null;
   }
 

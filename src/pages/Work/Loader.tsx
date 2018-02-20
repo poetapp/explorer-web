@@ -1,13 +1,10 @@
-import * as React from 'react';
-import { Route } from 'react-router';
+import * as React from 'react'
+import { Route } from 'react-router'
 
 import PageLoader, { ReducerDescription } from 'components/PageLoader'
 import { WorkLayout } from './Layout'
 
-interface WorkState {
-}
-
-export class Work extends PageLoader<WorkState, Object> {
+export class Work extends PageLoader<any, Object> {
 
   component = WorkLayout;
 
@@ -19,7 +16,7 @@ export class Work extends PageLoader<WorkState, Object> {
     return [<Route path="/works/:id" key={key} component={this.container()} />]
   }
 
-  reducerHook<State>(): ReducerDescription<WorkState> {
+  reducerHook<State>(): ReducerDescription<any> {
     return null;
   }
 

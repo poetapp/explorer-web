@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as classNames from 'classnames'
-import { Api, Headers } from 'poet-js'
+import { Api } from 'helpers/PoetApi'
 
 import { Images } from 'images/Images'
 import { Configuration } from 'configuration'
@@ -24,23 +24,23 @@ interface WorksByProfileState {
   readonly offset?: number
 }
 
-export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Works.Resource>, WorksByProfileProps, WorksByProfileState> {
-  private lastFetchedWorks: ReadonlyArray<Api.Works.Resource>;
+export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.WorksByFilters.Response>, WorksByProfileProps, WorksByProfileState> {
+  private lastFetchedWorks: ReadonlyArray<Api.WorksByFilters.Response>;
   private lastFetchedCount: number;
 
   static defaultProps: Partial<WorksByProfileProps> = {
     limit: Configuration.pagination.limit
   };
 
-  constructor() {
-    super(...arguments);
+  constructor(props: any) {
+    super(props);
     this.state = {
       offset: 0
     }
   }
 
   poetURL() {
-    return Api.Works.url({
+    return Api.WorksByFilters.url({
       limit: this.props.limit,
       offset: this.state.offset,
       query: this.props.searchQuery
@@ -52,8 +52,8 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
     //   this.setState({ offset: 0 })
   }
 
-  renderElement(works: ReadonlyArray<Api.Works.Resource>, headers: Headers) {
-    const count = headers.get(Headers.TotalCount) && parseInt(headers.get(Headers.TotalCount));
+  renderElement(works: ReadonlyArray<Api.WorksByFilters.Response>, headers: Headers) {
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount))
 
     if (!count)
       return this.renderNoWorks();
@@ -66,14 +66,14 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
     return this.renderWorks(this.lastFetchedWorks, this.lastFetchedCount, true);
   }
 
-  componentDidFetch(works: ReadonlyArray<Api.Works.Resource>, headers: Headers) {
-    const count = headers.get(Headers.TotalCount) && parseInt(headers.get(Headers.TotalCount));
+  componentDidFetch(works: ReadonlyArray<Api.WorksByFilters.Response>, headers: Headers) {
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount));
 
     this.lastFetchedWorks = works;
     this.lastFetchedCount = count;
   }
 
-  private renderWorks(works: ReadonlyArray<Api.Works.Resource>, count: number, isLoading?: boolean) {
+  private renderWorks(works: ReadonlyArray<Api.WorksByFilters.Response>, count: number, isLoading?: boolean) {
     return (
       <section className={classNames('works-by-profile', isLoading && 'loading', !works && 'no-content')}>
         <table className="works">
@@ -106,7 +106,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
     )
   }
 
-  private renderWork(work: Api.Works.Resource) {
+  private renderWork(work: Api.WorksByFilters.Response) {
     return (
       <tr key={work.id}>
         <td className="name">

@@ -1,15 +1,17 @@
-import * as React from 'react';
-import { Link } from 'react-router';
-import { Api, Work, ClassNameProps } from 'poet-js';
+import * as React from 'react'
+import { Link } from 'react-router'
 
-import '../../extensions/String';
+import 'extensions/String'
 
-import { PoetAPIResourceProvider } from '../atoms/base/PoetApiResource'
-import { WorkNameWithLink, WorkStampedDate } from '../atoms/Work';
+import { Api } from 'helpers/PoetApi'
+import { ClassNameProps } from 'components/ClassNameProps'
+import { PoetAPIResourceProvider } from 'components/atoms/base/PoetApiResource'
+import { WorkNameWithLink } from 'components/atoms/Work'
+import { TimeElapsedSinceCreation } from 'components/atoms/Claim'
 
-import './LatestWorks.scss';
+import './LatestWorks.scss'
 
-type LatestWorksResource = ReadonlyArray<Api.Works.Resource>;
+type LatestWorksResource = ReadonlyArray<Api.WorkById.Response>
 
 export interface LatestWorksProps extends ClassNameProps {
   readonly limit?: number;
@@ -22,7 +24,7 @@ export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksRes
   };
 
   poetURL() {
-    return Api.Works.url({
+    return Api.WorksByFilters.url({
       limit: this.props.limit
     })
   }
@@ -47,7 +49,7 @@ export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksRes
     );
   }
 
-  private renderWork = (props: Work) => {
+  private renderWork = (props: Api.WorkById.Response) => {
     return (
       <tr key={props.id}>
         <td className="work-name">
@@ -57,7 +59,7 @@ export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksRes
           {props.id && props.id.firstAndLastCharacters(6)}
         </td>
         <td className="date">
-          <WorkStampedDate work={props}/>
+          <TimeElapsedSinceCreation claim={props}/>
         </td>
       </tr>
     )

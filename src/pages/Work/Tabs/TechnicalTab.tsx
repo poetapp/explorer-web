@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { Api } from 'helpers/PoetApi'
 import { WorkById } from 'components/atoms/Work'
 
 import './TechnicalTab.scss'
@@ -7,14 +8,14 @@ import './TechnicalTab.scss'
 export class TechnicalTab extends WorkById {
 
   poetURL() {
-    return Api.Works.url(this.props.workId)
+    return Api.WorkById.url(this.props.workId)
   }
 
-  renderElement(resource: Api.Works.Resource, headers: Headers) {
+  renderElement(resource: Api.WorkById.Response, headers: Headers) {
     if (!resource)
       return <div className="technical-tab">Could not load technical information.</div>
 
-    if (!resource.claimInfo)
+    if (!resource.timestamp)
       return <div className="technical-tab">Technical information not available. This work may be pending confirmation.</div>
 
     return (
@@ -22,7 +23,7 @@ export class TechnicalTab extends WorkById {
         <table>
           <tbody>
           {
-            Object.entries(resource.claimInfo).filter(([key, value]) => key !== 'id').map(([key, value]) => (
+            Object.entries(resource.timestamp).map(([key, value]) => (
               <tr key={key}>
                 <td>{ key }</td><td>{ value }</td>
               </tr>

@@ -16,7 +16,7 @@ export class Landing extends PageLoader<Object, Object> {
     return [<Route path="/" key={key} component={this.container()}/>]
   }
 
-  reducerHook<State>(): ReducerDescription<Object> {
+  reducerHook<State>(): ReducerDescription<any> {
     return null
   }
 

@@ -1,8 +1,8 @@
-import * as React from 'react';
-import * as ReactDatePicker from 'react-datepicker';
-import * as moment from 'moment';
+import * as React from 'react'
+import * as ReactDatePicker from 'react-datepicker'
+import * as moment from 'moment'
 
-import { DatePickerInput } from '../../components/atoms/DatePickerInput';
+import { DatePickerInput } from 'components/atoms/DatePickerInput'
 
 import './Filters.scss';
 
@@ -12,7 +12,6 @@ export interface FilterComponentProps {
   readonly sortBy: string;
   readonly onDateFromChanged: (moment: moment.Moment) => void;
   readonly onDateToChanged: (moment: moment.Moment) => void;
-  readonly onSortChange: (sortBy: string) => void;
 }
 
 export class FiltersComponent extends React.Component<FilterComponentProps, undefined> {
@@ -21,24 +20,10 @@ export class FiltersComponent extends React.Component<FilterComponentProps, unde
     return (
       <header>
         <div className="container">
-          { this.renderSortByDropdown() }
           { this.renderDateSelector() }
         </div>
       </header>
-    );
-  }
-
-  private renderSortByDropdown() {
-    return (
-      <section className="sort" onChange={(event: any) => this.props.onSortChange(event.target.value)} value={this.props.sortBy}>
-        <span>Sort by</span>
-        <select>
-          <option value="datePublished">Date Published</option>
-          <option value="name">Name</option>
-          <option value="contentLength">Content Length</option>
-        </select>
-      </section>
-    );
+    )
   }
 
   private renderDateSelector() {

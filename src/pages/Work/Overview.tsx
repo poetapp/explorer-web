@@ -1,18 +1,19 @@
 import * as React from 'react'
 import * as moment from 'moment'
 import * as classNames from 'classnames'
-import { ClaimType, Work } from 'poet-js'
+import { ClaimType } from 'poet-js'
 
 import 'extensions/Map'
 
 import { Configuration } from 'configuration'
+import { Api } from 'helpers/PoetApi'
 import { AuthorWithLink, WorkById } from 'components/atoms/Work'
 
 import './Overview.scss'
 
 export class Overview extends WorkById {
 
-  renderElement(work: Work, headers: Headers) {
+  renderElement(work: Api.WorkById.Response, headers: Headers) {
     return this.renderOverview(work)
   }
 
@@ -35,7 +36,7 @@ export class Overview extends WorkById {
     }, true)
   }
 
-  private renderOverview(work: Work, isLoading?: boolean) {
+  private renderOverview(work: Api.WorkById.Response, isLoading?: boolean) {
     if (!work) {
       return null
     }

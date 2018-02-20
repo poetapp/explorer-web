@@ -28,8 +28,8 @@ export interface WorksLayoutState {
 
 export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutActions, WorksLayoutState> {
 
-  constructor() {
-    super(...arguments);
+  constructor(props: WorksLayoutProps & WorksLayoutActions) {
+    super(props)
     this.state = {
       sortBy: 'datePublished'
     };
@@ -44,7 +44,6 @@ export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutA
           sortBy={this.state.sortBy}
           onDateFromChanged={dateFrom => this.setState({ dateFrom })}
           onDateToChanged={dateTo => this.setState({ dateTo })}
-          onSortChange={sortBy => this.setState({ sortBy })}
         />
         <Works
           offset={parseInt(this.props.location.query.offset) || 0}

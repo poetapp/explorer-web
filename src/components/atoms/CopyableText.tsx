@@ -21,8 +21,8 @@ export class CopyableText extends React.Component<CopyableTextProps, CopyableTex
   private input: HTMLInputElement;
   private timeout: number;
 
-  constructor() {
-    super(...arguments);
+  constructor(props: CopyableTextProps) {
+    super(props);
     this.state = {
       tooltipVisible: false
     };

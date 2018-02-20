@@ -24,8 +24,8 @@ const mapDispatch = {
 export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
   class extends React.Component<LandingProps, LandingState> {
 
-    constructor() {
-      super(...arguments);
+    constructor(props: LandingProps) {
+      super(props);
       this.state = {
         searchQuery: ''
       }
