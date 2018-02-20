@@ -8,10 +8,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const validEnvironments = [
   'development',
   'testing',
-  'staging',
   'production',
 ]
-const environment = process.env.NODE_ENV
+const environment = process.env.NODE_ENV || 'development'
 
 assert(validEnvironments.includes(environment), `Invalid value for NODE_ENV: ${environment}. Valid values are: ${validEnvironments}`)
 
@@ -86,7 +85,7 @@ module.exports = {
       './src/index.tsx',
       ...(development ? ['webpack-hot-middleware/client'] : [])
     ],
-    vendor
+    vendor,
   },
 
   output: {
@@ -98,51 +97,35 @@ module.exports = {
   devtool: production ? '' : 'eval',
 
   resolve: {
-    root: [
-      path.resolve('./src/'),
-      path.resolve('./node_modules/'),
-    ],
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json'],
-    fallback: path.join(__dirname, "node_modules"),
+    extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json', '.css', '.scss'],
     alias: {
       Configuration: path.resolve(configurationPath)
-    }
-  },
-
-  resolveLoader: {
-    // modulesDirectories: ['node_modules'],
-    fallback: path.join(__dirname, 'node_modules')
+    },
+    modules:  [
+      path.join(__dirname, "src"),
+      "node_modules"
+    ],
   },
 
   module: {
-    loaders: [
-      { test: /\.tsx?$/, loaders: production
-        ? ['babel', 'awesome-typescript-loader']
-        : ['react-hot', 'babel', 'awesome-typescript-loader'] },
+    rules: [
+      { test: /\.tsx?$/, use: production
+        ? ['babel-loader', 'awesome-typescript-loader']
+        : ['react-hot-loader', 'babel-loader', 'awesome-typescript-loader'] },
       {
-        test: /\.s?css$/, loader: production
+        test: /\.s?css$/, use: production
         ? extractor.extract(
           'style-loader',
           ['css-loader?-autoprefixer', 'postcss-loader', 'sass-loader']
         )
-        : 'style!css?sourceMap&importLoaders=1!postcss!sass?sourceMap'
+        : [ 'style-loader', 'css-loader?sourceMap&importLoaders=1', 'postcss-loader', 'sass-loader?sourceMap' ]
+        // : 'style-loader!css?sourceMap&importLoaders=1!postcss!sass?sourceMap'
       },
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.svg$/, loader: 'file-loader' },
-      { test: /\.ico$/, loader: 'file-loader?name=[name].[ext]' }
+      { test: /\.json$/, use: 'json-loader' },
+      { test: /\.svg$/, use: 'file-loader' },
+      { test: /\.ico$/, use: 'file-loader?name=[name].[ext]' },
     ],
-
-    preLoaders: [
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { test: /\.js$/, loader: 'source-map-loader' }
-    ]
-  },
-
-  postcss: () => {
-    return [
-      require('autoprefixer')
-    ];
   },
 
   plugins: getPlugins(environment)
-};
+}
