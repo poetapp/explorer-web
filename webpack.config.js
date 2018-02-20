@@ -26,7 +26,6 @@ console.log("redirects: ", redirects)
 
 const vendor = [
   'history',
-  'bitcore-lib',
   'classnames',
   'isomorphic-fetch',
   'moment',
@@ -37,13 +36,10 @@ const vendor = [
   'react-dom',
   'react-router',
   'react-overlays',
-  'react-qr',
   'react-redux',
   'react-tabs',
   'redux',
   'redux-saga',
-  'socket.io-client',
-  'uuid',
 ];
 
 const extractor = new ExtractTextPlugin("styles.css")
