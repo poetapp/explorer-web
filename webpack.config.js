@@ -55,7 +55,7 @@ function getPlugins(environment) {
         'NODE_ENV': JSON.stringify(environment)
       }
     }),
-    new webpack.IgnorePlugin(/\/iconv-loader$/), // See Note 1 at the bottom
+    new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'), // See Note 1 at the bottom
   ]
 
   const developmentPlugins = [
@@ -136,6 +136,7 @@ Notes
 
 1.
 As suggested by https://github.com/andris9/encoding/blob/c1e3c5f5e10d47bdfcfece14a73ab14cdc9bc361/lib/encoding.js#L5 to avoid WebPack warnings.
-See https://github.com/webpack/webpack/issues/196.
+See https://github.com/webpack/webpack/issues/196 and https://github.com/andris9/encoding/issues/16#issuecomment-192161073.
+The underlying issue probably is poet-js using node-fetch rather than isomorphic-fetch.
 
  */
