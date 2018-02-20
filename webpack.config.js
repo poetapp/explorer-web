@@ -55,6 +55,7 @@ function getPlugins(environment) {
         'NODE_ENV': JSON.stringify(environment)
       }
     }),
+    new webpack.IgnorePlugin(/\/iconv-loader$/), // See Note 1 at the bottom
   ]
 
   const developmentPlugins = [
@@ -129,3 +130,12 @@ module.exports = {
 
   plugins: getPlugins(environment)
 }
+
+/*
+Notes
+
+1.
+As suggested by https://github.com/andris9/encoding/blob/c1e3c5f5e10d47bdfcfece14a73ab14cdc9bc361/lib/encoding.js#L5 to avoid WebPack warnings.
+See https://github.com/webpack/webpack/issues/196.
+
+ */
