@@ -1,27 +1,26 @@
-import * as React from 'react';
-import * as moment from 'moment';
-import * as classNames from 'classnames';
-import { Api, LicenseType, Headers } from 'poet-js';
+import * as React from 'react'
+import * as moment from 'moment'
+import * as classNames from 'classnames'
 
-import { Configuration } from '../../configuration';
-import { PoetAPIResourceProvider } from '../../components/atoms/base/PoetApiResource';
-import { WorkNameWithLink, AuthorWithLink } from '../../components/atoms/Work';
-import { TimeElapsedSinceTimestamp } from '../../components/atoms/Claim';
-import { Pagination } from '../../components/molecules/Pagination';
+import { Configuration } from 'configuration'
+
+import { PoetAPIResourceProvider } from 'components/atoms/base/PoetApiResource'
+import { WorkNameWithLink, AuthorWithLink } from 'components/atoms/Work'
+import { TimeElapsedSinceCreation } from 'components/atoms/Claim'
+import { Pagination } from 'components/molecules/Pagination'
 
 import './Works.scss';
 
-type WorksResource = ReadonlyArray<Api.Works.Resource>;
+type WorksResource = ReadonlyArray<Api.Works.Resource>
 
 export interface WorksProps {
-  readonly offset?: number;
-  readonly onOffset?: (offset: number) => void;
-  readonly limit?: number;
-  readonly dateFrom?: moment.Moment;
-  readonly dateTo?: moment.Moment;
-  readonly query?: string;
-  readonly sortBy?: string;
-  readonly licenseType?: LicenseType;
+  readonly offset?: number
+  readonly onOffset?: (offset: number) => void
+  readonly limit?: number
+  readonly dateFrom?: moment.Moment
+  readonly dateTo?: moment.Moment
+  readonly query?: string
+  readonly sortBy?: string
 }
 
 export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, undefined> {
@@ -40,7 +39,6 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
       dateTo: this.props.dateTo && this.props.dateTo.toDate().getTime(),
       query: this.props.query,
       sortBy: this.props.sortBy,
-      licenseType: this.props.licenseType && this.props.licenseType.id
     })
   }
 
@@ -94,7 +92,7 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
       <li key={props.id} className="work-item">
         <div className="name"><WorkNameWithLink work={props} /></div>
         <div className="info">
-          <span className="timestamp">Timestamped <TimeElapsedSinceTimestamp claimInfo={props.claimInfo} />&nbsp;</span>
+          <span className="timestamp">Timestamped <TimeElapsedSinceCreation claim={props.claim} />&nbsp;</span>
           <span className="author">by <AuthorWithLink work={props}/> </span>
         </div>
         <div className="content">

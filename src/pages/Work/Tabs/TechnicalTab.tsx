@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { Api } from 'poet-js';
+import * as React from 'react'
 
-import { WorkById } from '../../../components/atoms/Work'
+import { WorkById } from 'components/atoms/Work'
 
-import './TechnicalTab.scss';
+import './TechnicalTab.scss'
 
 export class TechnicalTab extends WorkById {
 

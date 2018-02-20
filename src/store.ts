@@ -1,16 +1,14 @@
-import { createStore, compose, applyMiddleware, combineReducers } from "redux";
-import createSagaMiddleware from "redux-saga";
-import { fork } from "redux-saga/effects";
+import { createStore, compose, applyMiddleware, combineReducers } from "redux"
+import createSagaMiddleware from "redux-saga"
+import { fork } from "redux-saga/effects"
 
 import './extensions/Array';
 
-import PageLoader from './components/PageLoader';
+import PageLoader from './components/PageLoader'
 
-import { Authentication } from './authentication';
-import pageCreators from "./pages";
+import pageCreators from "./pages"
 import sagaList from './sagas'
-import reducers from './reducers';
-import { Actions } from './actions/index'
+import reducers from './reducers'
 
 function bindSagas(pages: PageLoader<any, any>[]) {
   const sagas = pages
@@ -61,12 +59,6 @@ export function createPoetStore() {
   );
 
   sagaMiddleware.run(bindSagas(pages));
-  Authentication.setHandler((payload) => {
-    store.dispatch({
-      type: Actions.unrecognizedSocketMessage,
-      payload
-    })
-  });
 
   return { store, pages };
 }

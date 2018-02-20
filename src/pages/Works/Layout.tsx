@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Action } from 'redux';
 import * as moment from 'moment';
-import { LicenseType, LicenseTypes } from 'poet-js';
 
 import { Works } from './Works';
 import { FiltersComponent } from './Filters';
@@ -25,7 +24,6 @@ export interface WorksLayoutState {
   readonly dateFrom?: moment.Moment;
   readonly dateTo?: moment.Moment;
   readonly sortBy?: string;
-  readonly licenseType?: LicenseType;
 }
 
 export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutActions, WorksLayoutState> {
@@ -33,7 +31,6 @@ export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutA
   constructor() {
     super(...arguments);
     this.state = {
-      licenseType: LicenseTypes[0],
       sortBy: 'datePublished'
     };
   }
@@ -45,11 +42,9 @@ export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutA
           dateFrom={this.state.dateFrom}
           dateTo={this.state.dateTo}
           sortBy={this.state.sortBy}
-          licenseType={this.state.licenseType}
           onDateFromChanged={dateFrom => this.setState({ dateFrom })}
           onDateToChanged={dateTo => this.setState({ dateTo })}
           onSortChange={sortBy => this.setState({ sortBy })}
-          onLicenseTypeChange={licenseType => this.setState({ licenseType })}
         />
         <Works
           offset={parseInt(this.props.location.query.offset) || 0}
@@ -58,7 +53,6 @@ export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutA
           dateFrom={this.state.dateFrom}
           dateTo={this.state.dateTo}
           query={this.props.location.query.query}
-          licenseType={this.state.licenseType}
         />
       </section>
     )

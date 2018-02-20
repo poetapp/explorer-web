@@ -13,12 +13,12 @@ export function CacheInvalidationSaga() {
 
 function* invalidateWorks() {
   const shortUrl = '/works';
-  const url = Configuration.api.explorer + shortUrl;
+  const url = Configuration.apiUrl + shortUrl;
   yield put({ type: `clear ${shortUrl}`, fetchType: FetchType.CLEAR, url });
 }
 
 function* invalidateWork(id: string) {
   const shortUrl = `/works/${id}`;
-  const url = Configuration.api.explorer + shortUrl;
+  const url = Configuration.apiUrl + shortUrl;
   yield put({ type: `clear ${shortUrl}`, fetchType: FetchType.CLEAR, url });
 }

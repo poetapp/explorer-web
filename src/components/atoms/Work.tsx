@@ -5,7 +5,6 @@ import { Api, Work, Headers } from 'poet-js';
 
 import { PoetAPIResourceProvider } from './base/PoetApiResource';
 import { SelectWorkById } from './Arguments';
-import { ProfileNameWithLink } from './Profile';
 
 interface WorkProps {
   readonly work: Work;
@@ -35,26 +34,6 @@ export class WorkNameById extends WorkById {
       && resource.attributes.name
       || '(untitled)';
     return <span>{ title }</span>;
-  }
-}
-
-export class WorkAuthorById extends WorkById {
-  renderElement(work: Work) {
-    return work && work.author ? (
-      <ProfileNameWithLink profileId={work.author.id}>
-        {work.author.displayName}
-      </ProfileNameWithLink>
-    ) : (
-      <span>{work && work.attributes && work.attributes.author || 'Unknown Author'}</span>
-    );
-  }
-}
-
-export class WorkContentById extends WorkById {
-  renderElement(work: Work) {
-    return (
-      <span>{work && work.attributes && work.attributes.content || 'Unknown Author'}</span>
-    );
   }
 }
 
@@ -116,13 +95,7 @@ export class WorkHashById extends WorkById {
 }
 
 export function AuthorWithLink(props: WorkProps) {
-  return props.work && props.work.author ? (
-    <ProfileNameWithLink profileId={props.work.author.id}>
-      {props.work.author.displayName}
-    </ProfileNameWithLink>
-  ) : (
-    <span>{props.work && props.work.attributes && props.work.attributes.author || 'Unknown Author'}</span>
-  );
+  return <span>{props.work && props.work.attributes && props.work.attributes.author || 'Unknown Author'}</span>
 }
 
 export function WorkNameWithLink(props: WorkProps) {

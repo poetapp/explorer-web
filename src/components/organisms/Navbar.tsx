@@ -1,28 +1,23 @@
-import * as React from 'react';
-import { Link, browserHistory } from 'react-router';
-import { Action } from 'redux';
-import { connect } from "react-redux";
-import * as classNames from 'classnames';
+import * as React from 'react'
+import { browserHistory } from 'react-router'
+import { Action } from 'redux'
+import { connect } from 'react-redux'
+import * as classNames from 'classnames'
 
-import { Actions } from '../../actions/index';
-import Constants from '../../constants';
-import { Images } from '../../images/Images';
-import { AccountDropdown } from './AccountDropdown';
+import { Actions } from 'actions'
+import { Images } from 'images/Images'
 
 import './Navbar.scss';
 
 interface NavbarActions {
   dispatchSearchChange: (searchQuery: string) => Action
-  dispatchShowTryItOut: () => Action
 }
 
 export interface NavbarProps {
-  readonly loggedIn?: boolean;
   readonly shadow?: boolean;
   readonly transparent?: boolean;
   readonly margin?: boolean;
   readonly displayLogo?: boolean;
-  readonly currentUser?: any;
   readonly displaySearch?: boolean;
   readonly searchShadow?: boolean;
 }
@@ -30,14 +25,11 @@ export interface NavbarProps {
 function mapStateToProps(state: any, ownProps: NavbarProps): NavbarProps {
   return {
     ...ownProps,
-    loggedIn: state.session && (state.session.state === Constants.LOGGED_IN),
-    currentUser: state.session && (state.session.state === Constants.LOGGED_IN) && state.profile
   }
 }
 
 const mapDispatch = {
   dispatchSearchChange: (query: string) => ({ type: Actions.Search.Change, query }),
-  dispatchShowTryItOut: () => ({ type: Actions.Modals.TryItOut.Show })
 };
 
 export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
@@ -76,46 +68,17 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
               />
             </form>
           </div> }
-          <ul className="navbar-nav">
-            { this.props.loggedIn ? this.renderLoggedInActions() : this.renderNotLoggedInActions() }
-          </ul>
         </nav>
       )
     }
 
-    private renderNotLoggedInActions(): JSX.Element[] {
-      return [
-        this.renderNavLink('login', 'Login', 'login-button button-secondary'),
-        <li key='try-it-out'>
-          <button className="try-it-out" onClick={this.props.dispatchShowTryItOut}>
-            <img src={Images.QuillInverted} /><span>Try It Out</span>
-          </button>
-        </li>
-      ];
-    }
-
-    private renderLoggedInActions(): JSX.Element[] {
-      return [
-        <li key="avatar" className="nav-item avatar"><AccountDropdown /></li>,
-        <li key="create-work" className="nav-item"><Link to={'/create-work'} className="button-primary"><img src={Images.QuillInverted} />Register New Work</Link></li>
-      ];
-    }
-
-    private renderNavLink(key: string, text: string, className: string = 'nav-link'): JSX.Element {
-      return (
-        <li key={key} className="nav-item">
-          <Link to={'/' + key} className={className}>{text}</Link>
-        </li>
-      )
-    }
-
     private getSearchQuery() {
-      const currentLocation = browserHistory.getCurrentLocation();
+      const currentLocation = browserHistory.getCurrentLocation()
 
       if (currentLocation.pathname === '/works')
-        return (currentLocation.query as any).query;
+        return (currentLocation.query as any).query
       else
-        return '';
+        return ''
     }
 
   }

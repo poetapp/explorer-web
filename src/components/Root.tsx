@@ -4,19 +4,15 @@ import { Tabs } from 'react-tabs';
 import * as classNames from 'classnames'
 
 import '../extensions/String';
-import Constants from '../constants';
-import { Alpha } from './molecules/Alpha'
-import { Navbar } from "./organisms/Navbar";
-import { Footer } from './organisms/Footer';
-import { Modals } from './modals';
 
-import 'react-datepicker/dist/react-datepicker.css';
+import { Navbar } from "./organisms/Navbar"
+import { Footer } from './organisms/Footer'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 import './Root.scss'
 
 Tabs.setUseDefaultStyles(false);
-
-const modals = Modals.map((Modal, index) => <Modal key={index}/>);
 
 interface RootLayoutProps {
   readonly loggedIn?: boolean;
@@ -46,7 +42,6 @@ function render(props: RootLayoutProps) {
 
   return (
     <div className="root-layout">
-      { modals }
       { displayNavbar && <Navbar
         shadow={navbarShadow}
         displayLogo={displayNavbarLogo}
@@ -55,9 +50,6 @@ function render(props: RootLayoutProps) {
         searchShadow={searchShadow}
       /> }
       { displayAlpha && <section className={classNames('alpha', navbarMargin && 'margin')}>
-        <div className="container">
-          <Alpha />
-        </div>
       </section> }
       { props.children }
       { location !== loginUrl && <Footer/> }
@@ -67,7 +59,7 @@ function render(props: RootLayoutProps) {
 
 function mapStateToProps(state: any): RootLayoutProps {
   return {
-    loggedIn: state.session.state === Constants.LOGGED_IN
+
   }
 }
 

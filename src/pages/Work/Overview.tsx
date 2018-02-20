@@ -1,12 +1,12 @@
 import * as React from 'react'
 import * as moment from 'moment'
 import * as classNames from 'classnames'
-import { ClaimTypes, Work } from 'poet-js'
+import { ClaimType, Work } from 'poet-js'
 
-import '../../extensions/Map'
+import 'extensions/Map'
 
-import { Configuration } from '../../configuration'
-import { AuthorWithLink, WorkById } from '../../components/atoms/Work'
+import { Configuration } from 'configuration'
+import { AuthorWithLink, WorkById } from 'components/atoms/Work'
 
 import './Overview.scss'
 
@@ -19,7 +19,7 @@ export class Overview extends WorkById {
   renderLoading() {
     return this.renderOverview({
       id: '',
-      type: ClaimTypes.WORK,
+      type: ClaimType.Work,
       publicKey: '',
       signature: '',
       attributes: {
@@ -27,13 +27,10 @@ export class Overview extends WorkById {
         datePublished: Date.now().toString(),
         dateCreated: Date.now().toString(),
         dateModified: Date.now().toString(),
-        mediaType: '',
-        articleType: '',
         author: '',
         lastModified: '',
-        contentHash: '',
+        content: '',
         tags: '',
-        type: ''
       }
     }, true)
   }
@@ -54,11 +51,6 @@ export class Overview extends WorkById {
     tableData.set('Last Modified', moment(parseInt(work.attributes.dateModified, 10)).format(Configuration.dateFormat))
 
     work.attributes.tags && tableData.set('Tags', work.attributes.tags || [])
-
-    tableData.set('Type', work.attributes.mediaType || 'Unknown')
-
-    work.attributes.articleType &&
-    tableData.set('Article type', work.attributes.articleType || 'Unknown')
 
     return (
       <div className={classNames('overview', isLoading && 'loading')}>

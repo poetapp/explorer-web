@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as classNames from 'classnames'
-import { ClassNameProps } from 'poet-js'
+
+import { ClassNameProps } from 'components/ClassNameProps'
 
 export interface CopyableTextProps extends ClassNameProps {
   readonly text: string;

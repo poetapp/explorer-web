@@ -1,35 +1,27 @@
-import * as React from 'react';
-import { browserHistory } from 'react-router';
-import * as classNames from 'classnames';
-import { Api, Headers } from 'poet-js';
+import * as React from 'react'
+import * as classNames from 'classnames'
+import { Api, Headers } from 'poet-js'
 
-import { Images } from '../../images/Images';
-import { Configuration } from '../../configuration';
-import { DispatchesTransferRequested } from '../../actions/requests';
-import { PoetAPIResourceProvider } from '../atoms/base/PoetApiResource';
-import { WorkNameWithLink, WorkType } from '../atoms/Work';
-import { SelectWorksByOwner } from '../atoms/Arguments';
-import { Hash } from '../atoms/Hash';
-import { Pagination } from '../molecules/Pagination';
-import { DropdownMenu } from '../DropdownMenu';
+import { Images } from 'images/Images'
+import { Configuration } from 'configuration'
+import { DispatchesTransferRequested } from 'actions/requests'
+import { PoetAPIResourceProvider } from 'components/atoms/base/PoetApiResource'
+import { WorkNameWithLink, WorkType } from 'components/atoms/Work'
+import { SelectWorksByOwner } from 'components/atoms/Arguments'
+import { Hash } from 'components/atoms/Hash';
+import { TimeElapsedSinceCreation } from 'components/atoms/Claim'
+import { Pagination } from 'components/molecules/Pagination'
 
-import './WorksByProfile.scss';
-import { TimeElapsedSinceTimestamp } from '../atoms/Claim';
-
-const EDIT = 'Edit';
-const TRANSFER = 'Transfer';
-
-export type WorkToProfileRelationship = 'author' | 'owner' | 'relatedTo' | 'licensedTo';
+import './WorksByProfile.scss'
 
 interface WorksByProfileProps extends SelectWorksByOwner, DispatchesTransferRequested {
-  readonly relationship: WorkToProfileRelationship;
-  readonly searchQuery: string;
-  readonly showActions?: boolean;
-  readonly limit?: number;
+  readonly searchQuery: string
+  readonly showActions?: boolean
+  readonly limit?: number
 }
 
 interface WorksByProfileState {
-  readonly offset?: number;
+  readonly offset?: number
 }
 
 export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Works.Resource>, WorksByProfileProps, WorksByProfileState> {
@@ -49,7 +41,6 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
 
   poetURL() {
     return Api.Works.url({
-      [this.props.relationship]: this.props.owner,
       limit: this.props.limit,
       offset: this.state.offset,
       query: this.props.searchQuery
@@ -57,8 +48,8 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
   }
 
   componentWillReceiveProps(props: WorksByProfileProps) {
-    if (this.props.relationship !== props.relationship)
-      this.setState({ offset: 0 })
+    // if (this.props.relationship !== props.relationship)
+    //   this.setState({ offset: 0 })
   }
 
   renderElement(works: ReadonlyArray<Api.Works.Resource>, headers: Headers) {
@@ -133,15 +124,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
           <WorkType work={work} />
         </td>
         <td className="hash"><Hash className="copyable-hash-no-button" textClickable>{work.id}</Hash></td>
-        <td className="timestamp"><TimeElapsedSinceTimestamp claimInfo={work.claimInfo}/></td>
-        { this.props.showActions && <td>
-          <DropdownMenu
-            className="dropdown"
-            options={[EDIT, TRANSFER]}
-            onOptionSelected={this.optionSelected.bind(this, work)}>
-            Actions
-          </DropdownMenu>
-        </td> }
+        <td className="timestamp"><TimeElapsedSinceCreation claim={work}/></td>
       </tr>
     )
   }
@@ -153,16 +136,5 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
   }
 
   private onOffset = (offset: number) => this.setState({ offset });
-
-  private optionSelected(work: Api.Works.Resource, action: string) {
-    switch (action) {
-      case EDIT:
-        browserHistory.push('/works/' + work.id + '/edit');
-        return;
-      case TRANSFER:
-        this.props.transferRequested(work.id);
-        return;
-    }
-  }
 
 }
