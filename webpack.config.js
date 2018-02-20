@@ -49,7 +49,7 @@ function getPlugins(environment) {
     new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: "meta.js" }),
     extractor,
     new HtmlWebpackPlugin({ title: 'Poet App', template: 'src/index.html' }),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(environment)
