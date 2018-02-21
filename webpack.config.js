@@ -17,11 +17,9 @@ assert(validEnvironments.includes(environment), `Invalid value for NODE_ENV: ${e
 const production = environment === 'production'
 const development = environment === 'development'
 const configurationPath = `./env/${environment}.json`
-const redirects = `./_redirects.${environment}`
 
 console.log("NODE_ENV: ", environment)
 console.log("Configuration Path: ", configurationPath)
-console.log("redirects: ", redirects)
 
 const vendor = [
   'history',
@@ -64,13 +62,6 @@ function getPlugins(environment) {
 
   const nonDevelopmentPlugins = [
     new webpack.optimize.DedupePlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: redirects,
-        to: "./_redirects",
-        toType: "file"
-      },
-    ])
   ]
 
   return [
