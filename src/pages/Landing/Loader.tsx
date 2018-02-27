@@ -1,10 +1,8 @@
-import * as React from 'react';
-import { Route } from 'react-router';
-import { Action } from 'redux';
+import * as React from 'react'
+import { Route } from 'react-router'
 
-import Constants from '../../constants';
-import PageLoader, { ReducerDescription } from '../../components/PageLoader';
-import { LandingLayout } from './Layout';
+import PageLoader, { ReducerDescription } from 'components/PageLoader'
+import { LandingLayout } from './Layout'
 
 export class Landing extends PageLoader<Object, Object> {
 
@@ -18,13 +16,8 @@ export class Landing extends PageLoader<Object, Object> {
     return [<Route path="/" key={key} component={this.container()}/>]
   }
 
-  reducerHook<State>(): ReducerDescription<Object> {
-    return {
-      subState: 'Landing',
-      reducer: (state: Object, action: Action) => {
-        return state || this.initialState();
-      }
-    }
+  reducerHook<State>(): ReducerDescription<any> {
+    return null
   }
 
   sagaHook(): any {
@@ -32,10 +25,10 @@ export class Landing extends PageLoader<Object, Object> {
   }
 
   select(state: any, ownProps: any): Object {
-    return { loggedIn: state.session && state.session.state === Constants.LOGGED_IN };
+    return { }
   }
 
   mapDispatchToProps(): any {
-    return {}
+    return { }
   }
 }

@@ -1,15 +1,13 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
+import * as React from 'react'
+import { connect } from 'react-redux'
 
-import { Images } from '../../images/Images';
+import { Images } from 'images/Images'
 
-import { Actions } from '../../actions/index';
-import { WorkSearchAction } from '../../sagas/NavbarSaga';
-import LatestWorks from '../../components/molecules/LatestWorks'
-import { LatestBlocks } from '../../components/molecules/LatestBlocks'
-import { Alpha } from '../../components/molecules/Alpha'
+import { Actions } from 'actions'
+import { WorkSearchAction } from 'sagas/NavbarSaga'
+import LatestWorks from 'components/molecules/LatestWorks'
 
-import './LandingLoggedIn.scss';
+import './LandingLoggedIn.scss'
 
 interface LandingProps {
   dispatchSearchSubmit?: (query: string) => WorkSearchAction,
@@ -26,8 +24,8 @@ const mapDispatch = {
 export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
   class extends React.Component<LandingProps, LandingState> {
 
-    constructor() {
-      super(...arguments);
+    constructor(props: LandingProps) {
+      super(props);
       this.state = {
         searchQuery: ''
       }
@@ -47,7 +45,6 @@ export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
           </div>
           <section className="latest-blocks-and-works">
             <div className="container">
-              <Alpha />
               <LatestWorks showLink={true} />
             </div>
           </section>

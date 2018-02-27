@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as classNames from 'classnames'
-import { ClassNameProps } from 'poet-js'
+
+import { ClassNameProps } from 'components/ClassNameProps'
 
 export interface CopyableTextProps extends ClassNameProps {
   readonly text: string;
@@ -20,8 +21,8 @@ export class CopyableText extends React.Component<CopyableTextProps, CopyableTex
   private input: HTMLInputElement;
   private timeout: number;
 
-  constructor() {
-    super(...arguments);
+  constructor(props: CopyableTextProps) {
+    super(props);
     this.state = {
       tooltipVisible: false
     };

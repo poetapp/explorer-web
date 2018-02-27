@@ -1,55 +1,46 @@
-import * as React from 'react';
-import { browserHistory } from 'react-router';
-import * as classNames from 'classnames';
-import { Api, Headers } from 'poet-js';
+import * as React from 'react'
+import * as classNames from 'classnames'
+import { Api } from 'helpers/PoetApi'
 
-import { Images } from '../../images/Images';
-import { Configuration } from '../../configuration';
-import { DispatchesTransferRequested } from '../../actions/requests';
-import { PoetAPIResourceProvider } from '../atoms/base/PoetApiResource';
-import { WorkNameWithLink, WorkType } from '../atoms/Work';
-import { SelectWorksByOwner } from '../atoms/Arguments';
-import { Hash } from '../atoms/Hash';
-import { Pagination } from '../molecules/Pagination';
-import { DropdownMenu } from '../DropdownMenu';
+import { Images } from 'images/Images'
+import { Configuration } from 'configuration'
+import { DispatchesTransferRequested } from 'actions/requests'
+import { PoetAPIResourceProvider } from 'components/atoms/base/PoetApiResource'
+import { WorkNameWithLink, WorkType } from 'components/atoms/Work'
+import { SelectWorksByOwner } from 'components/atoms/Arguments'
+import { Hash } from 'components/atoms/Hash';
+import { TimeElapsedSinceCreation } from 'components/atoms/Claim'
+import { Pagination } from 'components/molecules/Pagination'
 
-import './WorksByProfile.scss';
-import { TimeElapsedSinceTimestamp } from '../atoms/Claim';
-
-const EDIT = 'Edit';
-const TRANSFER = 'Transfer';
-
-export type WorkToProfileRelationship = 'author' | 'owner' | 'relatedTo' | 'licensedTo';
+import './WorksByProfile.scss'
 
 interface WorksByProfileProps extends SelectWorksByOwner, DispatchesTransferRequested {
-  readonly relationship: WorkToProfileRelationship;
-  readonly searchQuery: string;
-  readonly showActions?: boolean;
-  readonly limit?: number;
+  readonly searchQuery: string
+  readonly showActions?: boolean
+  readonly limit?: number
 }
 
 interface WorksByProfileState {
-  readonly offset?: number;
+  readonly offset?: number
 }
 
-export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Works.Resource>, WorksByProfileProps, WorksByProfileState> {
-  private lastFetchedWorks: ReadonlyArray<Api.Works.Resource>;
+export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.WorksByFilters.Response>, WorksByProfileProps, WorksByProfileState> {
+  private lastFetchedWorks: ReadonlyArray<Api.WorksByFilters.Response>;
   private lastFetchedCount: number;
 
   static defaultProps: Partial<WorksByProfileProps> = {
     limit: Configuration.pagination.limit
   };
 
-  constructor() {
-    super(...arguments);
+  constructor(props: any) {
+    super(props);
     this.state = {
       offset: 0
     }
   }
 
   poetURL() {
-    return Api.Works.url({
-      [this.props.relationship]: this.props.owner,
+    return Api.WorksByFilters.url({
       limit: this.props.limit,
       offset: this.state.offset,
       query: this.props.searchQuery
@@ -57,12 +48,12 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
   }
 
   componentWillReceiveProps(props: WorksByProfileProps) {
-    if (this.props.relationship !== props.relationship)
-      this.setState({ offset: 0 })
+    // if (this.props.relationship !== props.relationship)
+    //   this.setState({ offset: 0 })
   }
 
-  renderElement(works: ReadonlyArray<Api.Works.Resource>, headers: Headers) {
-    const count = headers.get(Headers.TotalCount) && parseInt(headers.get(Headers.TotalCount));
+  renderElement(works: ReadonlyArray<Api.WorksByFilters.Response>, headers: Headers) {
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount))
 
     if (!count)
       return this.renderNoWorks();
@@ -75,14 +66,14 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
     return this.renderWorks(this.lastFetchedWorks, this.lastFetchedCount, true);
   }
 
-  componentDidFetch(works: ReadonlyArray<Api.Works.Resource>, headers: Headers) {
-    const count = headers.get(Headers.TotalCount) && parseInt(headers.get(Headers.TotalCount));
+  componentDidFetch(works: ReadonlyArray<Api.WorksByFilters.Response>, headers: Headers) {
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount));
 
     this.lastFetchedWorks = works;
     this.lastFetchedCount = count;
   }
 
-  private renderWorks(works: ReadonlyArray<Api.Works.Resource>, count: number, isLoading?: boolean) {
+  private renderWorks(works: ReadonlyArray<Api.WorksByFilters.Response>, count: number, isLoading?: boolean) {
     return (
       <section className={classNames('works-by-profile', isLoading && 'loading', !works && 'no-content')}>
         <table className="works">
@@ -115,7 +106,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
     )
   }
 
-  private renderWork(work: Api.Works.Resource) {
+  private renderWork(work: Api.WorksByFilters.Response) {
     return (
       <tr key={work.id}>
         <td className="name">
@@ -133,15 +124,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
           <WorkType work={work} />
         </td>
         <td className="hash"><Hash className="copyable-hash-no-button" textClickable>{work.id}</Hash></td>
-        <td className="timestamp"><TimeElapsedSinceTimestamp claimInfo={work.claimInfo}/></td>
-        { this.props.showActions && <td>
-          <DropdownMenu
-            className="dropdown"
-            options={[EDIT, TRANSFER]}
-            onOptionSelected={this.optionSelected.bind(this, work)}>
-            Actions
-          </DropdownMenu>
-        </td> }
+        <td className="timestamp"><TimeElapsedSinceCreation claim={work}/></td>
       </tr>
     )
   }
@@ -153,16 +136,5 @@ export class WorksByProfile extends PoetAPIResourceProvider<ReadonlyArray<Api.Wo
   }
 
   private onOffset = (offset: number) => this.setState({ offset });
-
-  private optionSelected(work: Api.Works.Resource, action: string) {
-    switch (action) {
-      case EDIT:
-        browserHistory.push('/works/' + work.id + '/edit');
-        return;
-      case TRANSFER:
-        this.props.transferRequested(work.id);
-        return;
-    }
-  }
 
 }

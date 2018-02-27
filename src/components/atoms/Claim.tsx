@@ -1,14 +1,16 @@
 import * as React from 'react'
-import { ClaimInfo } from 'poet-js'
+import { Claim } from 'poet-js'
+import * as moment from 'moment'
 
-import { timeFrom } from './Work'
-
-export function TimeElapsedSinceTimestamp(props: { claimInfo: ClaimInfo }) {
-  const createdAt = props.claimInfo
-    && props.claimInfo.timestamp
-  return (<span>{
-    createdAt
-      ? timeFrom(createdAt)
-      : '(unconfirmed)'
-  }</span>)
+export function TimeElapsedSinceCreation(props: { claim: Claim }) {
+  const dateCreated = props.claim && props.claim.dateCreated
+  return (
+    <span>
+      {
+      dateCreated
+        ? moment(dateCreated).fromNow()
+        : '(unconfirmed)'
+      }
+    </span>
+  )
 }

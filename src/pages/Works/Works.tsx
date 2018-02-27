@@ -1,27 +1,27 @@
-import * as React from 'react';
-import * as moment from 'moment';
-import * as classNames from 'classnames';
-import { Api, LicenseType, Headers } from 'poet-js';
+import * as React from 'react'
+import * as moment from 'moment'
+import * as classNames from 'classnames'
 
-import { Configuration } from '../../configuration';
-import { PoetAPIResourceProvider } from '../../components/atoms/base/PoetApiResource';
-import { WorkNameWithLink, AuthorWithLink } from '../../components/atoms/Work';
-import { TimeElapsedSinceTimestamp } from '../../components/atoms/Claim';
-import { Pagination } from '../../components/molecules/Pagination';
+import { Configuration } from 'configuration'
 
-import './Works.scss';
+import { Api } from 'helpers/PoetApi'
+import { PoetAPIResourceProvider } from 'components/atoms/base/PoetApiResource'
+import { WorkNameWithLink, AuthorWithLink } from 'components/atoms/Work'
+import { TimeElapsedSinceCreation } from 'components/atoms/Claim'
+import { Pagination } from 'components/molecules/Pagination'
 
-type WorksResource = ReadonlyArray<Api.Works.Resource>;
+import './Works.scss'
+
+type WorksResource = ReadonlyArray<Api.WorkById.Response>
 
 export interface WorksProps {
-  readonly offset?: number;
-  readonly onOffset?: (offset: number) => void;
-  readonly limit?: number;
-  readonly dateFrom?: moment.Moment;
-  readonly dateTo?: moment.Moment;
-  readonly query?: string;
-  readonly sortBy?: string;
-  readonly licenseType?: LicenseType;
+  readonly offset?: number
+  readonly onOffset?: (offset: number) => void
+  readonly limit?: number
+  readonly dateFrom?: moment.Moment
+  readonly dateTo?: moment.Moment
+  readonly query?: string
+  readonly sortBy?: string
 }
 
 export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, undefined> {
@@ -33,19 +33,18 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
   };
 
   poetURL() {
-    return Api.Works.url({
+    return Api.WorksByFilters.url({
       offset: this.props.offset,
       limit: this.props.limit,
       dateFrom: this.props.dateFrom && this.props.dateFrom.toDate().getTime(),
       dateTo: this.props.dateTo && this.props.dateTo.toDate().getTime(),
       query: this.props.query,
       sortBy: this.props.sortBy,
-      licenseType: this.props.licenseType && this.props.licenseType.id
     })
   }
 
   renderElement(works: WorksResource, headers: Headers) {
-    const count = headers.get(Headers.TotalCount) && parseInt(headers.get(Headers.TotalCount));
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount));
     return this.renderWorks(works, count);
   }
 
@@ -61,7 +60,7 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
   }
 
   componentDidFetch(works: WorksResource, headers: Headers) {
-    const count = headers.get(Headers.TotalCount) && parseInt(headers.get(Headers.TotalCount));
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount));
     this.lastFetchedWorks = works;
     this.lastFetchedCount = count;
   }
@@ -89,12 +88,12 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
     )
   }
 
-  private renderWork(props: Api.Works.Resource) {
+  private renderWork(props: Api.WorkById.Response) {
     return (
       <li key={props.id} className="work-item">
         <div className="name"><WorkNameWithLink work={props} /></div>
         <div className="info">
-          <span className="timestamp">Timestamped <TimeElapsedSinceTimestamp claimInfo={props.claimInfo} />&nbsp;</span>
+          <span className="timestamp">Timestamped <TimeElapsedSinceCreation claim={props} />&nbsp;</span>
           <span className="author">by <AuthorWithLink work={props}/> </span>
         </div>
         <div className="content">

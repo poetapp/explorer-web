@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import { ClassNameProps } from 'poet-js';
+import { ClassNameProps } from 'components/ClassNameProps'
 
 import { Images } from '../../images/Images';
 

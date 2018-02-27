@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { ClassNameProps } from 'poet-js';
+import * as React from 'react'
+import { ClassNameProps } from 'components/ClassNameProps'
 
-import { CopyableText } from './CopyableText';
+import { CopyableText } from './CopyableText'
 
-import './Hash.scss';
+import './Hash.scss'
 
 interface HashProps extends ClassNameProps {
   readonly children?: any
@@ -12,4 +12,4 @@ interface HashProps extends ClassNameProps {
 
 export const Hash = (props: HashProps) => (
   <CopyableText text={props.children.toString()} textClickable={props.textClickable} className={props.className} >{props.children.toString().firstAndLastCharacters(6)}</CopyableText>
-);
+)
