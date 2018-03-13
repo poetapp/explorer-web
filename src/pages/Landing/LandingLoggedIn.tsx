@@ -39,7 +39,7 @@ export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
             <section className="search">
               <form onSubmit={this.onSearchSubmit} >
                 <div><input type="text" onChange={this.onSearchChange} value={this.state.searchQuery} /></div>
-                <div><button>Poet Search</button></div>
+                <div><button>Po.et Search</button></div>
               </form>
             </section>
           </div>
