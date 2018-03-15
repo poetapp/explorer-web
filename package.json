@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node devServer.js",
     "build": "webpack",
-    "serve": "ws --spa index.html --rewrite '/api/* -> http://localhost:8080/api/$1' -d ./dist"
+    "serve": "ws --spa index.html -d ./dist"
   },
   "keywords": [],
   "author": "",

@@ -23,15 +23,35 @@ export class TechnicalTab extends WorkById {
         <table>
           <tbody>
           {
-            Object.entries(resource.timestamp).map(([key, value]) => (
-              <tr key={key}>
-                <td>{ key }</td><td>{ value }</td>
-              </tr>
-            ))
+            Object
+              .entries(resource.timestamp)
+              .map(([key, value]) => this.renderEntry(key, value))
           }
           </tbody>
         </table>
       </div>
+    )
+  }
+
+  private renderEntry = (key: string, value: string) => {
+    const links: { readonly [key: string]: string } = {
+      transactionId: 'https://test-insight.bitpay.com/tx/',
+      blockHash: 'https://test-insight.bitpay.com/block/',
+      blockHeight: 'https://test-insight.bitpay.com/block-index/',
+      ipfsHash: 'https://ipfs.io/ipfs/',
+    }
+    const link = links[key]
+    return (
+      <tr key={key}>
+        <td>{ key }</td>
+        <td>
+          {
+            link
+              ? <a href={link + value} target="_blank">{value}</a>
+              : value
+          }
+        </td>
+      </tr>
     )
   }
 

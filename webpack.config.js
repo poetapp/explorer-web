@@ -26,7 +26,6 @@ const vendor = [
   'classnames',
   'isomorphic-fetch',
   'moment',
-  'protobufjs',
   'react',
   'react-autocomplete',
   'react-datepicker',
@@ -61,12 +60,22 @@ function getPlugins(environment) {
   ]
 
   const nonDevelopmentPlugins = [
-    new webpack.optimize.DedupePlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: './_redirects',
+        to: './_redirects',
+        toType: "file",
+      },
+    ])
   ]
+
+  const environmentSpecificPlugins = environment === 'development'
+    ? developmentPlugins
+    : nonDevelopmentPlugins
 
   return [
     ...plugins,
-    ...(environment === 'development' ? developmentPlugins : nonDevelopmentPlugins)
+    ...environmentSpecificPlugins,
   ]
 }
 
@@ -105,12 +114,7 @@ module.exports = {
         ? ['babel-loader', 'awesome-typescript-loader']
         : ['react-hot-loader', 'babel-loader', 'awesome-typescript-loader'] },
       {
-        test: /\.s?css$/, use: production
-        ? extractor.extract(
-          'style-loader',
-          ['css-loader?-autoprefixer', 'postcss-loader', 'sass-loader']
-        )
-        : [ 'style-loader', 'css-loader?sourceMap&importLoaders=1', 'postcss-loader', 'sass-loader?sourceMap' ]
+        test: /\.s?css$/, use: [ 'style-loader', 'css-loader?sourceMap&importLoaders=1', 'postcss-loader', 'sass-loader?sourceMap' ]
       },
       { test: /\.json$/, use: 'json-loader' },
       { test: /\.svg$/, use: 'file-loader' },
