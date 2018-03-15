@@ -63,17 +63,19 @@ function getPlugins(environment) {
     new CopyWebpackPlugin([
       {
         from: './_redirects',
-        to: "'./_redirects",
-        toType: "file"
+        to: './_redirects',
+        toType: "file",
       },
     ])
   ]
 
-  const environmentSpecificPlugins = environment === 'development' ? developmentPlugins : nonDevelopmentPlugins
+  const environmentSpecificPlugins = environment === 'development'
+    ? developmentPlugins
+    : nonDevelopmentPlugins
 
   return [
     ...plugins,
-    ...environmentSpecificPlugins
+    ...environmentSpecificPlugins,
   ]
 }
 
