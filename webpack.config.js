@@ -3,6 +3,7 @@ const assert = require('assert')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const validEnvironments = [
   'development',
@@ -58,7 +59,15 @@ function getPlugins(environment) {
     new webpack.HotModuleReplacementPlugin(),
   ]
 
-  const nonDevelopmentPlugins = []
+  const nonDevelopmentPlugins = [
+    new CopyWebpackPlugin([
+      {
+        from: './_redirects',
+        to: "'./_redirects",
+        toType: "file"
+      },
+    ])
+  ]
 
   const environmentSpecificPlugins = environment === 'development' ? developmentPlugins : nonDevelopmentPlugins
 
