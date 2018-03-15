@@ -3,7 +3,6 @@ const assert = require('assert')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const validEnvironments = [
   'development',
@@ -26,7 +25,6 @@ const vendor = [
   'classnames',
   'isomorphic-fetch',
   'moment',
-  'protobufjs',
   'react',
   'react-autocomplete',
   'react-datepicker',
@@ -60,13 +58,13 @@ function getPlugins(environment) {
     new webpack.HotModuleReplacementPlugin(),
   ]
 
-  const nonDevelopmentPlugins = [
-    new webpack.optimize.DedupePlugin(),
-  ]
+  const nonDevelopmentPlugins = []
+
+  const environmentSpecificPlugins = environment === 'development' ? developmentPlugins : nonDevelopmentPlugins
 
   return [
     ...plugins,
-    ...(environment === 'development' ? developmentPlugins : nonDevelopmentPlugins)
+    ...environmentSpecificPlugins
   ]
 }
 
@@ -105,12 +103,7 @@ module.exports = {
         ? ['babel-loader', 'awesome-typescript-loader']
         : ['react-hot-loader', 'babel-loader', 'awesome-typescript-loader'] },
       {
-        test: /\.s?css$/, use: production
-        ? extractor.extract(
-          'style-loader',
-          ['css-loader?-autoprefixer', 'postcss-loader', 'sass-loader']
-        )
-        : [ 'style-loader', 'css-loader?sourceMap&importLoaders=1', 'postcss-loader', 'sass-loader?sourceMap' ]
+        test: /\.s?css$/, use: [ 'style-loader', 'css-loader?sourceMap&importLoaders=1', 'postcss-loader', 'sass-loader?sourceMap' ]
       },
       { test: /\.json$/, use: 'json-loader' },
       { test: /\.svg$/, use: 'file-loader' },
