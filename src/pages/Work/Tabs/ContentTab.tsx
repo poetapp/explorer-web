@@ -18,6 +18,7 @@ export class ContentTab extends WorkById {
             {
               work && Object.entries(work.attributes)
                 .filter(([key, value]) => key !== 'content')
+                .filter(([key, value]) => value.length)
                 .map(this.renderItem, this)
             }
             </tbody>
@@ -43,7 +44,7 @@ export class ContentTab extends WorkById {
 
   private renderItemValue(key: string, value: string) {
     if (this.isDateField(key))
-      return moment(parseInt(value)).format(Configuration.dateTimeFormat)
+      return moment(value).format(Configuration.dateTimeFormat)
     else if (this.isLinkField(key, value))
       return <a href={ value }>{ value }</a>
     else
