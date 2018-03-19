@@ -3,7 +3,15 @@ import { Work } from 'poet-js'
 export namespace Api {
   export namespace WorkById {
     export interface Response extends Work {
-      readonly timestamp?: any
+      readonly timestamp?: {
+        readonly transactionId: string
+        readonly outputIndex: string
+        readonly prefix: string
+        readonly version: string
+        readonly ipfsHash: string
+        readonly blockHeight: string
+        readonly blockHash: string
+      }
     }
     export function url(id: string) {
       return `/works/${id}`

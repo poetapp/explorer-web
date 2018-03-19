@@ -46,12 +46,12 @@ export class Overview extends WorkById {
     const tableData = new Map<string, any>()
 
     work.attributes.datePublished &&
-    tableData.set('Published', moment(parseInt(work.attributes.datePublished, 10)).format(Configuration.dateFormat))
+    tableData.set('Published', moment(new Date(work.attributes.datePublished)).format(Configuration.dateFormat))
 
     work.attributes.dateModified &&
-    tableData.set('Last Modified', moment(parseInt(work.attributes.dateModified, 10)).format(Configuration.dateFormat))
+    tableData.set('Last Modified', moment(new Date(work.attributes.dateModified)).format(Configuration.dateFormat))
 
-    work.attributes.tags && tableData.set('Tags', work.attributes.tags || [])
+    work.attributes.tags && work.attributes.tags.length && tableData.set('Tags', work.attributes.tags)
 
     return (
       <div className={classNames('overview', isLoading && 'loading')}>
