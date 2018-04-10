@@ -25,7 +25,7 @@ export class Work extends PageLoader<any, Object> {
   }
 
   select(state: any, ownProps: any): Object {
-    return { id: ownProps.params.id };
+    return { workId: ownProps.params.id };
   }
 
   mapDispatchToProps() {
