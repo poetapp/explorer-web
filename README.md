@@ -1,6 +1,8 @@
 # Po.et Web
 
-This is Po.et's frontend, as seen in https://app.po.et. 
+[![Build Status](https://travis-ci.org/poetapp/explorer-web.svg?branch=master)](https://travis-ci.org/poetapp/explorer-web)
+
+This is Po.et's frontend, as seen in https://app.po.et.
 
 ## Libraries, Frameworks, Etc
 - Typescript
@@ -13,14 +15,14 @@ This is Po.et's frontend, as seen in https://app.po.et.
 ## File Structure
 
 ### Components
-These are ReactJS components and Sass styles. 
+These are ReactJS components and Sass styles.
 The components' architecture is inspired by Brad Frost's [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/).
 
-Most components have a single associated `.scss` file with the same name. 
+Most components have a single associated `.scss` file with the same name.
 There are also a few global styles living in `components/styles`.
 Styles are bundled and loaded by Webpack's `style-loader`, `css-loader`, `autoprefixer`, `postcss-loader`, and `sass-loader`.
 
-Components are divided in atoms, molecules, organisms, pages and modals. Rule of thumb is: the smaller shouldn't use the larger. 
+Components are divided in atoms, molecules, organisms, pages and modals. Rule of thumb is: the smaller shouldn't use the larger.
 That means atoms should have no dependencies on other components, mocules can only depend on atoms and so on.
 
 Pages are currently living outside `/components` for historic reasons, but they'll be moved into this folder in the future.
@@ -41,7 +43,7 @@ All images used by the application. They are exposed as `static readonly` elemen
 
 ## Extensions
 
-Extensions to Javascript's native types go here. 
+Extensions to Javascript's native types go here.
 
 # Coding Standard
 
