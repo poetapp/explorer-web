@@ -1,27 +1,27 @@
+import * as moment from 'moment'
 import * as React from 'react'
 import * as ReactDatePicker from 'react-datepicker'
-import * as moment from 'moment'
 
 import { DatePickerInput } from 'components/atoms/DatePickerInput'
 
-import './Filters.scss';
+import './Filters.scss'
 
 export interface FilterComponentProps {
-  readonly dateFrom: moment.Moment;
-  readonly dateTo: moment.Moment;
-  readonly sortBy: string;
-  readonly onDateFromChanged: (moment: moment.Moment) => void;
-  readonly onDateToChanged: (moment: moment.Moment) => void;
+  readonly dateFrom: moment.Moment
+  readonly dateTo: moment.Moment
+  readonly sortBy: string
+  readonly onDateFromChanged: (moment: moment.Moment) => void
+  readonly onDateToChanged: (moment: moment.Moment) => void
 }
 
-export class FiltersComponent extends React.Component<FilterComponentProps, undefined> {
-
+export class FiltersComponent extends React.Component<
+  FilterComponentProps,
+  undefined
+> {
   render() {
     return (
       <header>
-        <div className="container">
-          { this.renderDateSelector() }
-        </div>
+        <div className="container">{this.renderDateSelector()}</div>
       </header>
     )
   }
@@ -38,8 +38,9 @@ export class FiltersComponent extends React.Component<FilterComponentProps, unde
           startDate={this.props.dateFrom}
           endDate={this.props.dateTo}
           placeholderText="Select..."
-          customInput={<DatePickerInput/>}
-          isClearable />
+          customInput={<DatePickerInput />}
+          isClearable
+        />
         <span className="date-picker-separator">and</span>
         <ReactDatePicker
           onChange={this.props.onDateToChanged}
@@ -48,11 +49,10 @@ export class FiltersComponent extends React.Component<FilterComponentProps, unde
           placeholderText="Select..."
           startDate={this.props.dateFrom}
           endDate={this.props.dateTo}
-          customInput={<DatePickerInput/>}
-          isClearable />
+          customInput={<DatePickerInput />}
+          isClearable
+        />
       </section>
-    );
+    )
   }
-
-
 }

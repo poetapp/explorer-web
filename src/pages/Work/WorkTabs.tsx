@@ -7,11 +7,11 @@ import { ContentTab } from './Tabs/ContentTab'
 import { TechnicalTab } from './Tabs/TechnicalTab'
 
 interface WorkTabProps {
-  readonly id: string;
+  readonly id: string
 }
 
 export const WorkTabs = (props: WorkTabProps) => (
-  <Tabs selectedIndex={0} className="work-tabs" >
+  <Tabs selectedIndex={0} className="work-tabs">
     <TabList className="tab-list-one" activeTabClassName="selected">
       <Tab>Content</Tab>
       <Tab>Technical</Tab>
@@ -23,4 +23,4 @@ export const WorkTabs = (props: WorkTabProps) => (
       <TechnicalTab workId={props.id} />
     </TabPanel>
   </Tabs>
-);
+)

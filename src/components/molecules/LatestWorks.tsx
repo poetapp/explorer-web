@@ -3,25 +3,29 @@ import { Link } from 'react-router'
 
 import 'extensions/String'
 
-import { Api } from 'helpers/PoetApi'
 import { ClassNameProps } from 'components/ClassNameProps'
-import { PoetAPIResourceProvider } from 'components/atoms/base/PoetApiResource'
-import { WorkNameWithLink } from 'components/atoms/Work'
 import { TimeElapsedSinceCreation } from 'components/atoms/Claim'
+import { WorkNameWithLink } from 'components/atoms/Work'
+import { PoetAPIResourceProvider } from 'components/atoms/base/PoetApiResource'
+import { Api } from 'helpers/PoetApi'
 
 import './LatestWorks.scss'
 
 type LatestWorksResource = ReadonlyArray<Api.WorkById.Response>
 
 export interface LatestWorksProps extends ClassNameProps {
-  readonly limit?: number;
-  readonly showLink?: boolean;
+  readonly limit?: number
+  readonly showLink?: boolean
 }
 
-export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksResource, LatestWorksProps, undefined> {
+export default class LatestBlocks extends PoetAPIResourceProvider<
+  LatestWorksResource,
+  LatestWorksProps,
+  undefined
+> {
   static defaultProps: LatestWorksProps = {
     limit: 5
-  };
+  }
 
   poetURL() {
     return Api.WorksByFilters.url({
@@ -38,15 +42,13 @@ export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksRes
               Latest Works
             </td>
             <td className="view-latest">
-              { this.props.showLink && <Link to="/blocks">View Latest</Link> }
+              {this.props.showLink && <Link to="/blocks">View Latest</Link>}
             </td>
           </tr>
         </thead>
-        <tbody>
-          { works.map(this.renderWork) }
-        </tbody>
+        <tbody>{works.map(this.renderWork)}</tbody>
       </table>
-    );
+    )
   }
 
   private renderWork = (props: Api.WorkById.Response) => {
@@ -55,14 +57,11 @@ export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksRes
         <td className="work-name">
           <WorkNameWithLink work={props} />
         </td>
-        <td className="id">
-          {props.id && props.id.firstAndLastCharacters(6)}
-        </td>
+        <td className="id">{props.id && props.id.firstAndLastCharacters(6)}</td>
         <td className="date">
-          <TimeElapsedSinceCreation claim={props}/>
+          <TimeElapsedSinceCreation claim={props} />
         </td>
       </tr>
     )
   }
-
 }

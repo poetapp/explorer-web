@@ -22,18 +22,17 @@ export namespace Api {
       readonly timestamp?: any
     }
     export function url(params: {
-        offset?: number,
-        limit?: number,
-        dateFrom?: number,
-        dateTo?: number,
-        query?: string,
-        sortBy?: string,
+      offset?: number
+      limit?: number
+      dateFrom?: number
+      dateTo?: number
+      query?: string
+      sortBy?: string
     }) {
       return '/works'
     }
   }
   export enum Headers {
-    TotalCount = '',
+    TotalCount = ''
   }
 }
-

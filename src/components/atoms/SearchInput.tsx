@@ -1,6 +1,6 @@
-import * as React from 'react'
 import * as classNames from 'classnames'
 import { ClassNameProps } from 'components/ClassNameProps'
+import * as React from 'react'
 
 import { Images } from '../../images/Images'
 
@@ -19,7 +19,8 @@ export class SearchInput extends React.Component<SearchInputProps, undefined> {
           type="text"
           value={this.props.value}
           onChange={(event: any) => this.props.onChange(event.target.value)}
-          placeholder={this.props.placeholder} />
+          placeholder={this.props.placeholder}
+        />
       </section>
     )
   }

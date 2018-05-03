@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { Link } from 'react-router';
+import * as React from 'react'
 
-import { Images } from '../../images/Images';
+import { Images } from '../../images/Images'
 
-import './Footer.scss';
+import './Footer.scss'
 
 export class Footer extends React.Component<undefined, undefined> {
   render() {
@@ -13,8 +12,12 @@ export class Footer extends React.Component<undefined, undefined> {
           <div className="logo-and-social">
             <img src={Images.InvertedLogo} />
             <div className="social">
-              <a href="https://twitter.com/_poetproject" target="_blank"><img src={Images.Twitter} /></a>
-              <a href="https://github.com/poetapp" target="_blank"><img src={Images.Github} /></a>
+              <a href="https://twitter.com/_poetproject" target="_blank">
+                <img src={Images.Twitter} />
+              </a>
+              <a href="https://github.com/poetapp" target="_blank">
+                <img src={Images.Github} />
+              </a>
             </div>
           </div>
         </div>

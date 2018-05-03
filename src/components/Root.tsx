@@ -4,20 +4,20 @@ import { Tabs } from 'react-tabs'
 
 import '../extensions/String'
 
-import { Navbar } from './organisms/Navbar'
 import { Footer } from './organisms/Footer'
+import { Navbar } from './organisms/Navbar'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
 import './Root.scss'
 
-Tabs.setUseDefaultStyles(false);
+Tabs.setUseDefaultStyles(false)
 
 interface RootLayoutProps {
   readonly location?: {
-    readonly pathname: string;
+    readonly pathname: string
   }
-  readonly children?: any;
+  readonly children?: any
 }
 
 function render(props: RootLayoutProps) {
@@ -27,7 +27,7 @@ function render(props: RootLayoutProps) {
   const worksUrl = 'works'
 
   const navbarShadow = ![worksUrl, ''].includes(location)
-  const navbarTransparent = ([''].includes(location))
+  const navbarTransparent = [''].includes(location)
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
@@ -41,8 +41,8 @@ function render(props: RootLayoutProps) {
         transparent={navbarTransparent}
         searchShadow={searchShadow}
       />
-      { props.children }
-      <Footer/>
+      {props.children}
+      <Footer />
     </div>
   )
 }
@@ -51,4 +51,4 @@ function mapStateToProps(state: any): RootLayoutProps {
   return {}
 }
 
-export const Layout = connect(mapStateToProps)(render);
+export const Layout = connect(mapStateToProps)(render)

@@ -32,7 +32,7 @@
     "redux-saga": "0.14.8"
   },
   "devDependencies": {
-    "@po.et/tslint-rules": "^1.0.0",
+    "@po.et/tslint-rules": "1.1.0",
     "@types/classnames": "0.0.32",
     "@types/react": "16.0.38",
     "@types/react-datepicker": "0.40.2",

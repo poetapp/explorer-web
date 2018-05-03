@@ -4,28 +4,27 @@ import { Route } from 'react-router'
 import PageLoader, { ReducerDescription } from 'components/PageLoader'
 import { WorkLayout } from './Layout'
 
-export class Work extends PageLoader<any, Object> {
-
-  component = WorkLayout;
+export class Work extends PageLoader<any, object> {
+  component = WorkLayout
 
   initialState() {
-    return {};
+    return {}
   }
 
   routeHook(key: string) {
     return [<Route path="/works/:id" key={key} component={this.container()} />]
   }
 
-  reducerHook<State>(): ReducerDescription<any> {
-    return null;
+  reducerHook(): ReducerDescription<any> {
+    return null
   }
 
   sagaHook(): any {
-    return null;
+    return null
   }
 
-  select(state: any, ownProps: any): Object {
-    return { workId: ownProps.params.id };
+  select(state: any, ownProps: any): object {
+    return { workId: ownProps.params.id }
   }
 
   mapDispatchToProps() {
