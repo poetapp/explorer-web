@@ -4,31 +4,30 @@ import { Route } from 'react-router'
 import PageLoader, { ReducerDescription } from 'components/PageLoader'
 import { LandingLayout } from './Layout'
 
-export class Landing extends PageLoader<Object, Object> {
+export class Landing extends PageLoader<object, object> {
+  component = LandingLayout
 
-  component = LandingLayout;
-
-  initialState(): Object {
-    return {};
+  initialState(): object {
+    return {}
   }
 
   routeHook(key: string) {
-    return [<Route path="/" key={key} component={this.container()}/>]
+    return [<Route path="/" key={key} component={this.container()} />]
   }
 
-  reducerHook<State>(): ReducerDescription<any> {
+  reducerHook(): ReducerDescription<any> {
     return null
   }
 
   sagaHook(): any {
-    return null;
+    return null
   }
 
-  select(state: any, ownProps: any): Object {
-    return { }
+  select(state: any, ownProps: any): object {
+    return {}
   }
 
   mapDispatchToProps(): any {
-    return { }
+    return {}
   }
 }

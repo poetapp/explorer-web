@@ -3,23 +3,18 @@ import { connect } from 'react-redux'
 
 import { Images } from 'images/Images'
 
-import { Actions } from 'actions'
-import { WorkSearchAction } from 'sagas/NavbarSaga'
-import LatestWorks from 'components/molecules/LatestWorks'
-
 import './LandingLoggedIn.scss'
 
 interface LandingProps {}
 
 interface LandingState {}
 
-const mapDispatch = {};
+const mapDispatch = {}
 
 export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
   class extends React.Component<LandingProps, LandingState> {
-
     constructor(props: LandingProps) {
-      super(props);
+      super(props)
       this.state = {
         searchQuery: ''
       }
@@ -30,12 +25,10 @@ export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
         <section className="landing-logged-in">
           <div className="container">
             <img className="logo" src={Images.Logo} />
-            <section className="search">
-            </section>
+            <section className="search" />
           </div>
         </section>
       )
     }
-
   }
-);
+)

@@ -1,37 +1,39 @@
-import * as React from 'react';
-import { Route } from 'react-router';
+import * as React from 'react'
+import { Route } from 'react-router'
 
-import { Actions } from '../../actions/index';
-import PageLoader, { ReducerDescription } from '../../components/PageLoader';
-import { WorksLayout } from './Layout';
+import { Actions } from '../../actions/index'
+import PageLoader, { ReducerDescription } from '../../components/PageLoader'
+import { WorksLayout } from './Layout'
 
-export class Works extends PageLoader<any, Object> {
-
-  component = WorksLayout;
+export class Works extends PageLoader<any, object> {
+  component = WorksLayout
 
   initialState() {
-    return {};
+    return {}
   }
 
   routeHook(key: string) {
     return [<Route path="/works" key={key} component={this.container()} />]
   }
 
-  reducerHook<State>(): ReducerDescription<any> {
-    return null;
+  reducerHook(): ReducerDescription<any> {
+    return null
   }
 
   sagaHook(): any {
-    return null;
+    return null
   }
 
-  select(state: any, ownProps: any): Object {
-    return {};
+  select(state: any, ownProps: any): object {
+    return {}
   }
 
   mapDispatchToProps() {
     return {
-      dispatchSearchOffsetChangeAction: (offset: number) => ({ type: Actions.Search.Offset, offset })
+      dispatchSearchOffsetChangeAction: (offset: number) => ({
+        type: Actions.Search.Offset,
+        offset
+      })
     }
   }
 }

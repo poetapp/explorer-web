@@ -1,38 +1,40 @@
-import * as React from 'react';
-import { Action } from 'redux';
-import * as moment from 'moment';
+import * as moment from 'moment'
+import * as React from 'react'
+import { Action } from 'redux'
 
-import { Works } from './Works';
-import { FiltersComponent } from './Filters';
+import { FiltersComponent } from './Filters'
+import { Works } from './Works'
 
-import './Layout.scss';
+import './Layout.scss'
 
 interface WorksLayoutProps {
   readonly location?: {
     readonly query: {
-      readonly query: string;
-      readonly offset: string;
+      readonly query: string
+      readonly offset: string
     }
   }
 }
 
 interface WorksLayoutActions {
-  dispatchSearchOffsetChangeAction: (_: number) => Action;
+  dispatchSearchOffsetChangeAction: (_: number) => Action
 }
 
 export interface WorksLayoutState {
-  readonly dateFrom?: moment.Moment;
-  readonly dateTo?: moment.Moment;
-  readonly sortBy?: string;
+  readonly dateFrom?: moment.Moment
+  readonly dateTo?: moment.Moment
+  readonly sortBy?: string
 }
 
-export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutActions, WorksLayoutState> {
-
+export class WorksLayout extends React.Component<
+  WorksLayoutProps & WorksLayoutActions,
+  WorksLayoutState
+> {
   constructor(props: WorksLayoutProps & WorksLayoutActions) {
     super(props)
     this.state = {
       sortBy: 'datePublished'
-    };
+    }
   }
 
   render() {
@@ -46,7 +48,7 @@ export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutA
           onDateToChanged={dateTo => this.setState({ dateTo })}
         />
         <Works
-          offset={parseInt(this.props.location.query.offset) || 0}
+          offset={parseInt(this.props.location.query.offset, 10) || 0}
           onOffset={this.props.dispatchSearchOffsetChangeAction}
           sortBy={this.state.sortBy}
           dateFrom={this.state.dateFrom}
@@ -56,5 +58,4 @@ export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutA
       </section>
     )
   }
-
 }

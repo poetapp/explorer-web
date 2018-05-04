@@ -1,4 +1,4 @@
-import { StoreCreator } from 'redux';
+import { StoreCreator } from 'redux'
 
 declare global {
   interface Window {

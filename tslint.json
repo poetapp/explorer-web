@@ -1,5 +1,9 @@
 {
   "extends": [
     "@po.et/tslint-rules"
-  ]
+  ],
+  "rules": {
+    "no-relative-imports": false,
+    "no-default-export": false
+  }
 }

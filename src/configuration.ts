@@ -11,4 +11,4 @@ interface Pagination {
   readonly visiblePageCount: number
 }
 
-export const Configuration: Configuration = require("Configuration")
+export const Configuration: Configuration = require('Configuration')
