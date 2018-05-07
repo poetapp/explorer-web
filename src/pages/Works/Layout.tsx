@@ -5,8 +5,6 @@ import { Action } from 'redux'
 import { FiltersComponent } from './Filters'
 import { Works } from './Works'
 
-import './Layout.scss'
-
 interface WorksLayoutProps {
   readonly location?: {
     readonly query: {

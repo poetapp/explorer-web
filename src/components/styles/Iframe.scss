@@ -1,5 +1,5 @@
-@import "Fonts";
-@import "Colors";
+@import "styles/Fonts";
+@import "styles/Colors";
 @mixin content-iframe {
   border: 1px solid $alto;
   border-radius: 4px;

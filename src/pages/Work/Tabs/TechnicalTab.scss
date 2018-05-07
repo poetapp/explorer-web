@@ -1,6 +1,6 @@
 @import "Tab";
-@import "Fonts";
-@import "Colors";
+@import "../../../components/styles/Fonts";
+@import "../../../components/styles/Colors";
 
 .page-work .work-tabs .technical-tab {
   @include tab-list-base;

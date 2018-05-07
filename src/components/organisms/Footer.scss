@@ -1,4 +1,4 @@
-@import "Colors";
+@import "../styles/Colors";
 
 .root-layout > footer {
   $font-color: $white;
@@ -22,9 +22,9 @@
       display: flex;
       margin-bottom: 40px;
       padding-bottom: 33px;
-      border-bottom: 1px solid $westar
+      border-bottom: 1px solid $westar;
 
-        ul.links{
+      ul.links {
         display: flex;
 
         >li {
