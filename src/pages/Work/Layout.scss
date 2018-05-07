@@ -1,14 +1,17 @@
+@import "Fonts";
+@import "Colors";
+
 .page-work {
-  color: #666;
-  font-family: "Source Sans Pro", SansSerif, Helvetica, Arial;
-  font-size: 14px;
   margin-bottom: 40px;
+  font-family: $source-sans-pro;
+  font-size: 14px;
+  color: $dove-gray3;
 
   &.not-found {
-    flex: 1 1 auto;
     display: flex;
-    justify-content: center;
+    flex: 1 1 auto;
     align-items: center;
+    justify-content: center;
     text-align: center;
   }
 }

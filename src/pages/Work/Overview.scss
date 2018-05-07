@@ -1,3 +1,5 @@
+@import "Fonts";
+
 .overview {
   margin-bottom: 48px;
 
@@ -8,21 +10,21 @@
 
   h1 {
     margin-bottom: 16px;
-    font-family: "Roboto Slab";
+    font-family: $roboto-slab;
     font-size: 25px;
     font-weight: bold;
     line-height: 33px;
-    color: #565656;
+    color: $scorpion;
   }
 
   table > tbody > tr {
 
     td {
-      font-family: "Source Code Pro";
+      padding-bottom: 9px;
+      font-family: $source-code-pro;
       font-size: 12px;
       line-height: 15px;
-      color: #666666;
-      padding-bottom: 9px;
+      color: $dove-gray3;
 
       &:first-child {
         min-width: 140px;
@@ -33,10 +35,8 @@
       }
 
       a {
-        color: #43B980;
+        color: $ocean-green;
       }
-
     }
-
   }
 }

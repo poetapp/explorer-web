@@ -1,11 +1,12 @@
-.root-layout > footer {
-  $font-color: white;
+@import "Colors";
 
+.root-layout > footer {
+  $font-color: $white;
   margin-top: auto;
-  padding-top: 53px;
   padding-bottom: 33px;
+  padding-top: 53px;
+  background-color: $masala;
   color: $font-color;
-  background-color: #413D3B;
 
   ul {
     list-style: none;
@@ -16,13 +17,14 @@
   }
 
   .container {
+
     .links-and-address {
       display: flex;
-      padding-bottom: 33px;
-      border-bottom: 1px solid #E6E4E1;
       margin-bottom: 40px;
+      padding-bottom: 33px;
+      border-bottom: 1px solid $westar
 
-      ul.links {
+        ul.links{
         display: flex;
 
         >li {
@@ -33,10 +35,11 @@
             font-size: 16px;
             font-weight: bold;
             line-height: 23px;
-            color: #FFFFFF;
+            color: $white;
           }
 
           >ul {
+
             >li {
               font-size: 14px;
               line-height: 23px;
@@ -46,11 +49,10 @@
       }
 
       address {
-        margin-left: auto;
         align-self: center;
+        margin-left: auto;
         font-size: 14px;
       }
-
     }
 
     .logo-and-social {
@@ -66,9 +68,7 @@
             opacity: .5;
           }
         }
-
       }
     }
   }
-
 }

@@ -1,13 +1,15 @@
+@import "Fonts";
+@import "Colors";
 @mixin button {
-  width: 146px;
   height: 30px;
+  width: 146px;
   padding: 3px 6px;
-  font-family: "Roboto Slab";
-  font-size: 10px;
-  cursor: pointer;
-  font-weight: bold;
   border-radius: 4px;
   text-align: center;
+  font-family: $roboto-slab;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
   text-decoration: none;
 
   &:hover, &:focus {
@@ -17,32 +19,28 @@
   img {
     margin-right: 4px;
   }
-
 }
 
 .button-primary {
   @include button;
-
-  background-color: #43B980;
-  color: white;
+  background-color: $ocean-green;
+  color: $white;
 
   &:hover, &:focus {
-    background-color: #4BCD8E;
-    color: white;
+    background-color: $emerald;
+    color: $white;
   }
-
 }
 
 .button-secondary {
   @include button;
-
-  border: 1px solid #413D3B;
-  background-color: white;
-  color: #413D3B;
+  border: 1px solid $masala;
+  background-color: $white;
+  color: $masala;
 
   &:hover, &:focus {
-    background-color: #FAFAFA;
-    color: #413D3B;
+    background-color: $alabaster;
+    color: $masala;
   }
 }
 

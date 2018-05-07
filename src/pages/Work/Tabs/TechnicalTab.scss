@@ -1,14 +1,15 @@
 @import "Tab";
+@import "Fonts";
+@import "Colors";
 
 .page-work .work-tabs .technical-tab {
   @include tab-list-base;
-
-  font-family: "Source Code Pro";
+  padding: 43px 52px;
+  font-family: $source-code-pro;
   font-size: 11px;
   font-weight: 500;
   line-height: 24px;
-  color: #000000;
-  padding: 43px 52px;
+  color: $black;
 
   table {
     margin-bottom: 30px;
@@ -17,5 +18,4 @@
       min-width: 150px;
     }
   }
-
 }

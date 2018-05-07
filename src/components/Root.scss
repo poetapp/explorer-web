@@ -4,34 +4,33 @@
 @import "styles/Pagination";
 @import "styles/Tabs";
 @import "styles/Autocomplete";
+@import "styles/Colors";
 
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   border: 0;
+  background: transparent;
   outline: 0;
   vertical-align: baseline;
-  background: transparent;
-}
-
-.root-layout {
-  margin: 0;
-  padding: 0;
 }
 
 html, body {
-  font-family: "Source Sans Pro";
-  color: #4a4a4a;
-  background-color: #F8F6F4;
+  font-family: $source-sans-pro;
+  background-color: $pampas;
+  color: $tundora;
 }
 
-html, body, #app, .root-layout {
+html, body, #app {
   height: 100%;
 }
 
 .root-layout {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 
   >* {
     flex-shrink: 0;
@@ -39,10 +38,11 @@ html, body, #app, .root-layout {
 }
 
 // TODO: remove this definition!
+
 .text-center {
   text-align: center;
 }
 
 a {
-  color: #43B980;
+  color: $ocean-green;
 }

@@ -7,7 +7,9 @@
     "lint:fix": "tslint -p ./tsconfig.json --fix",
     "start": "node devServer.js",
     "build": "webpack",
-    "serve": "ws --spa index.html -d ./dist"
+    "serve": "ws --spa index.html -d ./dist",
+    "stylelint": "stylelint './src/**/*.scss' ",
+    "stylelint:fix": "stylelint './src/**/*.scss' --fix"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +34,7 @@
     "redux-saga": "0.14.8"
   },
   "devDependencies": {
+    "@po.et/stylelint-rules": "1.0.2",
     "@po.et/tslint-rules": "1.1.0",
     "@types/classnames": "0.0.32",
     "@types/react": "16.0.38",
@@ -61,6 +64,7 @@
     "sass-loader": "6.0.6",
     "source-map-loader": "0.1.6",
     "style-loader": "0.20.2",
+    "stylelint": "9.2.0",
     "typescript": "2.7.2",
     "webpack": "3.11.0",
     "webpack-dev-middleware": "1.12.0",
