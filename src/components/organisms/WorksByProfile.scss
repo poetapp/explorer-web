@@ -1,25 +1,31 @@
+@import "styles/Fonts";
+@import "styles/Colors";
 @import "../styles/Animations";
+
+// TODO: Issue with no-descending-specificity
+// https://github.com/stylelint/stylelint/issues/3135
+
+/* stylelint-disable no-descending-specificity */
 
 .works-by-profile {
   transition: opacity .3s;
 
   table.works {
     $border-radius: 4px;
-
     width: 100%;
-    font-family: "Roboto Slab";
+    border: 1px solid $westar2;
+    border-radius: $border-radius $border-radius 0 0;
+    font-family: $roboto-slab;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid #E3E1DF;
-    border-radius: $border-radius $border-radius 0 0;
 
     thead tr td {
       height: 36px;
       padding: 10px 16px;
-      background-color: #F1EFEC;
       font-size: 10px;
       font-weight: bold;
-      color: #676767;
+      background-color: $pampas2;
+      color: $dove-gray;
 
       &:first-child {
         border-top-left-radius: $border-radius;
@@ -28,82 +34,82 @@
       &:last-child {
         border-top-right-radius: $border-radius;
       }
-
     }
 
     tbody {
-      background-color: #FFFFFF;
+      background-color: $white;
 
       tr {
+
         td {
-          border-top: 1px solid #E3E1DF;
           padding: 10px 16px;
+          border-top: 1px solid $westar2;
+
+          &:hover {
+            background-color: $alabaster;
+          }
         }
-        &:hover td {
-          background-color: #FBFBFB;
-        }
+
         td.name {
+
           a {
             font-size: 12px;
             font-weight: bold;
-            color: #43B980;
+            color: $ocean-green;
           }
 
           .media-type {
+            margin-right: 5px;
             font-size: 10px;
             font-weight: bold;
-            color: #737373;
-            margin-right: 5px;
+            color: $dove-gray2;
           }
 
           .content-info {
-            opacity: 0.6;
             font-size: 10px;
-            color: #737373;
+            color: $dove-gray2;
+            opacity: 0.6;
           }
-
         }
 
         td.hash, td.timestamp {
-          font-family: "Source Code Pro";
+          font-family: $source-code-pro;
           font-size: 10px;
           font-weight: 600;
-          color: #737373;
+          color: $dove-gray2;
         }
-
       }
     }
   }
 
   .dropdown {
     position: relative;
-    font-family: "Roboto Slab";
+    font-family: $roboto-slab;
 
     button {
+      text-align: right;
       font-size: 12px;
       font-weight: bold;
-      text-align: right;
-      color: #4A9699;
+      color: $wedgewood;
       cursor: pointer;
       outline: none;
-
     }
 
     ul {
       position: absolute;
-      z-index: 10;
-      list-style: none;
       margin: 0;
-      padding: 0 0;
-      background-color: #FFFFFF;
-      box-shadow: 0 2px 24px 0 rgba(0,0,0,0.09);
+      padding: 0;
       border-radius: 3px;
+      box-shadow: 0 2px 24px 0 rgba(0,0,0,0.09);
+      background-color: $white;
+      list-style: none;
+      z-index: 10;
 
       li {
         padding: 0 17px;
         font-size: 12px;
         line-height: 30px;
-        color: #737373;
+        color: $dove-gray2;
         cursor: pointer;
       }
     }
@@ -111,13 +117,8 @@
 
   &.loading {
 
-    &:not(.no-content) {
-      transition-delay: .5s;
-      opacity: .5;
-      pointer-events: none;
-    }
-
     &.no-content {
+
       td {
         text-align: center;
       }
@@ -127,8 +128,12 @@
         width: 50px;
         margin: 30px;
       }
+    }
 
+    &:not(.no-content) {
+      opacity: .5;
+      pointer-events: none;
+      transition-delay: .5s;
     }
   }
-
 }

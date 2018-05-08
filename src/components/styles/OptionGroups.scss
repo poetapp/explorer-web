@@ -1,35 +1,37 @@
+@import "styles/Fonts";
+@import "styles/Colors";
 
 .tab-option-group {
-  $border: 3px solid #EFEFEF;
-  $border-color: #BEAF7E;
-
-  list-style: none;
+  $border: 3px solid $gallery2;
+  $border-color: $mongoose;
   display: flex;
+  list-style: none;
 
   &.extended::after {
-    content: ' ';
     flex: 1 1 auto;
     border-bottom: $border;
+    content: ' ';
   }
 
   li {
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 0 10px;
-    width: 90px;
+    justify-content: center;
     height: 45px;
-
-    font-family: "Roboto Slab";
-    font-size: 12px;
-    color: #413D3B;
+    width: 90px;
+    padding: 0 10px;
     border-bottom: $border;
-    background-color: transparent;
-    opacity: 0.75;
+    font-family: $roboto-slab;
+    font-size: 12px;
+    background-color: $transparent;
+    color: $masala;
     cursor: pointer;
+    opacity: 0.75;
 
     &:hover {
+      /* stylelint-disable sh-waqar/declaration-use-variable */
       border-color: lighten($border-color, 15%);
+      /* stylelint-enable */
     }
 
     &.selected {
@@ -38,41 +40,46 @@
     }
 
     &.disabled {
-      color: #7d7d7d;
+      color: $boulder;
       cursor: default;
     }
+
     &.disabled:hover {
       border-bottom: $border;
     }
   }
 }
 
+// TODO: Issue with no-descending-specificity
+// https://github.com/stylelint/stylelint/issues/3135
+
+/* stylelint-disable no-descending-specificity */
+
 .panel-option-group {
-  list-style: none;
   display: flex;
   text-align: center;
+  list-style: none;
 
   li {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 81px;
+    justify-content: center;
     height: 47px;
+    width: 81px;
     margin-right: 10px;
-
-    font-size: 12px;
-    border: 1px solid #E6E4E1;
+    border: 1px solid $westar;
     border-radius: 3px;
-    background-color: white;
-    box-shadow: 0 2px 4px #EDEDED;
+    font-size: 12px;
+    box-shadow: 0 2px 4px $gallery3;
+    background-color: $white;
     cursor: pointer;
 
     &:hover {
-      border-color: #43B980;
+      border-color: $ocean-green;
     }
 
     &.selected {
-      border-color: darken(#43B980, 15%);
+      border-color: darken($ocean-green, 15%); /* stylelint-disable-line sh-waqar/declaration-use-variable */
     }
   }
 }

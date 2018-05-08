@@ -1,12 +1,15 @@
+@import "../../components/styles/Fonts";
+@import "../../components/styles/Colors";
+
 .page-works > header {
   display: flex;
-  font-size: 10px;
   align-items: center;
-  padding: 15px 0;
   margin-bottom: 30px;
-  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
-  background-color: white;
+  padding: 15px 0;
+  font-size: 10px;
   font-weight: bold;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.1);
+  background-color: $white;
 
   >div {
     display: flex;
@@ -14,13 +17,13 @@
 
     select {
       padding: 5px;
-      border: 1px solid #E6E4E1;
+      border: 1px solid $westar;
       border-radius: 3px;
-      font-family: 'Roboto';
+      font-family: $roboto;
       font-size: 10px;
       font-weight: normal;
-      color: #4A4A4A;
-      background-color: #FFFFFF;
+      background-color: $white;
+      color: $tundora;
     }
 
     section.sort {
@@ -42,9 +45,5 @@
     .date-picker .date-picker-separator {
       margin: 0 8px;
     }
-
   }
-
-
-
 }

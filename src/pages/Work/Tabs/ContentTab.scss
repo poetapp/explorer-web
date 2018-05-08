@@ -1,14 +1,15 @@
+@import "../../../components/styles/Fonts";
+@import "../../../components/styles/Colors";
 @import "Tab";
 
 .page-work .work-tabs .content-tab {
   @include tab-list-base;
-
-  font-family: "Source Code Pro";
+  padding: 43px 52px;
+  font-family: $source-code-pro;
   font-size: 11px;
   font-weight: 500;
   line-height: 24px;
-  color: #000000;
-  padding: 43px 52px;
+  color: $black;
 
   table {
     margin-bottom: 30px;
@@ -19,8 +20,8 @@
   }
 
   .content {
+    padding-right: 30%;
     white-space: pre-wrap;
     word-wrap: break-word;
-    padding-right: 30%;
   }
 }

@@ -1,19 +1,20 @@
+@import "../styles/Fonts";
 @import '../styles/Buttons';
 
 nav.navbar {
   display: flex;
   align-items: center;
   height: 61px;
-  padding: 2px 20px;
-  background-color: white;
   margin-bottom: 64px;
+  padding: 2px 20px;
+  background-color: $white;
 
   &.shadow {
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
   }
 
   &.transparent {
-    background-color: transparent;
+    background-color: $transparent;
   }
 
   &.margin {
@@ -22,27 +23,27 @@ nav.navbar {
 
   .navbar-brand {
     padding: 14px 26px 14px 4px;
-    
+
     img {
       width: 100px;
-    }  
+    }
   }
 
   .nav-link {
-    color: #413D3B;
-    font-family: 'Roboto Slab', serif;
+    font-family: $roboto-slab;
     font-size: 12px;
     font-weight: bold;
+    color: $masala;
     opacity: 0.75;
   }
 
   .search {
     display: flex;
     flex-grow: 1;
-    max-width: 560px;
     align-items: center;
     margin: 0 12px 0 6px;
     padding: 10px;
+    max-width: 560px;
 
     &.shadow {
       box-shadow: 2px 2px 9px 0 rgba(0,0,0,0.06);
@@ -53,23 +54,21 @@ nav.navbar {
     }
 
     input[type=text] {
-      border: none;
       flex-grow: 1;
+      border: none;
+      font-family: $roboto-slab, serif;
       font-size: 14px;
-      font-family: 'Roboto Slab', serif;
 
       &::placeholder {
         font-weight: bold;
       }
-
     }
-
   }
 
   ul.navbar-nav {
     display: flex;
-    margin: 0 0 0 auto;
     align-items: center;
+    margin: 0 0 0 auto;
     list-style: none;
 
     >li {
@@ -78,14 +77,14 @@ nav.navbar {
     }
 
     .login-button {
-      width: 61px;
       height: 30px;
+      width: 61px;
     }
 
     .try-it-out {
       @extend .button-primary;
-      width: 109px;
       height: 30px;
+      width: 109px;
     }
   }
 }

@@ -1,9 +1,11 @@
+@import "styles/Fonts";
+@import "styles/Colors";
 @import "../../components/styles/Buttons";
 
 .copyable-hash {
   display: inline-flex;
-  align-items: center;
   flex-direction: row-reverse;
+  align-items: center;
 
   input {
     position: absolute;
@@ -14,8 +16,8 @@
   button {
     @extend .button-secondary;
     $size: 30px;
-    width: $size;
     height: $size;
+    width: $size;
     margin-left: 8px;
     padding: 0;
     border-radius: 50%;
@@ -24,25 +26,24 @@
   }
 
   .value {
-    font-family: 'Source Code Pro';
+    font-family: $source-code-pro;
   }
 
   .tooltip {
+    position: fixed;
+    padding: 4px;
+    border-radius: 4px;
+    background: $black;
+    color: $white;
     opacity: 0;
     pointer-events: none;
     transition: opacity .4s;
-    padding: 4px;
-    background: black;
-    color: white;
-    border-radius: 4px;
-    position: fixed;
   }
 
   &.tooltip-visible .tooltip {
     opacity: 1;
   }
 }
-
 
 .copyable-hash-no-button {
   @extend .copyable-hash;
