@@ -50,6 +50,11 @@
   }
 }
 
+// Issue with no-descending-specificity
+// https://github.com/stylelint/stylelint/issues/3135
+
+/* stylelint-disable no-descending-specificity */
+
 .panel-option-group {
   display: flex;
   text-align: center;
