@@ -15,7 +15,7 @@ export interface PaginationProps extends ClassNameProps {
 
 export class Pagination extends React.Component<PaginationProps, undefined> {
   static defaultProps: Partial<PaginationProps> = {
-    visiblePageCount: Configuration.pagination.visiblePageCount
+    visiblePageCount: Configuration.pagination.visiblePageCount,
   }
 
   render() {
@@ -25,9 +25,7 @@ export class Pagination extends React.Component<PaginationProps, undefined> {
       <nav className={classNames(this.props.className)}>
         <ul>
           <li
-            className={classNames(
-              !this.canPrevious() && this.props.disabledClassName
-            )}
+            className={classNames(!this.canPrevious() && this.props.disabledClassName)}
             onClick={this.onPrevious.bind(this)}
           >
             &lt;
@@ -41,12 +39,7 @@ export class Pagination extends React.Component<PaginationProps, undefined> {
               {i + 1}
             </li>
           ))}
-          <li
-            onClick={this.onNext.bind(this)}
-            className={classNames(
-              !this.canNext() && this.props.disabledClassName
-            )}
-          >
+          <li onClick={this.onNext.bind(this)} className={classNames(!this.canNext() && this.props.disabledClassName)}>
             &gt;
           </li>
         </ul>
@@ -56,18 +49,12 @@ export class Pagination extends React.Component<PaginationProps, undefined> {
 
   private pagesToDisplay(): ReadonlyArray<number> {
     const totalPageCount = Math.ceil(this.props.count / this.props.limit)
-    const maxVisiblePageCount = Math.min(
-      this.props.visiblePageCount,
-      totalPageCount
-    )
+    const maxVisiblePageCount = Math.min(this.props.visiblePageCount, totalPageCount)
     const selectedPage = this.selectedPage()
 
     const translate = (i: number) =>
       i +
-      Math.min(
-        Math.max(selectedPage - Math.floor(maxVisiblePageCount / 2), 0),
-        totalPageCount - maxVisiblePageCount
-      )
+      Math.min(Math.max(selectedPage - Math.floor(maxVisiblePageCount / 2), 0), totalPageCount - maxVisiblePageCount)
 
     return Array(maxVisiblePageCount)
       .fill(null)
@@ -88,8 +75,7 @@ export class Pagination extends React.Component<PaginationProps, undefined> {
   }
 
   private onPrevious() {
-    if (this.canPrevious())
-      this.props.onClick(this.props.offset - this.props.limit)
+    if (this.canPrevious()) this.props.onClick(this.props.offset - this.props.limit)
   }
 
   private onNext() {

@@ -33,6 +33,6 @@ export namespace Api {
     }
   }
   export enum Headers {
-    TotalCount = ''
+    TotalCount = '',
   }
 }

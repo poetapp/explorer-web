@@ -13,7 +13,7 @@ export class FetchType {
     FetchType.MARK_LOADING,
     FetchType.SET_RESULT,
     FetchType.ERROR,
-    FetchType.NOT_FOUND
+    FetchType.NOT_FOUND,
   ]
 }
 
@@ -22,8 +22,7 @@ export function fetchReducer(store: FetchStore, action: any): FetchStore {
 
   const newFetchStoreEntry = actionToFetchStoreEntry(action)
 
-  if (action.fetchType === FetchType.CLEAR)
-    return clearCache(store, action.url, newFetchStoreEntry)
+  if (action.fetchType === FetchType.CLEAR) return clearCache(store, action.url, newFetchStoreEntry)
 
   return { ...store, [action.url]: newFetchStoreEntry }
 }
@@ -50,7 +49,7 @@ function actionToFetchStoreEntry(action: FetchAction): FetchStoreEntry<any> {
       return {
         status: FetchStatus.Loaded,
         body: action.body,
-        headers: action.headers
+        headers: action.headers,
       }
     case FetchType.NOT_FOUND:
       return { status: FetchStatus.NotFound, error: action.body }
@@ -64,16 +63,11 @@ function actionToFetchStoreEntry(action: FetchAction): FetchStoreEntry<any> {
 /**
  * Clears cache for all entries that without the query params match the baseUrl
  */
-function clearCache(
-  store: FetchStore,
-  baseUrl: string,
-  newValue: FetchStoreEntry<any>
-) {
+function clearCache(store: FetchStore, baseUrl: string, newValue: FetchStoreEntry<any>) {
   const matchingUrls = getMatchingUrls(store, baseUrl)
   const newFetchStoreEntries: FetchStore = {}
 
-  for (const matchingUrl of matchingUrls)
-    newFetchStoreEntries[matchingUrl] = newValue
+  for (const matchingUrl of matchingUrls) newFetchStoreEntries[matchingUrl] = newValue
 
   return { ...store, ...newFetchStoreEntries }
 }

@@ -10,9 +10,7 @@ interface WorkProps {
   readonly work: Api.WorkById.Response
 }
 
-export abstract class WorkById<
-  State = undefined
-> extends PoetAPIResourceProvider<
+export abstract class WorkById<State = undefined> extends PoetAPIResourceProvider<
   Api.WorkById.Response,
   SelectWorkById,
   State
@@ -24,8 +22,7 @@ export abstract class WorkById<
 
 export class WorkNameById extends WorkById {
   renderElement(resource: Api.WorkById.Response) {
-    const title =
-      (resource.attributes && resource.attributes.name) || '(untitled)'
+    const title = (resource.attributes && resource.attributes.name) || '(untitled)'
     return <span>{title}</span>
   }
 }
@@ -49,18 +46,11 @@ export class WorkNameWithLinkById extends WorkById {
 }
 
 export function AuthorWithLink(props: WorkProps) {
-  return (
-    <span>
-      {(props.work && props.work.attributes && props.work.attributes.author) ||
-        'Unknown Author'}
-    </span>
-  )
+  return <span>{(props.work && props.work.attributes && props.work.attributes.author) || 'Unknown Author'}</span>
 }
 
 export function WorkNameWithLink(props: WorkProps) {
-  const title =
-    (props.work && props.work.attributes && props.work.attributes.name) ||
-    '(untitled)'
+  const title = (props.work && props.work.attributes && props.work.attributes.name) || '(untitled)'
   return <Link to={'/works/' + props.work.id}> {title}</Link>
 }
 

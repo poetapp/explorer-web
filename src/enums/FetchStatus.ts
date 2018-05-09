@@ -3,5 +3,5 @@ export enum FetchStatus {
   Loading,
   Loaded,
   Error,
-  NotFound
+  NotFound,
 }

@@ -14,10 +14,7 @@ export interface FilterComponentProps {
   readonly onDateToChanged: (moment: moment.Moment) => void
 }
 
-export class FiltersComponent extends React.Component<
-  FilterComponentProps,
-  undefined
-> {
+export class FiltersComponent extends React.Component<FilterComponentProps, undefined> {
   render() {
     return (
       <header>
