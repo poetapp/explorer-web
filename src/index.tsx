@@ -8,9 +8,7 @@ import { createPoetStore } from './store'
 
 const { store, pages } = createPoetStore()
 
-const routes = pages
-  .map((page, index) => page.routeHook('' + index))
-  .reduce((a, b) => a.concat(b), [])
+const routes = pages.map((page, index) => page.routeHook('' + index)).reduce((a, b) => a.concat(b), [])
 
 ReactDOM.render(
   <Provider store={store}>

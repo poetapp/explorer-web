@@ -11,11 +11,7 @@ interface HashProps extends ClassNameProps {
 }
 
 export const Hash = (props: HashProps) => (
-  <CopyableText
-    text={props.children.toString()}
-    textClickable={props.textClickable}
-    className={props.className}
-  >
+  <CopyableText text={props.children.toString()} textClickable={props.textClickable} className={props.className}>
     {props.children.toString().firstAndLastCharacters(6)}
   </CopyableText>
 )

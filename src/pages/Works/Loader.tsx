@@ -32,8 +32,8 @@ export class Works extends PageLoader<any, object> {
     return {
       dispatchSearchOffsetChangeAction: (offset: number) => ({
         type: Actions.Search.Offset,
-        offset
-      })
+        offset,
+      }),
     }
   }
 }

@@ -4,7 +4,5 @@ import * as React from 'react'
 
 export function TimeElapsedSinceCreation(props: { claim: Claim }) {
   const dateCreated = props.claim && props.claim.dateCreated
-  return (
-    <span>{dateCreated ? moment(dateCreated).fromNow() : '(unconfirmed)'}</span>
-  )
+  return <span>{dateCreated ? moment(dateCreated).fromNow() : '(unconfirmed)'}</span>
 }

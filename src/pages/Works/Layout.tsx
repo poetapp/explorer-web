@@ -24,14 +24,11 @@ export interface WorksLayoutState {
   readonly sortBy?: string
 }
 
-export class WorksLayout extends React.Component<
-  WorksLayoutProps & WorksLayoutActions,
-  WorksLayoutState
-> {
+export class WorksLayout extends React.Component<WorksLayoutProps & WorksLayoutActions, WorksLayoutState> {
   constructor(props: WorksLayoutProps & WorksLayoutActions) {
     super(props)
     this.state = {
-      sortBy: 'datePublished'
+      sortBy: 'datePublished',
     }
   }
 

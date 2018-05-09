@@ -18,18 +18,14 @@ export interface LatestWorksProps extends ClassNameProps {
   readonly showLink?: boolean
 }
 
-export default class LatestBlocks extends PoetAPIResourceProvider<
-  LatestWorksResource,
-  LatestWorksProps,
-  undefined
-> {
+export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksResource, LatestWorksProps, undefined> {
   static defaultProps: LatestWorksProps = {
-    limit: 5
+    limit: 5,
   }
 
   poetURL() {
     return Api.WorksByFilters.url({
-      limit: this.props.limit
+      limit: this.props.limit,
     })
   }
 
@@ -41,9 +37,7 @@ export default class LatestBlocks extends PoetAPIResourceProvider<
             <td className="title" colSpan={2}>
               Latest Works
             </td>
-            <td className="view-latest">
-              {this.props.showLink && <Link to="/blocks">View Latest</Link>}
-            </td>
+            <td className="view-latest">{this.props.showLink && <Link to="/blocks">View Latest</Link>}</td>
           </tr>
         </thead>
         <tbody>{works.map(this.renderWork)}</tbody>

@@ -24,15 +24,15 @@ export interface NavbarProps {
 
 function mapStateToProps(state: any, ownProps: NavbarProps): NavbarProps {
   return {
-    ...ownProps
+    ...ownProps,
   }
 }
 
 const mapDispatch = {
   dispatchSearchChange: (query: string) => ({
     type: Actions.Search.Change,
-    query
-  })
+    query,
+  }),
 }
 
 export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
@@ -41,7 +41,7 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
       shadow: true,
       transparent: false,
       displayLogo: true,
-      displaySearch: true
+      displaySearch: true,
     }
 
     render() {
@@ -49,7 +49,7 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
         'navbar',
         this.props.shadow && 'shadow',
         this.props.transparent && 'transparent',
-        this.props.margin && 'margin'
+        this.props.margin && 'margin',
       ]
       const searchClasses = ['search', this.props.searchShadow && 'shadow']
 
@@ -82,8 +82,7 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
     private getSearchQuery() {
       const currentLocation = browserHistory.getCurrentLocation()
 
-      if (currentLocation.pathname === '/works')
-        return (currentLocation.query as any).query
+      if (currentLocation.pathname === '/works') return (currentLocation.query as any).query
       else return ''
     }
   }

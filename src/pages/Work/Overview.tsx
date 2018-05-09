@@ -31,8 +31,8 @@ export class Overview extends WorkById {
           author: '',
           lastModified: '',
           content: '',
-          tags: ''
-        }
+          tags: '',
+        },
       },
       true
     )
@@ -46,23 +46,12 @@ export class Overview extends WorkById {
     const tableData = new Map<string, any>()
 
     if (work.attributes.datePublished)
-      tableData.set(
-        'Published',
-        moment(new Date(work.attributes.datePublished)).format(
-          Configuration.dateFormat
-        )
-      )
+      tableData.set('Published', moment(new Date(work.attributes.datePublished)).format(Configuration.dateFormat))
 
     if (work.attributes.dateModified)
-      tableData.set(
-        'Last Modified',
-        moment(new Date(work.attributes.dateModified)).format(
-          Configuration.dateFormat
-        )
-      )
+      tableData.set('Last Modified', moment(new Date(work.attributes.dateModified)).format(Configuration.dateFormat))
 
-    if (work.attributes.tags && work.attributes.tags.length)
-      tableData.set('Tags', work.attributes.tags)
+    if (work.attributes.tags && work.attributes.tags.length) tableData.set('Tags', work.attributes.tags)
 
     return (
       <div className={classNames('overview', isLoading && 'loading')}>

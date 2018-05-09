@@ -13,10 +13,7 @@ interface DatePickerInputProps extends ClassNameProps {
   readonly onBlur?: () => void
 }
 
-export class DatePickerInput extends React.Component<
-  DatePickerInputProps,
-  undefined
-> {
+export class DatePickerInput extends React.Component<DatePickerInputProps, undefined> {
   focus() {}
 
   render() {

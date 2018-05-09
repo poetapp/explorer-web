@@ -16,9 +16,7 @@ Array.prototype.filterTruthy = function() {
   return this.filter((a: any) => a)
 }
 
-Array.prototype.toObject = function(
-  cb: (el: any) => { key: string; value: any }
-) {
+Array.prototype.toObject = function(cb: (el: any) => { key: string; value: any }) {
   const object: any = {}
 
   for (const el of this) {

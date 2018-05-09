@@ -25,7 +25,7 @@ function* searchOffsetChange(action: WorkSearchAction): any {
     pathname: 'works',
     query: {
       ...browserHistory.getCurrentLocation().query,
-      offset: action.offset
-    }
+      offset: action.offset,
+    },
   })
 }
