@@ -25,10 +25,7 @@ export class WorkLayout extends WorkById {
   render404() {
     return (
       <section className="container page-work not-found">
-        <div>
-          Work not found? It takes 10 minutes to sync across nodes so check back
-          soon!
-        </div>
+        <div>Work not found? It takes 10 minutes to sync across nodes so check back soon!</div>
       </section>
     )
   }

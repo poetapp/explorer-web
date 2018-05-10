@@ -24,13 +24,9 @@ export interface WorksProps {
   readonly sortBy?: string
 }
 
-export class Works extends PoetAPIResourceProvider<
-  WorksResource,
-  WorksProps,
-  undefined
-> {
+export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, undefined> {
   static defaultProps: WorksProps = {
-    limit: Configuration.pagination.limit
+    limit: Configuration.pagination.limit,
   }
 
   private lastFetchedWorks: WorksResource
@@ -43,24 +39,17 @@ export class Works extends PoetAPIResourceProvider<
       dateFrom: this.props.dateFrom && this.props.dateFrom.toDate().getTime(),
       dateTo: this.props.dateTo && this.props.dateTo.toDate().getTime(),
       query: this.props.query,
-      sortBy: this.props.sortBy
+      sortBy: this.props.sortBy,
     })
   }
 
   renderElement(works: WorksResource, headers: Headers) {
-    const count =
-      headers.get(Api.Headers.TotalCount) &&
-      parseInt(headers.get(Api.Headers.TotalCount), 10)
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount), 10)
     return this.renderWorks(works, count)
   }
 
   renderLoading() {
-    if (this.lastFetchedWorks)
-      return this.renderWorks(
-        this.lastFetchedWorks,
-        this.lastFetchedCount,
-        true
-      )
+    if (this.lastFetchedWorks) return this.renderWorks(this.lastFetchedWorks, this.lastFetchedCount, true)
 
     return (
       <section className="works-results container loading no-content">
@@ -70,22 +59,14 @@ export class Works extends PoetAPIResourceProvider<
   }
 
   componentDidFetch(works: WorksResource, headers: Headers) {
-    const count =
-      headers.get(Api.Headers.TotalCount) &&
-      parseInt(headers.get(Api.Headers.TotalCount), 10)
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount), 10)
     this.lastFetchedWorks = works
     this.lastFetchedCount = count
   }
 
-  private renderWorks(
-    works: WorksResource,
-    count: number,
-    isLoading?: boolean
-  ) {
+  private renderWorks(works: WorksResource, count: number, isLoading?: boolean) {
     return (
-      <section
-        className={classNames('works container', isLoading && 'loading')}
-      >
+      <section className={classNames('works container', isLoading && 'loading')}>
         <h4 className="work-count">
           Showing {works.length} of {count} Results
         </h4>

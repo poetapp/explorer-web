@@ -11,29 +11,17 @@ export class TechnicalTab extends WorkById {
   }
 
   renderElement(resource: Api.WorkById.Response, headers: Headers) {
-    if (!resource)
-      return (
-        <div className="technical-tab">
-          Could not load technical information.
-        </div>
-      )
+    if (!resource) return <div className="technical-tab">Could not load technical information.</div>
 
     if (!resource.timestamp)
       return (
-        <div className="technical-tab">
-          Technical information not available. This work may be pending
-          confirmation.
-        </div>
+        <div className="technical-tab">Technical information not available. This work may be pending confirmation.</div>
       )
 
     return (
       <div className="technical-tab">
         <table>
-          <tbody>
-            {Object.entries(resource.timestamp).map(([key, value]) =>
-              this.renderEntry(key, value)
-            )}
-          </tbody>
+          <tbody>{Object.entries(resource.timestamp).map(([key, value]) => this.renderEntry(key, value))}</tbody>
         </table>
       </div>
     )
@@ -44,7 +32,7 @@ export class TechnicalTab extends WorkById {
       transactionId: 'https://test-insight.bitpay.com/tx/',
       blockHash: 'https://test-insight.bitpay.com/block/',
       blockHeight: 'https://test-insight.bitpay.com/block-index/',
-      ipfsHash: 'https://ipfs.io/ipfs/'
+      ipfsHash: 'https://ipfs.io/ipfs/',
     }
     const link = links[key]
     return (

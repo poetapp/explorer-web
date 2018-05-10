@@ -28,7 +28,7 @@ function bindReducers(pages: Array<PageLoader<any, any>>): any {
     .filterTruthy()
     .toObject(reducerDescription => ({
       key: reducerDescription.subState,
-      value: reducerDescription.reducer
+      value: reducerDescription.reducer,
     }))
 
   return { ...pageReducers, ...reducers }
@@ -38,12 +38,12 @@ function bindInitialState(pages: Array<PageLoader<any, any>>): any {
   const initialState = pages
     .map(page => ({
       reducerDescription: page.reducerHook(),
-      initialState: page.initialState()
+      initialState: page.initialState(),
     }))
     .filter(({ reducerDescription, initialState }) => reducerDescription)
     .toObject(({ reducerDescription, initialState }) => ({
       key: reducerDescription.subState,
-      value: initialState
+      value: initialState,
     }))
 
   return initialState
@@ -58,11 +58,7 @@ export function createPoetStore() {
   const enhancer: any = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const sagaMiddleware = createSagaMiddleware()
 
-  const store = createStore(
-    combineReducers(reducerList),
-    initialState,
-    enhancer(applyMiddleware(sagaMiddleware))
-  )
+  const store = createStore(combineReducers(reducerList), initialState, enhancer(applyMiddleware(sagaMiddleware)))
 
   sagaMiddleware.run(bindSagas(pages))
 

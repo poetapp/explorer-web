@@ -16,7 +16,7 @@ export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
     constructor(props: LandingProps) {
       super(props)
       this.state = {
-        searchQuery: ''
+        searchQuery: '',
       }
     }
 

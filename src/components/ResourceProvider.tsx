@@ -22,10 +22,7 @@ export interface ResourceProviderReduxState {
   readonly fetch: FetchStore
 }
 
-class ResourceProviderBase<T> extends React.Component<
-  ResourceProviderProps<T>,
-  undefined
-> {
+class ResourceProviderBase<T> extends React.Component<ResourceProviderProps<T>, undefined> {
   componentWillMount() {
     this.dispatchRequest(this.props)
   }
@@ -47,35 +44,22 @@ class ResourceProviderBase<T> extends React.Component<
 
     return (
       (this.props.request &&
-        this.props.provider.renderElement(
-          this.props.request.body,
-          this.props.request.headers
-        )) || <span />
+        this.props.provider.renderElement(this.props.request.body, this.props.request.headers)) || <span />
     )
   }
 
-  componentDidUpdate(
-    prevProps: ResourceProviderProps<T>,
-    prevState: undefined
-  ) {
+  componentDidUpdate(prevProps: ResourceProviderProps<T>, prevState: undefined) {
     if (
       this.props.request &&
       this.props.request.status === FetchStatus.Loaded &&
       prevProps.request &&
       prevProps.request.status === FetchStatus.Loading
     )
-      this.props.provider.componentDidFetch(
-        this.props.request.body,
-        this.props.request.headers
-      )
+      this.props.provider.componentDidFetch(this.props.request.body, this.props.request.headers)
   }
 
   private dispatchRequest(props: ResourceProviderProps<T>) {
-    if (
-      !props.request ||
-      !props.request.status ||
-      this.props.resourceLocator.url !== props.resourceLocator.url
-    )
+    if (!props.request || !props.request.status || this.props.resourceLocator.url !== props.resourceLocator.url)
       props.dispatchRequest(props.resourceLocator)
   }
 }
@@ -89,31 +73,27 @@ function mapStateToProps<T>(
 
   return {
     ...ownProps,
-    request
+    request,
   }
 }
 
 const mapDispatch = {
   dispatchRequest: (payload: ResourceLocator) => ({
     type: Actions.fetchRequest,
-    payload
-  })
+    payload,
+  }),
 }
 
-const ConnectedResourceProvider = (connect as any)(
-  mapStateToProps,
-  mapDispatch
-)(ResourceProviderBase)
+const ConnectedResourceProvider = (connect as any)(mapStateToProps, mapDispatch)(ResourceProviderBase)
 
 interface Holder<T> {
   readonly resource?: T
 }
 
-export abstract class ResourceProvider<
-  Resource,
-  PropTypes,
+export abstract class ResourceProvider<Resource, PropTypes, State> extends React.Component<
+  Holder<Resource> & PropTypes,
   State
-> extends React.Component<Holder<Resource> & PropTypes, State> {
+> {
   abstract renderElement(resource: Resource, headers: Headers): JSX.Element
 
   abstract resourceLocator(): ResourceLocator
@@ -131,12 +111,7 @@ export abstract class ResourceProvider<
   }
 
   render(): JSX.Element {
-    return (
-      <ConnectedResourceProvider
-        resourceLocator={this.resourceLocator()}
-        provider={this}
-      />
-    )
+    return <ConnectedResourceProvider resourceLocator={this.resourceLocator()} provider={this} />
   }
 
   componentDidFetch(resource: Resource, headers: Headers) {}

@@ -14,9 +14,7 @@ import { Images } from 'images/Images'
 
 import './WorksByProfile.scss'
 
-interface WorksByProfileProps
-  extends SelectWorksByOwner,
-    DispatchesTransferRequested {
+interface WorksByProfileProps extends SelectWorksByOwner, DispatchesTransferRequested {
   readonly searchQuery: string
   readonly showActions?: boolean
   readonly limit?: number
@@ -32,7 +30,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<
   WorksByProfileState
 > {
   static defaultProps: Partial<WorksByProfileProps> = {
-    limit: Configuration.pagination.limit
+    limit: Configuration.pagination.limit,
   }
 
   private lastFetchedWorks: ReadonlyArray<Api.WorksByFilters.Response>
@@ -41,7 +39,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<
   constructor(props: any) {
     super(props)
     this.state = {
-      offset: 0
+      offset: 0,
     }
   }
 
@@ -49,7 +47,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<
     return Api.WorksByFilters.url({
       limit: this.props.limit,
       offset: this.state.offset,
-      query: this.props.searchQuery
+      query: this.props.searchQuery,
     })
   }
 
@@ -58,13 +56,8 @@ export class WorksByProfile extends PoetAPIResourceProvider<
     //   this.setState({ offset: 0 })
   }
 
-  renderElement(
-    works: ReadonlyArray<Api.WorksByFilters.Response>,
-    headers: Headers
-  ) {
-    const count =
-      headers.get(Api.Headers.TotalCount) &&
-      parseInt(headers.get(Api.Headers.TotalCount), 10)
+  renderElement(works: ReadonlyArray<Api.WorksByFilters.Response>, headers: Headers) {
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount), 10)
 
     if (!count) return this.renderNoWorks()
     else return this.renderWorks(works, count)
@@ -74,31 +67,16 @@ export class WorksByProfile extends PoetAPIResourceProvider<
     return this.renderWorks(this.lastFetchedWorks, this.lastFetchedCount, true)
   }
 
-  componentDidFetch(
-    works: ReadonlyArray<Api.WorksByFilters.Response>,
-    headers: Headers
-  ) {
-    const count =
-      headers.get(Api.Headers.TotalCount) &&
-      parseInt(headers.get(Api.Headers.TotalCount), 10)
+  componentDidFetch(works: ReadonlyArray<Api.WorksByFilters.Response>, headers: Headers) {
+    const count = headers.get(Api.Headers.TotalCount) && parseInt(headers.get(Api.Headers.TotalCount), 10)
 
     this.lastFetchedWorks = works
     this.lastFetchedCount = count
   }
 
-  private renderWorks(
-    works: ReadonlyArray<Api.WorksByFilters.Response>,
-    count: number,
-    isLoading?: boolean
-  ) {
+  private renderWorks(works: ReadonlyArray<Api.WorksByFilters.Response>, count: number, isLoading?: boolean) {
     return (
-      <section
-        className={classNames(
-          'works-by-profile',
-          isLoading && 'loading',
-          !works && 'no-content'
-        )}
-      >
+      <section className={classNames('works-by-profile', isLoading && 'loading', !works && 'no-content')}>
         <table className="works">
           <thead>
             <tr>
@@ -142,22 +120,16 @@ export class WorksByProfile extends PoetAPIResourceProvider<
           <div>
             <span className="media-type">
               {work.attributes.mediaType}
-              {work.attributes.articleType &&
-                ` / ${work.attributes.articleType}`}
+              {work.attributes.articleType && ` / ${work.attributes.articleType}`}
             </span>
             <span className="content-info">
               {work.attributes.wordCount && (
                 <span>
-                  {work.attributes.wordCount} word{parseInt(
-                    work.attributes.wordCount,
-                    10
-                  ) > 1 && 's'}{' '}
+                  {work.attributes.wordCount} word{parseInt(work.attributes.wordCount, 10) > 1 && 's'}{' '}
                   {work.attributes.fileSize && 'at '}
                 </span>
               )}
-              {work.attributes.fileSize && (
-                <span>{work.attributes.fileSize} bytes</span>
-              )}
+              {work.attributes.fileSize && <span>{work.attributes.fileSize} bytes</span>}
             </span>
           </div>
           <WorkType work={work} />
@@ -177,10 +149,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<
   private renderNoWorks() {
     return (
       <section>
-        {this.props.children ||
-          (!this.props.searchQuery
-            ? 'No works to show'
-            : 'No works match the given criteria')}
+        {this.props.children || (!this.props.searchQuery ? 'No works to show' : 'No works match the given criteria')}
       </section>
     )
   }

@@ -17,8 +17,7 @@ if (!String.prototype.padEnd)
 
     targetLength = targetLength - this.length
     // append to original to ensure we are longer than needed
-    if (targetLength > padString.length)
-      padString += padString.repeat(targetLength / padString.length)
+    if (targetLength > padString.length) padString += padString.repeat(targetLength / padString.length)
 
     return String(this) + padString.slice(0, targetLength)
   }

@@ -17,7 +17,7 @@ export function fetchSaga() {
 export const TEXT: { [key: string]: string } = {
   [FetchType.NOT_FOUND]: 'not found ',
   [FetchType.ERROR]: 'error for ',
-  [FetchType.SET_RESULT]: 'set result '
+  [FetchType.SET_RESULT]: 'set result ',
 }
 
 function* fetchData(action: any) {
@@ -26,21 +26,11 @@ function* fetchData(action: any) {
 
   const currentState = yield select(getResourceState(url))
   if (currentState === FetchStatus.Loading) return
-  yield dispatchFetchStatusUpdate(
-    FetchType.MARK_LOADING,
-    'mark loading ' + short,
-    url
-  )
+  yield dispatchFetchStatusUpdate(FetchType.MARK_LOADING, 'mark loading ' + short, url)
 
   const { result, error, headers } = yield call(apiFetch, url)
   const dispatchUpdate = (type: string) =>
-    dispatchFetchStatusUpdate(
-      type,
-      TEXT[type] + short,
-      url,
-      error || result,
-      headers
-    )
+    dispatchFetchStatusUpdate(type, TEXT[type] + short, url, error || result, headers)
 
   error
     ? error === NOT_FOUND
@@ -58,23 +48,14 @@ function apiFetch(url: string): Promise<{ result: object; headers: Headers }> {
   return fetch(url)
     .then((result: any) => {
       if (result.status === 404) return { error: NOT_FOUND }
-      if (result.status !== 200)
-        return result.body().then((error: any) => ({ error }))
+      if (result.status !== 200) return result.body().then((error: any) => ({ error }))
 
-      return result
-        .json()
-        .then((json: any) => ({ result: json, headers: result.headers }))
+      return result.json().then((json: any) => ({ result: json, headers: result.headers }))
     })
     .catch((error: any) => ({ error }))
 }
 
-function dispatchFetchStatusUpdate(
-  fetchType: FetchType,
-  type: string,
-  url: string,
-  body?: any,
-  headers?: Headers
-) {
+function dispatchFetchStatusUpdate(fetchType: FetchType, type: string, url: string, body?: any, headers?: Headers) {
   const fetchAction: FetchAction = { fetchType, type, url, body, headers }
   return put(fetchAction)
 }
