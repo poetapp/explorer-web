@@ -90,7 +90,7 @@
     "sass-loader": "6.0.6",
     "source-map-loader": "0.2.3",
     "style-loader": "0.21.0",
-    "stylelint": "9.2.0",
+    "stylelint": "9.2.1",
     "typescript": "2.8.3",
     "webpack": "3.11.0",
     "webpack-dev-middleware": "1.12.0",
