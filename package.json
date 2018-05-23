@@ -9,7 +9,8 @@
     "build": "webpack",
     "serve": "ws --spa index.html -d ./dist",
     "stylelint": "stylelint './src/**/*.scss' ",
-    "stylelint:fix": "stylelint './src/**/*.scss' --fix"
+    "stylelint:fix": "stylelint './src/**/*.scss' --fix",
+    "test:e2e": "testcafe 'chrome:headless,firefox:headless' tests/functional/features"
   },
   "keywords": [],
   "author": "",
@@ -55,7 +56,8 @@
     "react-tabs": "0.8.3",
     "redux": "4.0.0",
     "redux-devtools": "3.4.1",
-    "redux-saga": "0.16.0"
+    "redux-saga": "0.16.0",
+    "testcafe": "0.20.1"
   },
   "devDependencies": {
     "@po.et/stylelint-rules": "1.1.0",
