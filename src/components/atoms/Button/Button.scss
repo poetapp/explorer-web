@@ -1,4 +1,4 @@
-@import '../../styles/Colors';
+@import 'Colors';
 
 .Button {
   height: 2.5rem;
@@ -8,7 +8,7 @@
   font-size: .75rem;
   font-weight: bold;
   box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.12);
-  background-color: $mercury;
+  background-color: $cornflower-blue;
   color: $white;
   cursor: pointer;
 
@@ -22,6 +22,19 @@
   }
 
   &__danger {
-    background-color: $scorpion
+    background-color: $mandy
   }
+}
+
+.ButtonAlt {
+  height: 2.5rem;
+  width: 100%;
+  border: 0rem;
+  border-radius: .25rem;
+  font-size: .75rem;
+  font-weight: bold;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.12);
+  background-color: pink;
+  color: $white;
+  cursor: pointer;
 }
