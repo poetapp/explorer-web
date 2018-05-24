@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import { storiesOf } from '@storybook/react';
-import { wInfo } from '../src/stories/index.stories';
+import { storiesOf } from '@storybook/react'
+import { wInfo } from '../src/stories/index.stories'
 
 storiesOf('Welcome', module).addWithJSX(
   'to Storybook🎊',
@@ -21,4 +21,4 @@ storiesOf('Welcome', module).addWithJSX(
 
     Explore the panels on the left.
   `)(() => <div>This is an example component</div>)
-);
+)

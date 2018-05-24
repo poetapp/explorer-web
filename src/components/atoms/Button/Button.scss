@@ -27,14 +27,8 @@
 }
 
 .ButtonAlt {
-  height: 2.5rem;
-  width: 100%;
-  border: 0rem;
-  border-radius: .25rem;
-  font-size: .75rem;
-  font-weight: bold;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.12);
-  background-color: pink;
-  color: $white;
-  cursor: pointer;
+  height: 40px;
+  width: 370px;
+  border-radius: 4px;
+  background-color: #3B5997;
 }

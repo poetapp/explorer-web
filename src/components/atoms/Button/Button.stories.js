@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import { storiesOf } from '@storybook/react';
-import { Button } from './Button';
-import { wInfo } from '../../../stories/index.stories';
-import { text, boolean } from '@storybook/addon-knobs/react';
+import { storiesOf } from '@storybook/react'
+import { Button } from './Button'
+import { wInfo } from '../../../stories/index.stories'
+import { text, boolean } from '@storybook/addon-knobs/react'
 
 
 
@@ -34,4 +34,4 @@ storiesOf('Components/Button', module).addWithJSX(
       onClick={() => alert('clicked')}
      />
   ))
-);
+)
