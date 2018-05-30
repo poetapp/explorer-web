@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { withInfo } from '@storybook/addon-info'
 import { storiesOf } from '@storybook/react'
@@ -28,4 +28,5 @@ import { text, boolean } from '@storybook/addon-knobs/react'
       lineHeight: '2',
     }
   }
-  export const wInfo = text => withInfo({ inline: true, source: false, styles: wInfoStyle, text: text })
+  
+export const wInfo = (text: string) => withInfo({ inline: true, source: false, styles: wInfoStyle, text: text });
