@@ -1,8 +1,10 @@
-import { text, boolean } from '@storybook/addon-knobs/react'
-import { storiesOf } from '@storybook/react'
-import * as React from 'react'
-import { wInfo } from './index.stories'
-import { Button } from '../src/components/atoms/Button/Button'
+import * as React from 'react';
+
+import { storiesOf } from '@storybook/react';
+import { Button } from './Button';
+import { wInfo } from '../../../stories/index.stories';
+import { text, boolean, select } from '@storybook/addon-knobs/react';
+
 
 storiesOf('Components/Buttons', module).addWithJSX(
   'Button',
@@ -21,13 +23,14 @@ storiesOf('Components/Buttons', module).addWithJSX(
     readonly onClick?: any
     readonly type?: 'primary' | 'danger'
     />
-  ~~~`)(() => (
+  ~~~`
+)(() => (
     <Button
-      className={text('className')}
+      className={text('className', '')}
       text={text('text', 'Test Button')}
       disabled={boolean('disabled', false)}
-      type={text('type', 'primary')}
+      type={select('type', { primary: 'primary', danger: 'danger' } ,'primary')}
       onClick={() => alert('clicked')}
-    />
+     />
   ))
-)
+);
