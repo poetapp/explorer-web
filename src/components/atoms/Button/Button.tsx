@@ -10,12 +10,15 @@ interface ButtonProps {
   readonly type?: 'primary' | 'danger'
 }
 
-export const Button = (props: ButtonProps) => (
-  <button
-    className={classNames('Button', props.className, `Button__${props.type}`)}
-    {...(props.disabled ? { disabled: 'disabled' } : {})}
-    {...(props.onClick ? { onClick: props.onClick } : {})}
-  >
-    {props.text}
-  </button>
-)
+export const Button = (props: ButtonProps) => {
+  return (
+    <button
+      className={classNames('Button', props.className, `Button__${props.type}`)}
+      disabled={props.disabled}
+      onClick={props.onClick}
+    >
+      {' '}
+      {props.text}{' '}
+    </button>
+  )
+}
