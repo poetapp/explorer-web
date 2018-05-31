@@ -2,7 +2,7 @@
 /* tslint:disable:no-bitwise */
 interface String {
   firstAndLastCharacters(amount: number): string
-  trimLeft(pattern: string): string
+  trimLeftByPattern(pattern: string): string
 }
 
 String.prototype.firstAndLastCharacters = function(amount: number) {
@@ -22,6 +22,6 @@ if (!String.prototype.padEnd)
     return String(this) + padString.slice(0, targetLength)
   }
 
-String.prototype.trimLeft = function(pattern: string) {
+String.prototype.trimLeftByPattern = function(pattern: string) {
   return this.replace(new RegExp(`^(${pattern})*`, 'i'), '')
 }
