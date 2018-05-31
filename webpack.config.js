@@ -114,7 +114,25 @@ module.exports = {
         ? ['babel-loader', 'awesome-typescript-loader']
         : ['react-hot-loader', 'babel-loader', 'awesome-typescript-loader'] },
       {
-        test: /\.s?css$/, use: [ 'style-loader', 'css-loader?sourceMap&importLoaders=1', 'postcss-loader', 'sass-loader?sourceMap' ]
+        test: /\.s?css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              sourceMap: true,
+            }
+          },
+          'postcss-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [path.resolve(__dirname, "./src/components/styles")],
+              sourceMap: true,
+            }
+          }
+        ]
       },
       { test: /\.json$/, use: 'json-loader' },
       { test: /\.svg$/, use: 'file-loader' },
