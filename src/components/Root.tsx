@@ -22,7 +22,7 @@ interface RootLayoutProps {
 
 function render(props: RootLayoutProps) {
   // TODO: templates rather than this url-matching monstrosity
-  const location = props.location.pathname.trimLeft('/')
+  const location = props.location.pathname.trimLeftByPattern('/')
 
   const worksUrl = 'works'
 
