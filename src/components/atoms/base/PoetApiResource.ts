@@ -12,10 +12,11 @@ export abstract class PoetAPIResourceProvider<Resource, PropTypes, State = undef
 
   resourceLocator() {
     const poetUrl = this.poetURL()
+    const apiUrl = process.env.POET_URL || Configuration.apiUrl
 
-    if (!isUrlObject(poetUrl) && typeof poetUrl === 'string') return { url: `${Configuration.apiUrl}${poetUrl}` }
+    if (!isUrlObject(poetUrl) && typeof poetUrl === 'string') return { url: `${apiUrl}${poetUrl}` }
 
-    if (isUrlObject(poetUrl)) return { url: `${Configuration.apiUrl}${urlObjectToUrl(poetUrl)}` }
+    if (isUrlObject(poetUrl)) return { url: `${apiUrl}${urlObjectToUrl(poetUrl)}` }
 
     throw new Error('poetURL must return a string | UrlObject.')
   }
