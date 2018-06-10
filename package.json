@@ -83,7 +83,7 @@
     "@types/storybook__addon-links": "3.3.1",
     "@types/storybook__react": "3.0.7",
     "@types/uuid": "3.4.3",
-    "ajv": "6.5.0",
+    "ajv": "6.5.1",
     "awesome-typescript-loader": "3.0.0-beta.17",
     "babel-core": "6.26.3",
     "babel-loader": "6.4.1",
