@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "outDir": "./dist/",
     "sourceMap": true,
     "noImplicitAny": true,
@@ -14,6 +15,7 @@
     "./src/**/*"
   ],
   "exclude": [
-		"**/*.stories.tsx"
+		"**/*.stories.tsx",
+    "**/*.test.tsx"
 	]
 }
