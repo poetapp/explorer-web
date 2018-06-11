@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { text, boolean, select } from '@storybook/addon-knobs/react'
 import { storiesOf } from '@storybook/react'
-import { wInfo } from '../../../stories/index.stories'
+import { wInfo } from 'stories/index.stories'
 import { Button } from './Button'
 
 storiesOf('Components/Buttons', module).addWithJSX(
