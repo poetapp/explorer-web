@@ -26,7 +26,7 @@ test('Button', (t) => {
   {
     const props = { loading: true, text: 'test' }
     const $ = dom.load(render(<Button {...props}/>))
-    const message = 'given loading is true and a text prop should render a button with loading text'
+    const message = 'given loading is true and a text prop should render a button with correct text'
     const actual = $('.Button').text()
     const expected = 'loading'
     t.deepEqual(actual, expected, message)
@@ -34,7 +34,7 @@ test('Button', (t) => {
   {
     const props = { loading: false, text: 'test' }
     const $ = dom.load(render(<Button {...props}/>))
-    const message = 'given loading is false and a text prop should render a button with loading text'
+    const message = 'given loading is false and a text prop should render a button with correct text'
     const actual = $('.Button').text()
     const expected = 'test'
     t.deepEqual(actual, expected, message)
