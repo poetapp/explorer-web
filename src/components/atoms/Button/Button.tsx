@@ -17,8 +17,7 @@ export const Button = (props: ButtonProps) => {
       disabled={props.disabled}
       onClick={props.onClick}
     >
-      {' '}
-      {props.text}{' '}
+      {props.text}
     </button>
   )
 }

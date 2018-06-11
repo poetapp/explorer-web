@@ -1,4 +1,4 @@
-import { Expect, Test } from 'alsatian'
+import { Expect, Test, TestCase } from 'alsatian'
 import * as dom from 'cheerio'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
@@ -9,9 +9,19 @@ const render = ReactDOMServer.renderToStaticMarkup
 
 export class ButtonTest {
   @Test("Button: Given no props : should render a button")
-  public Button() {
+  @TestCase()
+  public noProps(props: object) {
     const $ = dom.load(render(<Button />))
-    const result = $('.Button').length
-    Expect(result).toBe(1);
+    const actual = $('.Button').length
+    const expected = 1
+    Expect(actual).toBe(expected);
+  }
+
+  @Test("Button: Given text prop : should render a button with the correct text")
+  @TestCase({ text: 'test'}, 'test')
+  public Props(props: object, expected: string) {
+    const $ = dom.load(render(<Button {...props} />))
+    const actual = $('.Button').text()
+    Expect(actual).toBe(expected);
   }
 }
