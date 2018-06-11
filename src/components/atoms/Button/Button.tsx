@@ -8,6 +8,7 @@ interface ButtonProps {
   readonly disabled?: boolean
   readonly onClick?: any
   readonly type?: 'primary' | 'danger'
+  readonly loading?: boolean
 }
 
 export const Button = (props: ButtonProps) => {
@@ -17,7 +18,7 @@ export const Button = (props: ButtonProps) => {
       disabled={props.disabled}
       onClick={props.onClick}
     >
-      {props.text}
+      {props.loading ? 'loading' : props.text}
     </button>
   )
 }

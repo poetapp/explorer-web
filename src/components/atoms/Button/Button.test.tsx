@@ -24,4 +24,13 @@ export class ButtonTest {
     const actual = $('.Button').text()
     Expect(actual).toBe(expected);
   }
+
+  @Test("Button: Given text and loading prop : should render a button with the correct text")
+  @TestCase({ text: 'test', loading: true}, 'loading')
+  @TestCase({ text: 'test', loading: false }, 'test')
+  public PropsLoadingFalse(props: object, expected: string) {
+    const $ = dom.load(render(<Button {...props} />))
+    const actual = $('.Button').text()
+    Expect(actual).toBe(expected);
+  }
 }
