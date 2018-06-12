@@ -23,6 +23,7 @@ describe('<Button {...props} />', async (should: any) => {
     const $ = dom.load(render(<Button {...props}/>))
     assert({
       given: 'text prop',
+      should: 'render a button with test text',
       actual: $('.Button').text(),
       expected: 'test'
     });
@@ -32,6 +33,7 @@ describe('<Button {...props} />', async (should: any) => {
     const $ = dom.load(render(<Button {...props}/>))
     assert({
       given: 'text and true loading props',
+      should: 'render a button with loading text',
       actual: $('.Button').text(),
       expected: 'loading'
     });
@@ -41,6 +43,7 @@ describe('<Button {...props} />', async (should: any) => {
     const $ = dom.load(render(<Button {...props}/>))
     assert({
     given: 'text and false loading props',
+    should: 'render a button with test text',
     actual: $('.Button').text(),
     expected: 'test'
     });
