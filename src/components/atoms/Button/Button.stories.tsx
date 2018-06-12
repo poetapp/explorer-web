@@ -18,17 +18,15 @@ storiesOf('Components/Buttons', module).addWithJSX(
   <Button
     readonly className?: string
     readonly text?: string
-    readonly disabled?: boolean
     readonly onClick?: any
-    readonly type?: 'primary' | 'danger'
+    readonly type?: string
     />
   ~~~`)(() => (
     <Button
       className={text('className', '')}
       text={text('text', 'Test Button')}
-      disabled={boolean('disabled', false)}
-      type={select('type', { primary: 'primary', danger: 'danger' }, 'primary')}
       onClick={() => alert('clicked')}
+      type={select('type', {primary:'primary', Google: 'Google', Twitter:'Twitter', Facebook:'Facebook'})}
     />
   ))
 )

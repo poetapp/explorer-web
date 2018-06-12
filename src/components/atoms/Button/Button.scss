@@ -7,10 +7,13 @@
   border-radius: .25rem;
   font-size: .75rem;
   font-weight: bold;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.12);
-  background-color: $cornflower-blue;
+  background-color: $ocean-green;
   color: $white;
   cursor: pointer;
+
+  &__container {
+    background-color:rgba(255,255,255,.2);
+  }
 
   &:focus {
     outline: none;
@@ -21,7 +24,30 @@
     opacity: 0.5;
   }
 
-  &__danger {
-    background-color: $mandy
+  &__Google {
+    background-color: $google-blue;
+    background-image: url('../../../images/github.svg');
+    background-repeat: no-repeat;
+    background-position: .5rem .5rem;
+    font-weight: lighter;
+    letter-spacing: .0625rem;
+  }
+
+  &__Twitter {
+    background-color: $twitter-blue;
+    background-image: url('../../../images/twitter.svg');
+    background-repeat: no-repeat;
+    background-position: .5rem .5rem;
+    font-weight: lighter;
+    letter-spacing: .0625rem;
+  }
+
+  &__Facebook {
+    background-color: $facebook-blue;
+    background-image: url('../../../images/reddit.svg');
+    background-repeat: no-repeat;
+    background-position: .5rem .5rem;
+    font-weight: lighter;
+    letter-spacing: .0625rem;
   }
 }

@@ -1,0 +1,78 @@
+@import '../../styles/Colors';
+
+.Form {
+  border: .0625rem solid $westar2;
+  box-shadow: 0 2px 0 0 $gallery;
+  background-color: $white;
+  height:33.44rem;
+  width: 25.19rem;
+
+  &__header {
+    border-bottom: .0625rem solid $westar2;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__label {
+      margin-top: 1.5rem;
+      margin-bottom: .5rem;
+      font-size: 1.5rem;
+    }
+
+    &__text {
+      margin-top: 0rem;
+      margin-bottom:1.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  &__form {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.button {
+  width: 23.125rem;
+  margin-top: .5rem;
+}
+
+.input {
+  width: 23.125rem;
+  margin-top: 1rem;
+}
+
+.input2 {
+  width: 23.125rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.hr-text {
+  margin-top: 1rem;
+  border: .0325rem solid $westar2;
+  width: 23.125rem;
+  position: relative;
+  border: 0rem;
+  text-align: center;
+  opacity: .5;
+  &:before {
+    content: '';
+    background: $westar2;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: .125rem;
+  }
+  &:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+    padding: 0 .5em;
+    color: black;
+    background-color: #fcfcfa;
+  }
+}

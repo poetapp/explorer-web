@@ -13,8 +13,18 @@ describe('<Button {...props} />', async (should: any) => {
     const $ = dom.load(render(<Button />))
     assert({
     given: 'no props',
-    should: 'render a button',
-    actual: $('.Button').length,
+    should: 'render a button with no text',
+    actual: $('.Button').text(),
+    expected: ''
+    });
+  }
+  {
+    const props = { className: 'test'}
+    const $ = dom.load(render(<Button {...props}/>))
+    assert({
+    given: 'className props',
+    should: 'render a button with the className',
+    actual: $('.test').length,
     expected: 1
     });
   }
@@ -22,27 +32,30 @@ describe('<Button {...props} />', async (should: any) => {
     const props = { text: 'test'}
     const $ = dom.load(render(<Button {...props}/>))
     assert({
-      given: 'text prop',
-      actual: $('.Button').text(),
-      expected: 'test'
-    });
-  }
-  {
-    const props = { text: 'test', loading: true }
-    const $ = dom.load(render(<Button {...props}/>))
-    assert({
-      given: 'text and true loading props',
-      actual: $('.Button').text(),
-      expected: 'loading'
-    });
-  }
-  {
-    const props = { text: 'test', loading: false }
-    const $ = dom.load(render(<Button {...props}/>))
-    assert({
-    given: 'text and false loading props',
+    given: 'text prop',
+    should: 'render button with the correct text',
     actual: $('.Button').text(),
     expected: 'test'
+    });
+  }
+  {
+    const props = { text: 'test', type: 'Google'}
+    const $ = dom.load(render(<Button {...props}/>))
+    assert({
+    given: 'type prop and text prop',
+    should: 'render the button with the correct text',
+    actual: $('.Button').text(),
+    expected: 'test'
+    });
+  }
+  {
+    const props = { type: 'Google'}
+    const $ = dom.load(render(<Button {...props}/>))
+    assert({
+    given: 'type prop and no text prop',
+    should: 'render the button with the correct text',
+    actual: $('.Button').text(),
+    expected: 'SIGN UP WITH GOOGLE'
     });
   }
 });
