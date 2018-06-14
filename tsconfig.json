@@ -11,9 +11,11 @@
     "skipLibCheck": true
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "./typings/**/*"
   ],
   "exclude": [
-		"**/*.stories.tsx"
-	]
+    "**/*.stories.tsx",
+    "./src/**/*.test.ts"
+  ]
 }
