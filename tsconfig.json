@@ -15,7 +15,7 @@
     "./typings/**/*"
   ],
   "exclude": [
-		"**/*.stories.tsx",
-    "**/*.test.tsx"
-	]
+    "**/*.stories.tsx",
+    "./src/**/*.test.ts"
+  ]
 }
