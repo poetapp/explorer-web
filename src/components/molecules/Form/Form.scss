@@ -68,7 +68,7 @@
     top: 50%;
     height: .125rem;
     width: 100%;
-    background: $white;
+    background: $westar2;
     content: '';
   }
 
@@ -76,7 +76,7 @@
     display: inline-block;
     position: relative;
     padding: 0 .5em;
-    background-color: $gallery;
+    background-color: $white;
     color: $black;
     content: attr(data-content);
   }
