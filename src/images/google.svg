@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="signup-(error)" transform="translate(-544.000000, -582.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Group-3" transform="translate(535.000000, 573.000000)">
+                <path d="M20.5,18.2 L20.5,22.8 L27.0067,22.8 C26.0568,25.4772 23.4992,27.4 20.5,27.4 C16.6958,27.4 13.6,24.3042 13.6,20.5 C13.6,16.6958 16.6958,13.6 20.5,13.6 C22.1491,13.6 23.7361,14.1911 24.9689,15.2652 L27.9911,11.7968 C25.9211,9.9936 23.2623,9 20.5,9 C14.1589,9 9,14.1589 9,20.5 C9,26.8411 14.1589,32 20.5,32 C26.8411,32 32,26.8411 32,20.5 L32,18.2 L20.5,18.2 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

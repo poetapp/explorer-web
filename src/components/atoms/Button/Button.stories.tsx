@@ -5,30 +5,34 @@ import { storiesOf } from '@storybook/react'
 import { wInfo } from 'stories/index.stories'
 import { Button } from './Button'
 
-storiesOf('Components/Buttons', module).addWithJSX(
-  'Button',
+storiesOf("Components/Buttons", module).addWithJSX(
+  "Button",
   wInfo(`
 
   ### Notes
 
-  This is a button
+  This is a button.
 
   ### Usage
   ~~~js
   <Button
     readonly className?: string
     readonly text?: string
-    readonly disabled?: boolean
     readonly onClick?: any
-    readonly type?: 'primary' | 'danger'
+    readonly type?: string
     />
   ~~~`)(() => (
     <Button
-      className={text('className', '')}
-      text={text('text', 'Test Button')}
-      disabled={boolean('disabled', false)}
-      type={select('type', { primary: 'primary', danger: 'danger' }, 'primary')}
-      onClick={() => alert('clicked')}
+      className={text("className", "")}
+      text={text("text", "Test Button")}
+      onClick={() => alert("clicked")}
+      company={select("company", {
+        primary: "primary",
+        Google: "Google",
+        Twitter: "Twitter",
+        Facebook: "Facebook"
+      })}
+      signIn={boolean('signIn', false)}
     />
   ))
-)
+);

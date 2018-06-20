@@ -1,0 +1,83 @@
+@import '../../styles/Colors';
+@import '../../styles/Fonts';
+
+.Form {
+  height:33.44rem;
+  width: 25.19rem;
+  border: .0625rem solid $westar2;
+  font-family: $open-sans;
+  box-shadow: 0 2px 0 0 $gallery;
+  background-color: $white;
+
+  &__header {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: .0625rem solid $westar2;
+
+    &__label {
+      margin-bottom: 0rem;
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+      letter-spacing: .075rem;
+    }
+
+    &__text {
+      margin-bottom:1rem;
+      margin-top: 0rem;
+      font-size: .8rem;
+      font-weight: lighter;
+    }
+  }
+
+  &__form {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.button {
+  width: 23.125rem;
+  margin-top: .5rem;
+}
+
+.input {
+  width: 23.125rem;
+  margin-top: 1rem;
+}
+
+.input2 {
+  width: 23.125rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.hr-text {
+  position: relative;
+  width: 23.125rem;
+  margin-top: 1rem;
+  border: .0325rem solid $westar2;
+  border: 0rem;
+  text-align: center;
+  opacity: .5;
+
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: .125rem;
+    width: 100%;
+    background: $westar2;
+    content: '';
+  }
+
+  &:after {
+    display: inline-block;
+    position: relative;
+    padding: 0 .5em;
+    background-color: $white;
+    color: $black;
+    content: attr(data-content);
+  }
+}
