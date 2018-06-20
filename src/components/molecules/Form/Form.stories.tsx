@@ -28,7 +28,7 @@ storiesOf("Components/Forms", module).addWithJSX(
       label={text("label", "Create your Po.et Account")}
       children={
         <p>
-          Already Have an Account?<a target="_blank" href="#">
+          Already Have an Account? <a target="_blank" href="#">
             Log in
           </a>
         </p>
