@@ -1,24 +1,23 @@
 @import '../../styles/Colors';
 
-
-
 .Input {
+
   &__label {
+    padding-bottom:.5rem;
     font-size: .75rem;
     font-weight: bold;
-    padding-bottom:.5rem;
   }
 
   &__input {
-    margin-left:0rem;
-    box-sizing: border-box;
-    padding-left: 1rem;
     height: 2.5rem;
     width: 100%;
-    color: $westar2;
+    margin-left:0rem;
+    padding-left: 1rem;
     border: none;
     border:solid .0625rem;
     border-radius: .25rem;
+    color: $westar2;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;

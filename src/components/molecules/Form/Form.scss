@@ -2,31 +2,31 @@
 @import '../../styles/Fonts';
 
 .Form {
-  border: .0625rem solid $westar2;
-  box-shadow: 0 2px 0 0 $gallery;
-  background-color: $white;
-  font-family: $open-sans;
   height:33.44rem;
   width: 25.19rem;
+  border: .0625rem solid $westar2;
+  font-family: $open-sans;
+  box-shadow: 0 2px 0 0 $gallery;
+  background-color: $white;
 
   &__header {
-    border-bottom: .0625rem solid $westar2;
     display:flex;
     flex-direction: column;
     align-items: center;
+    border-bottom: .0625rem solid $westar2;
 
     &__label {
-      margin-top: 1.5rem;
       margin-bottom: 0rem;
+      margin-top: 1.5rem;
       font-size: 1.25rem;
       letter-spacing: .075rem;
     }
 
     &__text {
-      margin-top: 0rem;
       margin-bottom:1rem;
+      margin-top: 0rem;
       font-size: .8rem;
-      font-weight: lighter;    
+      font-weight: lighter;
     }
   }
 
@@ -49,34 +49,35 @@
 
 .input2 {
   width: 23.125rem;
-  margin-top: 1rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .hr-text {
+  position: relative;
+  width: 23.125rem;
   margin-top: 1rem;
   border: .0325rem solid $westar2;
-  width: 23.125rem;
-  position: relative;
   border: 0rem;
   text-align: center;
   opacity: .5;
+
   &:before {
-    content: '';
-    background: $westar2;
     position: absolute;
     left: 0;
     top: 50%;
-    width: 100%;
     height: .125rem;
+    width: 100%;
+    background: $westar2;
+    content: '';
   }
+
   &:after {
-    content: attr(data-content);
-    position: relative;
     display: inline-block;
-    color: black;
+    position: relative;
     padding: 0 .5em;
-    color: black;
-    background-color: #fcfcfa;
+    background-color: $gallery;
+    color: $black;
+    content: attr(data-content);
   }
 }
