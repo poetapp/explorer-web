@@ -5,13 +5,13 @@ import { storiesOf } from '@storybook/react'
 import { wInfo } from 'stories/index.stories'
 import { Button } from './Button'
 
-storiesOf('Components/Buttons', module).addWithJSX(
-  'Button',
+storiesOf("Components/Buttons", module).addWithJSX(
+  "Button",
   wInfo(`
 
   ### Notes
 
-  This is a button
+  This is a button.
 
   ### Usage
   ~~~js
@@ -23,10 +23,16 @@ storiesOf('Components/Buttons', module).addWithJSX(
     />
   ~~~`)(() => (
     <Button
-      className={text('className', '')}
-      text={text('text', 'Test Button')}
-      onClick={() => alert('clicked')}
-      type={select('type', {primary:'primary', Google: 'Google', Twitter:'Twitter', Facebook:'Facebook'})}
+      className={text("className", "")}
+      text={text("text", "Test Button")}
+      onClick={() => alert("clicked")}
+      company={select("company", {
+        primary: "primary",
+        Google: "Google",
+        Twitter: "Twitter",
+        Facebook: "Facebook"
+      })}
+      signIn={boolean('signIn', false)}
     />
   ))
-)
+);

@@ -39,7 +39,7 @@ describe('<Button {...props} />', async (should: any) => {
     })
   }
   {
-    const props = { text: 'test', type: 'Google' }
+    const props = { text: 'test', company: 'Google' }
     const $ = dom.load(render(<Button {...props} />))
     assert({
       given: 'type prop and text prop',
@@ -49,7 +49,7 @@ describe('<Button {...props} />', async (should: any) => {
     })
   }
   {
-    const props = { type: 'Google' }
+    const props = { company: 'Google' }
     const $ = dom.load(render(<Button {...props} />))
     assert({
       given: 'type prop and no text prop',

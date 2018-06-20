@@ -6,13 +6,16 @@ interface ButtonProps {
   readonly className?: string
   readonly text?: string
   readonly onClick?: any
-  readonly type?: string
+  readonly company?: string
+  readonly signIn?: boolean
 }
 
 export const Button = (props: ButtonProps) => {
-  return (
-    <button className={classNames('Button', props.className, `Button__${props.type}`)} onClick={props.onClick}>
-      {props.text ? props.text : props.type ? `SIGN UP WITH ${props.type.toUpperCase()}` : ''}
-    </button>
-  )
+  return <button className={classNames("Button", props.className, `Button__${props.company}`)} onClick={props.onClick}>
+    {props.text ? 
+    props.text : 
+    props.signIn && props.company ? `SIGN IN WITH ${props.company.toUpperCase()}` :
+    props.company ? `SIGN UP WITH ${props.company.toUpperCase()}` : ''
+    }
+    </button>;
 }
