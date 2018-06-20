@@ -20,9 +20,9 @@ storiesOf('Components/Forms', module).addWithJSX(
     readonly
     />
   ~~~`)(() => (
-    <Form
-      label={text('label', 'Create your Po.et Account')}
-      text={text('text', 'Already have an account?')}
-    />
-  ))
+      <Form
+        label={text('label', 'Create your Po.et Account')}
+        children={<p>Already Have an Account?<a target="_blank" href='#'>Log in</a></p>}
+      />
+    ))
 )

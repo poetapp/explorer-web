@@ -1,4 +1,5 @@
 @import '../../styles/Colors';
+@import '../../styles/Fonts';
 
 .Button {
   height: 2.5rem;
@@ -6,6 +7,7 @@
   border: 0rem;
   border-radius: .25rem;
   font-size: .75rem;
+  font-family: $open-sans;
   font-weight: bold;
   background-color: $ocean-green;
   color: $white;
@@ -26,7 +28,7 @@
 
   &__Google {
     background-color: $google-blue;
-    background-image: url('../../../images/github.svg');
+    background-image: url('../../../images/google.svg');
     background-repeat: no-repeat;
     background-position: .5rem .5rem;
     font-weight: lighter;
@@ -35,7 +37,7 @@
 
   &__Twitter {
     background-color: $twitter-blue;
-    background-image: url('../../../images/twitter.svg');
+    background-image: url('../../../images/twitter2.svg');
     background-repeat: no-repeat;
     background-position: .5rem .5rem;
     font-weight: lighter;
@@ -44,7 +46,7 @@
 
   &__Facebook {
     background-color: $facebook-blue;
-    background-image: url('../../../images/reddit.svg');
+    background-image: url('../../../images/facebook.svg');
     background-repeat: no-repeat;
     background-position: .5rem .5rem;
     font-weight: lighter;

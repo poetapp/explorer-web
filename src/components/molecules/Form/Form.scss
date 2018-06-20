@@ -1,9 +1,11 @@
 @import '../../styles/Colors';
+@import '../../styles/Fonts';
 
 .Form {
   border: .0625rem solid $westar2;
   box-shadow: 0 2px 0 0 $gallery;
   background-color: $white;
+  font-family: $open-sans;
   height:33.44rem;
   width: 25.19rem;
 
@@ -15,14 +17,16 @@
 
     &__label {
       margin-top: 1.5rem;
-      margin-bottom: .5rem;
-      font-size: 1.5rem;
+      margin-bottom: 0rem;
+      font-size: 1.25rem;
+      letter-spacing: .075rem;
     }
 
     &__text {
       margin-top: 0rem;
-      margin-bottom:1.5rem;
-      font-size: 1rem;
+      margin-bottom:1rem;
+      font-size: .8rem;
+      font-weight: lighter;    
     }
   }
 
