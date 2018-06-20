@@ -11,11 +11,15 @@ interface ButtonProps {
 }
 
 export const Button = (props: ButtonProps) => {
-  return <button className={classNames("Button", props.className, `Button__${props.company}`)} onClick={props.onClick}>
-    {props.text ? 
-    props.text : 
-    props.signIn && props.company ? `LOG IN WITH ${props.company.toUpperCase()}` :
-    props.company ? `SIGN UP WITH ${props.company.toUpperCase()}` : ''
-    }
-    </button>;
+  return (
+    <button className={classNames('Button', props.className, `Button__${props.company}`)} onClick={props.onClick}>
+      {props.text
+        ? props.text
+        : props.signIn && props.company
+          ? `LOG IN WITH ${props.company.toUpperCase()}`
+          : props.company
+            ? `SIGN UP WITH ${props.company.toUpperCase()}`
+            : ''}
+    </button>
+  )
 }
