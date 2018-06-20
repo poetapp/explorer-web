@@ -21,7 +21,7 @@ export const Form = (props: FromProps) => {
       <form className={"Form__form"}>
         <Input className={"input"} label={"Email"} type={"email"} />
         <Input className={"input2"} label={"Password"} type={"password"} />
-        <Button className={"button"} text={props.signIn ? 'SIGN IN' : 'SIGN UP'} />
+        <Button className={"button"} text={props.signIn ? 'Log In' : 'Sign Up'} />
         <hr className={"hr-text"} data-content="or" />
         <Button className={"button"} signIn={props.signIn} company={"Google"} />
         <Button className={"button"} signIn={props.signIn} company={"Twitter"} />
