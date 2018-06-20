@@ -13,7 +13,7 @@
     "test": "npm run test:unit",
     "test:unit": "ts-node -r ignore-styles -r tsconfig-paths/register tests/unit/index.ts",
     "test:e2e": "testcafe 'chrome:headless,firefox:headless' tests/functional/features",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook"
   },
   "keywords": [],
