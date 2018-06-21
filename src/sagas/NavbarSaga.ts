@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router'
 import { Action } from 'redux'
-import { takeEvery } from 'redux-saga'
+import { takeEvery } from 'redux-saga/effects'
 
 import { Actions } from '../actions/index'
 

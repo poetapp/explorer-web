@@ -1,4 +1,6 @@
 import * as React from 'react'
+
+import { Feature } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
@@ -17,7 +19,7 @@ interface RootLayoutProps {
   readonly location?: {
     readonly pathname: string
   }
-  readonly children?: any
+  readonly children?: React.ReactNode
 }
 
 function render(props: RootLayoutProps) {
@@ -31,16 +33,21 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
+  const Main = () => (
+    <Navbar
+      shadow={navbarShadow}
+      displayLogo={displayNavbarLogo}
+      displaySearch={displayNavbarSearch}
+      transparent={navbarTransparent}
+      searchShadow={searchShadow}
+    />
+  )
+  const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
 
+  const TestFeature = () => <Feature name="foo" activeComponent={Test} inactiveComponent={Main} />
   return (
     <div className="root-layout">
-      <Navbar
-        shadow={navbarShadow}
-        displayLogo={displayNavbarLogo}
-        displaySearch={displayNavbarSearch}
-        transparent={navbarTransparent}
-        searchShadow={searchShadow}
-      />
+      <TestFeature />
       {props.children}
       <Footer />
     </div>
