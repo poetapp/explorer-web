@@ -10,13 +10,13 @@ declare module '@paralleldrive/react-feature-toggles' {
   }): JSX.Element
   export { FeatureToggles }
 
-  interface ForFeature {
+  interface Feature {
     readonly name: string
     readonly isActive: boolean
     readonly dependencies?: ReadonlyArray<string>
   }
 
-  function getActiveFeatures(features: ReadonlyArray<ForFeature>): ReadonlyArray<string>;
+  function getActiveFeatures(features: ReadonlyArray<Feature>): ReadonlyArray<string>
   export { getActiveFeatures }
 
   interface Query {

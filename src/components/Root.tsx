@@ -33,7 +33,7 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
-  const main = () => (
+  const Main = () => (
     <Navbar
       shadow={navbarShadow}
       displayLogo={displayNavbarLogo}
@@ -42,12 +42,12 @@ function render(props: RootLayoutProps) {
       searchShadow={searchShadow}
     />
   )
-  const test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
+  const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
 
-  const TestFeature = () => <Feature name={'foo'} activeComponenet={main} inactiveComponent={test} />
+  const TestFeature = () => <Feature name="foo" activeComponenet={Main} inactiveComponent={Test} />
   return (
     <div className="root-layout">
-      <TestFeature />
+      <Test />
       {props.children}
       <Footer />
     </div>
