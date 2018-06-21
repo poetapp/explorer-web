@@ -1,4 +1,6 @@
 import * as React from 'react'
+
+import { Feature } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
@@ -31,16 +33,21 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
+  const main = () => (
+    <Navbar
+      shadow={navbarShadow}
+      displayLogo={displayNavbarLogo}
+      displaySearch={displayNavbarSearch}
+      transparent={navbarTransparent}
+      searchShadow={searchShadow}
+    />
+  )
+  const test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
 
+  const TestFeature = () => <Feature name={'foo'} activeComponenet={main} inactiveComponent={test} />
   return (
     <div className="root-layout">
-      <Navbar
-        shadow={navbarShadow}
-        displayLogo={displayNavbarLogo}
-        displaySearch={displayNavbarSearch}
-        transparent={navbarTransparent}
-        searchShadow={searchShadow}
-      />
+      <TestFeature />
       {props.children}
       <Footer />
     </div>
