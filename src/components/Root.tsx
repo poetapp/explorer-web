@@ -19,7 +19,7 @@ interface RootLayoutProps {
   readonly location?: {
     readonly pathname: string
   }
-  readonly children?: any
+  readonly children?: React.ReactNode
 }
 
 function render(props: RootLayoutProps) {

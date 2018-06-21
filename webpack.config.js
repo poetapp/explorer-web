@@ -87,6 +87,7 @@ function getPlugins(environment) {
 module.exports = {
   entry: {
     app: [
+      'react-hot-loader/patch',
       './src/bootstrap.ts',
       './src/index.tsx',
       ...(development ? ['webpack-hot-middleware/client'] : [])
@@ -117,7 +118,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: production ? ['babel-loader', 'awesome-typescript-loader'] : ['react-hot-loader', 'babel-loader', 'awesome-typescript-loader'],
+        use: production ? ['babel-loader', 'awesome-typescript-loader'] : ['react-hot-loader/webpack', 'babel-loader', 'awesome-typescript-loader'],
         exclude: [/\.stories.tsx?$/, /\.test.tsx?$/]
       },
       {
