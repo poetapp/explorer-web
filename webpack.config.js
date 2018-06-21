@@ -87,7 +87,6 @@ function getPlugins(environment) {
 module.exports = {
   entry: {
     app: [
-      'react-hot-loader/patch',
       './src/bootstrap.ts',
       './src/index.tsx',
       ...(development ? ['webpack-hot-middleware/client'] : [])
