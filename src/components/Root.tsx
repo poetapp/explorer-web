@@ -44,10 +44,10 @@ function render(props: RootLayoutProps) {
   )
   const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
 
-  const TestFeature = () => <Feature name="foo" activeComponenet={Main} inactiveComponent={Test} />
+  const TestFeature = () => <Feature name="foo" activeComponent={Test} inactiveComponent={Main} />
   return (
     <div className="root-layout">
-      <Test />
+      <TestFeature />
       {props.children}
       <Footer />
     </div>
