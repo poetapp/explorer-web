@@ -1,5 +1,4 @@
-import { takeEvery } from 'redux-saga/effects'
-import { put } from 'redux-saga/effects'
+import { put, takeEvery } from 'redux-saga/effects'
 
 import { Actions } from '../actions/index'
 import { Configuration } from '../configuration'

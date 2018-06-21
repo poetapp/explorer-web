@@ -1,5 +1,4 @@
-import { takeEvery } from 'redux-saga/effects'
-import { call, put, select } from 'redux-saga/effects'
+import { call, put, select, takeEvery } from 'redux-saga/effects'
 
 import { Actions } from '../actions/index'
 import { FetchStatus } from '../enums/FetchStatus'
