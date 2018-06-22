@@ -11,7 +11,7 @@
     "stylelint": "stylelint './src/**/*.scss' ",
     "stylelint:fix": "stylelint './src/**/*.scss' --fix",
     "test": "npm run test:unit",
-    "test:unit": "ts-node -r ignore-styles -r tsconfig-paths/register tests/unit/index.ts",
+    "test:unit": "ts-node --files -r ignore-styles -r tsconfig-paths/register tests/unit/index.ts",
     "test:e2e": "testcafe 'chrome:headless,firefox:headless' tests/functional/features",
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook"
