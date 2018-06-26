@@ -94,7 +94,7 @@
     "babel-core": "6.26.3",
     "babel-loader": "6.4.1",
     "cheerio": "1.0.0-rc.2",
-    "copy-webpack-plugin": "4.5.1",
+    "copy-webpack-plugin": "4.5.2",
     "css-loader": "0.28.11",
     "express": "4.16.3",
     "express-http-proxy": "1.2.0",
