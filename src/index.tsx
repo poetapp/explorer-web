@@ -16,7 +16,6 @@ async function init(): Promise<void> {
 
   function handlerRoutes(store: any, pathname: string): void {
     const state = store.getState()
-<<<<<<< HEAD
     const { user } = state
     const omitRoutes: ReadonlyArray<any> = [
       '/',
@@ -30,8 +29,6 @@ async function init(): Promise<void> {
     const notNeedOuath = omitRoutes.includes(pathname)
     if (['/login', '/login/'].includes(pathname) && user.token !== '') browserHistory.push('/dashboard')
     if (!notNeedOuath && user.token === '') browserHistory.push('/login')
-=======
->>>>>>> 30fce3c... wip
   }
 
   function requireAuth(store: any): (route: any, replace: object) => void {
