@@ -40,10 +40,10 @@ export class SignIn extends React.Component<SignInProps, undefined> {
           buttonDisabled={disabledButton}
           onSubmit={onSubmit}
           signIn={true}
-          header={'Need an Account?'}
+          header={'Log In'}
           label={
             <p>
-              Already have an accounts? <Link to={'/sign-in'}>Log In</Link>
+              Need an account? <Link to={'/sign-in'}>Sign Up</Link>
             </p>
           }
           formRef={(el: HTMLFormElement) => (this.mutableForm = el)}
