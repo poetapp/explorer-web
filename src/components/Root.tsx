@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Feature } from '@paralleldrive/react-feature-toggles'
+import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
@@ -43,11 +43,15 @@ function render(props: RootLayoutProps) {
     />
   )
   const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
-
-  const TestFeature = () => <Feature name="foo" activeComponent={Test} inactiveComponent={Main} />
+  const TestFoo = configureFeature(Test, 'foo', Main)
+  const TestFoo2 = configureFeature(Test)
+  const TestMain = TestFoo2('bar', Main)
+  const TestMain2 = TestFoo2('baz')(Main)
   return (
     <div className="root-layout">
-      <TestFeature />
+      <TestFoo />
+      <TestMain />
+      <TestMain2 />
       {props.children}
       <Footer />
     </div>
