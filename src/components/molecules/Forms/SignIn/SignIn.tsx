@@ -49,12 +49,14 @@ export class SignIn extends React.Component<SignInProps, undefined> {
           formRef={(el: HTMLFormElement) => (this.mutableForm = el)}
         >
           <Input
+            name={'email'}
             type={'email'}
             label={'Email'}
             inputRef={(el: HTMLInputElement) => (this.mutableEmailInput = el)}
             onChange={this.onChangeEmail}
+            className={'email'}
           />
-          <Input type={'password'} label={'Password'} />
+          <Input name={'password'} type={'password'} label={'Password'} className={'email'} />
         </Form>
       </div>
     )

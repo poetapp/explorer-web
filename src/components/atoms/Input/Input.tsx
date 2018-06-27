@@ -11,6 +11,7 @@ interface InputProps {
   readonly placeholder?: string
   readonly onChange?: (event: Event) => void
   readonly inputRef?: any
+  readonly name?: string
 }
 
 export class Input extends React.Component<InputProps, undefined> {
@@ -26,7 +27,7 @@ export class Input extends React.Component<InputProps, undefined> {
   }
 
   render(): JSX.Element {
-    const { className, label, onChange, inputRef, type, placeholder } = this.props
+    const { className, label, onChange, inputRef, type, placeholder, name } = this.props
     return (
       <div className={classNames('Input', className)}>
         <div className={'Input__label'}>
@@ -38,6 +39,7 @@ export class Input extends React.Component<InputProps, undefined> {
           type={type}
           placeholder={placeholder}
           className={'Input__input'}
+          name={name}
         />
       </div>
     )
