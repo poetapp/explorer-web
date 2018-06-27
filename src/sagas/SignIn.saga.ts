@@ -29,7 +29,7 @@ function* SignIn(action: any): SagaIterator {
     yield put(Actions.Profile.onProfile({ token }))
     yield put(Actions.LoadingPage.onLoadingFull())
     yield call(delay, 300)
-    browserHistory.push('/dashboard')
+    browserHistory.push('/')
   } catch (e) {
     yield put(Actions.LoadingPage.onLoadingFull())
     yield put(Actions.SignIn.onSignInError(e))
