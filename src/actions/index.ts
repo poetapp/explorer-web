@@ -91,11 +91,11 @@ export namespace Actions {
       type: SIGN_IN_SUCCESS,
       payload,
     })
-    export const onSignInError = (payload?: object) => ({
+    export const onSignInError = (payload?: any) => ({
       type: SIGN_IN_ERROR,
       payload,
     })
-    export const onSignInClearError = (payload?: object) => ({
+    export const onSignInClearError = (payload?: any) => ({
       type: SIGN_IN_CLEAR_ERROR,
       payload,
     })
