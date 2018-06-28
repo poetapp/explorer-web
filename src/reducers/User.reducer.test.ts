@@ -19,11 +19,39 @@ describe('profile reducer', async (should: any) => {
   const { assert } = should()
 
   assert({
-    given: 'default state and SIGN_IN_SUCCESS action with payload',
-    should: 'default state',
+    given: 'default state and SIGN_IN_SUCCESS action with user',
+    should: 'state with user',
     actual: user(
       createUser(),
       Actions.SignIn.onSignInSuccess(
+        createUser({
+          token: 'abc',
+          profile: {
+            email: 'jesse@test.com',
+            apiTokens: new Array(),
+            verified: true,
+            createdAt: 'test',
+          },
+        })
+      )
+    ),
+    expected: createUser({
+      token: 'abc',
+      profile: {
+        email: 'jesse@test.com',
+        apiTokens: new Array(),
+        verified: true,
+        createdAt: 'test',
+      },
+    }),
+  })
+
+  assert({
+    given: 'default state and PROFILE_SUCCESS action with user',
+    should: 'state with payload as user',
+    actual: user(
+      createUser(),
+      Actions.Profile.onProfileSuccess(
         createUser({
           token: 'abc',
           profile: {
