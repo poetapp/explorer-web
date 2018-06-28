@@ -84,6 +84,7 @@ describe('signIn reducer', async (should: any) => {
         },
         loading: true,
       }),
+      // TODO: Figure out if payload should be an object
       Actions.SignIn.onSignInError('test')
     ),
     expected: createState({

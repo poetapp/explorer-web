@@ -20,16 +20,6 @@ export namespace Actions {
     export const LoginIdReceived = 'login ID received'
   }
 
-  export namespace Profile {
-    export const Updating = 'updating profile'
-    export const Updated = 'profile updated successfully'
-    export const UpdateRequested = 'profile update requested'
-    export const FetchProfile = 'fetch profile data'
-    export const ProfileFetched = 'profile data fetched'
-    export const NotificationsUpdate = 'notifications update'
-    export const MarkNotificationRead = 'mark notification read'
-  }
-
   export namespace Transfer {
     export const TransferRequested = 'transfer work requested'
     export const TransferIdReceived = 'transfer id to sign received'
@@ -91,14 +81,8 @@ export namespace Actions {
       type: SIGN_IN_SUCCESS,
       payload,
     })
-    export const onSignInError = (payload?: any) => ({
-      type: SIGN_IN_ERROR,
-      payload,
-    })
-    export const onSignInClearError = (payload?: any) => ({
-      type: SIGN_IN_CLEAR_ERROR,
-      payload,
-    })
+    export const onSignInError = (payload?: any) => ({ type: SIGN_IN_ERROR, payload });
+    export const onSignInClearError = (payload?: string) => ({ type: SIGN_IN_CLEAR_ERROR, payload });
   }
 
   export namespace LoadingPage {
@@ -117,7 +101,7 @@ export namespace Actions {
     export const PROFILE_CLEAR_ERROR = 'PROFILE_CLEAR_ERROR'
     export const onProfile = (payload?: object) => ({ type: PROFILE, payload })
     export const onProfileSuccess = (payload?: object) => ({ type: PROFILE_SUCCESS, payload })
-    export const onProfileError = (payload?: object) => ({ type: PROFILE_ERROR, payload })
+    export const onProfileError = (payload?: string) => ({ type: PROFILE_ERROR, payload });
     export const onProfileClearError = (payload?: object) => ({ type: PROFILE_CLEAR_ERROR, payload })
   }
 
