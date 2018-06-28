@@ -43,15 +43,10 @@ function render(props: RootLayoutProps) {
     />
   )
   const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
-  const TestFoo = configureFeature(Test, 'foo', Main)
-  const TestFoo2 = configureFeature(Test)
-  const TestMain = TestFoo2('bar', Main)
-  const TestMain2 = TestFoo2('baz')(Main)
+  const TestFeature = configureFeature(Test, 'foo', Main)
   return (
     <div className="root-layout">
-      <TestFoo />
-      <TestMain />
-      <TestMain2 />
+      <TestFeature />
       {props.children}
       <Footer />
     </div>

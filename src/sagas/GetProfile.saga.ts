@@ -3,10 +3,7 @@ import { Actions } from 'actions/index'
 import { SagaIterator } from 'redux-saga'
 import { call, takeLatest, put, ForkEffect } from 'redux-saga/effects'
 
-async function GetProfileFrost(
-  token: string,
-  password: string
-): Promise<{ readonly createdAt: number; readonly verified: boolean }> {
+async function GetProfileFrost(token: string): Promise<{ readonly createdAt: number; readonly verified: boolean }> {
   const frost = new Frost({ host: '/api' })
   return await frost.getProfile(token)
 }

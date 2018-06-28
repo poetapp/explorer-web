@@ -14,10 +14,28 @@ async function init(): Promise<void> {
     .map((page: any, index: any) => page.routeHook('' + index))
     .reduce((a: any, b: any) => a.concat(b), [])
 
+  function handlerRoutes(store: any, pathname: string): void {
+    const state = store.getState()
+    const { user } = state
+    const omitRoutes: ReadonlyArray<any> = [
+      '/',
+      '/login',
+      '/forgot-password',
+      '/forgot-password/change-password',
+      '/verified-account',
+      '/privacy',
+      '/disclaimer',
+    ]
+    const notNeedOuath = omitRoutes.includes(pathname)
+    if (['/login', '/login/'].includes(pathname) && user.token !== '') browserHistory.push('/')
+
+    if (!notNeedOuath && user.token === '') browserHistory.push('/login')
+  }
   function requireAuth(store: any): (route: any, replace: object) => void {
     return (route: any, replace: object): void => {
       const pathname = route.location.pathname
       store.dispatch(Actions.Router.onEnter(pathname))
+      handlerRoutes(store, pathname)
     }
   }
 
@@ -25,6 +43,7 @@ async function init(): Promise<void> {
     return (route: any, replace: any): void => {
       const pathname = replace.location.pathname
       store.dispatch(Actions.Router.onChange(pathname))
+      handlerRoutes(store, pathname)
     }
   }
 

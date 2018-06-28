@@ -121,6 +121,15 @@ export namespace Actions {
     export const onProfileClearError = (payload?: object) => ({ type: PROFILE_CLEAR_ERROR, payload })
   }
 
+  export namespace SetTokenLogin {
+    export const SET_TOKEN_LOGIN = 'SET_TOKEN_LOGIN'
+
+    export const onSetTokenLogin = (payload?: object) => ({
+      type: SET_TOKEN_LOGIN,
+      payload,
+    })
+  }
+
   export namespace Modals {
     export namespace PurchaseLicense {
       export const Show = 'purchase license modal show'

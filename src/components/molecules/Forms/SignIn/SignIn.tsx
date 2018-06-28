@@ -16,7 +16,6 @@ export class SignIn extends React.Component<SignInProps, undefined> {
   componentWillReceiveProps(newProps: any): void {
     if (newProps.serverErrors.status) {
       const { message } = newProps.serverErrors
-
       if (message.includes('The specified resource does not exist.')) {
         this.mutableEmailInput.setCustomValidity(newProps.serverErrors.message)
         this.mutableEmailInput.focus()
