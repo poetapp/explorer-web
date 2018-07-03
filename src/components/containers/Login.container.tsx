@@ -9,18 +9,25 @@ interface DataFormSignIn {
   readonly email: string
   readonly password: string
 }
+interface DataFormSignUp extends DataFormSignIn {
+  readonly confirmPassword: string
+}
 
 interface LoginContainerProps {
+  readonly onSubmitSignUp?: (data: DataFormSignUp) => any
   readonly onSubmitSignIn?: (data: DataFormSignIn) => any
   readonly signIn: StatusService
+  readonly signUp: StatusService
 }
 
 const mapStateToProps = (state: FrostState): LoginContainerProps => ({
   signIn: state.signIn,
+  signUp: state.signUp,
 })
-
-const mapDispatchToProps = { onSubmitSignIn: Actions.SignIn.onSignIn }
-
+const mapDispatchToProps = {
+  onSubmitSignUp: Actions.SignUp.onSignUp,
+  onSubmitSignIn: Actions.SignIn.onSignIn,
+}
 export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(
   class extends React.Component<LoginContainerProps, undefined> {
     readonly onSubmitSignIn = (data: DataFormSignIn): void => {
@@ -29,7 +36,7 @@ export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(
     }
 
     render(): JSX.Element {
-      const { signIn } = this.props
+      const { signIn, signUp } = this.props
 
       return <Login onSubmitSignIn={this.onSubmitSignIn} signIn={signIn} />
     }

@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { SignIn } from 'components/molecules/Forms/SignIn/SignIn'
+import { SignUp } from 'components/molecules/Forms/SignUp/SignUp'
 import { StatusService } from 'interfaces/Props'
 
 interface LoginProps {

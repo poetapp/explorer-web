@@ -19,6 +19,12 @@ export const user = (state: any, action: any) => {
         ...action.payload,
         ...{ profile: { ...defaultState.profile, ...action.payload.profile } },
       }
+    case Actions.SignUp.SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        ...{ profile: { ...defaultState.profile, ...action.payload.profile } },
+      }
     case Actions.Profile.PROFILE_SUCCESS:
       return {
         ...state,
