@@ -5,7 +5,7 @@ import { delay, SagaIterator } from 'redux-saga'
 import { call, takeLatest, put, ForkEffect } from 'redux-saga/effects'
 const { toast } = require('react-toastify')
 
-async function signInFrost(data: {
+export async function signInFrost(data: {
   readonly email: string
   readonly password: string
 }): Promise<{ readonly token: string }> {
@@ -20,7 +20,7 @@ export function SignInSaga(): () => IterableIterator<ForkEffect> {
   }
 }
 
-function* SignIn(action: any): SagaIterator {
+export function* SignIn(action: any): SagaIterator {
   try {
     const { email, password } = action.payload
     yield put(Actions.LoadingPage.onLoadingOn())

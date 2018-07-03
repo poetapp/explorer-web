@@ -15,7 +15,7 @@ const createUser = ({
   profile,
 })
 
-describe('profile reducer', async (should: any) => {
+describe('user reducer', async (should: any) => {
   const { assert } = should()
 
   assert({
@@ -50,21 +50,16 @@ describe('profile reducer', async (should: any) => {
     given: 'default state and PROFILE_SUCCESS action with user',
     should: 'state with payload as user',
     actual: user(
-      createUser(),
-      Actions.Profile.onProfileSuccess(
-        createUser({
-          token: 'abc',
-          profile: {
-            email: 'jesse@test.com',
-            apiTokens: new Array(),
-            verified: true,
-            createdAt: 'test',
-          },
-        })
-      )
+      createUser({ token: '123' }),
+      Actions.Profile.onProfileSuccess({
+        email: 'jesse@test.com',
+        apiTokens: new Array(),
+        verified: true,
+        createdAt: 'test',
+      })
     ),
     expected: createUser({
-      token: 'abc',
+      token: '123',
       profile: {
         email: 'jesse@test.com',
         apiTokens: new Array(),

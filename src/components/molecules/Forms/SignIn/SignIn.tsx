@@ -1,3 +1,4 @@
+import * as classNames from 'classnames'
 import { Input } from 'components/atoms/Input/Input'
 import { Form } from 'components/molecules/Form/Form'
 import * as React from 'react'
@@ -7,6 +8,7 @@ interface SignInProps {
   readonly onSubmit: (event: any) => any
   readonly disabledButton?: boolean
   readonly serverErrors?: any
+  readonly className?: string
 }
 
 export class SignIn extends React.Component<SignInProps, undefined> {
@@ -31,10 +33,10 @@ export class SignIn extends React.Component<SignInProps, undefined> {
   }
 
   render(): JSX.Element {
-    const { onSubmit, disabledButton } = this.props
+    const { onSubmit, disabledButton, className } = this.props
 
     return (
-      <div className={'SignIn'}>
+      <div className={classNames('SignIn', className)}>
         <Form
           buttonDisabled={disabledButton}
           onSubmit={onSubmit}
@@ -53,9 +55,8 @@ export class SignIn extends React.Component<SignInProps, undefined> {
             label={'Email'}
             inputRef={(el: HTMLInputElement) => (this.mutableEmailInput = el)}
             onChange={this.onChangeEmail}
-            className={'email'}
           />
-          <Input name={'password'} type={'password'} label={'Password'} className={'email'} />
+          <Input name={'password'} type={'password'} label={'Password'} />
         </Form>
       </div>
     )

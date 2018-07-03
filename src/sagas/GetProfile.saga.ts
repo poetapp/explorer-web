@@ -3,7 +3,7 @@ import { Actions } from 'actions/index'
 import { SagaIterator } from 'redux-saga'
 import { call, takeLatest, put, ForkEffect } from 'redux-saga/effects'
 
-async function GetProfileFrost(token: string): Promise<{ readonly createdAt: number; readonly verified: boolean }> {
+export async function GetProfileFrost(token: string): Promise<{ readonly createdAt: number; readonly verified: boolean }> {
   const frost = new Frost({ host: '/api' })
   return await frost.getProfile(token)
 }
@@ -17,7 +17,7 @@ export function GetProfileSaga(): () => IterableIterator<ReadonlyArray<ForkEffec
   }
 }
 
-function* GetProfile(action: any): SagaIterator {
+export function* GetProfile(action: any): SagaIterator {
   try {
     const { token } = action.payload
     const profile = yield call(GetProfileFrost, token)
