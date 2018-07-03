@@ -20,6 +20,7 @@ storiesOf("Components/Buttons", module).addWithJSX(
     readonly text?: string
     readonly onClick?: any
     readonly type?: string
+    readonly disabled?: boolean
     />
   ~~~`)(() => (
     <Button
@@ -33,6 +34,7 @@ storiesOf("Components/Buttons", module).addWithJSX(
         Facebook: "Facebook"
       })}
       signIn={boolean('signIn', false)}
+      disabled={boolean('disabled', false)}
     />
   ))
 );
