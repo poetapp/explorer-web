@@ -32,7 +32,7 @@ export const SignUpContainer = connect(mapStateToProps, mapDispatchToProps)(
     render(): JSX.Element {
       const { signUp } = this.props
 
-      return <SignUpWrapper onSubmitSignUp={this.onSubmitSignUp} signUp={signUp} />;
+      return <SignUpWrapper onSubmitSignUp={this.onSubmitSignUp} signUp={signUp} />
     }
   }
 )

@@ -22,26 +22,45 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
 
       if (message.includes('Password Requirements')) {
         const { mutablePasswordInput } = this
+        mutablePasswordInput.setCustomValidity(newProps.serverErrors.message)
         mutablePasswordInput.focus()
       }
 
       if (message.includes('The specified account already exists.')) {
         const { mutableEmailInput } = this
+        mutableEmailInput.setCustomValidity(newProps.serverErrors.message)
         mutableEmailInput.focus()
       }
 
       this.mutableForm.reportValidity()
     }
   }
+
   readonly onValidate = (data: any, elements: any): boolean => {
     const { password, confirmPassword } = data
 
-    if (password !== confirmPassword) return false
+    if (password !== confirmPassword) {
+      elements.confirmPassword.setCustomValidity(`Passwords Don't Match`)
+      return false
+    }
+
     return true
+  }
+  readonly onChangeRepeatPassword = (e: any, data: any, elements: any): void => {
+    const value = e.target.value
+    const { password, confirmPassword } = data
+
+    if (value !== '' && password !== confirmPassword)
+      elements.confirmPassword.setCustomValidity(`Passwords Don't Match`)
+
+    if (password === confirmPassword) elements.confirmPassword.setCustomValidity('')
+
+    if (value === '') elements.confirmPassword.setCustomValidity('')
   }
 
   readonly onChangeEmail = (e: any): void => {
     const input = e.target
+    input.setCustomValidity('')
   }
 
   render(): JSX.Element {
