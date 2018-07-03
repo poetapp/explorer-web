@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import { ClassNameProps } from 'interfaces/Props'
 const ProgressBar = require('react-progress-bar-plus')
-import 'react-progress-bar-plus/lib/progress-bar.css'
+require('react-progress-bar-plus/lib/progress-bar.css')
 import './LoadingPage.scss'
 
 interface LoadingPageProps extends ClassNameProps {
