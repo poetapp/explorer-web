@@ -9,4 +9,4 @@ export default {
   user,
   loadingPage,
   profile,
-};
+}

@@ -81,8 +81,8 @@ export namespace Actions {
       type: SIGN_IN_SUCCESS,
       payload,
     })
-    export const onSignInError = (payload?: any) => ({ type: SIGN_IN_ERROR, payload });
-    export const onSignInClearError = (payload?: string) => ({ type: SIGN_IN_CLEAR_ERROR, payload });
+    export const onSignInError = (payload?: any) => ({ type: SIGN_IN_ERROR, payload })
+    export const onSignInClearError = (payload?: string) => ({ type: SIGN_IN_CLEAR_ERROR, payload })
   }
 
   export namespace LoadingPage {
@@ -101,7 +101,7 @@ export namespace Actions {
     export const PROFILE_CLEAR_ERROR = 'PROFILE_CLEAR_ERROR'
     export const onProfile = (payload?: object) => ({ type: PROFILE, payload })
     export const onProfileSuccess = (payload?: object) => ({ type: PROFILE_SUCCESS, payload })
-    export const onProfileError = (payload?: string) => ({ type: PROFILE_ERROR, payload });
+    export const onProfileError = (payload?: string) => ({ type: PROFILE_ERROR, payload })
     export const onProfileClearError = (payload?: object) => ({ type: PROFILE_CLEAR_ERROR, payload })
   }
 
