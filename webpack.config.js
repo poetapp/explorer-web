@@ -23,17 +23,12 @@ console.log("Configuration Path: ", configurationPath)
 
 const vendor = [
   'history',
-  'classnames',
   'isomorphic-fetch',
   'moment',
   'react',
-  'react-autocomplete',
-  'react-datepicker',
   'react-dom',
   'react-router',
-  'react-overlays',
   'react-redux',
-  'react-tabs',
   'redux',
   'redux-saga',
 ];
