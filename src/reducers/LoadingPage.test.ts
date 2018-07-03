@@ -1,6 +1,6 @@
 import { describe } from 'riteway'
 import { Actions } from '../actions/index'
-import { loadingPage } from './LoadingPage.reducer'
+import { loadingPage } from './LoadingPage'
 
 const createState = ({ loading = false, percentage = -1 } = {}) => ({
   loading,

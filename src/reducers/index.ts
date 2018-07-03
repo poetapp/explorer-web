@@ -1,8 +1,8 @@
 import { fetchReducer } from './FetchReducer'
-import { loadingPage } from './LoadingPage.reducer'
-import { profile } from './Profile.reducer'
-import { signIn } from './SignIn.reducer'
-import { user } from './User.reducer'
+import { loadingPage } from './LoadingPage'
+import { profile } from './Profile'
+import { signIn } from './SignIn'
+import { user } from './User'
 export default {
   fetch: fetchReducer,
   signIn,

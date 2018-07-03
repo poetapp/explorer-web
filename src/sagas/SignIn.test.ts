@@ -4,7 +4,7 @@ import { delay } from 'redux-saga'
 import { takeLatest, call, put } from 'redux-saga/effects'
 
 import { Actions } from '../actions/index'
-import { SignInSaga, SignIn, signInFrost } from './SignIn.saga'
+import { SignInSaga, SignIn, signInFrost } from './SignIn'
 
 describe('SignInSaga()', async (should: any) => {
   const { assert } = should()

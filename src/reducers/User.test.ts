@@ -1,6 +1,6 @@
 import { describe } from 'riteway'
 import { Actions } from '../actions/index'
-import { user } from './User.reducer'
+import { user } from './User'
 
 const createUser = ({
   token = '123',

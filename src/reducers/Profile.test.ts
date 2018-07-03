@@ -1,6 +1,6 @@
 import { describe } from 'riteway'
 import { Actions } from '../actions/index'
-import { profile } from './Profile.reducer'
+import { profile } from './Profile'
 
 const createState = ({
   error = {

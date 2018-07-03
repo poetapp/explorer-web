@@ -1,6 +1,6 @@
 import { describe } from 'riteway'
 import { Actions } from '../actions/index'
-import { signIn } from './SignIn.reducer'
+import { signIn } from './SignIn'
 
 const createState = ({
   error = {

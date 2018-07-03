@@ -1,7 +1,7 @@
 import { CacheInvalidationSaga } from './CacheInvalidationSaga'
 import { fetchSaga } from './FetchSaga'
-import { GetProfileSaga } from './GetProfile.saga'
+import { GetProfileSaga } from './GetProfile'
 import { workSearchSaga } from './NavbarSaga'
-import { SignInSaga } from './SignIn.saga'
+import { SignInSaga } from './SignIn'
 
 export default [SignInSaga, GetProfileSaga, fetchSaga, workSearchSaga, CacheInvalidationSaga]
