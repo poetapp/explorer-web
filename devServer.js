@@ -5,7 +5,8 @@ const config = require("./webpack.config.js")
 
 const PORT_WEBPACK_SERVER = process.env.EXPLORER_WEB_PORT || 3000
 const HOST_WEBPACK_SERVER = '0.0.0.0'
-const PORT_API = 3000
+const PORT_API = process.env.PORT_API || 3000
+const FROST_API = process.env.FROST_API || `http://frost-api:${PORT_API}`
 
 config.entry.app.unshift(`webpack-dev-server/client?http://${HOST_WEBPACK_SERVER}:${PORT_WEBPACK_SERVER}/`, "webpack/hot/dev-server")
 
@@ -15,7 +16,7 @@ const server = new webpackDevServer(compiler, {
   noInfo: true,
   proxy: {
     '/api': {
-      target: process.env.FROST_API || `http://frost-api:${PORT_API}`,
+      target: FROST_API,
       secure: false,
       pathRewrite: {
         '^/api': ''
