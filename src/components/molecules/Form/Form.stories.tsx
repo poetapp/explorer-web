@@ -4,6 +4,7 @@ import { text, boolean } from '@storybook/addon-knobs/react'
 import { storiesOf } from '@storybook/react'
 import { wInfo } from 'stories/index.stories'
 import { Form } from './Form'
+import { Input } from '../../atoms/Input/Input'
 
 storiesOf("Components/Forms", module).addWithJSX(
   "Form",
@@ -23,16 +24,20 @@ storiesOf("Components/Forms", module).addWithJSX(
     />
   ~~~`)(() => (
     <Form
-      signIn={boolean('signIn', false)}
-      className={text('className', '')}
-      label={text("label", "Create your Po.et Account")}
-      children={
-        <p>
-          Already Have an Account? <a target="_blank" href="#">
-            Log in
-          </a>
-        </p>
-      }
-    />
+      buttonDisabled={false}
+      signIn={true}
+      className={''}
+      header={'Log In'}
+      label={'Need an Account?'}
+      formRef={(el: HTMLFormElement) => (this.mutableForm = el)}
+    >
+      <Input
+        type={'email'}
+        label={'Email'}
+        inputRef={(el: HTMLInputElement) => (this.mutableEmailInput = el)}
+        onChange={this.onChangeEmail}
+      />
+      <Input type={'password'} label={'Password'} />
+    </Form>
   ))
 );

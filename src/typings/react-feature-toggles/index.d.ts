@@ -59,7 +59,13 @@ declare module '@paralleldrive/react-feature-toggles' {
   }
   function getCurrentActiveFeatures(obj: CurrentActiveFeatures): ReadonlyArray<string>
   export { getCurrentActiveFeatures }
-
-  function configureFeature(inactiveComponent: any, name: string, activeComponent: any): () => JSX.Element
+  
+  type ConfigureFeature = {
+    (name: string, activeComponent: any): () => JSX.Element;
+    (name: string): (activeComponent: any) => () => JSX.Element;
+  }
+  function configureFeature(inactiveComponent: any): ConfigureFeature
+  function configureFeature(inactiveComponent: any, name: string): (activeComponent: any) => () => JSX.Element;
+  function configureFeature(inactiveComponent: any, name: string, activeComponent: any): () => JSX.Element;
   export { configureFeature }
 }
