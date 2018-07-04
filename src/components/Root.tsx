@@ -1,6 +1,7 @@
 import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
+
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 

@@ -1,14 +1,12 @@
 export interface ClassNameProps {
   readonly className?: string
 }
-
 export interface Profile {
   readonly email: string
   readonly apiTokens?: ReadonlyArray<string>
   readonly verified: boolean
   readonly createdAt: string
 }
-
 export interface User {
   readonly token: string | undefined
   readonly profile: Profile
