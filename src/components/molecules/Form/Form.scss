@@ -2,14 +2,12 @@
 @import '../../styles/Fonts';
 
 .Form {
-  height: 19.5rem;
+  height:33.44rem;
   width: 25.19rem;
-  margin-left: 50%;
   border: .0625rem solid $westar2;
   font-family: $open-sans;
   box-shadow: 0 2px 0 0 $gallery;
   background-color: $white;
-  transform: translateX(-50%);
 
   &__header {
     display:flex;
@@ -25,6 +23,7 @@
     }
 
     &__text {
+      margin-bottom:1rem;
       margin-top: 0rem;
       font-size: .8rem;
       font-weight: lighter;
@@ -35,22 +34,23 @@
     display:flex;
     flex-direction: column;
     align-items: center;
-    align-self: center;
-    margin-top: 1rem;
   }
 }
 
 .button {
   width: 23.125rem;
-  margin-top: 1rem;
+  margin-top: .5rem;
 }
 
 .input {
   width: 23.125rem;
+  margin-top: 1rem;
 }
 
 .input2 {
   width: 23.125rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .hr-text {
