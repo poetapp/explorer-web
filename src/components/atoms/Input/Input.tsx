@@ -10,6 +10,7 @@ interface InputProps {
   readonly type?: string
   readonly placeholder?: string
   readonly onChange?: (event: Event) => void
+  readonly onKeyUp?: (event: Event) => void
   readonly inputRef?: any
   readonly name?: string
   readonly minLength?: number
@@ -30,7 +31,19 @@ export class Input extends React.Component<InputProps, undefined> {
   }
 
   render(): JSX.Element {
-    const { className, required, maxLength, minLength, label, onChange, inputRef, type, placeholder, name } = this.props
+    const {
+      className,
+      onKeyUp,
+      required,
+      maxLength,
+      minLength,
+      label,
+      onChange,
+      inputRef,
+      type,
+      placeholder,
+      name,
+    } = this.props
     return (
       <div className={classNames('Input', className)}>
         <div className={'Input__label'}>
@@ -39,6 +52,7 @@ export class Input extends React.Component<InputProps, undefined> {
         <input
           required={required}
           ref={inputRef}
+          onKeyUp={e => this.onEvent(e, onKeyUp, this.props)}
           onChange={e => this.onEvent(e, onChange, this.props)}
           type={type}
           placeholder={placeholder}

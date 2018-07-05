@@ -1,5 +1,5 @@
 import * as classNames from 'classnames'
-import { Input } from 'components/atoms/Input/Input'
+import { InputPassword } from 'components/atoms/InputPassword/InputPassword'
 import { Form } from 'components/molecules/Form/Form'
 import * as React from 'react'
 import { Link } from 'react-router'
@@ -80,26 +80,33 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
           }
           formRef={(el: HTMLFormElement) => (this.mutableForm = el)}
         >
-          <Input
+          <InputPassword
             name={'email'}
             type={'email'}
             label={'Email'}
             inputRef={(el: HTMLInputElement) => (this.mutableEmailInput = el)}
             onChange={this.onChangeEmail}
           />
-          <Input
+          <InputPassword
             name={'password'}
             type={'password'}
             label={'Password'}
             inputRef={(el: HTMLInputElement) => (this.mutablePasswordInput = el)}
             minLength={10}
+            complexity={{
+              lowerCase: 1,
+              upperCase: 1,
+              numeric: 1,
+              symbol: 1,
+            }}
             maxLength={30}
             required
           />
-          <Input
+          <InputPassword
             name={'confirmPassword'}
             type={'password'}
             label={'Repeat Password'}
+            onChange={this.onChangeRepeatPassword.bind(this)}
             minLength={10}
             maxLength={30}
             required
