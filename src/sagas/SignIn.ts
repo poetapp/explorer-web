@@ -19,6 +19,7 @@ export function SignInSaga(): () => IterableIterator<ForkEffect> {
     yield takeLatest(Actions.SignIn.SIGN_IN, SignIn)
   }
 }
+const frost = new Frost({ host: '/api' })
 
 export function* SignIn(action: any): SagaIterator {
   try {
