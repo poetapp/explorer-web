@@ -18,7 +18,8 @@ async function init(): Promise<void> {
     const state = store.getState()
     const { user } = state
     const omitRoutes: ReadonlyArray<any> = ['/', '/login']
-    const notNeedOuath = omitRoutes.includes(pathname)
+    const worksNoAuth = [pathname].filter(x => typeof x === 'string' && x.indexOf('/works') > -1)
+    const notNeedOuath = omitRoutes.includes(pathname) || worksNoAuth.length
     if (['/login', '/login/'].includes(pathname) && user.token !== '') browserHistory.push('/')
 
     if (!notNeedOuath && user.token === '') browserHistory.push('/login')
