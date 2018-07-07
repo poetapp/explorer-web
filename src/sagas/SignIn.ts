@@ -19,13 +19,14 @@ export function SignInSaga(): () => IterableIterator<ForkEffect> {
     yield takeLatest(Actions.SignIn.SIGN_IN, SignIn)
   }
 }
+const frost = new Frost({ host: '/api' })
 
 export function* SignIn(action: any): SagaIterator {
   try {
     const { email, password } = action.payload
     yield put(Actions.LoadingPage.onLoadingOn())
     const { token } = yield call(signInFrost, { email, password })
-    yield put(Actions.SignIn.onSignInSuccess({ token, ...{ profile: { email } } }))
+    yield put(Actions.SignIn.onSignInSuccess({ token, profile: { email } }))
     yield put(Actions.Profile.onProfile({ token }))
     yield put(Actions.LoadingPage.onLoadingFull())
     yield call(delay, 300)
