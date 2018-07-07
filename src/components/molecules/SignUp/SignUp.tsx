@@ -8,6 +8,8 @@ interface SignUpProps {
   readonly signUp: StatusService
 }
 
-export const SignUpWrapper = (props: SignUpProps) => (
-  <SignUp onSubmit={props.onSubmitSignUp} disabledButton={props.signUp.loading} serverErrors={props.signUp.error} />
-)
+export const SignUpWrapper = (props: SignUpProps) => {
+  return (
+    <SignUp onSubmit={props.onSubmitSignUp} disabledButton={props.signUp.loading} serverErrors={props.signUp.error} />
+  )
+}

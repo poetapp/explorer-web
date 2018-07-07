@@ -28,7 +28,6 @@ interface InputPasswordProps {
 
 const onChange = (event: any, onChange: any, complexity: ComplexityPassword) => {
   event.preventDefault()
-
   const form = event.target.form
   const { currentData, elements } = getParsedForm(form)
   validatePassword(complexity, event.target)
@@ -71,6 +70,7 @@ export const InputPassword = (props: InputPasswordProps) => (
     className={classNames('Input-password', props.className)}
     label={props.label}
     type={props.type}
+    required={props.required}
     placeholder={props.placeholder}
     name={props.name}
     maxLength={props.maxLength ? props.maxLength : -1}

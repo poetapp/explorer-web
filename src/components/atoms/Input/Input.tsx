@@ -10,6 +10,7 @@ interface InputProps {
   readonly type?: string
   readonly placeholder?: string
   readonly onChange?: (event: Event) => void
+  readonly onFocus?: (event: Event) => void
   readonly onKeyUp?: (event: Event) => void
   readonly inputRef?: any
   readonly name?: string
@@ -39,6 +40,7 @@ export class Input extends React.Component<InputProps, undefined> {
       minLength,
       label,
       onChange,
+      onFocus,
       inputRef,
       type,
       placeholder,
@@ -54,6 +56,7 @@ export class Input extends React.Component<InputProps, undefined> {
           ref={inputRef}
           onKeyUp={e => this.onEvent(e, onKeyUp, this.props)}
           onChange={e => this.onEvent(e, onChange, this.props)}
+          onFocus={e => this.onEvent(e, onFocus, this.props)}
           type={type}
           placeholder={placeholder}
           className={'Input__input'}
