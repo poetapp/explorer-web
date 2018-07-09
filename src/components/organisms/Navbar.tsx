@@ -1,5 +1,7 @@
 import * as classNames from 'classnames'
 import * as React from 'react'
+
+import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
 import { Action } from 'redux'
@@ -21,7 +23,7 @@ export interface NavbarProps {
   readonly displayLogo?: boolean
   readonly displaySearch?: boolean
   readonly searchShadow?: boolean
-  readonly displayButtons?: boolean
+  readonly location?: string
 }
 
 function mapStateToProps(state: any, ownProps: NavbarProps): NavbarProps {
@@ -37,6 +39,27 @@ const mapDispatch = {
   }),
 }
 
+interface UserButtonProps {
+  readonly location?: string
+}
+class UserButtons extends React.Component<UserButtonProps, undefined> {
+  render() {
+    if (![''].includes(this.props.location)) return null
+    return (
+      <div className={'button'}>
+        <Link to={'/login'}>
+          <Button className={'navbar-login'} text={'Log In'} />
+        </Link>
+        <Link to={'/register'}>
+          <Button className={'navbar-signup'} text={'Sign Up'} />
+        </Link>
+      </div>
+    )
+  }
+}
+
+const noop = () => <div>TEST</div>
+const UserFeature = configureFeature(noop, 'landing-buttons', UserButtons)
 export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
   class extends React.Component<NavbarProps & NavbarActions, undefined> {
     static defaultProps: NavbarProps = {
@@ -77,16 +100,7 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
               </form>
             </div>
           )}
-          {this.props.displayButtons && (
-            <div className={'button'}>
-              <Link to={'/login'}>
-                <Button className={'navbar-login'} text={'Log In'} />
-              </Link>
-              <Link to={'/register'}>
-                <Button className={'navbar-signup'} text={'Sign Up'} />
-              </Link>
-            </div>
-          )}
+          <UserButtons location={this.props.location} />
         </nav>
       )
     }
