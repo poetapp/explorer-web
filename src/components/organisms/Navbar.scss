@@ -3,8 +3,8 @@
 
 nav.navbar {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
   height: 61px;
   margin-bottom: 64px;
   padding: 2px 20px;
@@ -88,16 +88,17 @@ nav.navbar {
       width: 109px;
     }
   }
-  .button{
+
+  .button {
     display: flex;
     justify-content: flex-end;
   }
 
   .navbar-login {
-    background-color: $transparent;
-    color: $ocean-green;
     height: 1.875rem;
     width: 5rem;
+    background-color: $transparent;
+    color: $ocean-green;
   }
 
   .navbar-signup {
