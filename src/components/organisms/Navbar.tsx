@@ -1,10 +1,11 @@
 import * as classNames from 'classnames'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import { Action } from 'redux'
 
 import { Actions } from 'actions'
+import { Button } from 'components/atoms/Button/Button'
 import { Images } from 'images/Images'
 
 import './Navbar.scss'
@@ -20,6 +21,7 @@ export interface NavbarProps {
   readonly displayLogo?: boolean
   readonly displaySearch?: boolean
   readonly searchShadow?: boolean
+  readonly displayButtons?: boolean
 }
 
 function mapStateToProps(state: any, ownProps: NavbarProps): NavbarProps {
@@ -73,6 +75,16 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
                   }
                 />
               </form>
+            </div>
+          )}
+          {this.props.displayButtons && (
+            <div className={'button'}>
+              <Link to={'/login'}>
+                <Button className={'navbar-login'} text={'Log In'} />
+              </Link>
+              <Link to={'/register'}>
+                <Button className={'navbar-signup'} text={'Sign Up'} />
+              </Link>
             </div>
           )}
         </nav>

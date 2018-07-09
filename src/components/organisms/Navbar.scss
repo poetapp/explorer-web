@@ -3,6 +3,7 @@
 
 nav.navbar {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   height: 61px;
   margin-bottom: 64px;
@@ -86,5 +87,21 @@ nav.navbar {
       height: 30px;
       width: 109px;
     }
+  }
+  .button{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .navbar-login {
+    background-color: $transparent;
+    color: $ocean-green;
+    height: 1.875rem;
+    width: 5rem;
+  }
+
+  .navbar-signup {
+    height: 1.875rem;
+    width: 5rem;
   }
 }
