@@ -4,7 +4,6 @@
 nav.navbar {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   height: 61px;
   margin-bottom: 64px;
   padding: 2px 20px;
@@ -92,6 +91,7 @@ nav.navbar {
   .button {
     display: flex;
     justify-content: flex-end;
+    flex-grow: 1;
   }
 
   .navbar-login {
