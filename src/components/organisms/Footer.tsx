@@ -10,7 +10,7 @@ export class Footer extends React.Component<undefined, undefined> {
       <footer>
         <div className="container">
           <div className="logo-and-social">
-            <img src={Images.InvertedLogo} />
+            <img src={Images.Quill} />
             <div className="social">
               <a href="https://twitter.com/_poetproject" target="_blank">
                 <img src={Images.Twitter} />
