@@ -13,7 +13,7 @@ const Features = [
   {
     name: 'nav-buttons',
     isActive: false,
-    dependencies: ['login', 'auth']
+    dependencies: ['login', 'auth'],
   },
 ]
 
