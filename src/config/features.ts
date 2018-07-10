@@ -2,7 +2,7 @@ import { getActiveFeatures } from '@paralleldrive/react-feature-toggles'
 
 const Features = [
   {
-    name: 'landing-buttons',
+    name: 'nav-buttons',
     isActive: false,
   },
 ]

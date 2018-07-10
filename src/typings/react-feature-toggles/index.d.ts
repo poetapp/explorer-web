@@ -1,8 +1,11 @@
 declare module '@paralleldrive/react-feature-toggles' {
   import * as React from 'react'
-
-  function Feature(inactiveComponent: any, activeComponent: any, name: string, children?: (args: React.ReactNode) => React.ReactNode): JSX.Element
-  export { Feature }
+  
+  type Feature1 = { children?: (features: any) => React.ReactNode };
+  type Feature2 = { inactiveComponent: () => React.ReactNode; activeComponent: () => React.ReactNode; name: string };
+  function Feature({ children }: Feature1): React.ReactNode;
+  function Feature({ inactiveComponent, name, activeComponent }: Feature2);
+  export { Feature };
 
   function FeatureToggles({
     features,
@@ -61,11 +64,11 @@ declare module '@paralleldrive/react-feature-toggles' {
   export { getCurrentActiveFeatures }
   
   type ConfigureFeature = {
-    (name: string, activeComponent: any): () => JSX.Element;
-    (name: string): (activeComponent: any) => () => JSX.Element;
+    (name: string, activeComponent: React.ReactNode): () => JSX.Element;
+    (name: string): (activeComponent: React.ReactNode) => () => JSX.Element;
   }
-  function configureFeature(inactiveComponent: any): ConfigureFeature
-  function configureFeature(inactiveComponent: any, name: string): (activeComponent: any) => () => JSX.Element;
-  function configureFeature(inactiveComponent: any, name: string, activeComponent: any): () => JSX.Element;
+  function configureFeature(inactiveComponent: React.ReactNode): ConfigureFeature
+  function configureFeature(inactiveComponent: React.ReactNode, name: string): (activeComponent: React.ReactNode) => () => JSX.Element;
+  function configureFeature(inactiveComponent: React.ReactNode, name: string, activeComponent: React.ReactNode): () => JSX.Element;
   export { configureFeature }
 }

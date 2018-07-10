@@ -1,13 +1,13 @@
 import * as classNames from 'classnames'
 import * as React from 'react'
 
-import { configureFeature } from '@paralleldrive/react-feature-toggles'
+import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
-import { browserHistory, Link } from 'react-router'
+import { browserHistory } from 'react-router'
 import { Action } from 'redux'
 
 import { Actions } from 'actions'
-import { Button } from 'components/atoms/Button/Button'
+import { NavButtons } from 'components/molecules/NavButtons/NavButtons'
 import { Images } from 'images/Images'
 
 import './Navbar.scss'
@@ -39,27 +39,7 @@ const mapDispatch = {
   }),
 }
 
-interface UserButtonProps {
-  readonly location?: string
-}
-class UserButtons extends React.Component<UserButtonProps, undefined> {
-  render() {
-    if (![''].includes(this.props.location)) return null
-    return (
-      <div className={'button'}>
-        <Link to={'/login'}>
-          <Button className={'navbar-login'} text={'Log In'} />
-        </Link>
-        <Link to={'/register'}>
-          <Button className={'navbar-signup'} text={'Sign Up'} />
-        </Link>
-      </div>
-    )
-  }
-}
-
-const noop = () => <div>TEST</div>
-const UserFeature = configureFeature(noop, 'landing-buttons', UserButtons)
+const Noop = () => <div />
 export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
   class extends React.Component<NavbarProps & NavbarActions, undefined> {
     static defaultProps: NavbarProps = {
@@ -100,7 +80,11 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
               </form>
             </div>
           )}
-          <UserButtons location={this.props.location} />
+          <Feature>
+            {({ features }) =>
+              isActive('nav-buttons', features) ? <NavButtons location={this.props.location} /> : <Noop />
+            }
+          </Feature>
         </nav>
       )
     }
