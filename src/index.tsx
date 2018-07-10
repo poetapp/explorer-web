@@ -1,8 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import { FeatureToggles, getBrowserQueryFeatures } from '@paralleldrive/react-feature-toggles'
+import { FeatureToggles, getCurrentActiveFeatures, Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import { Actions } from 'actions'
+import { initialFeatures } from 'config/features'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { Layout } from './components/Root'
@@ -17,8 +18,9 @@ async function init(): Promise<void> {
   function handlerRoutes(store: any, pathname: string): void {
     const state = store.getState()
     const { user } = state
-    const omitRoutes: ReadonlyArray<any> = ['/', '/login', '/register']
-    const notNeedOuath = omitRoutes.includes(pathname)
+    const omitRoutes: ReadonlyArray<any> = ['/', '/login']
+    const worksNoAuth = [pathname].filter(x => typeof x === 'string' && x.indexOf('/works') > -1)
+    const notNeedOuath = omitRoutes.includes(pathname) || worksNoAuth.length
     if (['/login', '/login/'].includes(pathname) && user.token !== '') browserHistory.push('/')
 
     if (!notNeedOuath && user.token === '') browserHistory.push('/login')
@@ -45,13 +47,24 @@ async function init(): Promise<void> {
 
   ReactDOM.render(
     <Provider store={store}>
-      <FeatureToggles features={getBrowserQueryFeatures()}>
-        <Router history={browserHistory}>
-          <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>
-            {routes}
-          </Route>
-          <Route path="*" onEnter={notFound} />
-        </Router>
+      <FeatureToggles features={getCurrentActiveFeatures({ initialFeatures })}>
+        <Feature>
+          {({ features }) =>
+            isActive('auth', features) ? (
+              <Router history={browserHistory}>
+                <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>
+                  {routes}
+                </Route>
+                <Route path="*" onEnter={notFound} />
+              </Router>
+            ) : (
+              <Router history={browserHistory}>
+                <Route component={Layout}>{routes}</Route>
+                <Route path="*" onEnter={notFound} />
+              </Router>
+            )
+          }
+        </Feature>
       </FeatureToggles>
     </Provider>,
     document.getElementById('app')
