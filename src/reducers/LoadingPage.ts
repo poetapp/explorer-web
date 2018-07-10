@@ -1,6 +1,6 @@
 import { Actions } from 'actions/index'
 
-const defaultState = {
+export const defaultState = {
   loading: false,
   percentage: -1,
 }

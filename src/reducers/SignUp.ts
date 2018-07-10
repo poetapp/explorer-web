@@ -1,6 +1,6 @@
 import { Actions } from 'actions/index'
 
-const defaultState = {
+export const defaultState = {
   error: {
     status: false,
     message: '',

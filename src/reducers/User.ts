@@ -1,7 +1,7 @@
 import { Actions } from 'actions/index'
 const { REHYDRATE } = require('redux-persist/constants')
 
-const defaultState = {
+export const defaultState = {
   token: '',
   profile: {
     email: '',

@@ -1,6 +1,6 @@
 import { describe } from 'riteway'
 import { Actions } from '../actions/index'
-import { signUp } from './SignUp'
+import { signUp, defaultState } from './SignUp'
 
 const createState = ({
   error = {
@@ -20,63 +20,28 @@ describe('signUp reducer', async (should: any) => {
     given: 'no arguments',
     should: 'defaultState',
     actual: signUp(),
-    expected: createState(),
-  })
-
-  assert({
-    given: 'no state and SIGN_UP action',
-    should: 'loading true',
-    actual: signUp(undefined, Actions.SignUp.onSignUp()),
-    expected: createState({ loading: true }),
-  })
-
-  assert({
-    given: 'no state and SIGN_UP_SUCCESS action',
-    should: 'default state',
-    actual: signUp(undefined, Actions.SignUp.onSignUpSuccess()),
-    expected: createState(),
-  })
-
-  {
-    const e = 'test'
-    assert({
-      given: 'no state and SIGN_UP_ERROR action',
-      should: 'state with error',
-      actual: signUp(undefined, Actions.SignUp.onSignUpError(e)),
-      expected: createState({
-        error: {
-          status: true,
-          message: e,
-        },
-      }),
-    })
-  }
-  assert({
-    given: 'no state and SIGN_UP_CLEAR_ERROR action',
-    should: 'default state',
-    actual: signUp(undefined, Actions.SignUp.onSignUpClearError()),
-    expected: createState(),
+    expected: defaultState,
   })
 
   assert({
     given: 'default state and SIGN_UP action',
     should: 'loading true',
-    actual: signUp(createState(), Actions.SignUp.onSignUp()),
+    actual: signUp(defaultState, Actions.SignUp.onSignUp()),
     expected: createState({ loading: true }),
   })
 
   assert({
     given: 'default state and SIGN_UP_SUCCESS action',
     should: 'default state',
-    actual: signUp(createState(), Actions.SignUp.onSignUpSuccess()),
-    expected: createState(),
+    actual: signUp(defaultState, Actions.SignUp.onSignUpSuccess()),
+    expected: defaultState,
   })
 
   assert({
     given: 'state with loading true and SIGN_UP_SUCCESS action',
     should: 'default state',
     actual: signUp(createState({ loading: true }), Actions.SignUp.onSignUpSuccess()),
-    expected: createState(),
+    expected: defaultState,
   })
 
   {
@@ -84,7 +49,7 @@ describe('signUp reducer', async (should: any) => {
     assert({
       given: 'default state and SIGN_UP_ERROR action',
       should: 'state with error ',
-      actual: signUp(createState(), Actions.SignUp.onSignUpError(e)),
+      actual: signUp(defaultState, Actions.SignUp.onSignUpError(e)),
       expected: createState({
         error: {
           status: true,
@@ -112,8 +77,8 @@ describe('signUp reducer', async (should: any) => {
   assert({
     given: 'default state and SIGN_UP_CLEAR_ERROR action',
     should: 'default state',
-    actual: signUp(createState(), Actions.SignUp.onSignUpClearError()),
-    expected: createState(),
+    actual: signUp(defaultState, Actions.SignUp.onSignUpClearError()),
+    expected: defaultState,
   })
 
   {
@@ -122,7 +87,7 @@ describe('signUp reducer', async (should: any) => {
       given: 'state with error message and SIGN_UP_CLEAR_ERROR action',
       should: 'default state ',
       actual: signUp(createState({ error: { status: true, message: e } }), Actions.SignUp.onSignUpClearError()),
-      expected: createState(),
+      expected: defaultState,
     })
   }
 })
