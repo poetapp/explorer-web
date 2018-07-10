@@ -1,7 +1,7 @@
 import { Actions } from 'actions/index'
 const { REHYDRATE } = require('redux-persist/constants')
 
-const defaultState = {
+export const defaultState = {
   token: '',
   profile: {
     email: '',
@@ -11,7 +11,7 @@ const defaultState = {
   },
 }
 
-export const user = (state: any, action: any) => {
+export const user = (state: any = defaultState, action: any = {}) => {
   switch (action.type) {
     case Actions.SignIn.SIGN_IN_SUCCESS:
       return {
@@ -46,6 +46,7 @@ export const user = (state: any, action: any) => {
         ...state,
         ...action.payload.user,
       }
+    default:
+      return state
   }
-  return state || defaultState
 }

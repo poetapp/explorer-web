@@ -2,13 +2,13 @@
 @import '../../styles/Fonts';
 
 .Form {
-  height: 19.5rem;
   width: 25.19rem;
   margin-left: 50%;
   border: .0625rem solid $westar2;
   font-family: $open-sans;
   box-shadow: 0 2px 0 0 $gallery;
   background-color: $white;
+  min-height: 19.5rem;
   transform: translateX(-50%);
 
   &__header {

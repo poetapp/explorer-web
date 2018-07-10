@@ -26,7 +26,7 @@ export class Form extends React.Component<FromProps, undefined> {
     event.preventDefault()
     const form = event.target
     const { currentData, elements } = getParsedForm(form)
-    submit(currentData, elements)
+    if (validate(currentData, elements)) submit(currentData, elements)
   }
 
   render(): JSX.Element {

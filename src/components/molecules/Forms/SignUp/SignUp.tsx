@@ -1,4 +1,5 @@
 import * as classNames from 'classnames'
+import { Input } from 'components/atoms/Input/Input'
 import { InputPassword } from 'components/atoms/InputPassword/InputPassword'
 import { Form } from 'components/molecules/Form/Form'
 import * as React from 'react'
@@ -80,7 +81,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
           }
           formRef={(el: HTMLFormElement) => (this.mutableForm = el)}
         >
-          <InputPassword
+          <Input
             name={'email'}
             type={'email'}
             label={'Email'}
@@ -102,7 +103,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
             maxLength={30}
             required
           />
-          <InputPassword
+          <Input
             name={'confirmPassword'}
             type={'password'}
             label={'Repeat Password'}
