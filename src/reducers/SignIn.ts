@@ -46,6 +46,8 @@ export const signIn = (state: any, action: any) => {
         },
         loading: false,
       }
+    default:
+      console.log('SignIn', action.type)
+      return defaultState
   }
-  return state || defaultState
 }

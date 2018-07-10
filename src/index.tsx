@@ -27,7 +27,6 @@ async function init(): Promise<void> {
   function requireAuth(store: any): (route: any, replace: object) => void {
     return (route: any, replace: object): void => {
       const pathname = route.location.pathname
-      store.dispatch(Actions.Router.onEnter(pathname))
       handlerRoutes(store, pathname)
     }
   }
@@ -35,7 +34,6 @@ async function init(): Promise<void> {
   function onChange(store: any): (route: any, replace: object) => void {
     return (route: any, replace: any): void => {
       const pathname = replace.location.pathname
-      store.dispatch(Actions.Router.onChange(pathname))
       handlerRoutes(store, pathname)
     }
   }

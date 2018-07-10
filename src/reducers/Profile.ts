@@ -46,6 +46,7 @@ export const profile = (state: any, action: any) => {
         },
         loading: false,
       }
+    default:
+      return defaultState
   }
-  return state || defaultState
 }

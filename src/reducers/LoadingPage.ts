@@ -25,6 +25,7 @@ export const loadingPage = (state: any, action: any) => {
         loading: false,
         percentage: -1,
       }
+    default:
+      return defaultState
   }
-  return state || defaultState
 }
