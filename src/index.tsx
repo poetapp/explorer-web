@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import { FeatureToggles, getCurrentActiveFeatures } from '@paralleldrive/react-feature-toggles'
+import { FeatureToggles, getCurrentActiveFeatures, Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import { Actions } from 'actions'
 import { initialFeatures } from 'config/features'
 import { Provider } from 'react-redux'
@@ -47,12 +47,23 @@ async function init(): Promise<void> {
   ReactDOM.render(
     <Provider store={store}>
       <FeatureToggles features={getCurrentActiveFeatures({ initialFeatures })}>
-        <Router history={browserHistory}>
-          <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>
-            {routes}
-          </Route>
-          <Route path="*" onEnter={notFound} />
-        </Router>
+        <Feature>
+          {({ features }) =>
+            isActive('auth', features) ? (
+              <Router history={browserHistory}>
+                <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>
+                  {routes}
+                </Route>
+                <Route path="*" onEnter={notFound} />
+              </Router>
+            ) : (
+              <Router history={browserHistory}>
+                <Route component={Layout}>{routes}</Route>
+                <Route path="*" onEnter={notFound} />
+              </Router>
+            )
+          }
+        </Feature>
       </FeatureToggles>
     </Provider>,
     document.getElementById('app')
