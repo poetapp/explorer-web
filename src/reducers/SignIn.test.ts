@@ -17,6 +17,46 @@ describe('signIn reducer', async (should: any) => {
   const { assert } = should()
 
   assert({
+    given: 'no arguments',
+    should: 'default state',
+    actual: signIn(),
+    expected: createState(),
+  })
+
+  assert({
+    given: 'no state and SIGN_IN action',
+    should: 'loading true',
+    actual: signIn(undefined, Actions.SignIn.onSignIn()),
+    expected: createState({ loading: true }),
+  })
+
+  assert({
+    given: 'no state and SIGN_IN_SUCCESS action',
+    should: 'defualt state',
+    actual: signIn(undefined, Actions.SignIn.onSignInSuccess()),
+    expected: createState(),
+  })
+
+  assert({
+    given: 'no state and SIGN_IN_ERROR action with payload',
+    should: 'payload as error message',
+    actual: signIn(undefined, Actions.SignIn.onSignInError('test')),
+    expected: createState({
+      error: {
+        status: true,
+        message: 'test',
+      },
+    }),
+  })
+
+  assert({
+    given: 'no state and SIGN_IN_CLEAR_ERROR action',
+    should: 'defualt state',
+    actual: signIn(undefined, Actions.SignIn.onSignInClearError()),
+    expected: createState(),
+  })
+
+  assert({
     given: 'default state and SIGN_IN action',
     should: 'loading true',
     actual: signIn(createState(), Actions.SignIn.onSignIn()),

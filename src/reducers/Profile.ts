@@ -8,7 +8,7 @@ const defaultState = {
   loading: false,
 }
 
-export const profile = (state: any, action: any) => {
+export const profile = (state: any = defaultState, action: any = {}) => {
   switch (action.type) {
     case Actions.Profile.PROFILE:
       return {
@@ -47,6 +47,6 @@ export const profile = (state: any, action: any) => {
         loading: false,
       }
     default:
-      return defaultState
+      return state
   }
 }

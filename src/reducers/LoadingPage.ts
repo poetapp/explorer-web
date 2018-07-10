@@ -5,7 +5,7 @@ const defaultState = {
   percentage: -1,
 }
 
-export const loadingPage = (state: any, action: any) => {
+export const loadingPage = (state: any = defaultState, action: any = {}) => {
   switch (action.type) {
     case Actions.LoadingPage.LOADING_ON:
       return {
@@ -26,6 +26,6 @@ export const loadingPage = (state: any, action: any) => {
         percentage: -1,
       }
     default:
-      return defaultState
+      return state
   }
 }

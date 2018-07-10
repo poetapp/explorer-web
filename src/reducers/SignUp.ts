@@ -8,7 +8,7 @@ const defaultState = {
   loading: false,
 }
 
-export const signUp = (state: any, action: any) => {
+export const signUp = (state: any = defaultState, action: any = {}) => {
   switch (action.type) {
     case Actions.SignUp.SIGN_UP:
       return {
@@ -47,6 +47,6 @@ export const signUp = (state: any, action: any) => {
         loading: false,
       }
     default:
-      return defaultState
+      return state
   }
 }

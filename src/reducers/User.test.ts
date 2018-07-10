@@ -3,9 +3,9 @@ import { Actions } from '../actions/index'
 import { user } from './User'
 
 const createUser = ({
-  token = '123',
+  token = '',
   profile = {
-    email: 'anon@test.com',
+    email: '',
     apiTokens: new Array(),
     verified: false,
     createdAt: '',
@@ -17,6 +17,70 @@ const createUser = ({
 
 describe('user reducer', async (should: any) => {
   const { assert } = should()
+
+  assert({
+    given: 'no arguments',
+    should: 'default state',
+    actual: user(),
+    expected: createUser(),
+  })
+
+  assert({
+    given: 'undefined state',
+    should: 'default state',
+    actual: user(undefined),
+    expected: createUser(),
+  })
+
+  assert({
+    given: 'undefined state and SIGN_IN_SUCCESS action with user ',
+    should: 'default state',
+    actual: user(
+      undefined,
+      Actions.SignIn.onSignInSuccess(
+        createUser({
+          token: 'abc',
+          profile: {
+            email: 'jesse@test.com',
+            apiTokens: new Array(),
+            verified: true,
+            createdAt: 'test',
+          },
+        })
+      )
+    ),
+    expected: createUser({
+      token: 'abc',
+      profile: {
+        email: 'jesse@test.com',
+        apiTokens: new Array(),
+        verified: true,
+        createdAt: 'test',
+      },
+    }),
+  })
+
+  assert({
+    given: 'no state and PROFILE_SUCCESS action with user',
+    should: 'state with payload as user',
+    actual: user(
+      undefined,
+      Actions.Profile.onProfileSuccess({
+        email: 'jesse@test.com',
+        apiTokens: new Array(),
+        verified: true,
+        createdAt: 'test',
+      })
+    ),
+    expected: createUser({
+      profile: {
+        email: 'jesse@test.com',
+        apiTokens: new Array(),
+        verified: true,
+        createdAt: 'test',
+      },
+    }),
+  })
 
   assert({
     given: 'default state and SIGN_IN_SUCCESS action with user',

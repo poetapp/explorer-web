@@ -17,6 +17,48 @@ describe('signUp reducer', async (should: any) => {
   const { assert } = should()
 
   assert({
+    given: 'no arguments',
+    should: 'defaultState',
+    actual: signUp(),
+    expected: createState(),
+  })
+
+  assert({
+    given: 'no state and SIGN_UP action',
+    should: 'loading true',
+    actual: signUp(undefined, Actions.SignUp.onSignUp()),
+    expected: createState({ loading: true }),
+  })
+
+  assert({
+    given: 'no state and SIGN_UP_SUCCESS action',
+    should: 'default state',
+    actual: signUp(undefined, Actions.SignUp.onSignUpSuccess()),
+    expected: createState(),
+  })
+
+  {
+    const e = 'test'
+    assert({
+      given: 'no state and SIGN_UP_ERROR action',
+      should: 'state with error',
+      actual: signUp(undefined, Actions.SignUp.onSignUpError(e)),
+      expected: createState({
+        error: {
+          status: true,
+          message: e,
+        },
+      }),
+    })
+  }
+  assert({
+    given: 'no state and SIGN_UP_CLEAR_ERROR action',
+    should: 'default state',
+    actual: signUp(undefined, Actions.SignUp.onSignUpClearError()),
+    expected: createState(),
+  })
+
+  assert({
     given: 'default state and SIGN_UP action',
     should: 'loading true',
     actual: signUp(createState(), Actions.SignUp.onSignUp()),
