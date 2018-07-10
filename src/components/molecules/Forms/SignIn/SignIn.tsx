@@ -1,8 +1,12 @@
 import * as classNames from 'classnames'
-import { Input } from 'components/atoms/Input/Input'
-import { Form } from 'components/molecules/Form/Form'
 import * as React from 'react'
+
 import { Link } from 'react-router'
+
+import { Input } from '../../../atoms/Input/Input'
+import { Form } from '../../Form/Form'
+
+import './SignIn.scss'
 
 interface SignInProps {
   readonly onSubmit: (event: any) => any
@@ -50,13 +54,14 @@ export class SignIn extends React.Component<SignInProps, undefined> {
           formRef={(el: HTMLFormElement) => (this.mutableForm = el)}
         >
           <Input
+            className={'SignIn__input'}
             name={'email'}
             type={'email'}
             label={'Email'}
             inputRef={(el: HTMLInputElement) => (this.mutableEmailInput = el)}
             onChange={this.onChangeEmail}
           />
-          <Input name={'password'} type={'password'} label={'Password'} />
+          <Input className={'SignIn__input'} name={'password'} type={'password'} label={'Password'} />
         </Form>
       </div>
     )

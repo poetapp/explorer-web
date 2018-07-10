@@ -5,6 +5,7 @@ import { Form } from 'components/molecules/Form/Form'
 import * as React from 'react'
 import { Link } from 'react-router'
 
+import './SignUp.scss'
 interface SignUpProps {
   readonly onSubmit: (event: any) => any
   readonly disabledButton?: boolean
@@ -70,6 +71,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
     return (
       <div className={classNames('SignUp', className)}>
         <Form
+          className={'SignUp__form'}
           buttonDisabled={disabledButton}
           onSubmit={onSubmit}
           header={'Sign Up'}
@@ -82,6 +84,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
           formRef={(el: HTMLFormElement) => (this.mutableForm = el)}
         >
           <Input
+            className={'SignUp__input'}
             name={'email'}
             type={'email'}
             label={'Email'}
@@ -89,6 +92,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
             onChange={this.onChangeEmail}
           />
           <InputPassword
+            className={'SignUp__input'}
             name={'password'}
             type={'password'}
             label={'Password'}
@@ -104,6 +108,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
             required
           />
           <Input
+            className={'SignUp__input'}
             name={'confirmPassword'}
             type={'password'}
             label={'Repeat Password'}
