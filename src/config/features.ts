@@ -10,6 +10,10 @@ const Features = [
     isActive: false,
     dependencies: ['auth'],
   },
+  {
+    name: 'footer',
+    isActive: false,
+  },
 ]
 
 export const initialFeatures = getActiveFeatures(Features)

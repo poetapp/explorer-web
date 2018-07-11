@@ -1,0 +1,24 @@
+@import "Colors";
+.footer1 {
+  $font-color: $dove-gray;
+  margin-top: auto;
+  background-color: $white;
+  height: 3.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: $font-color;
+  ul {
+    list-style: none;
+  }
+  img {
+    height: 2.1875rem;
+    width: 2.1875rem;
+  }
+  a {
+    color: $font-color;
+    padding: 0rem 1rem;
+    font-size: .75rem;
+  }
+}
+

@@ -7,11 +7,11 @@ import './Footer.scss'
 export class Footer extends React.Component<undefined, undefined> {
   render() {
     return (
-      <footer>
-        <div className="container">
-          <div className="logo-and-social">
-            <img src={Images.Quill} />
-            <div className="social">
+      <footer className="footer">
+        <div className="footer__container">
+          <div className="footer__container__logo-and-social">
+            <img src={Images.InvertedLogo} />
+            <div className="footer__container__logo-and-social__social">
               <a href="https://twitter.com/_poetproject" target="_blank">
                 <img src={Images.Twitter} />
               </a>

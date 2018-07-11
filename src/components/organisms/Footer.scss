@@ -1,11 +1,11 @@
 @import "Colors";
 
-.root-layout > footer {
-  $font-color: $dove-gray;
+.footer {
+  $font-color: $white;
   margin-top: auto;
   padding-bottom: 33px;
   padding-top: 53px;
-  background-color: $white;
+  background-color: $masala;
   color: $font-color;
 
   ul {
@@ -16,9 +16,9 @@
     color: $font-color;
   }
 
-  .container {
+  &__container {
 
-    .links-and-address {
+    &__links-and-address {
       display: flex;
       margin-bottom: 40px;
       padding-bottom: 33px;
@@ -35,7 +35,7 @@
             font-size: 16px;
             font-weight: bold;
             line-height: 23px;
-            color: $dove-gray;
+            color: $white;
           }
 
           >ul {
@@ -55,10 +55,10 @@
       }
     }
 
-    .logo-and-social {
+    &__logo-and-social {
       display: flex;
 
-      .social {
+      &__social {
         margin-left: auto;
 
         img {

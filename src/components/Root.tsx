@@ -7,6 +7,7 @@ import { Tabs } from 'react-tabs'
 import '../extensions/String'
 
 import { Footer } from './organisms/Footer'
+import { Footer1 } from './organisms/Footer1'
 import { Navbar } from './organisms/Navbar'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -33,22 +34,19 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
-  const Main = () => (
-    <Navbar
-      shadow={navbarShadow}
-      displayLogo={displayNavbarLogo}
-      displaySearch={displayNavbarSearch}
-      transparent={navbarTransparent}
-      searchShadow={searchShadow}
-    />
-  )
-  const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
-  const TestFeature = configureFeature(Main, 'foo', Test)
+
+  const FooterFeature = configureFeature(Footer, 'footer', Footer1)
   return (
     <div className="root-layout">
-      <TestFeature />
+      <Navbar
+        shadow={navbarShadow}
+        displayLogo={displayNavbarLogo}
+        displaySearch={displayNavbarSearch}
+        transparent={navbarTransparent}
+        searchShadow={searchShadow}
+      />
       {props.children}
-      <Footer />
+      <FooterFeature />
     </div>
   )
 }
