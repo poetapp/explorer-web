@@ -29,18 +29,7 @@
       "html-webpack-plugin",
       "babel-loader",
       "sass-loader",
-      "postcss-loader",
-      "react",
-      "react-dom",
-      "react-router",
-      "react-hot-loader",
-      "react-datepicker",
-      "react-tabs",
-      "@types/react",
-      "@types/react-dom",
-      "@types/react-router",
-      "@types/react-datepicker",
-      "@types/react-tabs"
+      "postcss-loader"
     ]
   },
   "dependencies": {
