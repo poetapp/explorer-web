@@ -3,8 +3,8 @@ import * as React from 'react'
 
 import { Link } from 'react-router'
 
-import { Input } from '../../../atoms/Input/Input'
-import { Form } from '../../Form/Form'
+import { Input } from 'components/atoms/Input/Input'
+import { Form } from 'components/molecules/Form/Form'
 
 import './SignIn.scss'
 
