@@ -1,8 +1,8 @@
 import * as classNames from 'classnames'
 import * as React from 'react'
 
+import { Input } from 'components/atoms/Input/Input'
 import { getParsedForm } from 'helpers/helpers'
-import { Input } from '../Input/Input'
 import './InputPassword.scss'
 
 interface ComplexityPassword {
