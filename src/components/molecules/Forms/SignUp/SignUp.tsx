@@ -1,11 +1,13 @@
 import * as classNames from 'classnames'
+import * as React from 'react'
+
 import { Input } from 'components/atoms/Input/Input'
 import { InputPassword } from 'components/atoms/InputPassword/InputPassword'
 import { Form } from 'components/molecules/Form/Form'
-import * as React from 'react'
 import { Link } from 'react-router'
 
 import './SignUp.scss'
+
 interface SignUpProps {
   readonly onSubmit: (event: any) => any
   readonly disabledButton?: boolean
@@ -48,6 +50,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
 
     return true
   }
+
   readonly onChangeRepeatPassword = (e: any, data: any, elements: any): void => {
     const value = e.target.value
     const { password, confirmPassword } = data
