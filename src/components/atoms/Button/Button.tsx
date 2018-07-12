@@ -4,7 +4,7 @@ import './Button.scss'
 
 interface ButtonProps {
   readonly className?: string
-  readonly text?: any
+  readonly text?: string
   readonly onClick?: any
   readonly company?: string
   readonly signIn?: boolean
