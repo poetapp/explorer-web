@@ -68,6 +68,29 @@ export namespace Actions {
     export const onChange = (payload?: object) => ({ type: ROUTER_ON_CHANGE, payload })
   }
 
+  export namespace SignUp {
+    export const SIGN_UP = 'SIGN_UP'
+    export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
+    export const SIGN_UP_ERROR = 'SIGN_UP_ERROR'
+    export const SIGN_UP_CLEAR_ERROR = 'SIGN_UP_CLEAR_ERROR'
+    export const onSignUp = (payload?: object) => ({
+      type: SIGN_UP,
+      payload,
+    })
+    export const onSignUpSuccess = (payload?: object) => ({
+      type: SIGN_UP_SUCCESS,
+      payload,
+    })
+    export const onSignUpError = (payload?: string) => ({
+      type: SIGN_UP_ERROR,
+      payload,
+    })
+    export const onSignUpClearError = (payload?: object) => ({
+      type: SIGN_UP_CLEAR_ERROR,
+      payload,
+    })
+  }
+
   export namespace SignIn {
     export const SIGN_IN = 'SIGN_IN'
     export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS'
