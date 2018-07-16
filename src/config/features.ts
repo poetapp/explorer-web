@@ -15,6 +15,11 @@ const Features = [
     isActive: false,
     dependencies: ['login', 'auth'],
   },
+  {
+    name: 'register',
+    isActive: false,
+    dependencies: ['auth'],
+  },
 ]
 
 export const initialFeatures = getActiveFeatures(Features)

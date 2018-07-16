@@ -18,9 +18,9 @@ interface LoginContainerProps {
 const mapStateToProps = (state: FrostState): LoginContainerProps => ({
   signIn: state.signIn,
 })
-
-const mapDispatchToProps = { onSubmitSignIn: Actions.SignIn.onSignIn }
-
+const mapDispatchToProps = {
+  onSubmitSignIn: Actions.SignIn.onSignIn,
+}
 export const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(
   class extends React.Component<LoginContainerProps, undefined> {
     readonly onSubmitSignIn = (data: DataFormSignIn): void => {

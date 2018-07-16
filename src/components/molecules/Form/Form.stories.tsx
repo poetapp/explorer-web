@@ -4,7 +4,7 @@ import { text, boolean } from '@storybook/addon-knobs/react'
 import { storiesOf } from '@storybook/react'
 import { wInfo } from 'stories/index.stories'
 import { Form } from './Form'
-import { Input } from '../../atoms/Input/Input'
+import { Input } from 'components/atoms/Input/Input'
 
 storiesOf("Components/Forms", module).addWithJSX(
   "Form",

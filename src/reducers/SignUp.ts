@@ -8,9 +8,9 @@ export const defaultState = {
   loading: false,
 }
 
-export const profile = (state: any = defaultState, action: any = {}) => {
+export const signUp = (state: any = defaultState, action: any = {}) => {
   switch (action.type) {
-    case Actions.Profile.PROFILE:
+    case Actions.SignUp.SIGN_UP:
       return {
         ...state,
         error: {
@@ -19,7 +19,7 @@ export const profile = (state: any = defaultState, action: any = {}) => {
         },
         loading: true,
       }
-    case Actions.Profile.PROFILE_SUCCESS:
+    case Actions.SignUp.SIGN_UP_SUCCESS:
       return {
         ...state,
         error: {
@@ -28,7 +28,7 @@ export const profile = (state: any = defaultState, action: any = {}) => {
         },
         loading: false,
       }
-    case Actions.Profile.PROFILE_ERROR:
+    case Actions.SignUp.SIGN_UP_ERROR:
       return {
         ...state,
         error: {
@@ -37,7 +37,7 @@ export const profile = (state: any = defaultState, action: any = {}) => {
         },
         loading: false,
       }
-    case Actions.Profile.PROFILE_CLEAR_ERROR:
+    case Actions.SignUp.SIGN_UP_CLEAR_ERROR:
       return {
         ...state,
         error: {

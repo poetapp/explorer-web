@@ -18,22 +18,26 @@ interface FromProps {
 }
 
 export class Form extends React.Component<FromProps, undefined> {
-  readonly onSubmit = (event: any, submit = (data: object, elements: any) => ({})): void => {
+  readonly onSubmit = (
+    event: any,
+    submit = (data: object, elements: any) => ({}),
+    validate = (data: any, elements: any) => true
+  ): void => {
     event.preventDefault()
     const form = event.target
     const { currentData, elements } = getParsedForm(form)
-    submit(currentData, elements)
+    if (validate(currentData, elements)) submit(currentData, elements)
   }
 
   render(): JSX.Element {
-    const { buttonDisabled, label, className, header, children, signIn, onSubmit, formRef } = this.props
+    const { onValidate, buttonDisabled, label, className, header, children, signIn, onSubmit, formRef } = this.props
     return (
       <div className={classNames('Form', className)}>
         <div className={'Form__header'}>
           <h1 className={'Form__header__label'}>{header}</h1>
           <div className={'Form__header__text'}>{label}</div>
         </div>
-        <form className={'Form__form'} onSubmit={event => this.onSubmit(event, onSubmit)} ref={formRef}>
+        <form className={'Form__form'} onSubmit={event => this.onSubmit(event, onSubmit, onValidate)} ref={formRef}>
           {children}
           <Button disabled={buttonDisabled} className={'button'} text={signIn ? 'Log In' : 'Sign Up'} />
         </form>
