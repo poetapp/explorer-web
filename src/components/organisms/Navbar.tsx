@@ -23,7 +23,7 @@ export interface NavbarProps {
   readonly displayLogo?: boolean
   readonly displaySearch?: boolean
   readonly searchShadow?: boolean
-  readonly location?: string
+  readonly displayNavButtons?: boolean
 }
 
 function mapStateToProps(state: any, ownProps: NavbarProps): NavbarProps {
@@ -79,9 +79,9 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
               </form>
             </div>
           )}
-          <Feature>
-            {({ features }) => isActive('nav-buttons', features) && <NavButtons location={this.props.location} />}
-          </Feature>
+          {this.props.displayNavButtons && (
+            <Feature>{({ features }) => isActive('nav-buttons', features) && <NavButtons />}</Feature>
+          )}
         </nav>
       )
     }
