@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@po.et/stylelint-rules": "1.1.0",
-    "@po.et/tslint-rules": "1.2.0",
+    "@po.et/tslint-rules": "1.4.0",
     "@storybook/addon-actions": "3.4.8",
     "@storybook/addon-info": "3.4.8",
     "@storybook/addon-knobs": "3.4.8",
