@@ -39,7 +39,6 @@ const mapDispatch = {
   }),
 }
 
-const Noop = () => <div />
 export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
   class extends React.Component<NavbarProps & NavbarActions, undefined> {
     static defaultProps: NavbarProps = {
@@ -81,9 +80,7 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
             </div>
           )}
           <Feature>
-            {({ features }) =>
-              isActive('nav-buttons', features) ? <NavButtons location={this.props.location} /> : <Noop />
-            }
+            {({ features }) => isActive('nav-buttons', features) && <NavButtons location={this.props.location} />}
           </Feature>
         </nav>
       )
