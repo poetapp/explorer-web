@@ -22,7 +22,10 @@ const mapStateToProps = (state: FrostState): SignUpContainerProps => ({
 const mapDispatchToProps = {
   onSubmitSignUp: Actions.SignUp.onSignUp,
 }
-export const SignUpContainer = connect(mapStateToProps, mapDispatchToProps)(
+export const SignUpContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   class extends React.Component<SignUpContainerProps, undefined> {
     readonly onSubmitSignUp = (data: DataFormSignUp): void => {
       const { onSubmitSignUp } = this.props
