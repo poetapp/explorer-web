@@ -8,6 +8,7 @@ import { Action } from 'redux'
 
 import { Actions } from 'actions'
 import { NavButtons } from 'components/molecules/NavButtons/NavButtons'
+import { FeatureName } from 'config/features'
 import { Images } from 'images/Images'
 
 import './Navbar.scss'
@@ -80,7 +81,7 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
             </div>
           )}
           {this.props.displayNavButtons && (
-            <Feature>{({ features }) => isActive('nav-buttons', features) && <NavButtons />}</Feature>
+            <Feature>{({ features }) => isActive(FeatureName.NavButtons, features) && <NavButtons />}</Feature>
           )}
         </nav>
       )
