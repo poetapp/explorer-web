@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 interface LoadingPageProps {
   readonly loadingPage: LoadingPage
+  readonly children?: React.ReactNode
 }
 
 const mapStateToProps = (state: FrostState): LoadingPageProps => ({
@@ -12,16 +13,9 @@ const mapStateToProps = (state: FrostState): LoadingPageProps => ({
 })
 
 export const LoadingPageContainer = connect(mapStateToProps)(
-  class extends React.Component<LoadingPageProps, undefined> {
-    render(): JSX.Element {
-      const { loadingPage, children } = this.props
-      const { loading, percentage } = loadingPage
-
-      return (
-        <Loading loading={loading} percentage={percentage}>
-          {children}
-        </Loading>
-      )
-    }
-  }
+  ({ loadingPage: { loading, percentage }, children }: LoadingPageProps) => (
+    <Loading loading={loading} percentage={percentage}>
+      {children}
+    </Loading>
+  )
 )
