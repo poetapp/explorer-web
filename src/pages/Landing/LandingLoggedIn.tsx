@@ -11,7 +11,10 @@ interface LandingState {}
 
 const mapDispatch = {}
 
-export const LandingLoggedIn = connect(() => ({}), mapDispatch)(
+export const LandingLoggedIn = connect(
+  () => ({}),
+  mapDispatch
+)(
   class extends React.Component<LandingProps, LandingState> {
     constructor(props: LandingProps) {
       super(props)

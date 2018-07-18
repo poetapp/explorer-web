@@ -68,4 +68,4 @@ async function init(): Promise<void> {
   )
 }
 
-init()
+init().catch(console.error)
