@@ -15,7 +15,7 @@ interface LoadingPageProps extends ClassNameProps {
 
 export const LoadingPage = (props: LoadingPageProps) => (
   <div className={classNames('LoadingPage', props.className)}>
-    {props.loading && <ProgressBar autoIncrement percent={props.percentage} />}
+    {props.loading ? <ProgressBar autoIncrement percent={props.percentage} /> : null}
     {props.children}
   </div>
 )
