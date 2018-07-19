@@ -6,6 +6,9 @@
 
 This is Po.et's frontend, as seen in https://app.po.et.
 
+## Development Process
+All new features should be merged into master behind a feature toggle with it turned off by default. Once the feature has been sufficiently tested the toggle can be removed. 
+
 ## Libraries, Frameworks, Etc
 - Typescript
 - ReactJS

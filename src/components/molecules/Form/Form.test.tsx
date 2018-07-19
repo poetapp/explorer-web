@@ -29,7 +29,7 @@ describe('<Form {...props} />', async (should: any) => {
     })
   }
   {
-    const props = { label: 'test label' }
+    const props = { header: 'test label' }
     const $ = dom.load(render(<Form {...props} />))
     assert({
       given: 'label prop',
@@ -39,7 +39,7 @@ describe('<Form {...props} />', async (should: any) => {
     })
   }
   {
-    const props = { children: 'test text' }
+    const props = { label: 'test text' }
     const $ = dom.load(render(<Form {...props} />))
     assert({
       given: 'text prop',
