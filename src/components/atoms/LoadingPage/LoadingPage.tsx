@@ -3,7 +3,7 @@ import * as React from 'react'
 const ProgressBar = require('react-progress-bar-plus')
 
 import { ClassNameProps } from 'interfaces/Props'
-// TODO: Resolve Sass Loader Issue
+
 import 'react-progress-bar-plus/lib/progress-bar.css'
 import './LoadingPage.scss'
 
