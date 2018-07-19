@@ -19,7 +19,7 @@ const production = environment === 'production'
 const development = environment === 'development'
 const configurationPath = `./env/${environment}.json`
 
-console.log("NODE_ENV: ", environment)
+console.log("POET_ENV: ", environment)
 console.log("Configuration Path: ", configurationPath)
 
 const vendor = [
