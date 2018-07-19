@@ -16,6 +16,9 @@
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook"
   },
+  "engines": {
+    "npm": "6.2.0"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
