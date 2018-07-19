@@ -14,6 +14,11 @@ const Features = [
     name: 'footer',
     isActive: false,
   },
+  {
+    name: 'register',
+    isActive: false,
+    dependencies: ['auth'],
+  },
 ]
 
 export const initialFeatures = getActiveFeatures(Features)

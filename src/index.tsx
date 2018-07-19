@@ -2,7 +2,6 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
 import { FeatureToggles, getCurrentActiveFeatures, Feature, isActive } from '@paralleldrive/react-feature-toggles'
-import { Actions } from 'actions'
 import { initialFeatures } from 'config/features'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
@@ -18,7 +17,7 @@ async function init(): Promise<void> {
   function handlerRoutes(store: any, pathname: string): void {
     const state = store.getState()
     const { user } = state
-    const omitRoutes: ReadonlyArray<any> = ['/', '/login']
+    const omitRoutes: ReadonlyArray<any> = ['/', '/login', '/register']
     const worksNoAuth = [pathname].filter(x => typeof x === 'string' && x.indexOf('/works') > -1)
     const notNeedOuath = omitRoutes.includes(pathname) || worksNoAuth.length
     if (['/login', '/login/'].includes(pathname) && user.token !== '') browserHistory.push('/')
@@ -28,7 +27,6 @@ async function init(): Promise<void> {
   function requireAuth(store: any): (route: any, replace: object) => void {
     return (route: any, replace: object): void => {
       const pathname = route.location.pathname
-      store.dispatch(Actions.Router.onEnter(pathname))
       handlerRoutes(store, pathname)
     }
   }
@@ -36,7 +34,6 @@ async function init(): Promise<void> {
   function onChange(store: any): (route: any, replace: object) => void {
     return (route: any, replace: any): void => {
       const pathname = replace.location.pathname
-      store.dispatch(Actions.Router.onChange(pathname))
       handlerRoutes(store, pathname)
     }
   }
@@ -71,4 +68,4 @@ async function init(): Promise<void> {
   )
 }
 
-init()
+init().catch(console.error)

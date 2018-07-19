@@ -15,7 +15,7 @@
 
 ### PR Review Checklist
 
-* [ ] **Do this changes match the product spec?**
+* [ ] **Do the changes match the product spec?**
 * [ ] **Are there changes in this PR that weren't originally in the product spec?**
 * [ ] **Is a feature toggle introduced for this PR? Is it disabled by default?**
 * [ ] **Have you tested the changes?**
