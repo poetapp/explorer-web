@@ -11,15 +11,15 @@ const validEnvironments = [
   'testing',
   'production',
 ]
-const environment = process.env.NODE_ENV || 'development'
+const environment = process.env.POET_ENV || 'development'
 
-assert(validEnvironments.includes(environment), `Invalid value for NODE_ENV: ${environment}. Valid values are: ${validEnvironments}`)
+assert(validEnvironments.includes(environment), `Invalid value for POET_ENV: ${environment}. Valid values are: ${validEnvironments}`)
 
 const production = environment === 'production'
 const development = environment === 'development'
 const configurationPath = `./env/${environment}.json`
 
-console.log("NODE_ENV: ", environment)
+console.log("POET_ENV: ", environment)
 console.log("Configuration Path: ", configurationPath)
 
 const vendor = [
