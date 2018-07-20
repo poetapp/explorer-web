@@ -1,7 +1,8 @@
-import { Frost } from '@poetapp/frost-client'
 import { Actions } from 'actions/index'
 import { SagaIterator } from 'redux-saga'
 import { call, takeLatest, put, ForkEffect } from 'redux-saga/effects'
+
+import { FrostClient } from 'singletons/FrostClient'
 
 export function GetProfileSaga(): () => IterableIterator<ReadonlyArray<ForkEffect>> {
   return function*(): IterableIterator<ReadonlyArray<ForkEffect>> {
@@ -14,9 +15,8 @@ export function GetProfileSaga(): () => IterableIterator<ReadonlyArray<ForkEffec
 
 export function* GetProfile(action: any): SagaIterator {
   try {
-    const frost = new Frost({ host: '/api' })
     const { token } = action.payload
-    const profile = yield call(frost.getProfile, token)
+    const profile = yield call(FrostClient.getProfile, token)
     yield put(Actions.Profile.onProfileSuccess(profile))
   } catch (e) {
     yield put(Actions.Profile.onProfileError(e))
