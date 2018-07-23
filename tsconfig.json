@@ -8,7 +8,12 @@
     "jsx": "react",
     "lib": [ "DOM", "DOM.Iterable","ScriptHost", "es2017" ],
     "baseUrl": "./src/",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "Configuration": [
+        "../development.json"
+      ]
+    }
   },
   "include": [
     "./src/**/*",
