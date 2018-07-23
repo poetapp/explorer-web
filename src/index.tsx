@@ -1,12 +1,11 @@
 import { FeatureToggles, getCurrentActiveFeatures, Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-
-import { initialFeatures, FeatureName } from 'config/features'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 
 import { Layout } from 'components/Root'
+import { initialFeatures } from 'config/features'
 import { createPoetStore } from 'store'
 
 async function init(): Promise<void> {
