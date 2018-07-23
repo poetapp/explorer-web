@@ -11,7 +11,7 @@
     "skipLibCheck": true,
     "paths": {
       "Configuration": [
-        "../development.json"
+        "../env/development.json"
       ]
     }
   },
