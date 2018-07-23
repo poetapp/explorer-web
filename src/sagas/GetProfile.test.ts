@@ -1,7 +1,5 @@
+import { takeLatest, call, put } from 'redux-saga/effects'
 import { describe } from 'riteway'
-
-import { delay } from 'redux-saga'
-import { takeEvery, takeLatest, call, put } from 'redux-saga/effects'
 
 import { Actions } from '../actions/index'
 import { GetProfileFrost, GetProfileSaga, GetProfile } from './GetProfile'
