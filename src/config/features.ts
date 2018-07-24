@@ -1,23 +1,36 @@
 import { getActiveFeatures } from '@paralleldrive/react-feature-toggles'
 
+export enum FeatureName {
+  Auth = 'auth',
+  Login = 'login',
+  NavButtons = 'nav-buttons',
+  Register = 'register',
+  Footer = 'footer',
+}
+
 const Features = [
   {
-    name: 'auth',
+    name: FeatureName.Auth,
     isActive: false,
   },
   {
-    name: 'login',
+    name: FeatureName.Login,
     isActive: false,
-    dependencies: ['auth'],
+    dependencies: [FeatureName.Auth],
   },
   {
-    name: 'footer',
+    name: FeatureName.NavButtons,
+    isActive: false,
+    dependencies: [FeatureName.Login, FeatureName.Auth],
+  },
+  {
+    name: FeatureName.footer,
     isActive: false,
   },
   {
-    name: 'register',
+    name: FeatureName.Register,
     isActive: false,
-    dependencies: ['auth'],
+    dependencies: [FeatureName.Auth],
   },
 ]
 

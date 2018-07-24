@@ -87,4 +87,22 @@ nav.navbar {
       width: 109px;
     }
   }
+
+  .button {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  .navbar-login {
+    height: 1.875rem;
+    width: 5rem;
+    background-color: $transparent;
+    color: $ocean-green;
+  }
+
+  .navbar-signup {
+    height: 1.875rem;
+    width: 5rem;
+  }
 }

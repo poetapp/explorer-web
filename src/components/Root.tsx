@@ -4,8 +4,9 @@ import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
-import '../extensions/String'
+import { FeatureName } from 'config/features'
 
+import '../extensions/String'
 import { Footer } from './organisms/Footer'
 import { Footer1 } from './organisms/Footer1'
 import { Navbar } from './organisms/Navbar'
@@ -35,7 +36,7 @@ function render(props: RootLayoutProps) {
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
 
-  const FooterFeature = configureFeature(Footer, 'footer', Footer1)
+  const FooterFeature = configureFeature(Footer, FeatureName.Footer, Footer1)
   return (
     <div className="root-layout">
       <Navbar

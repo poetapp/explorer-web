@@ -1,10 +1,14 @@
 import * as classNames from 'classnames'
 import * as React from 'react'
+
+import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Action } from 'redux'
 
 import { Actions } from 'actions'
+import { NavButtons } from 'components/molecules/NavButtons/NavButtons'
+import { FeatureName } from 'config/features'
 import { Images } from 'images/Images'
 
 import './Navbar.scss'
@@ -20,6 +24,7 @@ export interface NavbarProps {
   readonly displayLogo?: boolean
   readonly displaySearch?: boolean
   readonly searchShadow?: boolean
+  readonly displayNavButtons?: boolean
 }
 
 function mapStateToProps(state: any, ownProps: NavbarProps): NavbarProps {
@@ -74,6 +79,9 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
                 />
               </form>
             </div>
+          )}
+          {this.props.displayNavButtons && (
+            <Feature>{({ features }) => isActive(FeatureName.NavButtons, features) && <NavButtons />}</Feature>
           )}
         </nav>
       )
