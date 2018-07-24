@@ -49,31 +49,26 @@ function bindInitialState(pages: Array<PageLoader<any, any>>): any {
   return initialState
 }
 
-export function createPoetStore(): Promise<{
+export async function createPoetStore(): Promise<{
   readonly store: any
   readonly pages: any
 }> {
-  return new Promise((resolve, reject) => {
-    try {
-      const pages = pageCreators.map(Page => new Page())
+  const pages = pageCreators.map(Page => new Page())
 
-      const initialState = bindInitialState(pages)
-      const reducerList = bindReducers(pages)
+  const initialState = bindInitialState(pages)
+  const reducerList = bindReducers(pages)
 
-      const enhancer: any = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-      const sagaMiddleware = createSagaMiddleware()
+  const enhancer: any = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  const sagaMiddleware = createSagaMiddleware()
 
-      const store = createStore(
-        combineReducers(reducerList),
-        initialState,
-        enhancer(applyMiddleware(sagaMiddleware), autoRehydrate())
-      )
+  const store = createStore(
+    combineReducers(reducerList),
+    initialState,
+    enhancer(applyMiddleware(sagaMiddleware), autoRehydrate())
+  )
 
-      sagaMiddleware.run(bindSagas(pages))
+  sagaMiddleware.run(bindSagas(pages))
+  await new Promise(resolve => persistStore(store, {}, () => resolve()))
 
-      persistStore(store, {}, () => resolve({ store, pages }))
-    } catch (e) {
-      reject(e)
-    }
-  })
+  return { store, pages }
 }
