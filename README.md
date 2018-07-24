@@ -1,4 +1,4 @@
-d# Po.et Web
+# Po.et Web
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/poetapp/explorer-web.svg)](https://greenkeeper.io/)
 

@@ -1,4 +1,3 @@
-import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import { connect } from 'react-redux'
@@ -32,21 +31,16 @@ function render(props: RootLayoutProps) {
   const searchShadow = [worksUrl].includes(location)
   const displayNavButtons = [''].includes(location)
 
-  const Main = () => (
-    <Navbar
-      shadow={navbarShadow}
-      displayLogo={displayNavbarLogo}
-      displaySearch={displayNavbarSearch}
-      transparent={navbarTransparent}
-      searchShadow={searchShadow}
-      displayNavButtons={displayNavButtons}
-    />
-  )
-  const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
-  const TestFeature = configureFeature(Main, 'foo', Test)
   return (
     <div className="root-layout">
-      <TestFeature />
+      <Navbar
+        shadow={navbarShadow}
+        displayLogo={displayNavbarLogo}
+        displaySearch={displayNavbarSearch}
+        transparent={navbarTransparent}
+        searchShadow={searchShadow}
+        displayNavButtons={displayNavButtons}
+      />
       {props.children}
       <Footer />
     </div>

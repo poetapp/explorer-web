@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 
 import { Layout } from 'components/Root'
-import { initialFeatures } from 'config/features'
+import { initialFeatures, FeatureName } from 'config/features'
 import { createPoetStore } from 'store'
 
 async function init(): Promise<void> {
