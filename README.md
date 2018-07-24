@@ -7,7 +7,7 @@
 This is Po.et's frontend, as seen in https://app.po.et.
 
 ## Development Process
-The master branch is regularly built and tested, but is not guaranteed to be completely stable. [Tags](https://github.com/poetapp/explorer-web/tags) are created regularly to indicate new official, stable release versions of  Explorer-Web.
+All new features should be merged into master behind a feature toggle with it turned off by default. Once the feature has been sufficiently tested the toggle can be removed. 
 
 ## Libraries, Frameworks, Etc
 - Typescript

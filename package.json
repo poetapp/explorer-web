@@ -41,7 +41,7 @@
     "isomorphic-fetch": "2.2.1",
     "moment": "2.22.2",
     "poet-js": "1.0.3",
-    "protobufjs": "6.8.6",
+    "protobufjs": "6.8.7",
     "react": "16.4.1",
     "react-autocomplete": "1.8.1",
     "react-datepicker": "0.41.1",
@@ -56,7 +56,7 @@
     "redux-devtools": "3.4.1",
     "redux-persist": "4.10.2",
     "redux-saga": "0.16.0",
-    "testcafe": "0.20.4"
+    "testcafe": "0.20.5"
   },
   "devDependencies": {
     "@po.et/stylelint-rules": "1.1.0",
@@ -68,8 +68,8 @@
     "@storybook/addons": "3.4.8",
     "@storybook/react": "3.4.8",
     "@types/cheerio": "0.22.8",
-    "@types/classnames": "2.2.5",
-    "@types/react": "16.3.17",
+    "@types/classnames": "2.2.6",
+    "@types/react": "16.4.7",
     "@types/react-datepicker": "0.40.2",
     "@types/react-dom": "0.14.23",
     "@types/react-hot-loader": "3.0.5",

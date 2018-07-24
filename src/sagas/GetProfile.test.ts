@@ -1,10 +1,9 @@
+import { Frost } from '@poetapp/frost-client'
+import { takeLatest, call, put } from 'redux-saga/effects'
 import { describe } from 'riteway'
 
-import { delay } from 'redux-saga'
-import { takeEvery, takeLatest, call, put } from 'redux-saga/effects'
-
 import { Actions } from '../actions/index'
-import { GetProfileFrost, GetProfileSaga, GetProfile } from './GetProfile'
+import { GetProfileSaga, GetProfile } from './GetProfile'
 
 describe('SignInSaga()', async (should: any) => {
   const { assert } = should()
@@ -30,11 +29,13 @@ describe('GetProfile() Success', async (should: any) => {
   }
   const iterator = GetProfile(Actions.Profile.onProfile({ token }))
 
+  const frost = new Frost({ host: '/api' })
+
   assert({
     given: 'Profile Action with token',
     should: 'Get profile from frost-client',
     actual: iterator.next().value,
-    expected: call(GetProfileFrost, token),
+    expected: call(frost.getProfile, token),
   })
 
   assert({
@@ -57,10 +58,12 @@ describe('GetProfile() Error', async (should: any) => {
   const token = 'tesdft'
   const iterator = GetProfile(Actions.Profile.onProfile({ token }))
 
+  const frost = new Frost({ host: '/api' })
+
   assert({
     given: 'Profile Action with token',
     should: 'Get profile from frost-client',
     actual: iterator.next().value,
-    expected: call(GetProfileFrost, token),
+    expected: call(frost.getProfile, token),
   })
 })
