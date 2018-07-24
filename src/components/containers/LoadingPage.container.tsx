@@ -1,10 +1,12 @@
-import { LoadingPage as Loading } from 'components/atoms/LoadingPage/LoadingPage'
-import { FrostState, LoadingPage } from 'interfaces/Props'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
+import { LoadingPage as Loading } from 'components/atoms/LoadingPage/LoadingPage'
+import { FrostState, LoadingPage } from 'interfaces/Props'
+
 interface LoadingPageProps {
   readonly loadingPage: LoadingPage
+  readonly children?: React.ReactNode
 }
 
 const mapStateToProps = (state: FrostState): LoadingPageProps => ({
@@ -12,16 +14,9 @@ const mapStateToProps = (state: FrostState): LoadingPageProps => ({
 })
 
 export const LoadingPageContainer = connect(mapStateToProps)(
-  class extends React.Component<LoadingPageProps, undefined> {
-    render(): JSX.Element {
-      const { loadingPage, children } = this.props
-      const { loading, percentage } = loadingPage
-
-      return (
-        <Loading loading={loading} percentage={percentage}>
-          {children}
-        </Loading>
-      )
-    }
-  }
+  ({ loadingPage: { loading, percentage }, children }: LoadingPageProps) => (
+    <Loading loading={loading} percentage={percentage}>
+      {children}
+    </Loading>
+  )
 )

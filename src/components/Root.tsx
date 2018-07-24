@@ -1,15 +1,12 @@
-import * as React from 'react'
-
 import { configureFeature } from '@paralleldrive/react-feature-toggles'
+import * as React from 'react'
+import 'react-datepicker/dist/react-datepicker.css'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
-import '../extensions/String'
-
-import { Footer } from './organisms/Footer'
-import { Navbar } from './organisms/Navbar'
-
-import 'react-datepicker/dist/react-datepicker.css'
+import { Footer } from 'components/organisms/Footer'
+import { Navbar } from 'components/organisms/Navbar'
+import 'extensions/String'
 
 import './Root.scss'
 

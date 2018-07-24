@@ -2,6 +2,7 @@ import * as classNames from 'classnames'
 import * as React from 'react'
 
 import { getParsedForm } from 'helpers/helpers'
+
 import './Input.scss'
 
 interface InputProps {

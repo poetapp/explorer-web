@@ -1,7 +1,6 @@
-import { describe } from 'riteway'
-
 import { delay } from 'redux-saga'
 import { takeLatest, call, put } from 'redux-saga/effects'
+import { describe } from 'riteway'
 
 import { Actions } from '../actions/index'
 import { SignInSaga, SignIn, signInFrost } from './SignIn'

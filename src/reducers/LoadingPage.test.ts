@@ -1,4 +1,5 @@
 import { describe } from 'riteway'
+
 import { Actions } from '../actions/index'
 import { loadingPage, defaultState } from './LoadingPage'
 

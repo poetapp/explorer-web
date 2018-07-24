@@ -1,4 +1,5 @@
 import { describe } from 'riteway'
+
 import { Actions } from '../actions/index'
 import { user, defaultState } from './User'
 
