@@ -33,6 +33,8 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
+  const displayNavButtons = [''].includes(location)
+
   const Main = () => (
     <Navbar
       shadow={navbarShadow}
@@ -40,6 +42,7 @@ function render(props: RootLayoutProps) {
       displaySearch={displayNavbarSearch}
       transparent={navbarTransparent}
       searchShadow={searchShadow}
+      displayNavButtons={displayNavButtons}
     />
   )
   const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
