@@ -1,12 +1,12 @@
 import { FeatureToggles, getCurrentActiveFeatures, Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+
+import { initialFeatures, FeatureName } from 'config/features'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 
-import { Actions } from 'actions'
 import { Layout } from 'components/Root'
-import { initialFeatures } from 'config/features'
 import { createPoetStore } from 'store'
 
 async function init(): Promise<void> {
@@ -43,13 +43,12 @@ async function init(): Promise<void> {
   function notFound(route: any, replace: object): void {
     browserHistory.push('/')
   }
-
   ReactDOM.render(
     <Provider store={store}>
       <FeatureToggles features={getCurrentActiveFeatures({ initialFeatures })}>
         <Feature>
           {({ features }) =>
-            isActive('auth', features) ? (
+            isActive(FeatureName.Auth, features) ? (
               <Router history={browserHistory}>
                 <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>
                   {routes}
