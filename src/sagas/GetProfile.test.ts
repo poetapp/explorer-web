@@ -1,7 +1,6 @@
 import { Frost } from '@poetapp/frost-client'
-import { describe } from 'riteway'
-
 import { takeLatest, call, put } from 'redux-saga/effects'
+import { describe } from 'riteway'
 
 import { Actions } from '../actions/index'
 import { GetProfileSaga, GetProfile } from './GetProfile'

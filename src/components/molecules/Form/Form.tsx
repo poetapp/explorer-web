@@ -1,10 +1,11 @@
 import * as classNames from 'classnames'
-import { getParsedForm } from 'helpers/helpers'
 import * as React from 'react'
 
 import { Button } from 'components/atoms/Button/Button'
+import { getParsedForm } from 'helpers/helpers'
 
 import './Form.scss'
+
 interface FromProps {
   readonly className?: string
   readonly header?: string

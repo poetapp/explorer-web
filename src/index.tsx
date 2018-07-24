@@ -1,13 +1,13 @@
+import { FeatureToggles, getCurrentActiveFeatures, Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-
-import { FeatureToggles, getCurrentActiveFeatures, Feature, isActive } from '@paralleldrive/react-feature-toggles'
-import { Actions } from 'actions'
-import { initialFeatures } from 'config/features'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
-import { Layout } from './components/Root'
-import { createPoetStore } from './store'
+
+import { Actions } from 'actions'
+import { Layout } from 'components/Root'
+import { initialFeatures } from 'config/features'
+import { createPoetStore } from 'store'
 
 async function init(): Promise<void> {
   const { store, pages } = await createPoetStore()
@@ -20,10 +20,11 @@ async function init(): Promise<void> {
     const { user } = state
     const omitRoutes: ReadonlyArray<any> = ['/', '/login']
     const worksNoAuth = [pathname].filter(x => typeof x === 'string' && x.indexOf('/works') > -1)
-    const notNeedOuath = omitRoutes.includes(pathname) || worksNoAuth.length
-    if (['/login', '/login/'].includes(pathname) && user.token !== '') browserHistory.push('/')
+    const notNeedOauth = omitRoutes.includes(pathname) || worksNoAuth.length
+    const userIsAuthenticated = !!user.token
+    if (['/login', '/login/'].includes(pathname) && userIsAuthenticated) browserHistory.push('/')
 
-    if (!notNeedOuath && user.token === '') browserHistory.push('/login')
+    if (!notNeedOauth && !userIsAuthenticated) browserHistory.push('/login')
   }
   function requireAuth(store: any): (route: any, replace: object) => void {
     return (route: any, replace: object): void => {
