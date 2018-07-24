@@ -24,7 +24,7 @@ const Features = [
     dependencies: [FeatureName.Login, FeatureName.Auth],
   },
   {
-    name: FeatureName.footer,
+    name: FeatureName.Footer,
     isActive: false,
   },
   {
