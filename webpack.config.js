@@ -18,9 +18,11 @@ assert(validEnvironments.includes(environment), `Invalid value for POET_ENV: ${e
 const production = environment === 'production'
 const development = environment === 'development'
 const configurationPath = `./env/${environment}.json`
+const redirects = `./_redirects.${environment}`
 
 console.log("POET_ENV: ", environment)
 console.log("Configuration Path: ", configurationPath)
+console.log("redirects: ", redirects)
 
 const vendor = [
   'history',
@@ -77,7 +79,7 @@ function getPlugins(environment) {
   const nonDevelopmentPlugins = [
     new CopyWebpackPlugin([
       {
-        from: './_redirects',
+        from: redirects,
         to: './_redirects',
         toType: "file",
       },
