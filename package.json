@@ -9,7 +9,6 @@
     "build:development": "NODE_ENV=development webpack",
     "build:testing": "NODE_ENV=testing webpack",
     "build:preview": "stylelint './src/**/*.scss' && tslint -p ./tsconfig.json && npm run build:testing",
-    "build:staging": "NODE_ENV=staging webpack",
     "build:production": "NODE_ENV=production webpack",
     "build": "webpack",
     "serve": "ws --spa index.html -d ./dist",
