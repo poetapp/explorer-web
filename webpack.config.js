@@ -17,6 +17,7 @@ assert(validEnvironments.includes(environment), `Invalid value for POET_ENV: ${e
 
 const production = environment === 'production'
 const development = environment === 'development'
+const testing = environment === 'testing'
 const configurationPath = `./env/${environment}.json`
 const redirects = `./_redirects.${environment}`
 
@@ -117,7 +118,7 @@ module.exports = {
     publicPath: "/"
   },
 
-  devtool: production ? '' : 'eval',
+  devtool: production || testing ? '' : 'eval',
 
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json', '.css', '.scss'],
