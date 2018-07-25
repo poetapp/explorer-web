@@ -1,10 +1,10 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+const { persistStore, autoRehydrate } = require('redux-persist')
 import { fork } from 'redux-saga/effects'
 
-import './extensions/Array'
-
 import PageLoader from './components/PageLoader'
+import './extensions/Array'
 
 import pageCreators from './pages'
 import reducers from './reducers'
@@ -49,18 +49,31 @@ function bindInitialState(pages: Array<PageLoader<any, any>>): any {
   return initialState
 }
 
-export function createPoetStore() {
-  const pages = pageCreators.map(Page => new Page())
+export function createPoetStore(): Promise<{
+  readonly store: any
+  readonly pages: any
+}> {
+  return new Promise((resolve, reject) => {
+    try {
+      const pages = pageCreators.map(Page => new Page())
 
-  const initialState = bindInitialState(pages)
-  const reducerList = bindReducers(pages)
+      const initialState = bindInitialState(pages)
+      const reducerList = bindReducers(pages)
 
-  const enhancer: any = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-  const sagaMiddleware = createSagaMiddleware()
+      const enhancer: any = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+      const sagaMiddleware = createSagaMiddleware()
 
-  const store = createStore(combineReducers(reducerList), initialState, enhancer(applyMiddleware(sagaMiddleware)))
+      const store = createStore(
+        combineReducers(reducerList),
+        initialState,
+        enhancer(applyMiddleware(sagaMiddleware), autoRehydrate())
+      )
 
-  sagaMiddleware.run(bindSagas(pages))
+      sagaMiddleware.run(bindSagas(pages))
 
-  return { store, pages }
+      persistStore(store, {}, () => resolve({ store, pages }))
+    } catch (e) {
+      reject(e)
+    }
+  })
 }

@@ -1,15 +1,12 @@
+import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
-
-import { Feature } from '@paralleldrive/react-feature-toggles'
+import 'react-datepicker/dist/react-datepicker.css'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
-import '../extensions/String'
-
-import { Footer } from './organisms/Footer'
-import { Navbar } from './organisms/Navbar'
-
-import 'react-datepicker/dist/react-datepicker.css'
+import { Footer } from 'components/organisms/Footer'
+import { Navbar } from 'components/organisms/Navbar'
+import 'extensions/String'
 
 import './Root.scss'
 
@@ -43,8 +40,7 @@ function render(props: RootLayoutProps) {
     />
   )
   const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
-
-  const TestFeature = () => <Feature name="foo" activeComponent={Test} inactiveComponent={Main} />
+  const TestFeature = configureFeature(Main, 'foo', Test)
   return (
     <div className="root-layout">
       <TestFeature />

@@ -4,6 +4,7 @@ interface Configuration {
   readonly dateTimeFormat: string
   readonly pagination: Pagination
   readonly useMockSigner: boolean
+  readonly frostApiUrl: string
 }
 
 interface Pagination {
