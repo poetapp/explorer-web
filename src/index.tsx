@@ -4,10 +4,9 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 
+import { Layout } from 'components/Root'
 import { initialFeatures, FeatureName } from 'config/features'
 import { createPoetStore } from 'store'
-
-import { Layout } from './components/Root'
 
 async function init(): Promise<void> {
   const { store, pages } = await createPoetStore()
