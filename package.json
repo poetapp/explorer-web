@@ -99,7 +99,7 @@
     "ignore-styles": "5.0.1",
     "json-loader": "0.5.7",
     "json-server": "0.14.0",
-    "local-web-server": "2.5.6",
+    "local-web-server": "2.6.0",
     "node-noop": "1.0.0",
     "node-sass": "4.9.2",
     "postcss-loader": "1.3.3",
