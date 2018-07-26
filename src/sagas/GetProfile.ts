@@ -21,4 +21,4 @@ export function* GetProfile(action: any): SagaIterator {
   } catch (e) {
     yield put(Actions.Profile.onProfileError(e))
   }
-}
+} 
