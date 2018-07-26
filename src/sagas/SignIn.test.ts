@@ -38,7 +38,7 @@ describe('SignIn() Success', async (should: any) => {
       given: 'next step',
       should: 'fetch user from database',
       actual: iterator.next().value,
-      expected: call(frost.login, email, password),
+      expected: call([frost, frost.login], email, password),
     })
   }
 
@@ -90,7 +90,7 @@ describe('SignIn() Error', async (should: any) => {
       given: 'next step',
       should: 'fetch user from database',
       actual: iterator.next().value,
-      expected: call(frost.login, email, password),
+      expected: call([frost, frost.login], email, password),
     })
   }
 
