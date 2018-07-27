@@ -35,7 +35,7 @@ describe('GetProfile() Success', async (should: any) => {
     given: 'Profile Action with token',
     should: 'Get profile from frost-client',
     actual: iterator.next().value,
-    expected: call(frost.getProfile, token),
+    expected: call([frost, frost.getProfile], token),
   })
 
   assert({
@@ -64,6 +64,6 @@ describe('GetProfile() Error', async (should: any) => {
     given: 'Profile Action with token',
     should: 'Get profile from frost-client',
     actual: iterator.next().value,
-    expected: call(frost.getProfile, token),
+    expected: call([frost, frost.getProfile], token),
   })
 })

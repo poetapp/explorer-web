@@ -16,7 +16,7 @@ export function GetProfileSaga(): () => IterableIterator<ReadonlyArray<ForkEffec
 export function* GetProfile(action: any): SagaIterator {
   try {
     const { token } = action.payload
-    const profile = yield call(FrostClient.getProfile, token)
+    const profile = yield call([FrostClient, FrostClient.getProfile], token)
     yield put(Actions.Profile.onProfileSuccess(profile))
   } catch (e) {
     yield put(Actions.Profile.onProfileError(e))
