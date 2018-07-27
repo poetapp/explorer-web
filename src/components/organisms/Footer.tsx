@@ -1,5 +1,7 @@
+import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 
+import { FeatureName } from 'config/features'
 import { Images } from 'images/Images'
 
 import './Footer.scss'
@@ -8,19 +10,32 @@ export class Footer extends React.Component<undefined, undefined> {
   render() {
     return (
       <footer>
-        <div className="container">
-          <div className="logo-and-social">
-            <img src={Images.InvertedLogo} />
-            <div className="social">
-              <a href="https://twitter.com/_poetproject" target="_blank">
-                <img src={Images.Twitter} />
-              </a>
-              <a href="https://github.com/poetapp" target="_blank">
-                <img src={Images.Github} />
-              </a>
-            </div>
-          </div>
+        <div>
+          <a href="#">{new Date().getFullYear()} Po.et</a>
+          <Feature>
+            {({ features }) =>
+              isActive(FeatureName.Footer, features) && (
+                <React.Fragment>
+                  <a href="#">Terms</a>
+                  <a href="#">Privacy</a>
+                </React.Fragment>
+              )
+            }
+          </Feature>
         </div>
+        <img src={Images.Quill} />
+        <Feature>
+          {({ features }) =>
+            isActive(FeatureName.Footer, features) && (
+              <div>
+                <a href="#">Frost API</a>
+                <a href="#">Blog</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+              </div>
+            )
+          }
+        </Feature>
       </footer>
     )
   }
