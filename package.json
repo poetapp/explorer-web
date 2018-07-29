@@ -117,7 +117,7 @@
     "style-loader": "0.21.0",
     "stylelint": "9.4.0",
     "ts-node": "7.0.0",
-    "tsconfig-paths": "3.4.2",
+    "tsconfig-paths": "3.5.0",
     "typescript": "2.8.3",
     "webpack": "3.11.0",
     "webpack-dev-middleware": "1.12.0",
