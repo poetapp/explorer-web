@@ -1,5 +1,5 @@
-import { getCurrentActiveFeatureNames } from '@paralleldrive/feature-toggles'
-import { FeatureToggles, Feature, isActiveFeatureName } from '@paralleldrive/react-feature-toggles'
+import { getCurrentActiveFeatureNames, isActiveFeatureName } from '@paralleldrive/feature-toggles'
+import { FeatureToggles, Feature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -51,7 +51,7 @@ async function init(): Promise<void> {
     <Provider store={store}>
       <FeatureToggles features={getCurrentActiveFeatureNames({ initialFeatures })}>
         <Feature>
-          {features =>
+          {({ features }) =>
             isActiveFeatureName('auth', features) ? (
               <Router history={browserHistory}>
                 <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>

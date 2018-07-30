@@ -1,6 +1,4 @@
-import { getActiveFeatureNames } from '@paralleldrive/feature-toggles'
-
-const Features = [
+export const initialFeatures = [
   {
     name: 'auth',
     isActive: false,
@@ -11,5 +9,3 @@ const Features = [
     dependencies: ['auth'],
   },
 ]
-
-export const initialFeatures = Features
