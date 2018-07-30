@@ -1,4 +1,4 @@
-import { getActiveFeatures } from '@paralleldrive/react-feature-toggles'
+import { getActiveFeatureNames } from '@paralleldrive/feature-toggles'
 
 const Features = [
   {
@@ -12,4 +12,4 @@ const Features = [
   },
 ]
 
-export const initialFeatures = getActiveFeatures(Features)
+export const initialFeatures = Features

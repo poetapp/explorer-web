@@ -46,8 +46,8 @@ declare module '@paralleldrive/react-feature-toggles' {
   ): ReadonlyArray<string>
   export { removeFeatures }
 
-  function isActive(name: string, currentFeatures: ReadonlyArray<string>): boolean
-  export { isActive }
+  function isActiveFeatureName(name: string, currentFeatures: ReadonlyArray<string>): boolean
+  export { isActiveFeatureName };
 
   interface Req {
     readonly query: Query
