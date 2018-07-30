@@ -1,9 +1,10 @@
+import { Frost } from '@poetapp/frost-client'
 import { delay } from 'redux-saga'
 import { takeLatest, call, put } from 'redux-saga/effects'
 import { describe } from 'riteway'
 
 import { Actions } from '../actions/index'
-import { SignInSaga, SignIn, signInFrost } from './SignIn'
+import { SignInSaga, SignIn } from './SignIn'
 
 describe('SignInSaga()', async (should: any) => {
   const { assert } = should()
@@ -31,12 +32,15 @@ describe('SignIn() Success', async (should: any) => {
     expected: put(Actions.LoadingPage.onLoadingOn()),
   })
 
-  assert({
-    given: 'next step',
-    should: 'fetch user from database',
-    actual: iterator.next().value,
-    expected: call(signInFrost, { email, password }),
-  })
+  {
+    const frost = new Frost({ host: '/api' })
+    assert({
+      given: 'next step',
+      should: 'fetch user from database',
+      actual: iterator.next().value,
+      expected: call([frost, frost.login], email, password),
+    })
+  }
 
   assert({
     given: 'next step and successful sign in',
@@ -80,12 +84,15 @@ describe('SignIn() Error', async (should: any) => {
     expected: put(Actions.LoadingPage.onLoadingOn()),
   })
 
-  assert({
-    given: 'next step',
-    should: 'fetch user from database',
-    actual: iterator.next().value,
-    expected: call(signInFrost, { email, password }),
-  })
+  {
+    const frost = new Frost({ host: '/api' })
+    assert({
+      given: 'next step',
+      should: 'fetch user from database',
+      actual: iterator.next().value,
+      expected: call([frost, frost.login], email, password),
+    })
+  }
 
   assert({
     given: 'next step and invalid user',
