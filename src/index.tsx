@@ -21,7 +21,8 @@ async function init(): Promise<void> {
     const worksNoAuth = [pathname].filter(x => typeof x === 'string' && x.indexOf('/works') > -1)
     const notNeedOauth = omitRoutes.includes(pathname) || worksNoAuth.length
     const userIsAuthenticated = !!user.token
-    if (['/login', '/login/'].includes(pathname) && userIsAuthenticated) browserHistory.push('/')
+    if (['/login', '/login/', '/register', '/register/'].includes(pathname) && userIsAuthenticated)
+      browserHistory.push('/')
 
     if (!notNeedOauth && !userIsAuthenticated) browserHistory.push('/login')
   }
