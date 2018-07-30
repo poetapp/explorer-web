@@ -1,9 +1,9 @@
-import { Actions } from 'actions/index'
-import { FrostState, StatusService } from 'interfaces/Props'
 import * as React from 'react'
 import { connect } from 'react-redux'
 
+import { Actions } from 'actions/index'
 import { SignUpWrapper } from 'components/molecules/SignUp/SignUp'
+import { FrostState, StatusService } from 'interfaces/Props'
 
 interface DataFormSignUp {
   readonly email: string

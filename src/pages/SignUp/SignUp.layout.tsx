@@ -1,6 +1,6 @@
+import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 
-import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import { LoadingPageContainer } from 'components/containers/LoadingPage.container'
 import { SignUpContainer } from 'components/containers/SignUp.container'
 import { FeatureName } from 'config/features'

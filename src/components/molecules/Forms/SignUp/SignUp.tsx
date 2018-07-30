@@ -1,10 +1,10 @@
 import * as classNames from 'classnames'
 import * as React from 'react'
+import { Link } from 'react-router'
 
 import { Input } from 'components/atoms/Input/Input'
 import { InputPassword } from 'components/atoms/InputPassword/InputPassword'
 import { Form } from 'components/molecules/Form/Form'
-import { Link } from 'react-router'
 
 import './SignUp.scss'
 

@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import { Input } from 'components/atoms/Input/Input'
 import { getParsedForm } from 'helpers/helpers'
+
 import './InputPassword.scss'
 
 interface ComplexityPassword {

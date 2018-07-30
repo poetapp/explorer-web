@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Route } from 'react-router'
 
 import PageLoader, { ReducerDescription } from 'components/PageLoader'
+
 import { SignUpLayout } from './SignUp.layout'
 
 export class SignUp extends PageLoader<any, object> {

@@ -1,7 +1,6 @@
+import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import * as classNames from 'classnames'
 import * as React from 'react'
-
-import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Action } from 'redux'

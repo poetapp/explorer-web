@@ -1,7 +1,7 @@
 import * as classNames from 'classnames'
-import { ClassNameProps } from 'components/ClassNameProps'
 import * as React from 'react'
 
+import { ClassNameProps } from 'components/ClassNameProps'
 import { Images } from 'images/Images'
 
 interface SearchInputProps extends ClassNameProps {
