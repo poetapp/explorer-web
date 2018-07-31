@@ -1,5 +1,5 @@
 import { getCurrentActiveFeatureNames, isActiveFeatureName } from '@paralleldrive/feature-toggles'
-import { FeatureToggles, Feature } from '@paralleldrive/react-feature-toggles'
+import { FeatureToggles } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -47,26 +47,21 @@ async function init(): Promise<void> {
     browserHistory.push('/')
   }
 
+  const isAuthActive = isActiveFeatureName('auth', getCurrentActiveFeatureNames({ initialFeatures }))
+
   ReactDOM.render(
     <Provider store={store}>
       <FeatureToggles features={getCurrentActiveFeatureNames({ initialFeatures })}>
-        <Feature>
-          {({ features }) =>
-            isActiveFeatureName('auth', features) ? (
-              <Router history={browserHistory}>
-                <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>
-                  {routes}
-                </Route>
-                <Route path="*" onEnter={notFound} />
-              </Router>
-            ) : (
-              <Router history={browserHistory}>
-                <Route component={Layout}>{routes}</Route>
-                <Route path="*" onEnter={notFound} />
-              </Router>
-            )
-          }
-        </Feature>
+        <Router history={browserHistory}>
+          <Route
+            component={Layout}
+            onEnter={isAuthActive && requireAuth(store)}
+            onChange={isAuthActive && onChange(store)}
+          >
+            {routes}
+          </Route>
+          <Route path="*" onEnter={notFound} />
+        </Router>
       </FeatureToggles>
     </Provider>,
     document.getElementById('app')
