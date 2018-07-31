@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "statusCheckVerify": true,
+  "ignoreDeps": [
+    "webpack",
+    "webpack-dev-middleware",
+    "webpack-dev-server",
+    "webpack-hot-middleware",
+    "awesome-typescript-loader",
+    "html-webpack-plugin",
+    "babel-loader",
+    "sass-loader",
+    "postcss-loader"
+  ]
+}
