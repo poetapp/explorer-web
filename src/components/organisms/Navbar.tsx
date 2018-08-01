@@ -1,3 +1,4 @@
+import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -51,22 +52,29 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
     }
 
     render() {
-      const navClasses = [
-        'navbar',
-        this.props.shadow && 'shadow',
-        this.props.transparent && 'transparent',
-        this.props.margin && 'margin',
-      ]
-      const searchClasses = ['search', this.props.searchShadow && 'shadow']
+      const {
+        user,
+        displaySearch,
+        displayLogo,
+        dispatchSearchChange,
+        onSignOut,
+        shadow,
+        transparent,
+        margin,
+        searchShadow,
+      } = this.props
+      const { profile } = user
 
+      const navClasses = ['navbar', shadow && 'shadow', transparent && 'transparent', margin && 'margin']
+      const searchClasses = ['search', searchShadow && 'shadow']
       return (
         <nav className={classNames(navClasses)}>
-          {this.props.displayLogo && (
+          {displayLogo && (
             <a className="navbar-brand" href="/">
               <img src={Images.Logo} />
             </a>
           )}
-          {this.props.displaySearch && (
+          {displaySearch && (
             <div className={classNames(searchClasses)}>
               <img src={Images.Glass} />
               <form>
@@ -75,17 +83,24 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
                   placeholder="Search"
                   defaultValue={this.getSearchQuery()}
                   onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                    this.props.dispatchSearchChange(event.currentTarget.value)
+                    dispatchSearchChange(event.currentTarget.value)
                   }
                 />
               </form>
             </div>
           )}
-          {this.props.user.profile.verified && (
-            <div className="avatar">
-              <AvatarMenu user={this.props.user} onSignOut={this.props.onSignOut} />
-            </div>
-          )}
+          {profile &&
+            profile.verified && (
+              <Feature>
+                {({ features }) =>
+                  isActive('avatar', features) && (
+                    <div className="avatar">
+                      <AvatarMenu user={user} onSignOut={onSignOut} />
+                    </div>
+                  )
+                }
+              </Feature>
+            )}
         </nav>
       )
     }

@@ -10,7 +10,7 @@ export function SignOutSaga(): () => IterableIterator<ForkEffect> {
 
 export function SignOut(action: any): void {
   try {
-    if (!(action.payload && action.payload.redirectLogin === false)) browserHistory.push('/login')
+    if (!(action.payload && action.payload.redirectLogin === false)) browserHistory.push('/')
   } catch (e) {
     // Todo: Error message in UI
   }

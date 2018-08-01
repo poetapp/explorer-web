@@ -4,6 +4,8 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import * as React from 'react'
 
+import { Images } from 'images/Images'
+
 import { User } from 'interfaces/Props'
 
 interface AvatarMenuProps {
@@ -34,22 +36,23 @@ export class AvatarMenu extends React.Component<AvatarMenuProps, AvatarMenuState
 
   render() {
     const open = Boolean(this.state.anchorEl)
+    const { profile } = this.props.user
     return (
       <div>
         <IconButton onClick={this.handleClick}>
-          <Avatar className="avatar" src={this.props.user.profile.avatar} />
+          <Avatar className="avatar" src={profile.avatar || Images.Avatar} />
         </IconButton>
         <Menu className="avatar-menu" open={open} anchorEl={this.state.anchorEl} onClose={this.handleRequestClose}>
           <MenuItem className="avatar-menu-email" onClick={this.handleRequestClose}>
-            {this.props.user.profile.email}
+            {profile.email}
           </MenuItem>
-          <MenuItem className="avatar-menu-email" onClick={this.handleRequestClose}>
+          <MenuItem className="avatar-menu-profile" onClick={this.handleRequestClose}>
             Your Profile
           </MenuItem>
-          <MenuItem className="avatar-menu-email" onClick={this.handleRequestClose}>
+          <MenuItem className="avatar-menu-settings" onClick={this.handleRequestClose}>
             Settings
           </MenuItem>
-          <MenuItem className="avatar-menu-sign-out" onClick={this.handleSignOut}>
+          <MenuItem className="avatar-menu-log-out" onClick={this.handleSignOut}>
             Log Out
           </MenuItem>
           ))}
