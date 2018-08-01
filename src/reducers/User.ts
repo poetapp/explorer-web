@@ -1,5 +1,6 @@
-import { Actions } from 'actions/index'
+import { Actions } from 'actions'
 const { REHYDRATE } = require('redux-persist/constants')
+import { Images } from 'images/Images'
 
 const defaultState = {
   token: '',
@@ -8,6 +9,7 @@ const defaultState = {
     apiTokens: new Array(),
     verified: false,
     createdAt: '',
+    avatar: Images.Avatar,
   },
 }
 
@@ -35,6 +37,8 @@ export const user = (state: any, action: any) => {
           token: action.payload.token,
         },
       }
+    case Actions.SignOut.SIGN_OUT:
+      return {}
     case REHYDRATE:
       return {
         ...state,

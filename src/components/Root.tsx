@@ -4,9 +4,11 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
-import { Footer } from 'components/organisms/Footer'
-import { Navbar } from 'components/organisms/Navbar'
+import { LogoutContainer } from 'components/containers/Logout.container'
 import 'extensions/String'
+
+import { Footer } from './organisms/Footer'
+import { Navbar } from './organisms/Navbar'
 
 import './Root.scss'
 

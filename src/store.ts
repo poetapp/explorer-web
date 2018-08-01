@@ -3,8 +3,9 @@ import createSagaMiddleware from 'redux-saga'
 const { persistStore, autoRehydrate } = require('redux-persist')
 import { fork } from 'redux-saga/effects'
 
-import PageLoader from './components/PageLoader'
-import './extensions/Array'
+import { Actions } from 'actions/index'
+import PageLoader from 'components/PageLoader'
+import 'extensions/Array'
 
 import pageCreators from './pages'
 import reducers from './reducers'

@@ -5,12 +5,15 @@ import { browserHistory } from 'react-router'
 import { Action } from 'redux'
 
 import { Actions } from 'actions'
+import { AvatarMenu } from 'components/atoms/AvatarMenu/AvatarMenu'
 import { Images } from 'images/Images'
+import { User, FrostState } from 'interfaces/Props'
 
 import './Navbar.scss'
 
 interface NavbarActions {
   dispatchSearchChange: (searchQuery: string) => Action
+  readonly onSignOut?: () => Action
 }
 
 export interface NavbarProps {
@@ -20,10 +23,12 @@ export interface NavbarProps {
   readonly displayLogo?: boolean
   readonly displaySearch?: boolean
   readonly searchShadow?: boolean
+  readonly user?: User
 }
 
-function mapStateToProps(state: any, ownProps: NavbarProps): NavbarProps {
+function mapStateToProps(state: FrostState, ownProps: NavbarProps): NavbarProps {
   return {
+    user: state.user,
     ...ownProps,
   }
 }
@@ -33,6 +38,7 @@ const mapDispatch = {
     type: Actions.Search.Change,
     query,
   }),
+  onSignOut: Actions.SignOut.onSignOut,
 }
 
 export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
@@ -73,6 +79,11 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
                   }
                 />
               </form>
+            </div>
+          )}
+          {this.props.user.profile.verified && (
+            <div className="avatar">
+              <AvatarMenu user={this.props.user} onSignOut={this.props.onSignOut} />
             </div>
           )}
         </nav>

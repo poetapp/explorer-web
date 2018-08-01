@@ -1,4 +1,5 @@
 export class Images {
+  static readonly Avatar = require('./avatar.svg')
   static readonly Logo = require('./logo.svg')
   static readonly InvertedLogo = require('./logo-inverted.svg')
   static readonly Twitter = require('./twitter.svg')
