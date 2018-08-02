@@ -40,7 +40,7 @@ export class AvatarMenu extends React.Component<AvatarMenuProps, AvatarMenuState
     return (
       <div>
         <IconButton onClick={this.handleClick}>
-          <Avatar className="avatar" src={profile.avatar || Images.Avatar} />
+          <Avatar src={profile.avatar} />
         </IconButton>
         <Menu className="avatar-menu" open={open} anchorEl={this.state.anchorEl} onClose={this.handleRequestClose}>
           <MenuItem className="avatar-menu-email" onClick={this.handleRequestClose}>

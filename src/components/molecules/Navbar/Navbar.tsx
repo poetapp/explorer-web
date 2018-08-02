@@ -1,4 +1,6 @@
-import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
+import { isActiveFeatureName } from '@paralleldrive/feature-toggles'
+import { Feature } from '@paralleldrive/react-feature-toggles'
+
 import * as classNames from 'classnames'
 import * as React from 'react'
 import { browserHistory } from 'react-router'
@@ -11,7 +13,7 @@ import { User } from 'interfaces/Props'
 import './Navbar.scss'
 
 interface NavbarActions {
-  dispatchSearchChange: (searchQuery: string) => Action
+  dispatchSearchChange?: (searchQuery: string) => Action
   readonly onSignOut?: () => Action
 }
 
@@ -44,7 +46,6 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
     margin,
     searchShadow,
   } = props
-  const { profile } = user
 
   const navClasses = ['navbar', shadow && 'shadow', transparent && 'transparent', margin && 'margin']
   const searchClasses = ['search', searchShadow && 'shadow']
@@ -68,11 +69,12 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
           </form>
         </div>
       )}
-      {profile &&
-        profile.createdAt && (
+      {user &&
+        user.profile &&
+        user.profile.createdAt && (
           <Feature>
             {({ features }) =>
-              isActive('avatar', features) && (
+              isActiveFeatureName('avatar', features) && (
                 <div className="avatar">
                   <AvatarMenu user={user} onSignOut={onSignOut} />
                 </div>

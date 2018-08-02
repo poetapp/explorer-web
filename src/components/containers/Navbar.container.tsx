@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 
-import { Actions } from 'actions/index'
+import { Actions } from 'actions'
 import { User, FrostState } from 'interfaces/Props'
 
-import { Navbar } from '../organisms/Navbar'
+import { Navbar } from '../molecules/Navbar/Navbar'
 
 export interface NavbarContainerProps {
   readonly shadow?: boolean
