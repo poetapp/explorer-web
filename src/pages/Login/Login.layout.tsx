@@ -6,7 +6,7 @@ import { LoginContainer } from 'components/containers/Login.container'
 
 import { LandingLayout } from '../Landing/Layout'
 
-const LoginFeature = configureFeature(LandingLayout, 'login', LoginContainer)
+const LoginFeature = configureFeature(LandingLayout)('login')(LoginContainer)
 export const LoginLayout = () => (
   <LoadingPageContainer>
     <LoginFeature />
