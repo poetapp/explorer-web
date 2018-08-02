@@ -23,11 +23,12 @@ export class AvatarMenu extends React.Component<AvatarMenuProps, AvatarMenuState
   }
 
   handleClick = (event: any) => {
-    this.setState({ anchorEl: event.currentTarget })
+    const currentTarget = event.currentTarget
+    this.setState(() => ({ anchorEl: currentTarget }))
   }
 
   handleRequestClose = () => {
-    this.setState({ anchorEl: null })
+    this.setState(() => ({ anchorEl: null }))
   }
 
   handleSignOut = () => {
