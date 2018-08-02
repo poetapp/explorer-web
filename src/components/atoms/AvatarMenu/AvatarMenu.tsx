@@ -4,8 +4,6 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import * as React from 'react'
 
-import { Images } from 'images/Images'
-
 import { User } from 'interfaces/Props'
 
 interface AvatarMenuProps {
@@ -23,11 +21,11 @@ export class AvatarMenu extends React.Component<AvatarMenuProps, AvatarMenuState
   }
 
   handleClick = (event: any) => {
-    this.setState({ anchorEl: event.currentTarget })
+    this.setState(() => ({ anchorEl: event.currentTarget }))
   }
 
   handleRequestClose = () => {
-    this.setState({ anchorEl: null })
+    this.setState(() => ({ anchorEl: null }))
   }
 
   handleSignOut = () => {
