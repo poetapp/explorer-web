@@ -89,17 +89,18 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
               </form>
             </div>
           )}
-          {profile && (
-            <Feature>
-              {({ features }) =>
-                isActive('avatar', features) && (
-                  <div className="avatar">
-                    <AvatarMenu user={user} onSignOut={onSignOut} />
-                  </div>
-                )
-              }
-            </Feature>
-          )}
+          {user &&
+            profile.createdAt && (
+              <Feature>
+                {({ features }) =>
+                  isActive('avatar', features) && (
+                    <div className="avatar">
+                      <AvatarMenu user={user} onSignOut={onSignOut} />
+                    </div>
+                  )
+                }
+              </Feature>
+            )}
         </nav>
       )
     }
