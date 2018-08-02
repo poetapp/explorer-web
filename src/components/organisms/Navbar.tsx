@@ -1,14 +1,12 @@
 import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
 import * as classNames from 'classnames'
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Action } from 'redux'
 
-import { Actions } from 'actions'
 import { AvatarMenu } from 'components/atoms/AvatarMenu/AvatarMenu'
 import { Images } from 'images/Images'
-import { User, FrostState } from 'interfaces/Props'
+import { User } from 'interfaces/Props'
 
 import './Navbar.scss'
 
@@ -27,89 +25,61 @@ export interface NavbarProps {
   readonly user?: User
 }
 
-function mapStateToProps(state: FrostState, ownProps: NavbarProps): NavbarProps {
-  return {
-    user: state.user,
-    ...ownProps,
-  }
+const getSearchQuery = () => {
+  const currentLocation = browserHistory.getCurrentLocation()
+
+  if (currentLocation.pathname === '/works') return (currentLocation.query as any).query
+  else return ''
 }
 
-const mapDispatch = {
-  dispatchSearchChange: (query: string) => ({
-    type: Actions.Search.Change,
-    query,
-  }),
-  onSignOut: Actions.SignOut.onSignOut,
+export const Navbar = (props: NavbarProps & NavbarActions) => {
+  const {
+    user,
+    displaySearch,
+    displayLogo,
+    dispatchSearchChange,
+    onSignOut,
+    shadow,
+    transparent,
+    margin,
+    searchShadow,
+  } = props
+  const { profile } = user
+
+  const navClasses = ['navbar', shadow && 'shadow', transparent && 'transparent', margin && 'margin']
+  const searchClasses = ['search', searchShadow && 'shadow']
+  return (
+    <nav className={classNames(navClasses)}>
+      {displayLogo && (
+        <a className="navbar-brand" href="/">
+          <img src={Images.Logo} />
+        </a>
+      )}
+      {displaySearch && (
+        <div className={classNames(searchClasses)}>
+          <img src={Images.Glass} />
+          <form>
+            <input
+              type="text"
+              placeholder="Search"
+              defaultValue={getSearchQuery()}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => dispatchSearchChange(event.currentTarget.value)}
+            />
+          </form>
+        </div>
+      )}
+      {profile &&
+        profile.createdAt && (
+          <Feature>
+            {({ features }) =>
+              isActive('avatar', features) && (
+                <div className="avatar">
+                  <AvatarMenu user={user} onSignOut={onSignOut} />
+                </div>
+              )
+            }
+          </Feature>
+        )}
+    </nav>
+  )
 }
-
-export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
-  class extends React.Component<NavbarProps & NavbarActions, undefined> {
-    static defaultProps: NavbarProps = {
-      shadow: true,
-      transparent: false,
-      displayLogo: true,
-      displaySearch: true,
-    }
-
-    render() {
-      const {
-        user,
-        displaySearch,
-        displayLogo,
-        dispatchSearchChange,
-        onSignOut,
-        shadow,
-        transparent,
-        margin,
-        searchShadow,
-      } = this.props
-      const { profile } = user
-
-      const navClasses = ['navbar', shadow && 'shadow', transparent && 'transparent', margin && 'margin']
-      const searchClasses = ['search', searchShadow && 'shadow']
-      return (
-        <nav className={classNames(navClasses)}>
-          {displayLogo && (
-            <a className="navbar-brand" href="/">
-              <img src={Images.Logo} />
-            </a>
-          )}
-          {displaySearch && (
-            <div className={classNames(searchClasses)}>
-              <img src={Images.Glass} />
-              <form>
-                <input
-                  type="text"
-                  placeholder="Search"
-                  defaultValue={this.getSearchQuery()}
-                  onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                    dispatchSearchChange(event.currentTarget.value)
-                  }
-                />
-              </form>
-            </div>
-          )}
-          {user &&
-            profile.createdAt && (
-              <Feature>
-                {({ features }) =>
-                  isActive('avatar', features) && (
-                    <div className="avatar">
-                      <AvatarMenu user={user} onSignOut={onSignOut} />
-                    </div>
-                  )
-                }
-              </Feature>
-            )}
-        </nav>
-      )
-    }
-
-    private getSearchQuery() {
-      const currentLocation = browserHistory.getCurrentLocation()
-
-      if (currentLocation.pathname === '/works') return (currentLocation.query as any).query
-      else return ''
-    }
-  }
-)

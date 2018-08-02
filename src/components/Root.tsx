@@ -1,11 +1,10 @@
-import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
+import { NavbarContainer } from 'components/containers/Navbar.container'
 import { Footer } from 'components/organisms/Footer'
-import { Navbar } from 'components/organisms/Navbar'
 import 'extensions/String'
 
 import './Root.scss'
@@ -30,20 +29,16 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
-  const Main = () => (
-    <Navbar
-      shadow={navbarShadow}
-      displayLogo={displayNavbarLogo}
-      displaySearch={displayNavbarSearch}
-      transparent={navbarTransparent}
-      searchShadow={searchShadow}
-    />
-  )
-  const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
-  const TestFeature = configureFeature(Main, 'foo', Test)
+
   return (
     <div className="root-layout">
-      <TestFeature />
+      <NavbarContainer
+        shadow={navbarShadow}
+        displayLogo={displayNavbarLogo}
+        displaySearch={displayNavbarSearch}
+        transparent={navbarTransparent}
+        searchShadow={searchShadow}
+      />
       {props.children}
       <Footer />
     </div>
