@@ -38,7 +38,8 @@
     ]
   },
   "dependencies": {
-    "@paralleldrive/react-feature-toggles": "2.0.0-beta2",
+    "@paralleldrive/feature-toggles": "1.0.3",
+    "@paralleldrive/react-feature-toggles": "2.0.1",
     "@poetapp/frost-client": "0.1.4",
     "bundle-loader": "0.5.6",
     "circular-dependency-plugin": "^4.4.0",

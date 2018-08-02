@@ -40,7 +40,7 @@ function render(props: RootLayoutProps) {
     />
   )
   const Test = () => <div>REACT-FEATURE-TOGGLE-TEST</div>
-  const TestFeature = configureFeature(Main, 'foo', Test)
+  const TestFeature = configureFeature(Main)('foo')(Test)
   return (
     <div className="root-layout">
       <TestFeature />
