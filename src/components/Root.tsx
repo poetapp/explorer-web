@@ -29,7 +29,6 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
-
   return (
     <div className="root-layout">
       <NavbarContainer
