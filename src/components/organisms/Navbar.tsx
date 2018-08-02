@@ -1,4 +1,6 @@
-import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
+import { isActiveFeatureName } from '@paralleldrive/feature-toggles'
+import { Feature } from '@paralleldrive/react-feature-toggles'
+
 import * as classNames from 'classnames'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -93,7 +95,7 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
             profile.createdAt && (
               <Feature>
                 {({ features }) =>
-                  isActive('avatar', features) && (
+                  isActiveFeatureName('avatar', features) && (
                     <div className="avatar">
                       <AvatarMenu user={user} onSignOut={onSignOut} />
                     </div>
