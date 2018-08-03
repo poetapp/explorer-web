@@ -13,7 +13,7 @@ import { User } from 'interfaces/Props'
 import './Navbar.scss'
 
 interface NavbarActions {
-  dispatchSearchChange?: (searchQuery: string) => Action
+  onSearchChange?: (searchQuery: string) => Action
   readonly onSignOut?: () => Action
 }
 
@@ -39,7 +39,7 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
     user,
     displaySearch,
     displayLogo,
-    dispatchSearchChange,
+    onSearchChange,
     onSignOut,
     shadow,
     transparent,
@@ -64,7 +64,7 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
               type="text"
               placeholder="Search"
               defaultValue={getSearchQuery()}
-              onChange={(event: React.FormEvent<HTMLInputElement>) => dispatchSearchChange(event.currentTarget.value)}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => onSearchChange(event.currentTarget.value)}
             />
           </form>
         </div>

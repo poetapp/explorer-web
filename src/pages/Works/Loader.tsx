@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Route } from 'react-router'
 
-import { Actions } from '../../actions/index'
-import PageLoader, { ReducerDescription } from '../../components/PageLoader'
+import { Actions } from 'actions'
+import PageLoader, { ReducerDescription } from 'components/PageLoader'
 import { WorksLayout } from './Layout'
 
 export class Works extends PageLoader<any, object> {
@@ -31,7 +31,7 @@ export class Works extends PageLoader<any, object> {
   mapDispatchToProps() {
     return {
       dispatchSearchOffsetChangeAction: (offset: number) => ({
-        type: Actions.Search.Offset,
+        type: Actions.Search.SEARCH_OFFSET,
         offset,
       }),
     }

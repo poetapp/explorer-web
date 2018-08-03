@@ -29,11 +29,8 @@ const mapStateToProps = (
 })
 
 const mapDispatchToProps = {
-  dispatchSearchChange: (query: string) => ({
-    type: Actions.Search.Change,
-    query,
-  }),
   onSignOut: Actions.SignOut.onSignOut,
+  onSearchChange: Actions.Search.onSearchChange,
 }
 
 export const NavbarContainer = connect(
