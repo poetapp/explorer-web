@@ -13,7 +13,7 @@ import { User } from 'interfaces/Props'
 import './Navbar.scss'
 
 interface NavbarActions {
-  onSearchChange?: (searchQuery: string) => Action
+  readonly onSearchChange?: (searchQuery: string) => Action
   readonly onSignOut?: () => Action
 }
 
