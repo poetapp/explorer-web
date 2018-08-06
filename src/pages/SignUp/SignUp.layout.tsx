@@ -6,7 +6,7 @@ import { SignUpContainer } from 'components/containers/SignUp.container'
 import { FeatureName } from 'config/features'
 import { LandingLayout } from 'pages/Landing/Layout'
 
-const SignUpFeature = configureFeature(LandingLayout, FeatureName.Register, SignUpContainer)
+const SignUpFeature = configureFeature(LandingLayout)(FeatureName.Register)(SignUpContainer)
 
 export const SignUpLayout = () => (
   <LoadingPageContainer>

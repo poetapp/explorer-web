@@ -1,4 +1,5 @@
-import { Feature, isActive } from '@paralleldrive/react-feature-toggles'
+import { isActiveFeatureName } from '@paralleldrive/feature-toggles'
+import { Feature } from '@paralleldrive/react-feature-toggles'
 import * as classNames from 'classnames'
 import * as React from 'react'
 import { connect } from 'react-redux'
@@ -80,7 +81,9 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
             </div>
           )}
           {this.props.displayNavButtons && (
-            <Feature>{({ features }) => isActive(FeatureName.NavButtons, features) && <NavButtons />}</Feature>
+            <Feature>
+              {({ features }) => isActiveFeatureName(FeatureName.NavButtons, features) && <NavButtons />}
+            </Feature>
           )}
         </nav>
       )
