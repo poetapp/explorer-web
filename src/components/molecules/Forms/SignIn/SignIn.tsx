@@ -47,7 +47,7 @@ export class SignIn extends React.Component<SignInProps, undefined> {
           header={'Log In'}
           label={
             <p>
-              Need an account? <Link to={'/register'}>Sign Up</Link>
+              Need an account? <Link to={'/sign-up'}>Sign Up</Link>
             </p>
           }
           formRef={(el: HTMLFormElement) => (this.mutableForm = el)}

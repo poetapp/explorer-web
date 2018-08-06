@@ -13,7 +13,7 @@ export class SignUp extends PageLoader<any, object> {
   }
 
   routeHook(key: string): JSX.Element[] {
-    return [<Route path="/register" key={key} component={this.container()} />]
+    return [<Route path="/sign-up" key={key} component={this.container()} />]
   }
 
   reducerHook<State>(): ReducerDescription<State> {

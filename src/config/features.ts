@@ -2,7 +2,7 @@ export enum FeatureName {
   Auth = 'auth',
   Login = 'login',
   NavButtons = 'nav-buttons',
-  Register = 'register',
+  SignUp = 'sign-up',
   Footer = 'footer',
 }
 
@@ -26,7 +26,7 @@ export const initialFeatures = [
     isActive: false,
   },
   {
-    name: FeatureName.Register,
+    name: FeatureName.SignUp,
     isActive: false,
     dependencies: [FeatureName.Auth],
   },

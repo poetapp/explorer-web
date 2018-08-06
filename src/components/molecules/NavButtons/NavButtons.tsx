@@ -9,7 +9,7 @@ export const NavButtons = () => {
       <Link to={'/login'}>
         <Button className={'navbar-login'} text={'Log In'} />
       </Link>
-      <Link to={'/register'}>
+      <Link to={'/sign-up'}>
         <Button className={'navbar-signup'} text={'Sign Up'} />
       </Link>
     </div>

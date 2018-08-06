@@ -18,11 +18,11 @@ async function init(): Promise<void> {
   function handlerRoutes(store: any, pathname: string): void {
     const state = store.getState()
     const { user } = state
-    const omitRoutes: ReadonlyArray<any> = ['/', '/login', '/register']
+    const omitRoutes: ReadonlyArray<any> = ['/', '/login', '/sign-up']
     const worksNoAuth = [pathname].filter(x => typeof x === 'string' && x.indexOf('/works') > -1)
     const notNeedOauth = omitRoutes.includes(pathname) || worksNoAuth.length
     const userIsAuthenticated = !!user.token
-    if (['/login', '/login/', '/register', '/register/'].includes(pathname) && userIsAuthenticated)
+    if (['/login', '/login/', '/sign-up', '/sign-up/'].includes(pathname) && userIsAuthenticated)
       browserHistory.push('/')
 
     if (!notNeedOauth && !userIsAuthenticated) browserHistory.push('/login')
