@@ -84,7 +84,7 @@
     "@types/react-tabs": "0.5.22",
     "@types/sinon": "5.0.1",
     "@types/storybook__addon-actions": "3.4.0",
-    "@types/storybook__addon-info": "3.4.0",
+    "@types/storybook__addon-info": "3.4.1",
     "@types/storybook__addon-knobs": "3.3.1",
     "@types/storybook__addon-links": "3.3.1",
     "@types/storybook__react": "3.0.8",
