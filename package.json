@@ -38,7 +38,8 @@
     ]
   },
   "dependencies": {
-    "@paralleldrive/react-feature-toggles": "2.0.0-beta2",
+    "@paralleldrive/feature-toggles": "1.0.3",
+    "@paralleldrive/react-feature-toggles": "2.0.1",
     "@poetapp/frost-client": "0.1.4",
     "bundle-loader": "0.5.6",
     "circular-dependency-plugin": "^4.4.0",
@@ -49,8 +50,8 @@
     "protobufjs": "6.8.7",
     "react": "16.4.1",
     "react-autocomplete": "1.8.1",
-    "react-datepicker": "0.41.1",
-    "react-dom": "16.4.1",
+    "react-datepicker": "1.6.0",
+    "react-dom": "16.4.2",
     "react-overlays": "0.8.3",
     "react-progress-bar-plus": "1.3.1",
     "react-redux": "5.0.7",
@@ -61,7 +62,7 @@
     "redux-devtools": "3.4.1",
     "redux-persist": "4.10.2",
     "redux-saga": "0.16.0",
-    "testcafe": "0.20.5"
+    "testcafe": "0.21.0"
   },
   "devDependencies": {
     "@po.et/stylelint-rules": "1.1.0",
@@ -83,7 +84,7 @@
     "@types/react-tabs": "0.5.22",
     "@types/sinon": "5.0.1",
     "@types/storybook__addon-actions": "3.4.0",
-    "@types/storybook__addon-info": "3.2.3",
+    "@types/storybook__addon-info": "3.4.0",
     "@types/storybook__addon-knobs": "3.3.1",
     "@types/storybook__addon-links": "3.3.1",
     "@types/storybook__react": "3.0.8",

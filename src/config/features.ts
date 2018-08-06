@@ -1,5 +1,3 @@
-import { getActiveFeatures } from '@paralleldrive/react-feature-toggles'
-
 export enum FeatureName {
   Auth = 'auth',
   Login = 'login',
@@ -8,7 +6,7 @@ export enum FeatureName {
   Footer = 'footer',
 }
 
-const Features = [
+export const initialFeatures = [
   {
     name: FeatureName.Auth,
     isActive: false,
@@ -33,5 +31,3 @@ const Features = [
     dependencies: [FeatureName.Auth],
   },
 ]
-
-export const initialFeatures = getActiveFeatures(Features)
