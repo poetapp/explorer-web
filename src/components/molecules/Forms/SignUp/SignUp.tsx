@@ -58,8 +58,8 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
   }
 
   readonly onChangeRepeatPassword = (e: React.SyntheticEvent, data: Data, elements: any): void => {
-    const target = e.target as HTMLInputElement;
-    const value = target.value;
+    const target = e.target as HTMLInputElement
+    const value = target.value
     const { password, confirmPassword } = data
 
     if (value !== '' && password !== confirmPassword)
@@ -69,7 +69,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
   }
 
   readonly onChangeEmail = (e: React.SyntheticEvent): void => {
-    const input = e.target as HTMLInputElement;
+    const input = e.target as HTMLInputElement
     input.setCustomValidity('')
   }
 
