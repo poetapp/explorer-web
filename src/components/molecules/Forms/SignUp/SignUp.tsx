@@ -15,6 +15,12 @@ interface SignUpProps {
   readonly className?: string
 }
 
+interface Data {
+  email: string
+  password: string
+  confirmPassword?: string
+}
+
 export class SignUp extends React.Component<SignUpProps, undefined> {
   private mutableEmailInput: HTMLInputElement
   private mutablePasswordInput: HTMLInputElement
@@ -40,7 +46,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
     }
   }
 
-  readonly onValidate = (data: any, elements: any): boolean => {
+  readonly onValidate = (data: Data, elements: any): boolean => {
     const { password, confirmPassword } = data
 
     if (password !== confirmPassword) {
@@ -51,20 +57,19 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
     return true
   }
 
-  readonly onChangeRepeatPassword = (e: any, data: any, elements: any): void => {
-    const value = e.target.value
+  readonly onChangeRepeatPassword = (e: React.SyntheticEvent, data: Data, elements: any): void => {
+    const target = e.target as HTMLInputElement;
+    const value = target.value;
     const { password, confirmPassword } = data
 
     if (value !== '' && password !== confirmPassword)
       elements.confirmPassword.setCustomValidity(`Passwords Don't Match`)
 
-    if (password === confirmPassword) elements.confirmPassword.setCustomValidity('')
-
-    if (value === '') elements.confirmPassword.setCustomValidity('')
+    if (password === confirmPassword || value === '') elements.confirmPassword.setCustomValidity('')
   }
 
-  readonly onChangeEmail = (e: any): void => {
-    const input = e.target
+  readonly onChangeEmail = (e: React.SyntheticEvent): void => {
+    const input = e.target as HTMLInputElement;
     input.setCustomValidity('')
   }
 
@@ -92,7 +97,7 @@ export class SignUp extends React.Component<SignUpProps, undefined> {
             type={'email'}
             label={'Email'}
             inputRef={(el: HTMLInputElement) => (this.mutableEmailInput = el)}
-            onChange={this.onChangeEmail}
+            onChange={this.onChangeEmail.bind(this)}
           />
           <InputPassword
             className={'SignUp__input'}
