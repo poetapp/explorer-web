@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { Actions } from 'actions/index'
-import { Login } from 'components/molecules/Login/Login'
+import { SignIn } from 'components/molecules/Forms/SignIn/SignIn'
 import { FrostState, StatusService } from 'interfaces/Props'
 
 interface DataFormSignIn {
@@ -24,17 +24,6 @@ const mapDispatchToProps = { onSubmitSignIn: Actions.SignIn.onSignIn }
 export const LoginContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  class extends React.Component<LoginContainerProps, undefined> {
-    readonly onSubmitSignIn = (data: DataFormSignIn): void => {
-      const { onSubmitSignIn } = this.props
-      onSubmitSignIn(data)
-    }
-
-    render(): JSX.Element {
-      const { signIn } = this.props
-
-      return <Login onSubmitSignIn={this.onSubmitSignIn} signIn={signIn} />
-    }
-  }
-)
+)(({ signIn: { loading, error }, onSubmitSignIn }: LoginContainerProps) => (
+  <SignIn onSubmit={onSubmitSignIn} disabledButton={loading} serverErrors={error} />
+))

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { Actions } from 'actions/index'
-import { SignUpWrapper } from 'components/molecules/SignUp/SignUp'
+import { SignUp } from 'components/molecules/Forms/SignUp/SignUp'
 import { FrostState, StatusService } from 'interfaces/Props'
 
 interface DataFormSignUp {
@@ -22,20 +22,10 @@ const mapStateToProps = (state: FrostState): SignUpContainerProps => ({
 const mapDispatchToProps = {
   onSubmitSignUp: Actions.SignUp.onSignUp,
 }
+
 export const SignUpContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  class extends React.Component<SignUpContainerProps, undefined> {
-    readonly onSubmitSignUp = (data: DataFormSignUp): void => {
-      const { onSubmitSignUp } = this.props
-      onSubmitSignUp(data)
-    }
-
-    render(): JSX.Element {
-      const { signUp } = this.props
-
-      return <SignUpWrapper onSubmitSignUp={this.onSubmitSignUp} signUp={signUp} />
-    }
-  }
-)
+)(({ signUp: { loading, error }, onSubmitSignUp }: SignUpContainerProps) => (
+  <SignUp onSubmit={onSubmitSignUp} disabledButton={loading} serverErrors={error} />
+))
