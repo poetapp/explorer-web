@@ -3,6 +3,7 @@
 import '../../src/components/atoms/Button/Button.test'
 import '../../src/components/atoms/Input/Input.test'
 import '../../src/components/molecules/Form/Form.test'
+import '../../src/components/molecules/Navbar/Navbar.test'
 import '../../src/reducers/LoadingPage.test'
 import '../../src/reducers/Profile.test'
 import '../../src/reducers/SignIn.test'

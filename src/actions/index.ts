@@ -6,8 +6,12 @@ export namespace Actions {
   export const blockInfoReceived = 'block info received'
 
   export namespace Search {
-    export const Change = 'search change'
-    export const Offset = 'search offset'
+    export const SEARCH_CHANGE = 'SEARCH_CHANGE'
+    export const SEARCH_OFFSET = 'SEARCH_OFFSET'
+    export const onSearchChange = (payload?: string) => ({
+      type: SEARCH_CHANGE,
+      payload,
+    })
   }
 
   export namespace Session {
