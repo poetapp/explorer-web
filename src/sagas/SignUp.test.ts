@@ -9,6 +9,7 @@ describe('SignUp Saga', async (should: any) => {
   const { assert } = should()
 
   const iterator = SignUpSaga()()
+  
   assert({
     given: 'sign up action',
     should: 'handle sign up request',
@@ -23,6 +24,7 @@ describe('SignUp() Success', async (should: any) => {
   const password = 'test'
   const token = 'test-token'
   const iterator = SignUp(Actions.SignUp.onSignUp({ email, password }))
+
   assert({
     given: 'sign up action',
     should: 'set loading status',
