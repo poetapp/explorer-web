@@ -11,8 +11,8 @@ describe('SignOutSaga()', async (should: any) => {
 
   const iterator = SignOutSaga()()
   assert({
-    given: 'sign in action',
-    should: 'handle sign in request',
+    given: 'sign out action',
+    should: 'handle sign out request',
     actual: iterator.next().value,
     expected: takeLatest(Actions.SignOut.SIGN_OUT, SignOut),
   })

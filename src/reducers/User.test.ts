@@ -2,7 +2,7 @@ import { describe } from 'riteway'
 
 import { Actions } from '../actions/index'
 import { Images } from '../images/Images'
-import { user } from './User'
+import { user, defaultState } from './User'
 
 const createUser = ({
   token = '123',
@@ -52,8 +52,8 @@ describe('user reducer', async (should: any) => {
   })
 
   assert({
-    given: 'default state and PROFILE_SUCCESS action with user',
-    should: 'return state with payload as user',
+    given: 'default state and SIGN_OUT action with user',
+    should: 'return defaultState',
     actual: user(
       createUser({ token: '123' }),
       Actions.SignOut.onSignOut({
@@ -63,12 +63,12 @@ describe('user reducer', async (should: any) => {
         createdAt: 'test',
       })
     ),
-    expected: {},
+    expected: defaultState,
   })
 
   assert({
-    given: 'default state and SIGN_OUT action with user',
-    should: 'return state with no user',
+    given: 'default state and PROFILE_SUCCESS action with user',
+    should: 'return state with updated user',
     actual: user(
       createUser({ token: '123' }),
       Actions.Profile.onProfileSuccess({

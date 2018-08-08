@@ -2,7 +2,7 @@ import { Actions } from 'actions'
 const { REHYDRATE } = require('redux-persist/constants')
 import { Images } from 'images/Images'
 
-const defaultState = {
+export const defaultState = {
   token: '',
   profile: {
     email: '',
