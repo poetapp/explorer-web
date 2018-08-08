@@ -23,7 +23,7 @@ describe('user reducer', async (should: any) => {
 
   assert({
     given: 'default state and SIGN_IN_SUCCESS action with user',
-    should: 'state with user',
+    should: 'return state with user',
     actual: user(
       createUser(),
       Actions.SignIn.onSignInSuccess(
@@ -53,7 +53,7 @@ describe('user reducer', async (should: any) => {
 
   assert({
     given: 'default state and PROFILE_SUCCESS action with user',
-    should: 'state with payload as user',
+    should: 'return state with payload as user',
     actual: user(
       createUser({ token: '123' }),
       Actions.SignOut.onSignOut({

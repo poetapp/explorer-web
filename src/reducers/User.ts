@@ -38,7 +38,7 @@ export const user = (state: any, action: any) => {
         },
       }
     case Actions.SignOut.SIGN_OUT:
-      return {}
+      return defaultState
     case REHYDRATE:
       return {
         ...state,
