@@ -31,7 +31,6 @@ const getSearchQuery = () => {
   const currentLocation = browserHistory.getCurrentLocation()
 
   if (currentLocation.pathname === '/works') return (currentLocation.query as any).query
-  else return ''
 }
 
 export const Navbar = (props: NavbarProps & NavbarActions) => {
