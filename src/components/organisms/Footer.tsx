@@ -7,7 +7,9 @@ import { Images } from 'images/Images'
 
 import './Footer.scss'
 
-export class Footer extends React.Component<undefined, undefined> {
+interface FooterProps {}
+
+export class Footer extends React.Component<FooterProps, undefined> {
   render() {
     return (
       <footer>
