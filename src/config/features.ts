@@ -20,7 +20,7 @@ export const initialFeatures = [
   {
     name: FeatureName.NavButtons,
     isActive: false,
-    dependencies: [FeatureName.Login, FeatureName.Auth],
+    dependencies: [FeatureName.Auth],
   },
   {
     name: FeatureName.Footer,

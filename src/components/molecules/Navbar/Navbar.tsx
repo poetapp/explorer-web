@@ -73,8 +73,6 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
         </div>
       )}
       {displayNavButtons &&
-        user &&
-        user.profile &&
         !user.profile.createdAt && (
           <Feature>{({ features }) => isActiveFeatureName(FeatureName.NavButtons, features) && <NavButtons />}</Feature>
         )}
