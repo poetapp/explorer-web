@@ -13,9 +13,15 @@ export const defaultState = {
   },
 }
 
-export const user = (state: any, action: any) => {
+export const user = (state: any = defaultState, action: any = {}) => {
   switch (action.type) {
     case Actions.SignIn.SIGN_IN_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        ...{ profile: { ...defaultState.profile, ...action.payload.profile } },
+      }
+    case Actions.SignUp.SIGN_UP_SUCCESS:
       return {
         ...state,
         ...action.payload,
@@ -44,6 +50,7 @@ export const user = (state: any, action: any) => {
         ...state,
         ...action.payload.user,
       }
+    default:
+      return state
   }
-  return state || defaultState
 }

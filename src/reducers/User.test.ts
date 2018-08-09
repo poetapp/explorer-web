@@ -5,9 +5,9 @@ import { Images } from '../images/Images'
 import { user, defaultState } from './User'
 
 const createUser = ({
-  token = '123',
+  token = '',
   profile = {
-    email: 'anon@test.com',
+    email: '',
     apiTokens: new Array(),
     verified: false,
     createdAt: '',
@@ -22,10 +22,17 @@ describe('user reducer', async (should: any) => {
   const { assert } = should()
 
   assert({
+    given: 'no arguments',
+    should: 'default state',
+    actual: user(),
+    expected: defaultState,
+  })
+
+  assert({
     given: 'default state and SIGN_IN_SUCCESS action with user',
     should: 'return state with user',
     actual: user(
-      createUser(),
+      defaultState,
       Actions.SignIn.onSignInSuccess(
         createUser({
           token: 'abc',

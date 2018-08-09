@@ -29,6 +29,8 @@ function render(props: RootLayoutProps) {
   const displayNavbarLogo = ![''].includes(location)
   const displayNavbarSearch = false && ![''].includes(location)
   const searchShadow = [worksUrl].includes(location)
+  const displayNavButtons = [''].includes(location)
+
   return (
     <div className="root-layout">
       <NavbarContainer
@@ -37,6 +39,7 @@ function render(props: RootLayoutProps) {
         displaySearch={displayNavbarSearch}
         transparent={navbarTransparent}
         searchShadow={searchShadow}
+        displayNavButtons={displayNavButtons}
       />
       {props.children}
       <Footer />

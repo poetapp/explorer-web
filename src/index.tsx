@@ -5,9 +5,8 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 
-import { Actions } from 'actions'
 import { Layout } from 'components/Root'
-import { initialFeatures } from 'config/features'
+import { initialFeatures, FeatureName } from 'config/features'
 import { createPoetStore } from 'store'
 
 async function init(): Promise<void> {
@@ -19,18 +18,18 @@ async function init(): Promise<void> {
   function handlerRoutes(store: any, pathname: string): void {
     const state = store.getState()
     const { user } = state
-    const omitRoutes: ReadonlyArray<any> = ['/', '/login']
+    const omitRoutes: ReadonlyArray<any> = ['/', '/login', '/sign-up']
     const worksNoAuth = [pathname].filter(x => typeof x === 'string' && x.indexOf('/works') > -1)
     const notNeedOauth = omitRoutes.includes(pathname) || worksNoAuth.length
     const userIsAuthenticated = !!user.token
-    if (['/login', '/login/'].includes(pathname) && userIsAuthenticated) browserHistory.push('/')
+    if (['/login', '/login/', '/sign-up', '/sign-up/'].includes(pathname) && userIsAuthenticated)
+      browserHistory.push('/')
 
     if (!notNeedOauth && !userIsAuthenticated) browserHistory.push('/login')
   }
   function requireAuth(store: any): (route: any, replace: object) => void {
     return (route: any, replace: object): void => {
       const pathname = route.location.pathname
-      store.dispatch(Actions.Router.onEnter(pathname))
       handlerRoutes(store, pathname)
     }
   }
@@ -38,7 +37,6 @@ async function init(): Promise<void> {
   function onChange(store: any): (route: any, replace: object) => void {
     return (route: any, replace: any): void => {
       const pathname = replace.location.pathname
-      store.dispatch(Actions.Router.onChange(pathname))
       handlerRoutes(store, pathname)
     }
   }
@@ -46,13 +44,12 @@ async function init(): Promise<void> {
   function notFound(route: any, replace: object): void {
     browserHistory.push('/')
   }
-
   ReactDOM.render(
     <Provider store={store}>
       <FeatureToggles features={getCurrentActiveFeatureNames({ initialFeatures })}>
         <Feature>
           {({ features }) =>
-            isActiveFeatureName('auth', features) ? (
+            isActiveFeatureName(FeatureName.Auth, features) ? (
               <Router history={browserHistory}>
                 <Route component={Layout} onEnter={requireAuth(store)} onChange={onChange(store)}>
                   {routes}

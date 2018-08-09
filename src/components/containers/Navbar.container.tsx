@@ -12,6 +12,7 @@ export interface NavbarContainerProps {
   readonly margin?: boolean
   readonly displayLogo?: boolean
   readonly displaySearch?: boolean
+  readonly displayNavButtons?: boolean
   readonly searchShadow?: boolean
 }
 

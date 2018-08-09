@@ -6,7 +6,9 @@ import * as React from 'react'
 import { browserHistory } from 'react-router'
 import { Action } from 'redux'
 
+import { FeatureName } from 'config/features'
 import { AvatarMenu } from 'components/atoms/AvatarMenu/AvatarMenu'
+import { NavButtons } from 'components/molecules/NavButtons/NavButtons'
 import { Images } from 'images/Images'
 import { User } from 'interfaces/Props'
 
@@ -24,6 +26,7 @@ export interface NavbarProps {
   readonly displayLogo?: boolean
   readonly displaySearch?: boolean
   readonly searchShadow?: boolean
+  readonly displayNavButtons?: boolean
   readonly user?: User
 }
 
@@ -42,6 +45,7 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
     onSignOut,
     shadow,
     transparent,
+    displayNavButtons,
     margin,
     searchShadow,
   } = props
@@ -68,12 +72,20 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
           </form>
         </div>
       )}
+      {displayNavButtons && 
+        user &&
+        user.profile &&
+        user.profile.createdAt && (
+        <Feature>
+          {({ features }) => isActiveFeatureName(FeatureName.NavButtons, features) && <NavButtons />}
+        </Feature>
+      )}
       {user &&
         user.profile &&
         user.profile.createdAt && (
           <Feature>
             {({ features }) =>
-              isActiveFeatureName('avatar', features) && (
+              isActiveFeatureName(FeatureName.Avatar, features) && (
                 <div className="avatar">
                   <AvatarMenu user={user} onSignOut={onSignOut} />
                 </div>
