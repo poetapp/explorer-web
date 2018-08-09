@@ -2,13 +2,14 @@ import { configureFeature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
 
 import { LoadingPageContainer } from 'components/containers/LoadingPage.container'
-import { LoginContainer } from 'components/containers/Login.container'
+import { SignUpContainer } from 'components/containers/SignUp.container'
 import { FeatureName } from 'config/features'
 import { LandingLayout } from 'pages/Landing/Layout'
 
-const LoginFeature = configureFeature(LandingLayout)(FeatureName.Login)(LoginContainer)
-export const LoginLayout = () => (
+const SignUpFeature = configureFeature(LandingLayout)(FeatureName.SignUp)(SignUpContainer)
+
+export const SignUpLayout = () => (
   <LoadingPageContainer>
-    <LoginFeature />
+    <SignUpFeature />
   </LoadingPageContainer>
 )

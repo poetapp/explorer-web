@@ -1,7 +1,7 @@
 import { describe } from 'riteway'
 
 import { Actions } from '../actions/index'
-import { profile } from './Profile'
+import { profile, defaultState } from './Profile'
 
 const createState = ({
   error = {
@@ -18,9 +18,16 @@ describe('profile reducer', async (should: any) => {
   const { assert } = should()
 
   assert({
+    given: 'no arguments',
+    should: 'default state',
+    actual: profile(),
+    expected: defaultState,
+  })
+
+  assert({
     given: 'default state and PROFILE action',
     should: 'loading true',
-    actual: profile(createState(), Actions.Profile.onProfile()),
+    actual: profile(defaultState, Actions.Profile.onProfile()),
     expected: createState({ loading: true }),
   })
 
@@ -28,7 +35,7 @@ describe('profile reducer', async (should: any) => {
     given: 'state with loading true and PROFILE_SUCCESS action',
     should: 'default state',
     actual: profile(createState({ loading: true }), Actions.Profile.onProfileSuccess()),
-    expected: createState(),
+    expected: defaultState,
   })
 
   assert({
@@ -42,6 +49,6 @@ describe('profile reducer', async (should: any) => {
     given: 'state with loading true and PROFILE_CLEAR_ERROR action',
     should: 'default state',
     actual: profile(createState({ loading: true }), Actions.Profile.onProfileClearError()),
-    expected: createState(),
+    expected: defaultState,
   })
 })
