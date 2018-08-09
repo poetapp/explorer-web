@@ -80,7 +80,7 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
         )}
       {user &&
         user.profile &&
-        user.profile.createdAt && (
+        !user.profile.createdAt && (
           <Feature>
             {({ features }) =>
               isActiveFeatureName(FeatureName.Avatar, features) && (
