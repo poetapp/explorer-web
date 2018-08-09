@@ -1,7 +1,7 @@
 import { describe } from 'riteway'
 
 import { Actions } from '../actions/index'
-import { signIn } from './SignIn'
+import { signIn, defaultState } from './SignIn'
 
 const createState = ({
   error = {
@@ -18,9 +18,16 @@ describe('signIn reducer', async (should: any) => {
   const { assert } = should()
 
   assert({
+    given: 'no arguments',
+    should: 'default state',
+    actual: signIn(),
+    expected: defaultState,
+  })
+  
+  assert({
     given: 'default state and SIGN_IN action',
     should: 'loading true',
-    actual: signIn(createState(), Actions.SignIn.onSignIn()),
+    actual: signIn(defaultState, Actions.SignIn.onSignIn()),
     expected: createState({ loading: true }),
   })
 
@@ -42,8 +49,8 @@ describe('signIn reducer', async (should: any) => {
   assert({
     given: 'default state and SIGN_IN_SUCCESS action',
     should: 'loading true',
-    actual: signIn(createState(), Actions.SignIn.onSignInSuccess()),
-    expected: createState(),
+    actual: signIn(defaultState, Actions.SignIn.onSignInSuccess()),
+    expected: defaultState,
   })
 
   assert({
@@ -59,13 +66,13 @@ describe('signIn reducer', async (should: any) => {
       }),
       Actions.SignIn.onSignInSuccess()
     ),
-    expected: createState(),
+    expected: defaultState,
   })
 
   assert({
     given: 'default state and SIGN_IN_ERROR action with payload',
     should: 'payload as error message',
-    actual: signIn(createState(), Actions.SignIn.onSignInError('test')),
+    actual: signIn(defaultState, Actions.SignIn.onSignInError('test')),
     expected: createState({
       error: {
         status: true,
@@ -99,8 +106,8 @@ describe('signIn reducer', async (should: any) => {
   assert({
     given: 'default state and SIGN_IN_CLEAR_ERROR action',
     should: 'loading true',
-    actual: signIn(createState(), Actions.SignIn.onSignInClearError()),
-    expected: createState(),
+    actual: signIn(defaultState, Actions.SignIn.onSignInClearError()),
+    expected: defaultState,
   })
 
   assert({
@@ -116,6 +123,6 @@ describe('signIn reducer', async (should: any) => {
       }),
       Actions.SignIn.onSignInClearError()
     ),
-    expected: createState(),
+    expected: defaultState,
   })
 })

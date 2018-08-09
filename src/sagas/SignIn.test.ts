@@ -44,7 +44,7 @@ describe('SignIn() Success', async (should: any) => {
 
   assert({
     given: 'next step and successful sign in',
-    should: 'Set user profile',
+    should: 'clear loading/ set user',
     actual: iterator.next({ token }).value,
     expected: put(Actions.SignIn.onSignInSuccess({ token, ...{ profile: { email } } })),
   })
