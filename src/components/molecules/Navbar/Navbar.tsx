@@ -6,9 +6,9 @@ import * as React from 'react'
 import { browserHistory } from 'react-router'
 import { Action } from 'redux'
 
-import { FeatureName } from 'config/features'
 import { AvatarMenu } from 'components/atoms/AvatarMenu/AvatarMenu'
 import { NavButtons } from 'components/molecules/NavButtons/NavButtons'
+import { FeatureName } from 'config/features'
 import { Images } from 'images/Images'
 import { User } from 'interfaces/Props'
 
@@ -72,14 +72,12 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
           </form>
         </div>
       )}
-      {displayNavButtons && 
+      {displayNavButtons &&
         user &&
         user.profile &&
         user.profile.createdAt && (
-        <Feature>
-          {({ features }) => isActiveFeatureName(FeatureName.NavButtons, features) && <NavButtons />}
-        </Feature>
-      )}
+          <Feature>{({ features }) => isActiveFeatureName(FeatureName.NavButtons, features) && <NavButtons />}</Feature>
+        )}
       {user &&
         user.profile &&
         user.profile.createdAt && (

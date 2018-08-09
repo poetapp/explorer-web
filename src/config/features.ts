@@ -4,7 +4,7 @@ export enum FeatureName {
   NavButtons = 'nav-buttons',
   SignUp = 'sign-up',
   Footer = 'footer',
-  Avatar = 'avatar'
+  Avatar = 'avatar',
 }
 
 export const initialFeatures = [
