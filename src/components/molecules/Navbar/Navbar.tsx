@@ -75,12 +75,12 @@ export const Navbar = (props: NavbarProps & NavbarActions) => {
       {displayNavButtons &&
         user &&
         user.profile &&
-        user.profile.createdAt && (
+        !user.profile.createdAt && (
           <Feature>{({ features }) => isActiveFeatureName(FeatureName.NavButtons, features) && <NavButtons />}</Feature>
         )}
       {user &&
         user.profile &&
-        !user.profile.createdAt && (
+        user.profile.createdAt && (
           <Feature>
             {({ features }) =>
               isActiveFeatureName(FeatureName.Avatar, features) && (
