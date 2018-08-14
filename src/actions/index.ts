@@ -6,8 +6,12 @@ export namespace Actions {
   export const blockInfoReceived = 'block info received'
 
   export namespace Search {
-    export const Change = 'search change'
-    export const Offset = 'search offset'
+    export const SEARCH_CHANGE = 'SEARCH_CHANGE'
+    export const SEARCH_OFFSET = 'SEARCH_OFFSET'
+    export const onSearchChange = (payload?: string) => ({
+      type: SEARCH_CHANGE,
+      payload,
+    })
   }
 
   export namespace Session {
@@ -133,6 +137,14 @@ export namespace Actions {
 
     export const onSetTokenLogin = (payload?: object) => ({
       type: SET_TOKEN_LOGIN,
+      payload,
+    })
+  }
+
+  export namespace SignOut {
+    export const SIGN_OUT = 'SIGN_OUT'
+    export const onSignOut = (payload?: object) => ({
+      type: SIGN_OUT,
       payload,
     })
   }

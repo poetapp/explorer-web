@@ -1,6 +1,7 @@
 import { describe } from 'riteway'
 
 import { Actions } from '../actions/index'
+import { Images } from '../images/Images'
 import { user, defaultState } from './User'
 
 const createUser = ({
@@ -10,6 +11,7 @@ const createUser = ({
     apiTokens: new Array(),
     verified: false,
     createdAt: '',
+    avatar: Images.Avatar,
   },
 } = {}) => ({
   token,
@@ -28,7 +30,7 @@ describe('user reducer', async (should: any) => {
 
   assert({
     given: 'default state and SIGN_IN_SUCCESS action with user',
-    should: 'state with user',
+    should: 'return state with user',
     actual: user(
       defaultState,
       Actions.SignIn.onSignInSuccess(
@@ -39,6 +41,7 @@ describe('user reducer', async (should: any) => {
             apiTokens: new Array(),
             verified: true,
             createdAt: 'test',
+            avatar: Images.Avatar,
           },
         })
       )
@@ -50,13 +53,29 @@ describe('user reducer', async (should: any) => {
         apiTokens: new Array(),
         verified: true,
         createdAt: 'test',
+        avatar: Images.Avatar,
       },
     }),
   })
 
   assert({
+    given: 'default state and SIGN_OUT action with user',
+    should: 'return defaultState',
+    actual: user(
+      createUser({ token: '123' }),
+      Actions.SignOut.onSignOut({
+        email: 'jesse@test.com',
+        apiTokens: new Array(),
+        verified: true,
+        createdAt: 'test',
+      })
+    ),
+    expected: defaultState,
+  })
+
+  assert({
     given: 'default state and PROFILE_SUCCESS action with user',
-    should: 'state with payload as user',
+    should: 'return state with updated user',
     actual: user(
       createUser({ token: '123' }),
       Actions.Profile.onProfileSuccess({
@@ -73,6 +92,7 @@ describe('user reducer', async (should: any) => {
         apiTokens: new Array(),
         verified: true,
         createdAt: 'test',
+        avatar: Images.Avatar,
       },
     }),
   })

@@ -7,6 +7,7 @@ export interface Profile {
   readonly apiTokens?: ReadonlyArray<string>
   readonly verified: boolean
   readonly createdAt: string
+  readonly avatar: string
 }
 
 export interface User {

@@ -3,8 +3,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { connect } from 'react-redux'
 import { Tabs } from 'react-tabs'
 
+import { NavbarContainer } from 'components/containers/Navbar.container'
 import { Footer } from 'components/organisms/Footer'
-import { Navbar } from 'components/organisms/Navbar'
 import 'extensions/String'
 
 import './Root.scss'
@@ -33,7 +33,7 @@ function render(props: RootLayoutProps) {
 
   return (
     <div className="root-layout">
-      <Navbar
+      <NavbarContainer
         shadow={navbarShadow}
         displayLogo={displayNavbarLogo}
         displaySearch={displayNavbarSearch}

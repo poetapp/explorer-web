@@ -4,6 +4,7 @@
 nav.navbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 61px;
   margin-bottom: 64px;
   padding: 2px 20px;
@@ -88,6 +89,10 @@ nav.navbar {
     }
   }
 
+  .avatar {
+    order: 1
+  }
+
   .button {
     display: flex;
     flex-grow: 1;
@@ -106,3 +111,4 @@ nav.navbar {
     width: 5rem;
   }
 }
+

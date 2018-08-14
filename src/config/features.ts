@@ -4,6 +4,7 @@ export enum FeatureName {
   NavButtons = 'nav-buttons',
   SignUp = 'sign-up',
   Footer = 'footer',
+  Avatar = 'avatar',
 }
 
 export const initialFeatures = [
@@ -19,7 +20,7 @@ export const initialFeatures = [
   {
     name: FeatureName.NavButtons,
     isActive: false,
-    dependencies: [FeatureName.Login, FeatureName.Auth],
+    dependencies: [FeatureName.Auth],
   },
   {
     name: FeatureName.Footer,
@@ -27,6 +28,11 @@ export const initialFeatures = [
   },
   {
     name: FeatureName.SignUp,
+    isActive: false,
+    dependencies: [FeatureName.Auth],
+  },
+  {
+    name: FeatureName.Avatar,
     isActive: false,
     dependencies: [FeatureName.Auth],
   },

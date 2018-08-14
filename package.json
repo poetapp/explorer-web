@@ -38,6 +38,7 @@
     ]
   },
   "dependencies": {
+    "@material-ui/core": "1.4.2",
     "@paralleldrive/feature-toggles": "1.0.3",
     "@paralleldrive/react-feature-toggles": "2.0.1",
     "@poetapp/frost-client": "0.1.4",
