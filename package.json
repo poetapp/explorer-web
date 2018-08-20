@@ -118,7 +118,7 @@
     "source-map-loader": "0.2.4",
     "storybook-addon-jsx": "5.4.0",
     "style-loader": "0.22.1",
-    "stylelint": "9.4.0",
+    "stylelint": "9.5.0",
     "ts-node": "7.0.1",
     "tsconfig-paths": "3.5.0",
     "typescript": "3.0.1",
