@@ -6,3 +6,7 @@
 `Fixes #1, Resolves #2`
 
 <!-- Describe your changes below in a reasonable amount of detail -->
+
+### Warning
+
+Merging to `master` automatically triggers a deploy in production. 
