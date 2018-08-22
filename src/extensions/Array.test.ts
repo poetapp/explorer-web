@@ -48,6 +48,7 @@ describe('Array.prototype.toObject', async (should: any) => {
       key: arr[0],
       value: arr[1]
     })
+
     assert({
       given: 'array of key value pairs and a callback that assigns the key + vlaue',
       should: 'return the an object of the key value pairs',
