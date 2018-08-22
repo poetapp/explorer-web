@@ -22,9 +22,9 @@ describe('getResourceState()', async (should: any) => {
 
     assert({
       given: 'url that is not included in state',
-      should: 'return 0',
+      should: `return ${FetchStatus.Uninitialized}`,
       actual: getResourceState(url)(state),
-      expected: 0
+      expected: FetchStatus.Uninitialized
     })
   }
   
@@ -34,9 +34,9 @@ describe('getResourceState()', async (should: any) => {
 
     assert({
       given: 'url included in state with loading status',
-      should: 'return 1',
+      should: `return ${FetchStatus.Loading}`,
       actual: getResourceState(url)(state),
-      expected: 1
+      expected: FetchStatus.Loading
     })
   }
 
@@ -46,9 +46,9 @@ describe('getResourceState()', async (should: any) => {
 
     assert({
       given: 'url included in state with loaded status',
-      should: 'return 2',
+      should: `return ${FetchStatus.Loaded}`,
       actual: getResourceState(url)(state),
-      expected: 2
+      expected: FetchStatus.Loaded
     })
   }
 
@@ -57,11 +57,11 @@ describe('getResourceState()', async (should: any) => {
     const state = createState(url, FetchStatus.Error)
 
     assert({
-      given: 'url included in state with error status',
-      should: 'return 3',
+      given: "url included in state with error status",
+      should: `return ${FetchStatus.Error}`,
       actual: getResourceState(url)(state),
-      expected: 3
-    })
+      expected: FetchStatus.Error
+    });
   }
 
   {
@@ -70,9 +70,9 @@ describe('getResourceState()', async (should: any) => {
 
     assert({
       given: 'url included in state with not found status',
-      should: 'return 4',
+      should: `return ${FetchStatus.NotFound}`,
       actual: getResourceState(url)(state),
-      expected: 4
+      expected: FetchStatus.NotFound
     })
   }
 })
