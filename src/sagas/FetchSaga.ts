@@ -5,7 +5,7 @@ import { FetchStatus } from '../enums/FetchStatus'
 import { FetchType, FetchAction } from '../reducers/FetchReducer'
 import { getResourceState } from '../selectors/fetch'
 
-const NOT_FOUND = 'not found'
+export const NOT_FOUND = 'not found'
 
 export function fetchSaga() {
   return function*() {
@@ -19,11 +19,12 @@ export const TEXT: { [key: string]: string } = {
   [FetchType.SET_RESULT]: 'set result ',
 }
 
-function* fetchData(action: any) {
+export function* fetchData(action: any) {
   const url = action.payload.url
   const short = getLatestTwoNamesOnResource(url)
 
   const currentState = yield select(getResourceState(url))
+
   if (currentState === FetchStatus.Loading) return
   yield dispatchFetchStatusUpdate(FetchType.MARK_LOADING, 'mark loading ' + short, url)
 
@@ -38,12 +39,12 @@ function* fetchData(action: any) {
     : yield dispatchUpdate(FetchType.SET_RESULT)
 }
 
-function getLatestTwoNamesOnResource(str: string) {
+export function getLatestTwoNamesOnResource(str: string) {
   const parts = str.split('?')[0].split('/')
   return parts.slice(parts.length - 2).join('/')
 }
 
-function apiFetch(url: string): Promise<{ result: object; headers: Headers }> {
+export function apiFetch(url: string): Promise<{ result: object; headers: Headers }> {
   return fetch(url)
     .then((result: any) => {
       if (result.status === 404) return { error: NOT_FOUND }
@@ -54,7 +55,13 @@ function apiFetch(url: string): Promise<{ result: object; headers: Headers }> {
     .catch((error: any) => ({ error }))
 }
 
-function dispatchFetchStatusUpdate(fetchType: FetchType, type: string, url: string, body?: any, headers?: Headers) {
+export function dispatchFetchStatusUpdate(
+  fetchType: FetchType,
+  type: string,
+  url: string,
+  body?: any,
+  headers?: Headers
+) {
   const fetchAction: FetchAction = { fetchType, type, url, body, headers }
   return put(fetchAction)
 }
