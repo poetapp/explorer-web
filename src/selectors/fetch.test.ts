@@ -57,7 +57,7 @@ describe('getResourceState()', async (should: any) => {
     const state = createState(url, FetchStatus.Error)
 
     assert({
-      given: "url included in state with error status",
+      given: 'url included in state with error status',
       should: `return ${FetchStatus.Error}`,
       actual: getResourceState(url)(state),
       expected: FetchStatus.Error
