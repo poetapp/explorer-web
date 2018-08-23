@@ -3,16 +3,7 @@ import { describe } from 'riteway'
 import { getResourceState } from './fetch'
 import { FetchStatus } from '../enums/FetchStatus'
 
-const createState = (url: string = '', status: number = 0) => {
-  let obj = {
-    fetch: {} as any,
-    modals: {}
-  }
-  obj.fetch[url] = {}
-  obj.fetch[url]['status'] = status
-
-  return obj
-}
+const createState = (url: string = '', status: number = 0) => ({ fetch: { [url]: { status } }, modals: { } })
 
 describe('getResourceState()', async (should: any) => {
   const { assert } = should()
