@@ -29,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/poetapp/explorer-web/issues"
   },
-   "greenkeeper": {
+  "greenkeeper": {
     "ignore": [
       "webpack",
       "webpack-dev-middleware",
