@@ -1,7 +1,7 @@
 {
-  "name": "poet-explorer-web",
+  "name": "explorer-web",
   "version": "1.0.1",
-  "description": "",
+  "description": "Po.et's front-end to view claims on the Po.et Network",
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
     "lint:fix": "tslint -p ./tsconfig.json --fix",
@@ -21,10 +21,15 @@
     "storybook": "start-storybook -p 6007",
     "build-storybook": "build-storybook"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poetapp/explorer-web.git"
+  },
   "license": "MIT",
-  "greenkeeper": {
+  "bugs": {
+    "url": "https://github.com/poetapp/explorer-web/issues"
+  },
+   "greenkeeper": {
     "ignore": [
       "webpack",
       "webpack-dev-middleware",
