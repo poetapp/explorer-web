@@ -1,159 +1,265 @@
 import { describe } from 'riteway'
 
-import { FetchType, actionIsFetchAction, actionToFetchStoreEntry } from './FetchReducer'
+import { FetchType, actionToFetchStoreEntry, fetchReducer } from './FetchReducer'
 import { FetchStatus } from '../enums/FetchStatus'
+import { FetchStoreEntry } from '../store/PoetAppState'
 
-describe('actionIsFetchAction()', async (should: any) => {
-  const { assert } = should()
-  const createAction = (fetchType: string) => ({
-    fetchType,
-  })
-
-  assert({
-    given: `action object with fetchType: ${FetchType.MARK_LOADING}`,
-    should: 'return true',
-    actual: actionIsFetchAction(createAction(FetchType.MARK_LOADING)),
-    expected: true,
-  })
-
-    assert({
-    given: `action object with fetchType: ${FetchType.SET_RESULT}`,
-    should: 'return true',
-    actual: actionIsFetchAction(createAction(FetchType.SET_RESULT)),
-    expected: true,
-  })
-
-  assert({
-    given: `action object with fetchType: ${FetchType.ERROR} `,
-    should: 'return true',
-    actual: actionIsFetchAction(createAction(FetchType.ERROR)),
-    expected: true,
-  })
-
-  assert({
-    given: `action object with fetchType: ${FetchType.CLEAR} `,
-    should: 'return true',
-    actual: actionIsFetchAction(createAction(FetchType.CLEAR)),
-    expected: true,
-  })
-
-  assert({
-    given: `action object with fetchType: ${FetchType.NOT_FOUND} `,
-    should: 'return true',
-    actual: actionIsFetchAction(createAction(FetchType.NOT_FOUND)),
-    expected: true,
-  })
-
-  assert({
-    given: 'action object with fetchType not included in FetchType.Types',
-    should: 'return false',
-    actual: actionIsFetchAction(createAction('random test string')),
-    expected: false,
-  })
-
-  assert({
-    given: 'action object with no fetchType',
-    should: 'return undefined',
-    actual: actionIsFetchAction({ type: 'fetch requested'}),
-    expected: undefined,
-  })
-})
-
-describe('actionIsFetchAction()', async (should: any) => {
-  const { assert } = should()
-  const createAction = (fetchType: string = 'invalid fetchType', type: string = 'invalid type', url: string = 'test', body: any = {}, headers: Headers = {} as Headers) => {
-    return {
+describe('fetchReducer()', async ( should: any) => {
+  const createAction = (fetchType: string = 'invalid fetchType', type: string = 'invalid type', url: string = 'test', body: any = {}, headers: Headers = {} as Headers) => ({
       fetchType,
       type,
       url,
       body,
       headers
+    })
+  const { assert } = should();
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
     }
-  }
 
+    assert({
+      given: `store and ${FetchType.CLEAR} action`,
+      should: 'return updated store with cleared cache for the base urls',
+      actual: fetchReducer(store, createAction(FetchType.CLEAR, FetchType.CLEAR, 'test')),
+      expected: { ...store, ...{ 'test': { status: FetchStatus.Uninitialized, body: null }, 'test?ft=foo': { status: FetchStatus.Uninitialized, body: null } } },
+    })
+  }
   {
-    const test = () => {
-      try {
-        return actionToFetchStoreEntry(createAction())
-      } catch (e) {
-        return e
-      }
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
     }
 
     assert({
-      given: 'Fetch action object invalid FetchType',
-      should: 'throw Error Invalid FetchType',
-      actual: test(),
-      expected: new Error(`FetchReducer: Invalid FetchType '${createAction().fetchType}'.`)
-    })
-  }
-
-  assert({
-    given: `Fetch action object with fetchType: ${FetchType.CLEAR}`,
-    should: `return correct object`,
-    actual: actionToFetchStoreEntry(createAction(FetchType.CLEAR)),
-    expected: { status: FetchStatus.Uninitialized, body: null }
-  })
-
-  assert({
-    given: `Fetch action object with fetchType: ${FetchType.MARK_LOADING}`,
-    should: `return { status: ${FetchStatus.Loading} }`,
-    actual: actionToFetchStoreEntry(createAction(FetchType.MARK_LOADING)),
-    expected: { status: FetchStatus.Loading }
-  })
-
-  {
-    const action = createAction(FetchType.SET_RESULT, FetchType.SET_RESULT, 'test', { test: 'testBody'});
-    
-    assert({
-      given: `Fetch action object with fetchType: ${FetchType.SET_RESULT}`,
-      should: `return correct object`,
-      actual: actionToFetchStoreEntry(action),
-      expected: {
-        status: FetchStatus.Loaded,
-        body: action.body,
-        headers: action.headers
-      }
+      given: `store and ${FetchType.CLEAR} action with url not in store`,
+      should: 'return store',
+      actual: fetchReducer(store, createAction(FetchType.CLEAR, FetchType.CLEAR, 'badTest')),
+      expected: store,
     })
   }
 
   {
-    const action = createAction(FetchType.NOT_FOUND, FetchType.NOT_FOUND, 'test', { test: 'testBody'});
-    
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+
     assert({
-      given: `Fetch action object with fetchType: ${FetchType.NOT_FOUND}`,
-      should: `return correct object`,
-      actual: actionToFetchStoreEntry(action),
-      expected: {
-        status: FetchStatus.NotFound,
-        error: action.body,
-      }
+      given: `store and ${FetchType.MARK_LOADING} action with url in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, createAction(FetchType.MARK_LOADING, FetchType.MARK_LOADING, 'test')),
+      expected: { ...store, ...{ 'test': { status: FetchStatus.Loading } } },
     })
   }
 
   {
-    const action = createAction(FetchType.ERROR, FetchType.ERROR, 'test', { test: 'testBody'});
-    
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+
     assert({
-      given: `Fetch action object with fetchType: ${FetchType.ERROR}`,
-      should: `return correct object`,
-      actual: actionToFetchStoreEntry(action),
-      expected: {
-        status: FetchStatus.Error,
-        error: action.body,
-      }
+      given: `store and ${FetchType.MARK_LOADING} action with url not in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, createAction(FetchType.MARK_LOADING, FetchType.MARK_LOADING, 'newTest')),
+      expected: { ...store, ...{ 'newTest': { status: FetchStatus.Loading } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+
+    assert({
+      given: `store and ${FetchType.MARK_LOADING} action with url in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, createAction(FetchType.MARK_LOADING, FetchType.MARK_LOADING, 'test')),
+      expected: { ...store, ...{ 'test': { status: FetchStatus.Loading } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+
+    assert({
+      given: `store and ${FetchType.MARK_LOADING} action with url not in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, createAction(FetchType.MARK_LOADING, FetchType.MARK_LOADING, 'newTest')),
+      expected: { ...store, ...{ 'newTest': { status: FetchStatus.Loading } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+    const action = createAction(FetchType.SET_RESULT, FetchType.SET_RESULT, 'test')
+
+    assert({
+      given: `store and ${FetchType.SET_RESULT} action with url in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, action),
+      expected: { ...store, ...{ 'test': { status: FetchStatus.Loaded, body: action.body, headers: action.headers } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+    const action = createAction(FetchType.SET_RESULT, FetchType.SET_RESULT, 'newTest')
+
+    assert({
+      given: `store and ${FetchType.SET_RESULT} action with url not in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, action),
+      expected: { ...store, ...{ 'newTest': { status: FetchStatus.Loaded, body: action.body, headers: action.headers } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+    const action = createAction(FetchType.ERROR, FetchType.ERROR, 'test')
+
+    assert({
+      given: `store and ${FetchType.ERROR} action with url in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, action),
+      expected: { ...store, ...{ 'test': { status: FetchStatus.Error, error: action.body } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+    const action = createAction(FetchType.ERROR, FetchType.ERROR, 'newTest')
+
+    assert({
+      given: `store and ${FetchType.ERROR} action with url not in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, action),
+      expected: { ...store, ...{ 'newTest': { status: FetchStatus.Error, error: action.body } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+    const action = createAction(FetchType.NOT_FOUND, FetchType.NOT_FOUND, 'test')
+
+    assert({
+      given: `store and ${FetchType.NOT_FOUND} action with url in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, action),
+      expected: { ...store, ...{ 'test': { status: FetchStatus.NotFound, error: action.body } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+    const action = createAction(FetchType.NOT_FOUND, FetchType.NOT_FOUND, 'newTest')
+
+    assert({
+      given: `store and ${FetchType.NOT_FOUND} action with url not in store`,
+      should: 'return updated store',
+      actual: fetchReducer(store, action),
+      expected: { ...store, ...{ 'newTest': { status: FetchStatus.NotFound, error: action.body } } },
+    })
+  }
+
+  {
+    const store = {
+      'test?ft=foo': {} as FetchStoreEntry<any>,
+      'test': {} as FetchStoreEntry<any>,
+      'other': {} as FetchStoreEntry<any>,
+      'anotherTest?ft=foo,bar,baz': {} as FetchStoreEntry<any>,
+    }
+    assert({
+      given: `store and action that is not a fetchAction`,
+      should: 'return store',
+      actual: fetchReducer(store, createAction()),
+      expected: store,
+    })
+  }
+
+  {
+    let store
+    assert({
+      given: `undefined store and action that is not a fetchAction`,
+      should: 'return empty object',
+      actual: fetchReducer(store, createAction()),
+      expected: {},
     })
   }
 })
 
-describe('clearCache()', async (should: any) => {
+describe('actionToFetchStoreEntry()', async ( should: any) => {
   const { assert } = should()
 
+  const createAction = (fetchType: string = 'invalid fetchType', type: string = 'invalid type', url: string = 'test', body: any = {}, headers: Headers = {} as Headers) => ({
+      fetchType,
+      type,
+      url,
+      body,
+      headers
+    })
+
+  const action = createAction('badType')
+  const test = () => {
+    try {
+      return actionToFetchStoreEntry(action)
+    } catch (e) {
+      return e
+    }
+  }
   assert({
-    given: '',
-    should: '',
-    actual: '',
-    expected: '',
-    
+    given: 'invalid FetchType',
+    should: 'throw error',
+    actual: test(),
+    expected: new Error(`FetchReducer: Invalid FetchType '${action.fetchType}'.`)
   })
 })

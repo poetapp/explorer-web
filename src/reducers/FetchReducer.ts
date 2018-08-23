@@ -26,7 +26,7 @@ export function fetchReducer(store: FetchStore, action: any): FetchStore {
   return { ...store, [action.url]: newFetchStoreEntry }
 }
 
-export function actionIsFetchAction(action: any): action is FetchAction {
+function actionIsFetchAction(action: any): action is FetchAction {
   return action.fetchType && FetchType.Types.includes(action.fetchType)
 }
 
@@ -62,7 +62,7 @@ export function actionToFetchStoreEntry(action: FetchAction): FetchStoreEntry<an
 /**
  * Clears cache for all entries that without the query params match the baseUrl
  */
-export function clearCache(store: FetchStore, baseUrl: string, newValue: FetchStoreEntry<any>) {
+function clearCache(store: FetchStore, baseUrl: string, newValue: FetchStoreEntry<any>) {
   const matchingUrls = getMatchingUrls(store, baseUrl)
   const newFetchStoreEntries: FetchStore = {}
 
