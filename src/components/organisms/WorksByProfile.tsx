@@ -125,8 +125,8 @@ export class WorksByProfile extends PoetAPIResourceProvider<
             <span className="content-info">
               {work.attributes.wordCount && (
                 <span>
-                  {work.attributes.wordCount} word{parseInt(work.attributes.wordCount, 10) > 1 && 's'}{' '}
-                  {work.attributes.fileSize && 'at '}
+                  {work.attributes.wordCount} word
+                  {parseInt(work.attributes.wordCount, 10) > 1 && 's'} {work.attributes.fileSize && 'at '}
                 </span>
               )}
               {work.attributes.fileSize && <span>{work.attributes.fileSize} bytes</span>}
