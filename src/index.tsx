@@ -1,3 +1,4 @@
+/* tslint:disable:no-console */
 import { getCurrentActiveFeatureNames, isActiveFeatureName } from '@paralleldrive/feature-toggles'
 import { FeatureToggles, Feature } from '@paralleldrive/react-feature-toggles'
 import * as React from 'react'
