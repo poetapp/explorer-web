@@ -3,6 +3,7 @@
 interface String {
   firstAndLastCharacters(amount: number): string
   trimLeftByPattern(pattern: string): string
+  padEnd(targetLength: any, padString: any): string
 }
 
 String.prototype.firstAndLastCharacters = function(amount: number) {
@@ -10,7 +11,7 @@ String.prototype.firstAndLastCharacters = function(amount: number) {
 }
 
 if (!String.prototype.padEnd)
-  String.prototype.padEnd = function padEnd(targetLength, padString) {
+  String.prototype.padEnd = function padEnd(targetLength: any, padString: any) {
     targetLength = targetLength >> 0 // floor if number or convert non-number to 0;
     padString = String(padString || ' ')
     if (this.length > targetLength) return String(this)
