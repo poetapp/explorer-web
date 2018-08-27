@@ -21,7 +21,6 @@ export function fetchReducer(store: FetchStore, action: any): FetchStore {
   if (!actionIsFetchAction(action)) return store || {}
 
   const newFetchStoreEntry = actionToFetchStoreEntry(action)
-
   if (action.fetchType === FetchType.CLEAR) return clearCache(store, action.url, newFetchStoreEntry)
 
   return { ...store, [action.url]: newFetchStoreEntry }
@@ -39,7 +38,7 @@ export interface FetchAction {
   readonly headers?: Headers
 }
 
-function actionToFetchStoreEntry(action: FetchAction): FetchStoreEntry<any> {
+export function actionToFetchStoreEntry(action: FetchAction): FetchStoreEntry<any> {
   switch (action.fetchType) {
     case FetchType.CLEAR:
       return { status: FetchStatus.Uninitialized, body: null }
