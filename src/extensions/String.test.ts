@@ -8,8 +8,8 @@ describe('String.prototype.firstAndLastCharacters', async ( should: any) => {
   {
     const testString = 'testmeonlongstring'
     assert({
-      given: 'number 6 and string longer than length 12',
-      should: 'return the 6 fist and last characters of the string seperated by ...',
+      given: 'a request for 6 characters and a string longer than 12 characters',
+      should: 'return the first and last 6 characters of the string separated by ...',
       actual: testString.firstAndLastCharacters(6),
       expected: 'testme...string',
     })
@@ -19,7 +19,7 @@ describe('String.prototype.firstAndLastCharacters', async ( should: any) => {
     const testString = 'teststring'
     assert({
       given: 'number 6 and string shorter than length 12',
-      should: 'return the 6 fist and last characters of the string seperated by ...',
+      should: 'return the 6 first and last characters of the string separated by ...',
       actual: testString.firstAndLastCharacters(6),
       expected: 'testst...string',
     })
@@ -29,7 +29,7 @@ describe('String.prototype.firstAndLastCharacters', async ( should: any) => {
     const testString = 'test'
     assert({
       given: 'number 6 and string shorter than length 6',
-      should: 'return the string 2 times seperated by ...',
+      should: 'return the string 2 times separated by ...',
       actual: testString.firstAndLastCharacters(6),
       expected: 'test...test',
     })
@@ -88,13 +88,13 @@ describe('String.prototype.padEnd', async (should: any) => {
   }
 
   {
-    const testString = 't'
+    const testString = 'a'
     
     assert({
       given: 'string shorter than supplied targetLength + short padString',
-      should: 'return correct string',
+      should: 'return a string with repeated characters from the pad string',
       actual: testString.padEnd(5, 't'),
-      expected: 'ttttt',
+      expected: 'atttt',
     })
   }
 
