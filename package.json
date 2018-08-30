@@ -45,7 +45,7 @@
     "@paralleldrive/react-feature-toggles": "2.0.1",
     "@poetapp/frost-client": "0.1.4",
     "bundle-loader": "0.5.6",
-    "circular-dependency-plugin": "^4.4.0",
+    "circular-dependency-plugin": "4.4.0",
     "classnames": "2.2.6",
     "isomorphic-fetch": "2.2.1",
     "moment": "2.22.2",
