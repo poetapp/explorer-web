@@ -3,4 +3,3 @@ script:
   - npm run lint
   - npm run stylelint
   - npm run build
-  - npm run coverage
