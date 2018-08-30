@@ -1,12 +1,6 @@
 language: node_js
-before_install:
-  - npm install -g greenkeeper-lockfile@1
-before_script:
-  - greenkeeper-lockfile-update
 script:
   - npm run lint
   - npm run stylelint
   - npm run build
   - npm run coverage
-after_script:
-  - greenkeeper-lockfile-upload

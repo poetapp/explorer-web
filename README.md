@@ -5,7 +5,7 @@
 Po.et's web application to view claims on the Po.et Network
 
 ## Development Process
-All new features should be merged into master behind a feature toggle with it turned off by default. Once the feature has been sufficiently tested the toggle can be removed. 
+All new features should be merged into master behind a feature toggle with it turned off by default. Once the feature has been sufficiently tested the toggle can be removed.
 
 ## Libraries, Frameworks, etc.
 - Typescript
