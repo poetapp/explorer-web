@@ -1,13 +1,11 @@
 # Po.et Web
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/poetapp/explorer-web.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/poetapp/explorer-web.svg?branch=master)](https://travis-ci.org/poetapp/explorer-web)
 
 This is Po.et's frontend, as seen in https://app.po.et.
 
 ## Development Process
-All new features should be merged into master behind a feature toggle with it turned off by default. Once the feature has been sufficiently tested the toggle can be removed. 
+All new features should be merged into master behind a feature toggle with it turned off by default. Once the feature has been sufficiently tested the toggle can be removed.
 
 ## Libraries, Frameworks, Etc
 - Typescript
