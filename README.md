@@ -1,6 +1,8 @@
 # Po.et Web
 
 [![Build Status](https://travis-ci.org/poetapp/explorer-web.svg?branch=master)](https://travis-ci.org/poetapp/explorer-web)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+[![Join the chat at https://gitter.im/poetapp/Lobby](https://badges.gitter.im/poetapp/Lobby.svg)](https://gitter.im/poetapp/Lobby)
 
 Po.et's web application to view claims on the Po.et Network
 
