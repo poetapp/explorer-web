@@ -1,7 +1,7 @@
 {
   "name": "explorer-web",
   "version": "1.0.1",
-  "description": "Po.et's front-end to view claims on the Po.et Network",
+  "description": "Po.et's web application to view claims on the Po.et Network",
   "scripts": {
     "lint": "tslint -p ./tsconfig.json",
     "lint:fix": "tslint -p ./tsconfig.json --fix",
