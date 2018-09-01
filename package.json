@@ -93,7 +93,7 @@
     "@types/storybook__react": "3.0.9",
     "@types/uuid": "3.4.4",
     "ajv": "6.5.3",
-    "awesome-typescript-loader": "3.5.0",
+    "awesome-typescript-loader": "5.2.0",
     "babel-core": "6.26.3",
     "babel-loader": "6.4.1",
     "cheerio": "1.0.0-rc.2",
