@@ -84,7 +84,7 @@
     "@types/react-hot-loader": "3.0.6",
     "@types/react-redux": "6.0.2",
     "@types/react-router": "2.0.55",
-    "@types/react-tabs": "0.5.22",
+    "@types/react-tabs": "1.0.5",
     "@types/sinon": "5.0.2",
     "@types/storybook__addon-actions": "3.4.1",
     "@types/storybook__addon-info": "3.4.1",
