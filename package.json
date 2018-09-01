@@ -83,7 +83,7 @@
     "@types/react-dom": "16.0.7",
     "@types/react-hot-loader": "3.0.6",
     "@types/react-redux": "6.0.2",
-    "@types/react-router": "2.0.55",
+    "@types/react-router": "4.0.30",
     "@types/react-tabs": "0.5.22",
     "@types/sinon": "5.0.2",
     "@types/storybook__addon-actions": "3.4.1",
