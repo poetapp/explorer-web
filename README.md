@@ -1,4 +1,4 @@
-# Po.et Web
+# Explorer Web
 
 [![Build Status](https://travis-ci.org/poetapp/explorer-web.svg?branch=master)](https://travis-ci.org/poetapp/explorer-web)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
