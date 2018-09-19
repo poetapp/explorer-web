@@ -1,0 +1,10 @@
+{
+  "apiUrl": "https://staging--poet-explorer.netlify.com",
+  "dateFormat": "MMMM Do YYYY",
+  "dateTimeFormat": "MMMM Do YYYY, HH:mm:ss",
+  "pagination": {
+    "limit": 10,
+    "visiblePageCount": 6
+  },
+  "frostApiUrl": "/api"
+}
