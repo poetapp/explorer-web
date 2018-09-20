@@ -1,0 +1,2 @@
+/api/*  https://frost-api.staging.po.et/:splat  200
+/* /index.html 200

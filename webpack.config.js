@@ -9,6 +9,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin')
 const validEnvironments = [
   'development',
   'testing',
+  'staging',
   'production',
 ]
 const environment = process.env.POET_ENV || 'development'
@@ -16,6 +17,7 @@ const environment = process.env.POET_ENV || 'development'
 assert(validEnvironments.includes(environment), `Invalid value for POET_ENV: ${environment}. Valid values are: ${validEnvironments}`)
 
 const production = environment === 'production'
+const staging = environment === 'staging'
 const development = environment === 'development'
 const testing = environment === 'testing'
 const configurationPath = `./env/${environment}.json`
@@ -118,7 +120,7 @@ module.exports = {
     publicPath: "/"
   },
 
-  devtool: production || testing ? '' : 'eval',
+  devtool: production || testing || staging ? '' : 'eval',
 
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json', '.css', '.scss'],
