@@ -100,7 +100,7 @@
     "cheerio": "1.0.0-rc.2",
     "copy-webpack-plugin": "4.5.3",
     "css-loader": "1.0.0",
-    "express": "4.16.3",
+    "express": "4.16.4",
     "express-http-proxy": "1.4.0",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "2.0.0",
