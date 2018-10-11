@@ -17,5 +17,8 @@
     "minor": {
       "automerge": true
     }
-  }
+  },
+  "packageRules": [{
+    "excludePackageNames": ["sass-loader"]
+  }]
 }
