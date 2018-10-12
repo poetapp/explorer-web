@@ -1,9 +1,7 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects'
+import { call, put, takeEvery } from 'redux-saga/effects'
 
 import { Actions } from '../actions/index'
-import { FetchStatus } from '../enums/FetchStatus'
 import { FetchType, FetchAction } from '../reducers/FetchReducer'
-import { getResourceState } from '../selectors/fetch'
 
 const NOT_FOUND = 'not found'
 
@@ -23,8 +21,9 @@ function* fetchData(action: any) {
   const url = action.payload.url
   const short = getLatestTwoNamesOnResource(url)
 
-  const currentState = yield select(getResourceState(url))
-  if (currentState === FetchStatus.Loading) return
+  // const currentState = yield select(getResourceState(url))
+
+  // if (currentState === FetchStatus.Loading || currentState === FetchStatus.Loaded) return
   yield dispatchFetchStatusUpdate(FetchType.MARK_LOADING, 'mark loading ' + short, url)
 
   const { result, error, headers } = yield call(apiFetch, url)

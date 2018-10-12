@@ -59,8 +59,8 @@ class ResourceProviderBase<T> extends React.Component<ResourceProviderProps<T>, 
   }
 
   private dispatchRequest(props: ResourceProviderProps<T>) {
-    if (!props.request || !props.request.status || this.props.resourceLocator.url !== props.resourceLocator.url)
-      props.dispatchRequest(props.resourceLocator)
+    const { request } = props
+    if (!request || request.status === 0) props.dispatchRequest(props.resourceLocator)
   }
 }
 
