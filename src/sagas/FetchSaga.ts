@@ -21,9 +21,6 @@ function* fetchData(action: any) {
   const url = action.payload.url
   const short = getLatestTwoNamesOnResource(url)
 
-  // const currentState = yield select(getResourceState(url))
-
-  // if (currentState === FetchStatus.Loading || currentState === FetchStatus.Loaded) return
   yield dispatchFetchStatusUpdate(FetchType.MARK_LOADING, 'mark loading ' + short, url)
 
   const { result, error, headers } = yield call(apiFetch, url)
