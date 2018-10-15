@@ -18,6 +18,7 @@ export class FetchType {
 }
 
 export function fetchReducer(store: FetchStore, action: any): FetchStore {
+  if (action.type === 'persist/REHYDRATE') return mapRehydrate(action.payload.fetch)
   if (!actionIsFetchAction(action)) return store || {}
 
   const newFetchStoreEntry = actionToFetchStoreEntry(action)
@@ -29,6 +30,16 @@ export function fetchReducer(store: FetchStore, action: any): FetchStore {
 
 function actionIsFetchAction(action: any): action is FetchAction {
   return action.fetchType && FetchType.Types.includes(action.fetchType)
+}
+
+const mapRehydrate = (data = {}) => {
+  if (data === null) return {}
+
+  return Object.entries(data).reduce((acum, currentData) => {
+    const values = { ...currentData[1], status: 0 }
+    const key = currentData[0]
+    return { ...acum, [key]: values }
+  }, {})
 }
 
 export interface FetchAction {
