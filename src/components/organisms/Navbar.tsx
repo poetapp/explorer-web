@@ -95,5 +95,5 @@ export const Navbar = (connect as any)(mapStateToProps, mapDispatch)(
       if (currentLocation.pathname === '/works') return (currentLocation.query as any).query
       else return ''
     }
-  }
+  },
 )

@@ -13,7 +13,7 @@ const mapDispatch = {}
 
 export const LandingLoggedIn = connect(
   () => ({}),
-  mapDispatch
+  mapDispatch,
 )(
   class extends React.Component<LandingProps, LandingState> {
     constructor(props: LandingProps) {
@@ -33,5 +33,5 @@ export const LandingLoggedIn = connect(
         </section>
       )
     }
-  }
+  },
 )
