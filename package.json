@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@po.et/stylelint-rules": "1.1.2",
-    "@po.et/tslint-rules": "1.4.6",
+    "@po.et/tslint-rules": "2.0.0",
     "@storybook/addon-actions": "3.4.11",
     "@storybook/addon-info": "3.4.11",
     "@storybook/addon-knobs": "3.4.11",

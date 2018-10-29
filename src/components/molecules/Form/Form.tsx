@@ -22,7 +22,7 @@ export class Form extends React.Component<FromProps, undefined> {
   readonly onSubmit = (
     event: any,
     submit = (data: object, elements: any) => ({}),
-    validate = (data: any, elements: any) => true
+    validate = (data: any, elements: any) => true,
   ): void => {
     event.preventDefault()
     const form = event.target

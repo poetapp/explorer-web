@@ -1,8 +1,8 @@
 export const getParsedForm = (
-  form: HTMLFormElement
+  form: HTMLFormElement,
 ): {
   readonly currentData: object
-  readonly elements: { readonly [key: string]: HTMLInputElement }
+  readonly elements: { readonly [key: string]: HTMLInputElement },
 } => {
   const data = new FormData(form)
 

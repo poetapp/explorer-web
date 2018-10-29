@@ -66,7 +66,7 @@ class ResourceProviderBase<T> extends React.Component<ResourceProviderProps<T>, 
 
 function mapStateToProps<T>(
   state: ResourceProviderReduxState,
-  ownProps: ResourceProviderProps<T>
+  ownProps: ResourceProviderProps<T>,
 ): ResourceProviderProps<T> {
   const url = ownProps.resourceLocator.url
   const request = state.fetch && state.fetch[url]

@@ -34,7 +34,7 @@ export class Overview extends WorkById {
           tags: '',
         },
       },
-      true
+      true,
     )
   }
 
