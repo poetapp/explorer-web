@@ -10,7 +10,7 @@ export namespace Api {
         readonly version: string
         readonly ipfsHash: string
         readonly blockHeight: string
-        readonly blockHash: string
+        readonly blockHash: string,
       }
     }
     export function url(id: string) {
@@ -27,7 +27,7 @@ export namespace Api {
       dateFrom?: number
       dateTo?: number
       query?: string
-      sortBy?: string
+      sortBy?: string,
     }) {
       return '/works'
     }

@@ -25,7 +25,7 @@ const mapDispatchToProps = {
 
 export const SignUpContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(({ signUp: { loading, error }, onSubmitSignUp }: SignUpContainerProps) => (
   <SignUp onSubmit={onSubmitSignUp} disabledButton={loading} serverErrors={error} />
 ))

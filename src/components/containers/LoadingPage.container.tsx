@@ -18,5 +18,5 @@ export const LoadingPageContainer = connect(mapStateToProps)(
     <Loading loading={loading} percentage={percentage}>
       {children}
     </Loading>
-  )
+  ),
 )

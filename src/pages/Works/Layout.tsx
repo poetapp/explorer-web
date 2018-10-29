@@ -9,8 +9,8 @@ interface WorksLayoutProps {
   readonly location?: {
     readonly query: {
       readonly query: string
-      readonly offset: string
-    }
+      readonly offset: string,
+    },
   }
 }
 

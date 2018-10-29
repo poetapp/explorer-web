@@ -51,7 +51,7 @@ function bindInitialState(pages: Array<PageLoader<any, any>>): any {
 
 export async function createPoetStore(): Promise<{
   readonly store: any
-  readonly pages: any
+  readonly pages: any,
 }> {
   const pages = pageCreators.map(Page => new Page())
 
@@ -64,7 +64,7 @@ export async function createPoetStore(): Promise<{
   const store = createStore(
     combineReducers(reducerList),
     initialState,
-    enhancer(applyMiddleware(sagaMiddleware), autoRehydrate())
+    enhancer(applyMiddleware(sagaMiddleware), autoRehydrate()),
   )
 
   sagaMiddleware.run(bindSagas(pages))

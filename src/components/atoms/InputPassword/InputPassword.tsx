@@ -59,7 +59,7 @@ const validatePassword = (complexity: ComplexityPassword, target: HTMLInputEleme
       const pattern = complexityPatterns[typeComplexity]
       return !((value.match(pattern) || []).length >= valueComplexity) ? [...acum, message[typeComplexity]] : acum
     },
-    []
+    [],
   )
 
   const messages = validations.length > 1 ? `Required, ${validations.join(', ')}` : ''
