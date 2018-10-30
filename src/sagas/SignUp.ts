@@ -1,4 +1,3 @@
-import { Frost } from '@poetapp/frost-client'
 import { browserHistory } from 'react-router'
 import { delay, SagaIterator } from 'redux-saga'
 import { call, takeLatest, put, ForkEffect } from 'redux-saga/effects'
