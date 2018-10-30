@@ -23,7 +23,7 @@ const mapDispatchToProps = { onSubmitSignIn: Actions.SignIn.onSignIn }
 
 export const LoginContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(({ signIn: { loading, error }, onSubmitSignIn }: LoginContainerProps) => (
   <SignIn onSubmit={onSubmitSignIn} disabledButton={loading} serverErrors={error} />
 ))

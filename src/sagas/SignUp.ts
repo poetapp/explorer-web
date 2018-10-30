@@ -7,7 +7,7 @@ import { Actions } from 'actions/index'
 
 export async function signUpFrost(data: {
   readonly email: string
-  readonly password: string
+  readonly password: string,
 }): Promise<{ readonly token: string }> {
   const { email, password } = data
   const frost = new Frost({ host: '/api' })

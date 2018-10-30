@@ -13,7 +13,7 @@ Tabs.setUseDefaultStyles(false)
 
 interface RootLayoutProps {
   readonly location?: {
-    readonly pathname: string
+    readonly pathname: string,
   }
   readonly children?: React.ReactNode
 }

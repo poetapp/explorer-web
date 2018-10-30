@@ -21,7 +21,7 @@ abstract class PageLoader<State, Properties> {
   protected container() {
     return connect(
       this.select.bind(this),
-      this.mapDispatchToProps()
+      this.mapDispatchToProps(),
     )(this.component)
   }
 }
