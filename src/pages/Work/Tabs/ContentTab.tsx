@@ -19,6 +19,7 @@ export class ContentTab extends WorkById {
               {work &&
                 Object.entries(work.claim)
                   .filter(([key, value]) => key !== 'text' && key !== 'content')
+                  .filter(([key, value]) => value.length)
                   .map(this.renderItem, this)}
             </tbody>
           </table>
