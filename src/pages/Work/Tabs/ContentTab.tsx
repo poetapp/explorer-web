@@ -18,12 +18,12 @@ export class ContentTab extends WorkById {
             <tbody>
               {work &&
                 Object.entries(work.claim)
-                  .filter(([key, value]) => key !== 'text')
+                  .filter(([key, value]) => key !== 'text' && key !== 'content')
                   .map(this.renderItem, this)}
             </tbody>
           </table>
         </section>
-        <section className="text">{work && work.claim.text}</section>
+        <section className="text">{work && work.claim.text || work.claim.content}</section>
       </section>
     )
   }
