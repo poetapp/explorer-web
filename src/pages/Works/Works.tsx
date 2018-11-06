@@ -104,7 +104,7 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
         </div>
         <div className="content">
           <pre>
-            {props.claim.text.substr(0, 500)}
+            {props.claim.content.substr(0, 500)}
             ...
           </pre>
         </div>
