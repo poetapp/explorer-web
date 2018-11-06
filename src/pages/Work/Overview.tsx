@@ -31,7 +31,7 @@ export class Overview extends WorkById {
           dateModified: Date.now().toString(),
           author: '',
           lastModified: '',
-          text: '',
+          content: '',
           tags: '',
         },
       },
