@@ -19,12 +19,12 @@ export class Overview extends WorkById {
   renderLoading() {
     return this.renderOverview(
       {
-        id: '',
-        type: ClaimType.Work,
-        issuer: '',
+        'id': '',
+        'type': ClaimType.Work,
+        'issuer': '',
         '@context': '',
-        issuanceDate: '',
-        claim: {
+        'issuanceDate': '',
+        'claim': {
           name: 'Work',
           datePublished: Date.now().toString(),
           dateCreated: Date.now().toString(),
