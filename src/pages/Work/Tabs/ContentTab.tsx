@@ -8,21 +8,21 @@ import { Configuration } from 'configuration'
 import './ContentTab.scss'
 
 export class ContentTab extends WorkById {
-  renderElement(work?: Work) {
+  renderElement(work?: any) {
+    console.log('here', work)
     return (
       <section className="content-tab">
         <section className="attributes">
           <table>
             <tbody>
               {work &&
-                Object.entries(work.attributes)
-                  .filter(([key, value]) => key !== 'content')
-                  .filter(([key, value]) => value.length)
+                Object.entries(work.claim)
+                  .filter(([key, value]) => key !== 'text')
                   .map(this.renderItem, this)}
             </tbody>
           </table>
         </section>
-        <section className="content">{work && work.attributes.content}</section>
+        <section className="text">{work && work.claim.text}</section>
       </section>
     )
   }

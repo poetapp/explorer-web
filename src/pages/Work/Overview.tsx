@@ -12,7 +12,7 @@ import { Api } from 'helpers/PoetApi'
 import './Overview.scss'
 
 export class Overview extends WorkById {
-  renderElement(work: Api.WorkById.Response, headers: Headers) {
+  renderElement(work: any, headers: Headers) {
     return this.renderOverview(work)
   }
 
@@ -38,24 +38,25 @@ export class Overview extends WorkById {
     )
   }
 
-  private renderOverview(work: Api.WorkById.Response, isLoading?: boolean) {
+  private renderOverview(work: any, isLoading?: boolean) {
+    console.log(work)
     if (!work) return null
 
-    document.title = work.attributes.name || '(Untitled Work)'
+    document.title = work.claim.name || '(Untitled Work)'
 
     const tableData = new Map<string, any>()
 
-    if (work.attributes.datePublished)
-      tableData.set('Published', moment(new Date(work.attributes.datePublished)).format(Configuration.dateFormat))
+    if (work.claim.datePublished)
+      tableData.set('Published', moment(new Date(work.claim.datePublished)).format(Configuration.dateFormat))
 
-    if (work.attributes.dateModified)
-      tableData.set('Last Modified', moment(new Date(work.attributes.dateModified)).format(Configuration.dateFormat))
+    if (work.claim.dateModified)
+      tableData.set('Last Modified', moment(new Date(work.claim.dateModified)).format(Configuration.dateFormat))
 
-    if (work.attributes.tags && work.attributes.tags.length) tableData.set('Tags', work.attributes.tags)
+    if (work.claim.tags && work.claim.tags.length) tableData.set('Tags', work.claim.tags)
 
     return (
       <div className={classNames('overview', isLoading && 'loading')}>
-        <h1>{work.attributes.name || '(Untitled Work)'}</h1>
+        <h1>{work.claim.name || '(Untitled Work)'}</h1>
         <table>
           <tbody>
             <tr key="author">
