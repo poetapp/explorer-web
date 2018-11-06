@@ -10,7 +10,6 @@ import './ContentTab.scss'
 
 export class ContentTab extends WorkById {
   renderElement(work?: Work) {
-    console.log('here', work)
     return (
       <section className="content-tab">
         <section className="attributes">
@@ -19,6 +18,7 @@ export class ContentTab extends WorkById {
               {work &&
                 Object.entries(work.claim)
                   .filter(([key, value]) => key !== 'text' && key !== 'content')
+                  .filter(([key, value]) => value.length)
                   .map(this.renderItem, this)}
             </tbody>
           </table>

@@ -40,7 +40,6 @@ export class Overview extends WorkById {
   }
 
   private renderOverview(work: Api.WorkById.Response, isLoading?: boolean) {
-    console.log(work)
     if (!work) return null
 
     document.title = work.claim.name || '(Untitled Work)'
