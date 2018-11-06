@@ -1,13 +1,13 @@
 import * as classNames from 'classnames'
 import * as moment from 'moment'
-import { ClaimType } from 'poet-js'
+// import { ClaimType } from '@po.et/poet-js'
 import * as React from 'react'
 
 import 'extensions/Map'
 
 import { AuthorWithLink, WorkById } from 'components/atoms/Work'
 import { Configuration } from 'configuration'
-import { Api } from 'helpers/PoetApi'
+import { Api, ClaimType } from 'helpers/PoetApi'
 
 import './Overview.scss'
 
@@ -22,6 +22,8 @@ export class Overview extends WorkById {
         id: '',
         type: ClaimType.Work,
         issuer: '',
+        '@context': '',
+        issuanceDate: '',
         claim: {
           name: 'Work',
           datePublished: Date.now().toString(),
@@ -37,7 +39,7 @@ export class Overview extends WorkById {
     )
   }
 
-  private renderOverview(work: any, isLoading?: boolean) {
+  private renderOverview(work: Api.WorkById.Response, isLoading?: boolean) {
     console.log(work)
     if (!work) return null
 

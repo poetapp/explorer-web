@@ -119,17 +119,17 @@ export class WorksByProfile extends PoetAPIResourceProvider<
           <WorkNameWithLink work={work} />
           <div>
             <span className="media-type">
-              {work.attributes.mediaType}
-              {work.attributes.articleType && ` / ${work.attributes.articleType}`}
+              {work.claim.mediaType}
+              {work.claim.articleType && ` / ${work.claim.articleType}`}
             </span>
             <span className="content-info">
-              {work.attributes.wordCount && (
+              {work.claim.wordCount && (
                 <span>
-                  {work.attributes.wordCount} word
-                  {parseInt(work.attributes.wordCount, 10) > 1 && 's'} {work.attributes.fileSize && 'at '}
+                  {work.claim.wordCount} word
+                  {parseInt(work.claim.wordCount, 10) > 1 && 's'} {work.claim.fileSize && 'at '}
                 </span>
               )}
-              {work.attributes.fileSize && <span>{work.attributes.fileSize} bytes</span>}
+              {work.claim.fileSize && <span>{work.claim.fileSize} bytes</span>}
             </span>
           </div>
           <WorkType work={work} />
