@@ -21,7 +21,7 @@ export abstract class WorkById<State = undefined> extends PoetAPIResourceProvide
 }
 
 export class WorkNameById extends WorkById {
-  renderElement(resource: any) {
+  renderElement(resource: Api.WorkById.Response) {
     const title = (resource.claim && resource.claim.name) || '(untitled)'
     return <span>{title}</span>
   }
@@ -45,15 +45,15 @@ export class WorkNameWithLinkById extends WorkById {
   }
 }
 
-export function AuthorWithLink(props: any) {
+export function AuthorWithLink(props: WorkProps) {
   return <span>{(props.work && props.work.claim && props.work.claim.author) || 'Unknown Author'}</span>
 }
 
-export function WorkNameWithLink(props: any) {
+export function WorkNameWithLink(props: WorkProps) {
   const title = (props.work && props.work.claim && props.work.claim.name) || '(untitled)'
   return <Link to={'/works/' + props.work.id}> {title}</Link>
 }
 
-export function WorkType(props: any) {
+export function WorkType(props: WorkProps) {
   return <span> {props.work.claim.type || ''} </span>
 }

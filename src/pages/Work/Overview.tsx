@@ -12,7 +12,7 @@ import { Api, ClaimType } from 'helpers/PoetApi'
 import './Overview.scss'
 
 export class Overview extends WorkById {
-  renderElement(work: any, headers: Headers) {
+  renderElement(work: Api.WorkById.Response, headers: Headers) {
     return this.renderOverview(work)
   }
 
