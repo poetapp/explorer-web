@@ -21,16 +21,15 @@ export class Overview extends WorkById {
       {
         id: '',
         type: ClaimType.Work,
-        publicKey: '',
-        signature: '',
-        attributes: {
+        issuer: '',
+        claim: {
           name: 'Work',
           datePublished: Date.now().toString(),
           dateCreated: Date.now().toString(),
           dateModified: Date.now().toString(),
           author: '',
           lastModified: '',
-          content: '',
+          text: '',
           tags: '',
         },
       },
