@@ -23,7 +23,7 @@ export class ContentTab extends WorkById {
             </tbody>
           </table>
         </section>
-        <section className="text">{work && work.claim.text || work.claim.content}</section>
+        <section className="content">{work && work.claim.text || work.claim.content}</section>
       </section>
     )
   }
