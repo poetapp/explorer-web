@@ -71,7 +71,7 @@
     "testcafe": "0.23.1"
   },
   "devDependencies": {
-    "@po.et/stylelint-rules": "1.1.2",
+    "@po.et/stylelint-rules": "1.1.3",
     "@po.et/tslint-rules": "2.0.2",
     "@storybook/addon-actions": "3.4.11",
     "@storybook/addon-info": "3.4.11",
