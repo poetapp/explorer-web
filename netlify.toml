@@ -10,11 +10,6 @@
   
 # Production context: All deploys to the main
 # repository branch will inherit these settings.
-[context.production]
-  command = "npm run build:production"
-
-[context.staging]
-  command = "npm run build:staging"
 
 # Deploy Preview context: All Deploy Previews
 # will inherit these settings.
