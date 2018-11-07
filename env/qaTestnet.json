@@ -1,0 +1,10 @@
+{
+  "apiUrl": "https://explorer-testnet.qa.poetnetwork.net",
+  "dateFormat": "MMMM Do YYYY",
+  "dateTimeFormat": "MMMM Do YYYY, HH:mm:ss",
+  "pagination": {
+    "limit": 10,
+    "visiblePageCount": 6
+  },
+  "frostApiUrl": "/api"
+}
