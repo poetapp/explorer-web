@@ -16,12 +16,12 @@ interface Pagination {
 
 export const defaultConfiguration: Configuration = {
   frostApiUrl: 'http://localhost:3000',
-  apiUrl: "http://localhost:18080",
-  dateFormat: "MMMM Do YYYY",
-  dateTimeFormat: "MMMM Do YYYY, HH:mm:ss",
+  apiUrl: 'http://localhost:18080',
+  dateFormat: 'MMMM Do YYYY',
+  dateTimeFormat: 'MMMM Do YYYY, HH:mm:ss',
   pagination: {
     limit: 10,
-    visiblePageCount: 6
+    visiblePageCount: 6,
   },
 }
 
