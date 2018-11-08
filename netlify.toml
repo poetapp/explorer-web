@@ -17,7 +17,7 @@
   command = "npm run build:preview"
 
 [context.testing]
-  command = "npm run build:preview"
+  command = "npm run build:qaRegtest"
 
 [context.branch-deploy]
   command = "npm run build:preview"
