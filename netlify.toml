@@ -14,10 +14,10 @@
 # Deploy Preview context: All Deploy Previews
 # will inherit these settings.
 [context.deploy-preview]
-  command = "npm run build:preview"
+  command = "npm run build:qaRegtest"
 
 [context.testing]
   command = "npm run build:qaRegtest"
 
 [context.branch-deploy]
-  command = "npm run build:preview"
+  command = "npm run build:qaRegtest"
