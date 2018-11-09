@@ -1,5 +1,5 @@
 {
-  "apiUrl": "https://explorer-regtest.qa.poetnetwork.net",
+  "apiUrl": "https://node-regtest.qa.poetnetwork.net",
   "dateFormat": "MMMM Do YYYY",
   "dateTimeFormat": "MMMM Do YYYY, HH:mm:ss",
   "pagination": {
