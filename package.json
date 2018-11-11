@@ -81,7 +81,7 @@
     "@storybook/react": "3.4.11",
     "@types/cheerio": "0.22.9",
     "@types/classnames": "2.2.6",
-    "@types/react": "16.7.2",
+    "@types/react": "16.7.3",
     "@types/react-datepicker": "0.40.2",
     "@types/react-dom": "16.0.9",
     "@types/react-hot-loader": "3.0.6",
