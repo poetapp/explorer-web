@@ -23,11 +23,9 @@ const qaTestnet = environment === 'qaTestnet'
 const development = environment === 'development'
 const testing = environment === 'testing'
 const configurationPath = `./env/${environment}.json`
-const redirects = `./_redirects.${environment}`
 
 console.log("POET_ENV: ", environment)
 console.log("Configuration Path: ", configurationPath)
-console.log("redirects: ", redirects)
 
 const vendor = [
   'history',
@@ -84,7 +82,7 @@ function getPlugins(environment) {
   const nonDevelopmentPlugins = [
     new CopyWebpackPlugin([
       {
-        from: redirects,
+        from: './_redirects',
         to: './_redirects',
         toType: "file",
       },
