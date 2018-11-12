@@ -41,18 +41,18 @@ export class Overview extends WorkById {
 
   private renderOverview(work: Api.WorkById.Response, isLoading?: boolean) {
     if (!work) return null
-
-    document.title = work.claim.name || '(Untitled Work)'
+    const tags = work.claim.tags as ReadonlyArray<string>
+    document.title = work.claim.name as string || '(Untitled Work)'
 
     const tableData = new Map<string, any>()
 
     if (work.claim.datePublished)
-      tableData.set('Published', moment(new Date(work.claim.datePublished)).format(Configuration.dateFormat))
+      tableData.set('Published', moment(new Date(work.claim.datePublished as string)).format(Configuration.dateFormat))
 
     if (work.claim.dateModified)
-      tableData.set('Last Modified', moment(new Date(work.claim.dateModified)).format(Configuration.dateFormat))
+      tableData.set('Last Modified', moment(new Date(work.claim.dateModified as string)).format(Configuration.dateFormat))
 
-    if (work.claim.tags && work.claim.tags.length) tableData.set('Tags', work.claim.tags)
+    if (tags && tags.length) tableData.set('Tags', tags)
 
     return (
       <div className={classNames('overview', isLoading && 'loading')}>

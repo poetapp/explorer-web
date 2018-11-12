@@ -5,5 +5,5 @@ import { Claim } from '@po.et/poet-js'
 
 export function TimeElapsedSinceCreation(props: { claim: Claim }) {
   const dateCreated = props.claim && props.claim.dateCreated
-  return <span>{dateCreated ? moment(dateCreated).fromNow() : '(unconfirmed)'}</span>
+  return <span>{dateCreated ? moment(dateCreated as string | number).fromNow() : '(unconfirmed)'}</span>
 }

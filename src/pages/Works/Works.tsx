@@ -88,6 +88,7 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
   }
 
   private renderWork(props: Api.WorkById.Response) {
+    const content = props.claim.contnet as string
     return (
       <li key={props.id} className="work-item">
         <div className="name">
@@ -95,7 +96,7 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
         </div>
         <div className="info">
           <span className="timestamp">
-            Timestamped <TimeElapsedSinceCreation claim={props} />
+            Timestamped <TimeElapsedSinceCreation claim={props.claim} />
             &nbsp;
           </span>
           <span className="author">
@@ -104,7 +105,7 @@ export class Works extends PoetAPIResourceProvider<WorksResource, WorksProps, un
         </div>
         <div className="content">
           <pre>
-            {props.claim.content.substr(0, 500)}
+            {content.substr(0, 500)}
             ...
           </pre>
         </div>

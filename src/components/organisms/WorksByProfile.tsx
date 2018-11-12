@@ -126,7 +126,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<
               {work.claim.wordCount && (
                 <span>
                   {work.claim.wordCount} word
-                  {parseInt(work.claim.wordCount, 10) > 1 && 's'} {work.claim.fileSize && 'at '}
+                  {parseInt(work.claim.wordCount as string, 10) > 1 && 's'} {work.claim.fileSize && 'at '}
                 </span>
               )}
               {work.claim.fileSize && <span>{work.claim.fileSize} bytes</span>}
@@ -140,7 +140,7 @@ export class WorksByProfile extends PoetAPIResourceProvider<
           </Hash>
         </td>
         <td className="timestamp">
-          <TimeElapsedSinceCreation claim={work} />
+          <TimeElapsedSinceCreation claim={work.claim} />
         </td>
       </tr>
     )
