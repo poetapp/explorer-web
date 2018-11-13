@@ -6,5 +6,5 @@
     "limit": 10,
     "visiblePageCount": 6
   },
-  "frostApiUrl": "https://api.qa.poetnetwork.net"
+  "frostApiUrl": "/api"
 }
