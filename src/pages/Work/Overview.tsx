@@ -51,8 +51,8 @@ export class Overview extends WorkById {
 
     if (work.claim.dateModified)
       tableData.set(
-        'Last Modified', 
-        moment(new Date(work.claim.dateModified as string)).format(Configuration.dateFormat)
+        'Last Modified',
+        moment(new Date(work.claim.dateModified as string)).format(Configuration.dateFormat),
       )
 
     if (tags && tags.length) tableData.set('Tags', tags)
