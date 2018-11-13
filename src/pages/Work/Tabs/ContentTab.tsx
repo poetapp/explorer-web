@@ -1,9 +1,10 @@
 import * as moment from 'moment'
-import { Work } from '@po.et/poet-js'
+// import { Work } from '@po.et/poet-js'
 import * as React from 'react'
 
 import { WorkById } from 'components/atoms/Work'
 import { Configuration } from 'configuration'
+import { Work } from 'helpers/PoetApi'
 
 import './ContentTab.scss'
 
