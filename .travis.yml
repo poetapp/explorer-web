@@ -1,5 +1,13 @@
 language: node_js
-script:
+
+before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update
+  - sudo apt-get install gcc-5 g++-5
+  - sudo rm /usr/bin/g++
+  - sudo ln -s /usr/bin/g++-5 /usr/bin/g++
+
+  script:
   - npm run lint
   - npm run stylelint
   - npm run build
