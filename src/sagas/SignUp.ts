@@ -1,7 +1,7 @@
-import { Frost } from '@poetapp/frost-client'
 import { browserHistory } from 'react-router'
 import { delay, SagaIterator } from 'redux-saga'
 import { call, takeLatest, put, ForkEffect } from 'redux-saga/effects'
+import { FrostClient } from 'singletons/FrostClient'
 
 import { Actions } from 'actions/index'
 
@@ -10,8 +10,7 @@ export async function signUpFrost(data: {
   readonly password: string,
 }): Promise<{ readonly token: string }> {
   const { email, password } = data
-  const frost = new Frost({ host: '/api' })
-  return await frost.create(email, password)
+  return await FrostClient.create(email, password)
 }
 
 export function SignUpSaga(): () => IterableIterator<ForkEffect> {
