@@ -1,10 +1,10 @@
 {
-  "apiUrl": "https://node-regtest.qa.poetnetwork.net",
+  "apiUrl": "https://testnet.qa.poetnetwork.net",
   "dateFormat": "MMMM Do YYYY",
   "dateTimeFormat": "MMMM Do YYYY, HH:mm:ss",
   "pagination": {
     "limit": 10,
     "visiblePageCount": 6
   },
-  "frostApiUrl": "/api"
+  "frostApiUrl": "https://api.qa.poetnetwork.net"
 }
