@@ -127,12 +127,19 @@ module.exports = {
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json', '.css', '.scss'],
     alias: {
-      Configuration: path.resolve(configurationPath)
+      Configuration: path.resolve(configurationPath),
+      jsonld$: path.resolve(__dirname, './node_modules/jsonld/dist/jsonld.min.js')
     },
     modules:  [
       path.join(__dirname, "src"),
       "node_modules"
     ],
+  },
+  
+  node: {
+    net: 'empty',
+    // tls: 'empty',
+    // dns: 'empty'
   },
 
   module: {
@@ -168,7 +175,6 @@ module.exports = {
       { test: /\.ico$/, use: 'file-loader?name=[name].[ext]' },
     ],
   },
-
   plugins: getPlugins(environment)
 }
 
