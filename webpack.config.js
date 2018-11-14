@@ -69,7 +69,9 @@ function getPlugins(environment) {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(environment)
+        'NODE_ENV': JSON.stringify(environment),
+        'API_URL': JSON.stringify(process.env.API_URL),
+        'FROST_API_URL': JSON.stringify(process.env.FROST_API_URL)
       }
     }),
     new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'), // See Note 1 at the bottom
