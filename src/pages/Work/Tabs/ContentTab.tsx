@@ -1,9 +1,9 @@
 import * as moment from 'moment'
-import { Work } from 'poet-js'
 import * as React from 'react'
 
 import { WorkById } from 'components/atoms/Work'
 import { Configuration } from 'configuration'
+import { Work } from 'helpers/PoetApi'
 
 import './ContentTab.scss'
 
@@ -15,14 +15,16 @@ export class ContentTab extends WorkById {
           <table>
             <tbody>
               {work &&
-                Object.entries(work.attributes)
-                  .filter(([key, value]) => key !== 'content')
-                  .filter(([key, value]) => value.length)
+                Object.entries(work.claim)
+                  .filter(([key, value]) => key !== 'text' && key !== 'content')
+                  .filter(([key, value]) => {
+                    const valueString = value as string
+                    return valueString.length })
                   .map(this.renderItem, this)}
             </tbody>
           </table>
         </section>
-        <section className="content">{work && work.attributes.content}</section>
+        <section className="content">{work && work.claim.text || work.claim.content}</section>
       </section>
     )
   }

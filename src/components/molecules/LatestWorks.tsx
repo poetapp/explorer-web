@@ -53,7 +53,7 @@ export default class LatestBlocks extends PoetAPIResourceProvider<LatestWorksRes
         </td>
         <td className="id">{props.id && props.id.firstAndLastCharacters(6)}</td>
         <td className="date">
-          <TimeElapsedSinceCreation claim={props} />
+          <TimeElapsedSinceCreation claim={props.claim} />
         </td>
       </tr>
     )
