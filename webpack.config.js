@@ -69,9 +69,7 @@ function getPlugins(environment) {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(environment),
-        'API_URL': JSON.stringify(process.env.API_URL),
-        'FROST_API_URL': JSON.stringify(process.env.FROST_API_URL)
+        'NODE_ENV': JSON.stringify(environment)
       }
     }),
     new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'), // See Note 1 at the bottom
@@ -127,17 +125,12 @@ module.exports = {
   resolve: {
     extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json', '.css', '.scss'],
     alias: {
-      Configuration: path.resolve(configurationPath),
-      jsonld$: path.resolve(__dirname, './node_modules/jsonld/dist/jsonld.min.js')
+      Configuration: path.resolve(configurationPath)
     },
     modules:  [
       path.join(__dirname, "src"),
       "node_modules"
     ],
-  },
-  
-  node: {
-    net: 'empty',
   },
 
   module: {
@@ -173,6 +166,7 @@ module.exports = {
       { test: /\.ico$/, use: 'file-loader?name=[name].[ext]' },
     ],
   },
+
   plugins: getPlugins(environment)
 }
 

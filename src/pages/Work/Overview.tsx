@@ -1,4 +1,3 @@
-import { ClaimType } from '@po.et/poet-js'
 import * as classNames from 'classnames'
 import * as moment from 'moment'
 import * as React from 'react'
@@ -7,7 +6,7 @@ import 'extensions/Map'
 
 import { AuthorWithLink, WorkById } from 'components/atoms/Work'
 import { Configuration } from 'configuration'
-import { Api } from 'helpers/PoetApi'
+import { Api, ClaimType} from 'helpers/PoetApi'
 
 import './Overview.scss'
 

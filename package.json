@@ -46,7 +46,6 @@
   "dependencies": {
     "@paralleldrive/feature-toggles": "1.0.3",
     "@paralleldrive/react-feature-toggles": "2.0.2",
-    "@po.et/poet-js": "5.1.9",
     "@poetapp/frost-client": "0.1.4",
     "bundle-loader": "0.5.6",
     "circular-dependency-plugin": "4.4.0",
@@ -81,7 +80,7 @@
     "@storybook/react": "3.4.11",
     "@types/cheerio": "0.22.9",
     "@types/classnames": "2.2.6",
-    "@types/react": "16.7.6",
+    "@types/react": "16.7.4",
     "@types/react-datepicker": "0.40.2",
     "@types/react-dom": "16.0.9",
     "@types/react-hot-loader": "3.0.6",
