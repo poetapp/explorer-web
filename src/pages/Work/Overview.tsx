@@ -1,6 +1,6 @@
+import { ClaimType } from '@po.et/poet-js'
 import * as classNames from 'classnames'
 import * as moment from 'moment'
-import { ClaimType } from '@po.et/poet-js'
 import * as React from 'react'
 
 import 'extensions/Map'

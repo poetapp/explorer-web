@@ -1,5 +1,5 @@
-import * as moment from 'moment'
 import { Work } from '@po.et/poet-js'
+import * as moment from 'moment'
 import * as React from 'react'
 
 import { WorkById } from 'components/atoms/Work'
