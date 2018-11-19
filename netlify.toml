@@ -12,6 +12,8 @@
 # repository branch will inherit these settings.
 [context.production]
   command = "npm run build:production"
+  [context.production.environment]
+    POET_ENV = "production"
 
 [context.staging]
   command = "npm run build:staging"
@@ -25,4 +27,4 @@
   command = "npm run build:preview"
 
 [context.branch-deploy]
-  command = "npm run build:preview"
+  command = "npm run build:production"
