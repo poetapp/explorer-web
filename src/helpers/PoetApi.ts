@@ -32,6 +32,15 @@ export namespace Api {
         readonly blockHeight: string
         readonly blockHash: string,
       }
+      readonly anchor?: {
+        readonly transactionId: string
+        readonly outputIndex: string
+        readonly prefix: string
+        readonly version: string
+        readonly ipfsHash: string
+        readonly blockHeight: string
+        readonly blockHash: string,
+      }
     }
     export function url(id: string) {
       return `/works/${id}`
