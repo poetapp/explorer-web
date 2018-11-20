@@ -17,11 +17,14 @@ export class TechnicalTab extends WorkById {
       return (
         <div className="technical-tab">Technical information not available. This work may be pending confirmation.</div>
       )
-    
+
     return (
       <div className="technical-tab">
         <table>
-          <tbody>{Object.entries(resource.timestamp ? resource.timestamp : resource.anchor && resource.anchor).map(([key, value]) => this.renderEntry(key, value))}</tbody>
+          <tbody>{Object.entries(resource.timestamp ?
+            resource.timestamp :
+            resource.anchor &&
+            resource.anchor).map(([key, value]) => this.renderEntry(key, value))}</tbody>
         </table>
       </div>
     )
