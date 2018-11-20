@@ -21,3 +21,13 @@
 
 [context.branch-deploy]
   command = "npm run build:qaRegtest"
+
+[context.production.environment]
+  API_URL= "https://api.explorer.po.et"
+  DATE_FORMAT= "MMMM Do YYYY"
+  FROST_API_URL= "https://api.frost.po.et"
+
+[context.deploy-preview.environment]
+  API_URL= "https://testnet.qa.poetnetwork.net"
+  DATE_FORMAT= "MMMM Do YYYY"
+  FROST_API_URL= "https://frost-api.qa.poetnetwork.net"
