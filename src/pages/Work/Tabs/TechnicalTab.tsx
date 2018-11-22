@@ -33,7 +33,8 @@ export class TechnicalTab extends WorkById {
       transactionId: Configuration.btcTxnId,
       blockHash: Configuration.btcBlockHash,
       blockHeight: Configuration.btcBlockHeight,
-      ipfsHash: Configuration.ipfsGateway,
+      ipfsFileHash: Configuration.ipfsGateway,
+      ipfsDirectoryHash: Configuration.ipfsGateway,
     }
     const link = links[key]
     return (
