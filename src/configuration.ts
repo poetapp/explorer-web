@@ -1,16 +1,16 @@
-import { map, pipe, fromPairs, keys } from 'ramda'
+import { fromPairs, keys, map, pipe } from 'ramda'
 
 interface Configuration {
-  readonly frostApiUrl: string
   readonly apiUrl: string
-  readonly dateFormat: string
-  readonly dateTimeFormat: string
-  readonly pagination: Pagination
-  readonly useMockSigner?: boolean
-  readonly btcTxnId: string
   readonly btcBlockHash: string
   readonly btcBlockHeight: string
+  readonly btcTxnId: string
+  readonly dateFormat: string
+  readonly dateTimeFormat: string
+  readonly frostApiUrl: string
   readonly ipfsGateway: string
+  readonly pagination: Pagination
+  readonly useMockSigner?: boolean
 }
 
 interface Pagination {
@@ -30,7 +30,7 @@ export const defaultConfiguration: Configuration = {
   btcTxnId: '',
   btcBlockHash: '',
   btcBlockHeight: '',
-  ipfsGateway: ''
+  ipfsGateway: '',
 }
 
 export const camelCaseToScreamingSnakeCase = (camelCase: string = '') =>

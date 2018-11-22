@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import { WorkById } from 'components/atoms/Work'
-import { Api } from 'helpers/PoetApi'
 import { Configuration } from 'configuration'
+import { Api } from 'helpers/PoetApi'
 
 import './TechnicalTab.scss'
 
