@@ -7,6 +7,10 @@ interface Configuration {
   readonly dateTimeFormat: string
   readonly pagination: Pagination
   readonly useMockSigner?: boolean
+  readonly btcTxnId: string
+  readonly btcBlockHash: string
+  readonly btcBlockHeight: string
+  readonly ipfsGateway: string
 }
 
 interface Pagination {
@@ -23,6 +27,10 @@ export const defaultConfiguration: Configuration = {
     limit: 10,
     visiblePageCount: 6,
   },
+  btcTxnId: '',
+  btcBlockHash: '',
+  btcBlockHeight: '',
+  ipfsGateway: ''
 }
 
 export const camelCaseToScreamingSnakeCase = (camelCase: string = '') =>

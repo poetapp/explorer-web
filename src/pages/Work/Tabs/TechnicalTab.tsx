@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { WorkById } from 'components/atoms/Work'
 import { Api } from 'helpers/PoetApi'
+import { Configuration } from 'configuration'
 
 import './TechnicalTab.scss'
 
@@ -29,10 +30,10 @@ export class TechnicalTab extends WorkById {
 
   private renderEntry = (key: string, value: string) => {
     const links: { readonly [key: string]: string } = {
-      transactionId: 'https://test-insight.bitpay.com/tx/',
-      blockHash: 'https://test-insight.bitpay.com/block/',
-      blockHeight: 'https://test-insight.bitpay.com/block-index/',
-      ipfsHash: 'https://ipfs.io/ipfs/',
+      transactionId: Configuration.btcTxnId,
+      blockHash: Configuration.btcBlockHash,
+      blockHeight: Configuration.btcBlockHeight,
+      ipfsHash: Configuration.ipfsGateway,
     }
     const link = links[key]
     return (
