@@ -7,8 +7,8 @@
     "visiblePageCount": 6
   },
   "frostApiUrl": "/api",
-  "btcTxnId": 'https://testnet.blockchain.info/tx/',
-  "btcBlockHash": 'https://testnet.blockchain.info/block/',
-  "btcBlockHeight": 'https://testnet.blockchain.info/block-height/',
-  "ipfsGateway": 'https://ipfs.poetnetwork.net/ipfs/'
+  "btcTxnId": "https://testnet.blockchain.info/tx/",
+  "btcBlockHash": "https://testnet.blockchain.info/block/",
+  "btcBlockHeight": "https://testnet.blockchain.info/block-height/",
+  "ipfsGateway": "https://ipfs.poetnetwork.net/ipfs/"
 }

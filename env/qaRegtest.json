@@ -7,8 +7,8 @@
     "visiblePageCount": 6
   },
   "frostApiUrl": "/api",
-  "btcTxnId": 'https://localhost:8332/tx/',
-  "btcBlockHash": 'https://localhost:8332/block/',
-  "btcBlockHeight": 'https://localhost:8332/block-height/',
-  "ipfsGateway": 'https://ipfs.poetnetwork.net/ipfs/'
+  "btcTxnId": "https://localhost:8332/tx/",
+  "btcBlockHash": "https://localhost:8332/block/",
+  "btcBlockHeight": "https://localhost:8332/block-height/",
+  "ipfsGateway": "https://ipfs.poetnetwork.net/ipfs/"
 }
