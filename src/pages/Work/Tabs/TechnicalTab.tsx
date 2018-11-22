@@ -30,7 +30,7 @@ export class TechnicalTab extends WorkById {
 
   private renderEntry = (key: string, value: string) => {
     const links: { readonly [key: string]: string } = {
-      transactionId: process.env.TRANSACTION_ID || Configuration.btcTxnId,
+      transactionId: process.env.BTC_TXN_ID || Configuration.btcTxnId,
       blockHash: Configuration.btcBlockHash,
       blockHeight: Configuration.btcBlockHeight,
       ipfsFileHash: Configuration.ipfsGateway,
