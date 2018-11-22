@@ -21,10 +21,10 @@ interface Pagination {
 export const defaultConfiguration: Configuration = {
   frostApiUrl: 'http://localhost:3000',
   apiUrl: 'http://localhost:18080',
-  btcTxnId: 'http://localhost:8332',
-  btcBlockHash: 'http://localhost:8332',
-  btcBlockHeight: 'http://localhost:8332',
-  ipfsGateway: 'http://localhost:8080',
+  btcTxnId: 'http://localhost:8332/',
+  btcBlockHash: 'http://localhost:8332/',
+  btcBlockHeight: 'http://localhost:8332/',
+  ipfsGateway: 'http://localhost:8080/',
   dateFormat: 'MMMM Do YYYY',
   dateTimeFormat: 'MMMM Do YYYY, HH:mm:ss',
   pagination: {
