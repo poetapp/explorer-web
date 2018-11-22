@@ -27,10 +27,10 @@ export const defaultConfiguration: Configuration = {
     limit: 10,
     visiblePageCount: 6,
   },
-  btcTxnId: 'https://www.blockchain.com/btc/tx/',
-  btcBlockHash: 'https://www.blockchain.com/btc/block/',
-  btcBlockHeight: 'https://www.blockchain.com/btc/block-height/',
-  ipfsGateway: 'https://ipfs.poetnetwork.net/ipfs/',
+  btcTxnId: '',
+  btcBlockHash: '',
+  btcBlockHeight: '',
+  ipfsGateway: '',
 }
 
 export const camelCaseToScreamingSnakeCase = (camelCase: string = '') =>
