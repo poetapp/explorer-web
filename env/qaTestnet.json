@@ -1,6 +1,6 @@
 {
   "apiUrl": "https://testnet.qa.poetnetwork.net",
-  "dateFormat": "MMMM Do YYYY",
+  "dateFormat": "Do MMMM YYYY",
   "dateTimeFormat": "MMMM Do YYYY, HH:mm:ss",
   "pagination": {
     "limit": 10,
