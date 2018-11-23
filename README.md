@@ -4,7 +4,7 @@
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![Join the chat at https://gitter.im/poetapp/Lobby](https://badges.gitter.im/poetapp/Lobby.svg)](https://gitter.im/poetapp/Lobby)
 
-Po.et's web application to view claims on the Po.et Network.
+Po.et's web application to view claims on the Po.et Network
 
 ## Development Process
 All new features should be merged into master behind a feature toggle with it turned off by default. Once the feature has been sufficiently tested the toggle can be removed.
