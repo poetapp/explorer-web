@@ -32,7 +32,7 @@ export class TechnicalTab extends WorkById {
     const links: { readonly [key: string]: string } = {
       transactionId: Configuration.linkBtcTx,
       blockHash: Configuration.linkBtcBlockHash,
-      blockHeight: Configuration.linkBtcBlockHash,
+      blockHeight: Configuration.linkBtcBlockHeight,
       ipfsFileHash: Configuration.linkIpfs,
       ipfsDirectoryHash: Configuration.linkIpfs,
     }
