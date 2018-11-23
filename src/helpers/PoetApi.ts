@@ -23,14 +23,15 @@ export interface Work extends VerifiableClaim {}
 export namespace Api {
   export namespace WorkById {
     export interface Response extends Work {
-      readonly timestamp?: {
-        readonly transactionId: string
-        readonly outputIndex: string
-        readonly prefix: string
-        readonly version: string
-        readonly ipfsHash: string
+      readonly anchor?: {
         readonly blockHeight: string
         readonly blockHash: string,
+        readonly transactionId: string
+        readonly prefix: string
+        readonly version: number
+        readonly protocol: number
+        readonly ipfsDirectoryHash: string
+        readonly ipfsFileHash: string,
       }
     }
     export function url(id: string) {

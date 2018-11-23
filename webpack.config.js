@@ -71,7 +71,11 @@ function getPlugins(environment) {
       'process.env': {
         'NODE_ENV': JSON.stringify(environment),
         'API_URL': JSON.stringify(process.env.API_URL),
-        'FROST_API_URL': JSON.stringify(process.env.FROST_API_URL)
+        'FROST_API_URL': JSON.stringify(process.env.FROST_API_URL),
+        'LINK_BTC_BLOCK_HASH': JSON.stringify(process.env.LINK_BTC_BLOCK_HASH),
+        'LINK_BTC_BLOCK_HEIGHT': JSON.stringify(process.env.LINK_BTC_BLOCK_HEIGHT),
+        'LINK_BTC_TX': JSON.stringify(process.env.LINK_BTC_TX),
+        'LINK_IPFS': JSON.stringify(process.env.LINK_IPFS),
       }
     }),
     new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'), // See Note 1 at the bottom

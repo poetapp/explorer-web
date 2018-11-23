@@ -1,12 +1,15 @@
-import { map, pipe, fromPairs, keys } from 'ramda'
+import { fromPairs, keys, map, pipe } from 'ramda'
 
 interface Configuration {
-  readonly frostApiUrl: string
   readonly apiUrl: string
   readonly dateFormat: string
   readonly dateTimeFormat: string
+  readonly frostApiUrl: string
   readonly pagination: Pagination
-  readonly useMockSigner?: boolean
+  readonly linkBtcBlockHeight: string
+  readonly linkBtcBlockHash: string
+  readonly linkBtcTx: string
+  readonly linkIpfs: string
 }
 
 interface Pagination {
@@ -17,6 +20,10 @@ interface Pagination {
 export const defaultConfiguration: Configuration = {
   frostApiUrl: 'http://localhost:3000',
   apiUrl: 'http://localhost:18080',
+  linkBtcBlockHeight: 'https://www.blockchain.com/btc/block-index/',
+  linkBtcBlockHash: 'https://www.blockchain.com/btc/block/',
+  linkBtcTx: 'https://www.blockchain.com/btc/tx/',
+  linkIpfs: 'https://ipfs.io/ipfs/',
   dateFormat: 'MMMM Do YYYY',
   dateTimeFormat: 'MMMM Do YYYY, HH:mm:ss',
   pagination: {
