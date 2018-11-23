@@ -31,7 +31,7 @@ export namespace Api {
         readonly version: number
         readonly protocol: number
         readonly ipfsDirectoryHash: string
-        readonly ipfsFileHash: string
+        readonly ipfsFileHash: string,
       }
     }
     export function url(id: string) {
