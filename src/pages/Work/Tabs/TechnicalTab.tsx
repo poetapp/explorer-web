@@ -29,13 +29,12 @@ export class TechnicalTab extends WorkById {
   }
 
   private renderEntry = (key: string, value: string) => {
-    const transactionId = Configuration.btcTxnId
     const links: { readonly [key: string]: string } = {
-      transactionId,
-      blockHash: Configuration.btcBlockHash,
-      blockHeight: Configuration.btcBlockHeight,
-      ipfsFileHash: Configuration.ipfsGateway,
-      ipfsDirectoryHash: Configuration.ipfsGateway,
+      transactionId: Configuration.linkBtcTx,
+      blockHash: Configuration.linkBtcBlockHash,
+      blockHeight: Configuration.linkBtcBlockHash,
+      ipfsFileHash: Configuration.linkIpfs,
+      ipfsDirectoryHash: Configuration.linkIpfs,
     }
     const link = links[key]
     return (
