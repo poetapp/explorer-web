@@ -22,7 +22,7 @@ export class TechnicalTab extends WorkById {
     return (
       <div className="technical-tab">
         <table>
-          <tbody>{Object.entries(resource.anchor).map(([key, value]) => this.renderEntry(key, value))}</tbody>
+          <tbody>{Object.entries(resource.anchor).map(([key, value]) => this.renderEntry(key, value.toString()))}</tbody>
         </table>
       </div>
     )
