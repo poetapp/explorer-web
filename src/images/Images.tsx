@@ -4,6 +4,7 @@ export class Images {
   static readonly Twitter = require('./twitter.svg')
   static readonly Github = require('./github.svg')
   static readonly Reddit = require('./reddit.svg')
+  static readonly FavIcon = require('./fav.ico')
   static readonly Glass = require('./glass.svg')
   static readonly Quill = require('./quill.svg')
   static readonly QuillInverted = require('./quill-inverted.svg')
