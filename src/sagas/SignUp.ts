@@ -10,7 +10,7 @@ export async function signUpFrost(data: {
   readonly password: string,
 }): Promise<{ readonly token: string }> {
   const { email, password } = data
-  return await FrostClient.create(email, password)
+  return FrostClient.create(email, password)
 }
 
 export function SignUpSaga(): () => IterableIterator<ForkEffect> {
