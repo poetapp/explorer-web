@@ -61,3 +61,7 @@ Some rules:
 - **Use 2 spaces** for indentation
 - **Use single quotes** for strings except to avoid escaping
 - **Add a space after keywords**
+
+## [Contributing](https://github.com/poetapp/documentation/blob/master/CONTRIBUTING.md)
+
+## [Security](https://github.com/poetapp/documentation/blob/master/SECURITY.md)
