@@ -20,5 +20,4 @@
   command = "npm run build:qaRegtest"
 
 [context.branch-deploy]
-  command = "CC=/opt/rh/devtoolset-3/root/usr/bin/gcc CXX=/opt/rh/devtoolset-3/root/usr/bin/g++ npm install
- && npm run build:qaRegtest"
+  command = "CC=/opt/rh/devtoolset-3/root/usr/bin/gcc CXX=/opt/rh/devtoolset-3/root/usr/bin/g++ npm install && npm run build:qaRegtest"
