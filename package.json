@@ -55,6 +55,7 @@
     "moment": "2.22.2",
     "poet-js": "1.0.3",
     "protobufjs": "6.8.8",
+    "rdf-canonize-native": "0.3.0",
     "react": "16.6.3",
     "react-autocomplete": "1.8.1",
     "react-datepicker": "1.6.0",
