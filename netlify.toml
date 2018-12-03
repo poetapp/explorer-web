@@ -20,4 +20,4 @@
   command = "npm run build:qaRegtest"
 
 [context.branch-deploy]
-  command = "npm run build:qaRegtest"
+  command = "npm i --no-optional && npm run build:qaRegtest"
