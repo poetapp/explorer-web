@@ -51,7 +51,7 @@
     "circular-dependency-plugin": "4.4.0",
     "classnames": "2.2.6",
     "isomorphic-fetch": "2.2.1",
-    "moment": "2.22.2",
+    "moment": "2.23.0",
     "protobufjs": "6.8.8",
     "react": "16.6.3",
     "react-autocomplete": "1.8.1",
