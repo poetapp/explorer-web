@@ -46,7 +46,7 @@
   "dependencies": {
     "@paralleldrive/feature-toggles": "1.0.3",
     "@paralleldrive/react-feature-toggles": "2.0.2",
-    "@poetapp/frost-client": "0.1.4",
+    "@po.et/frost-client": "2.3.0",
     "bundle-loader": "0.5.6",
     "circular-dependency-plugin": "4.4.0",
     "classnames": "2.2.6",
