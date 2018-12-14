@@ -1,4 +1,4 @@
-import { Frost } from '@poetapp/frost-client'
+import { Frost } from '@po.et/frost-client'
 import { takeLatest, call, put } from 'redux-saga/effects'
 import { describe } from 'riteway'
 
