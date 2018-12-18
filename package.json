@@ -90,7 +90,7 @@
     "@types/sinon": "7.0.0",
     "@types/storybook__addon-actions": "3.4.1",
     "@types/storybook__addon-info": "3.4.2",
-    "@types/storybook__addon-knobs": "3.4.1",
+    "@types/storybook__addon-knobs": "4.0.0",
     "@types/storybook__addon-links": "3.3.3",
     "@types/storybook__react": "3.0.9",
     "@types/uuid": "3.4.4",
