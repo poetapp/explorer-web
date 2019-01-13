@@ -28,7 +28,7 @@ export const LandingLoggedIn = connect(
         <section className="landing-logged-in">
           <div className="container">
             <img className="logo" src={Images.Logo} />
-            <section className="search" />
+            <section className="search" />ASDASDASDASD
           </div>
         </section>
       )
