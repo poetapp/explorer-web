@@ -18,7 +18,7 @@ const Main = () => (
     <h2>Po.et is a decentralized protocol for content ownership, discovery, and monetization in media.</h2>
     <div>
       <Link className={classNames.makeClaim} to={''}>Make a Claim</Link>
-      <Link className={classNames.integrate} to={''}>Integrate with Po.et</Link>
+      <a className={classNames.integrate} href="https://www.po.et/integrate">Integrate with Po.et</a>
     </div>
   </main>
 )

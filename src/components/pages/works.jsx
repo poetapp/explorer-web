@@ -19,7 +19,8 @@ const Links = () => links.map(link => <LinkListItem link={link} key={link} />)
 
 export const Works = () => (
   <Main>
-    <h1>You can navigate works:</h1>
+    <h1>Works</h1>
+    <h2>This is a placeholder page with a few hard-coded works to demo navigation</h2>
     <ul>
       <Links />
     </ul>
