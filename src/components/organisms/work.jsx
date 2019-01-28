@@ -4,13 +4,18 @@ import { Link } from 'react-router-dom'
 
 import { workById, workHeader, claimMadeBy, links, contentClass, badge, badgeUrl } from './work.scss'
 
-const avatarUrl = 'https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5c0e925ca85aebe5945307ac_Screen%20Shot%202018-12-10%20at%2010.20.23%20AM.png'
+const images = {
+  avatar: 'https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5c0e925ca85aebe5945307ac_Screen%20Shot%202018-12-10%20at%2010.20.23%20AM.png',
+  ipfs: 'https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5c142ac87b45f573f361809f_ipfs.png',
+  bitcoin: 'https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png',
+  quill: 'https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5c0fd7884a45850c86a7ca43_poet-quill.svg',
+}
 
 const Issuer = ({ issuer, avatarUrl, name }) => (
   <section className={claimMadeBy}>
     <h1>Claim Made By:</h1>
     <Link to={`/issuers/${issuer}`}>
-      <img src={avatarUrl} />
+      <img src={images.avatar} />
       <span>{name}</span>
     </Link>
   </section>
@@ -30,9 +35,9 @@ const Overview = ({ name, author, datePublished, tags }) => (
 const Links = ({ ipfsLink, bitcoinLink }) => (
   <section className={links}>
     <a href={ipfsLink} target="_blank">
-      <img src="https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5c142ac87b45f573f361809f_ipfs.png" />View on IPFS</a>
+      <img src={images.ipfs} />View on IPFS</a>
     <a href={bitcoinLink} target="_blank">
-      <img src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png" />View on BTC
+      <img src={images.bitcoin} />View on BTC
     </a>
   </section>
 )
@@ -55,7 +60,7 @@ const AuthenticationBadgePreview = ({ date }) => (
 
 const Badge = ({ date }) => (
   <section className={badge}>
-    <img src="https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5c0fd7884a45850c86a7ca43_poet-quill.svg"/>
+    <img src={images.quill}/>
     <h1>Licensed via Po.et</h1>
     <span>{date}</span>
   </section>
@@ -91,7 +96,7 @@ export const Work = ({ work, content }) => (
         datePublished={work && work.claim && work.claim.datePublished && formattedDate(work.claim.datePublished)}
         tags={work && work.tags && work.claim.tags}
       />
-      <Issuer issuer={work && work.issuer} avatarUrl={avatarUrl} name={'Oscar Wilde'} />
+      <Issuer issuer={work && work.issuer} avatarUrl={images.avatar} name={'Oscar Wilde'} />
       <Links
         bitcoinLink={bitcoinLink(work && work.anchor && work.anchor.transactionId)}
         ipfsLink={ipfsLink(work && work.anchor && work.anchor.ipfsDirectoryHash)}
