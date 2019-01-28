@@ -9,4 +9,4 @@
 
 ### Warning
 
-Merging to `master` automatically triggers a deploy in production. 
+Merging to `master` automatically triggers a deploy to QA. 
