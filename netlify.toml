@@ -4,10 +4,10 @@
   publish = "dist"
   
 [context.deploy-preview]
-  command = "npm run build:qaRegtest"
+  command = "npm run build"
 
 [context.testing]
-  command = "npm run build:qaRegtest"
+  command = "npm run build"
 
 [context.branch-deploy]
-  command = "npm run build:qaRegtest"
+  command = "npm run build"
