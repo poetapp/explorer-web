@@ -28,7 +28,7 @@ const Footer = () => (
     <img src={poetLogo} />
     <ul>
       <li>Protocol</li>
-      <li>Explorer</li>
+      <li><Link to="/works">Explorer</Link></li>
       <li><a href="https://docs.poetnetwork.net/">Documentation</a></li>
     </ul>
     <ul>
