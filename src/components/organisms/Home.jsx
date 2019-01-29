@@ -17,8 +17,8 @@ const Main = () => (
     <h1>Welcome to the Po.et Network</h1>
     <h2>Po.et is a decentralized protocol for content ownership, discovery, and monetization in media.</h2>
     <div>
-      <Link className={classNames.makeClaim} to={''}>Make a Claim</Link>
-      <a className={classNames.integrate} href="https://www.po.et/integrate">Integrate with Po.et</a>
+      <a className={classNames.makeClaim} target="_blank" href={'https://docs.poetnetwork.net/use-poet/create-your-first-claim.html'}>Make a Claim</a>
+      <a className={classNames.integrate} target="_blank" href="https://www.po.et/integrate">Integrate with Po.et</a>
     </div>
   </main>
 )
