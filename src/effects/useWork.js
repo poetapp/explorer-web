@@ -9,3 +9,5 @@ const urlByIssuer = issuer => `${url}?issuer=${issuer}`
 export const useWorkById = id => useFetch(urlById(id))
 
 export const useWorkByIssuer = issuer => useFetch(urlByIssuer(issuer))
+
+export const useWorks = () => useFetch(url)
