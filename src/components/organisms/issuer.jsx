@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
+import { Works } from 'components/molecules/Works'
 
 import classNames from './issuer.scss'
 
@@ -28,20 +29,4 @@ const Profile = ({ name }) => (
       <span>Tip POE</span>
     </a>
   </section>
-)
-
-const Works = ({ works }) => works && (
-  <ul className={classNames.works}>
-    {works.map(work =>
-      <Work work={work} key={work.id} />
-    )}
-  </ul>
-)
-
-const Work = ({ work }) => (
-  <li>
-    <h1><Link to={`/works/${work.id}`}>{work.claim.name}</Link></h1>
-    <h2>{work.claim.author}</h2>
-    <h3>{work.claim.datePublished}</h3>
-  </li>
 )

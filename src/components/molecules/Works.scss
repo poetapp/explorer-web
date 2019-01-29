@@ -1,0 +1,37 @@
+@import '../../styles/Fonts';
+
+.works {
+  list-style: none;
+
+  >li {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d4d4d4;
+
+    >h1 {
+      display: block;
+      margin-top: 0px;
+      margin-bottom: 5px;
+      font-family: $roboto-slab;
+      color: #36b074;
+      font-size: 18px;
+      text-decoration: underline;
+      line-height: 30px;
+    }
+
+    >h2 {
+      display: inline-block;
+      color: #2a2a2a;
+      font-weight: 600;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    >h3 {
+      display: inline-block;
+      margin: 0 0 0 10px;
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+}
