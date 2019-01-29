@@ -1,13 +1,13 @@
 import { useFetch } from './useFetch'
 
-const url = 'https://mainnet.poetnetwork.net/works'
+const url = (network = 'mainnet') => `https://${network}.poetnetwork.net/works`
 
-const urlById = id => `${url}/${id}`
+const urlById = (id, network) => `${url(network)}/${id}`
 
-const urlByIssuer = issuer => `${url}?issuer=${issuer}`
+const urlByIssuer = (issuer, network) => `${url(network)}?issuer=${issuer}`
 
-export const useWorkById = id => useFetch(urlById(id))
+export const useWorkById = (id, network) => useFetch(urlById(id, network))
 
-export const useWorkByIssuer = issuer => useFetch(urlByIssuer(issuer))
+export const useWorkByIssuer = (issuer, network) => useFetch(urlByIssuer(issuer, network))
 
-export const useWorks = () => useFetch(url)
+export const useWorks = (network) => useFetch(url(network))

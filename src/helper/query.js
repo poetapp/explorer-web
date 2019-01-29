@@ -1,0 +1,1 @@
+export const locationToNetwork = location => (new URLSearchParams(location.search)).get('n') || undefined

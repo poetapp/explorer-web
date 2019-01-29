@@ -6,8 +6,8 @@ import { useFetch } from 'effects/useFetch'
 import { Main } from 'components/templates/Main'
 import { Work } from 'components/organisms/work'
 
-export const WorkById = ({ id }) => {
-  const work = useWorkById(id)
+export const WorkById = ({ id, network }) => {
+  const work = useWorkById(id, network)
   const content = useFetch(work && work.claim && work.claim.archiveUrl, false)
 
   return (
