@@ -47,7 +47,11 @@ module.exports = {
           },
           'sass-loader'
         ]
-      }
+      },
+      {
+        test: [/\.svg$/, /\.jpg$/, /\.png/],
+        use: 'file-loader',
+      },
     ]
   },
   plugins: [
