@@ -1,4 +1,4 @@
-@import '../../styles/Fonts';
+@import 'Fonts';
 
 .home {
   flex: 1 1 auto;
@@ -13,7 +13,7 @@
     padding: 175px calc(50% - 960px / 2);
     background-color: #36b074;
     background-image: linear-gradient(180deg, rgba(54, 176, 116, .93), rgba(54, 176, 116, .93)),
-      url('../../images/background.jpg');
+      url('/background.jpg');
     background-position: 0 0, 0 0;
     background-size: auto, cover;
     color: white;

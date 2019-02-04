@@ -1,4 +1,4 @@
-@import '../../styles/Fonts';
+@import 'Fonts';
 
 .issuer {
   padding-top: 50px;
@@ -43,7 +43,7 @@
 
         &:before {
           display: inline-block;
-          content: url('../../images/close-envelope.svg');
+          content: url('/close-envelope.svg');
           width: 18px;
           height: 18px;
           margin-right: 8px;

@@ -18,7 +18,7 @@ const copyWebpackPlugin = new CopyWebpackPlugin([
 ])
 
 module.exports = {
-  entry: path.join(__dirname, 'src/index.jsx'),
+  entry: path.join(__dirname, 'src', 'index.jsx'),
 
   output: {
     filename: '[name].[hash].js',
@@ -47,7 +47,24 @@ module.exports = {
             },
           },
           'postcss-loader',
-          'sass-loader',
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              sourceMap: true,
+              debug: true,
+              root: path.join(__dirname, 'src', 'images'),
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                path.join(__dirname, 'src', 'styles'),
+              ],
+              sourceMap: true,
+              sourceMapContents: false,
+            }
+          },
         ]
       },
       {
