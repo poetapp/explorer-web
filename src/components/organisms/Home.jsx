@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import classNames from './Home.scss'
+import { Logo } from 'Images'
 
-const poetLogo = 'https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5c0e8d3d498ec76b8ec98128_poet-logo.svg'
+import classNames from './Home.scss'
 
 export const Home = () => (
   <section className={classNames.home}>
@@ -25,7 +25,7 @@ const Main = () => (
 
 const Footer = () => (
   <footer>
-    <img src={poetLogo} />
+    <img src={Logo} />
     <ul>
       <li>Protocol</li>
       <li><Link to="/works">Explorer</Link></li>

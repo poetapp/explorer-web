@@ -43,11 +43,17 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
+              importLoaders: 2,
             },
           },
-          'sass-loader'
+          'postcss-loader',
+          'sass-loader',
         ]
-      }
+      },
+      {
+        test: [/\.svg$/, /\.jpg$/, /\.png/],
+        use: 'file-loader',
+      },
     ]
   },
   plugins: [
