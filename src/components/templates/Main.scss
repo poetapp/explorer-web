@@ -26,6 +26,10 @@
     >ul {
       list-style: none;
 
+      &:first-of-type {
+        flex: 1 1 auto;
+      }
+
       >li {
         display: inline-block;
         padding: 20px 10px;

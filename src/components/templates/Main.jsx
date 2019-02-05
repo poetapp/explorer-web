@@ -17,6 +17,9 @@ export const Main = ({ children }) => (
         <li><a href="https://www.po.et/integrate" target="_blank">Integrate</a></li>
         <li className={arrow}>More</li>
       </ul>
+      <ul>
+        <li><Link to="/login">Login</Link></li>
+      </ul>
     </header>
     <main>
       { children }
