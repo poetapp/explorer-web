@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "moment": "2.24.0",
+    "ramda": "0.26.1",
     "react": "16.8.0-alpha.1",
     "react-dom": "16.8.0-alpha.1",
     "react-router-dom": "4.3.1"
