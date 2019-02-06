@@ -1,19 +1,25 @@
-import React from 'react'
+import { pipe } from 'ramda'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
 import classNames from './Login.scss'
 
-export const Login = () => {
+const eventToValue = event => event.currentTarget.value
+
+export const Login = ({ onSubmit }) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   return (
     <section className={classNames.login}>
       <Link to='/'><img src={Logo} /></Link>
       <h1>Log Into My Account</h1>
       <h2>Log in to make, view, and manage your claims on the Po.et Network.</h2>
-      <input type="text" placeholder="Name" />
-      <input type="text" placeholder="Password" />
-      <button>Log In</button>
+      <input type="text" placeholder="Email" value={email} onChange={pipe(eventToValue, setEmail)} />
+      <input type="text" placeholder="Password" value={password} onChange={pipe(eventToValue, setPassword)} />
+      <button onClick={() => onSubmit({ email, password })}>Log In</button>
     </section>
   )
 }
