@@ -6,7 +6,7 @@ import { Login as LoginOrganism } from 'components/organisms/Login'
 
 export const Login = () => {
   const [credentials, setCredentials] = useState(null)
-  const [contextToken, setToken] = useContext(SessionContext)
+  const [_, setToken] = useContext(SessionContext)
   const { token, error } = useLogin(credentials)
 
   useEffect(() => {
@@ -14,9 +14,7 @@ export const Login = () => {
       setToken(token)
   }, [token])
 
-  console.log('contextToken', contextToken)
-  console.log('token', token)
-  console.log('error', error)
+  error && console.error(error)
 
   return <LoginOrganism onSubmit={setCredentials} />
 }
