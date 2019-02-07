@@ -1,28 +1,41 @@
-import React, { useContext } from 'react'
+import classnames from 'classnames'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Quill } from 'Images'
+import { Quill, DefaultAvatar } from 'Images'
 import { SessionContext } from 'providers/SessionProvider'
 
-import { main, arrow } from './Main.scss'
+import classNames from './Main.scss'
 
-const SessionActions = ({ token, onSignOut }) => !token ? (
+const SessionActive = ({ account, onSignOut }) => {
+  const [menuIsOpen, setMenuIsOpen] = useState(false)
+
+  return (
+    <section className={classNames.account}>
+      <img src={DefaultAvatar} onClick={() => setMenuIsOpen(!menuIsOpen)} />
+      <ul className={classnames({ [classNames.open]: menuIsOpen })}>
+        <li>Logged in as <strong>{account.email}</strong></li>
+        <li><a href="#" onClick={onSignOut}>Logout</a></li>
+      </ul>
+    </section>
+  )
+}
+
+const SessionActions = ({ account, onSignOut }) => !account ? (
   <ul>
     <li><Link to="/login">Login</Link></li>
   </ul>
 ) : (
-  <ul>
-    <li><a href="#" onClick={onSignOut}>Sign Out</a></li>
-  </ul>
+  <SessionActive account={account} onSignOut={onSignOut} />
 )
 
 export const Main = ({ children }) => {
-  const [token, setToken] = useContext(SessionContext)
+  const [account, setAccount] = useContext(SessionContext)
 
-  const clearToken = () => setToken()
+  const clearToken = () => setAccount()
 
   return (
-    <section className={main}>
+    <section className={classNames.main}>
       <header>
         <Link to="/">
           <img src={Quill} />
@@ -31,9 +44,9 @@ export const Main = ({ children }) => {
           <li><Link to="/works">Explore</Link></li>
           <li><a href="https://docs.poetnetwork.net/" target="_blank">Docs</a></li>
           <li><a href="https://www.po.et/integrate" target="_blank">Integrate</a></li>
-          <li className={arrow}>More</li>
+          <li className={classNames.arrow}>More</li>
         </ul>
-        <SessionActions token={token} onSignOut={clearToken} />
+        <SessionActions account={account} onSignOut={clearToken} />
       </header>
       <main>
         { children }

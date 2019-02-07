@@ -13,25 +13,27 @@ const fetchLogin = credentials => fetch(url, {
 export const useLogin = credentials => {
   const [response, setResponse] = useState()
   const [error, setError] = useState()
-  const [token, setToken] = useState()
+  const [account, setAccount] = useState()
 
   useEffect(() => {
     if (!credentials)
       return
     setError(null)
-    setToken(null)
+    setAccount(null)
     fetchLogin(credentials).then(setResponse)
   }, [credentials])
+
+  const setAccountWithToken = ({ email }) => token => setAccount({ email, token })
 
   useEffect(() => {
     if (response) {
       if (response.status === 200) {
-        response.json().then(_ => _.token).then(setToken)
+        response.json().then(_ => _.token).then(setAccountWithToken(credentials))
       } else {
         setError(response.statusText)
       }
     }
   }, [response])
 
-  return { token, error }
+  return { account, error }
 }

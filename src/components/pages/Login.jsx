@@ -6,13 +6,13 @@ import { Login as LoginOrganism } from 'components/organisms/Login'
 
 export const Login = () => {
   const [credentials, setCredentials] = useState(null)
-  const [_, setToken] = useContext(SessionContext)
-  const { token, error } = useLogin(credentials)
+  const [_, setAccount] = useContext(SessionContext)
+  const { account, error } = useLogin(credentials)
 
   useEffect(() => {
-    if (token)
-      setToken(token)
-  }, [token])
+    if (account)
+      setAccount(account)
+  }, [account])
 
   error && console.error(error)
 

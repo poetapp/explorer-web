@@ -4,13 +4,13 @@ import { usePersistedState } from 'effects/usePersistedState'
 
 export const SessionContext = createContext()
 
-const SessionToken = 'session_token'
+const SessionToken = 'session'
 
 export const SessionProvider = props => {
-  const [token, setToken] = usePersistedState(SessionToken)
+  const [account, setAccount] = usePersistedState(SessionToken)
 
   return (
-    <SessionContext.Provider value={[token, setToken]}>
+    <SessionContext.Provider value={[account, setAccount]}>
       { props.children }
     </SessionContext.Provider>
   )
