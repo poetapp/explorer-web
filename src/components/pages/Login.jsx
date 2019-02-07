@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
+import { SessionContext } from 'providers/SessionProvider'
 import { Login as LoginOrganism } from 'components/organisms/Login'
 
 const url = 'https://api.poetnetwork.net/login'
@@ -13,10 +14,10 @@ const fetchLogin = credentials => fetch(url, {
 })
 
 export const Login = () => {
-  const [response, setResponse] = useState()
-  const [token, setToken] = useState()
-  const [error, setError] = useState()
   const [credentials, setCredentials] = useState(null)
+  const [response, setResponse] = useState()
+  const [error, setError] = useState()
+  const { token, setToken } = useContext(SessionContext)
 
   const onSubmit = credentials => {
     setCredentials(credentials)
