@@ -34,45 +34,50 @@
     font-weight: 400;
   }
 
-  >input {
-    height: 50px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    font-family: $open-sans;
-    color: #000;
-    font-size: 15px;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    padding: 8px 12px;
+  >form {
+    display: flex;
+    flex-direction: column;
+
+    >input {
+      height: 50px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      font-family: $open-sans;
+      color: #000;
+      font-size: 15px;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      padding: 8px 12px;
+        outline: 0;
+
+      &::placeholder {
+        color: #999;
+      }
+
+      &:focus {
+        border-color: #3898EC;
+      }
+    }
+
+    >button {
+      display: block;
+      margin-right: auto;
+      padding: 14px 20px;
+      border-radius: 6px;
+      color: #fff;
+      background-color: #36b074;
+      font-family: $open-sans;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      border: 0;
+      text-decoration: none;
+      cursor: pointer;
       outline: 0;
 
-    &::placeholder {
-      color: #999;
-    }
-
-    &:focus {
-      border-color: #3898EC;
-    }
-  }
-
-  >button {
-    display: block;
-    margin-right: auto;
-    padding: 14px 20px;
-    border-radius: 6px;
-    color: #fff;
-    background-color: #36b074;
-    font-family: $open-sans;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-    border: 0;
-    text-decoration: none;
-    cursor: pointer;
-    outline: 0;
-
-    &:hover {
-      background-color: #2a9e65;
+      &:hover {
+        background-color: #2a9e65;
+      }
     }
   }
 }
