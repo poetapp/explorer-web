@@ -43,7 +43,6 @@ export const Login = () => {
 
   useEffect(() => {
     console.log('effect.token', token)
-    window.localStorage.setItem('session_token', token)
   }, [token])
 
   useEffect(() => {
