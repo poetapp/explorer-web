@@ -13,15 +13,10 @@ const fetchLogin = credentials => fetch(url, {
   }
 })
 
-export const Login = () => {
-  const [credentials, setCredentials] = useState(null)
+const useLogin = credentials => {
   const [response, setResponse] = useState()
   const [error, setError] = useState()
   const [token, setToken] = useContext(SessionContext)
-
-  const onSubmit = credentials => {
-    setCredentials(credentials)
-  }
 
   useEffect(() => {
     if (!credentials)
@@ -41,13 +36,21 @@ export const Login = () => {
     }
   }, [response])
 
-  useEffect(() => {
-    console.log('effect.token', token)
-  }, [token])
+  return { token, error }
+}
 
-  useEffect(() => {
-    console.log('effect.error', error)
-  }, [error])
+export const Login = () => {
+  const [credentials, setCredentials] = useState(null)
+
+  const onSubmit = credentials => {
+    setCredentials(credentials)
+  }
+
+  const { token, error } = useLogin(credentials)
+
+
+  console.log('token', token)
+  console.log('error', error)
 
   return <LoginOrganism onSubmit={onSubmit} />
 }
