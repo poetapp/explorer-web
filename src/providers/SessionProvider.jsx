@@ -8,7 +8,10 @@ export const SessionProvider = props => {
   const [token, setToken] = useState(window.localStorage.getItem(SessionToken))
 
   useEffect(() => {
-    window.localStorage.setItem(SessionToken, token)
+    if (token)
+      window.localStorage.setItem(SessionToken, token)
+    else
+      window.localStorage.removeItem(SessionToken)
   }, [token])
 
   return (
