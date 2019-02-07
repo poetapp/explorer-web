@@ -17,9 +17,21 @@ export const Login = ({ onSubmit }) => {
       <Link to='/'><img src={Logo} /></Link>
       <h1>Log Into My Account</h1>
       <h2>Log in to make, view, and manage your claims on the Po.et Network.</h2>
-      <input type="text" placeholder="Email" value={email} onChange={pipe(eventToValue, setEmail)} />
-      <input type="text" placeholder="Password" value={password} onChange={pipe(eventToValue, setPassword)} />
-      <button onClick={() => onSubmit({ email, password })}>Log In</button>
+      <input
+        type="text"
+        placeholder="Email"
+        value={email}
+        onChange={pipe(eventToValue, setEmail)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Password"
+        value={password}
+        onChange={pipe(eventToValue, setPassword)}
+        required
+      />
+      <button type="submit" onClick={() => onSubmit({ email, password })}>Log In</button>
     </section>
   )
 }
