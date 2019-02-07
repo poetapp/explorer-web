@@ -44,10 +44,6 @@ export const Login = () => {
   const [contextToken, setToken] = useContext(SessionContext)
   const { token, error } = useLogin(credentials)
 
-  const onSubmit = credentials => {
-    setCredentials(credentials)
-  }
-
   useEffect(() => {
     if (token)
       setToken(token)
@@ -57,5 +53,5 @@ export const Login = () => {
   console.log('token', token)
   console.log('error', error)
 
-  return <LoginOrganism onSubmit={onSubmit} />
+  return <LoginOrganism onSubmit={setCredentials} />
 }
