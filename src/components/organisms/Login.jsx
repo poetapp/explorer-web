@@ -25,7 +25,7 @@ export const Login = ({ onSubmit }) => {
         required
       />
       <input
-        type="text"
+        type="password"
         placeholder="Password"
         value={password}
         onChange={pipe(eventToValue, setPassword)}
