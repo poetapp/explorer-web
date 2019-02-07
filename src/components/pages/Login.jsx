@@ -17,7 +17,7 @@ export const Login = () => {
   const [credentials, setCredentials] = useState(null)
   const [response, setResponse] = useState()
   const [error, setError] = useState()
-  const { token, setToken } = useContext(SessionContext)
+  const [token, setToken] = useContext(SessionContext)
 
   const onSubmit = credentials => {
     setCredentials(credentials)
