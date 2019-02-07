@@ -16,7 +16,7 @@ const fetchLogin = credentials => fetch(url, {
 const useLogin = credentials => {
   const [response, setResponse] = useState()
   const [error, setError] = useState()
-  const [token, setToken] = useContext(SessionContext)
+  const [token, setToken] = useState()
 
   useEffect(() => {
     if (!credentials)
@@ -41,14 +41,19 @@ const useLogin = credentials => {
 
 export const Login = () => {
   const [credentials, setCredentials] = useState(null)
+  const [contextToken, setToken] = useContext(SessionContext)
+  const { token, error } = useLogin(credentials)
 
   const onSubmit = credentials => {
     setCredentials(credentials)
   }
 
-  const { token, error } = useLogin(credentials)
+  useEffect(() => {
+    if (token)
+      setToken(token)
+  }, [token])
 
-
+  console.log('contextToken', contextToken)
   console.log('token', token)
   console.log('error', error)
 
