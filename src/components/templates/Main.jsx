@@ -21,13 +21,16 @@ const SessionActive = ({ account, onSignOut }) => {
   )
 }
 
-const SessionActions = ({ account, onSignOut }) => !account ? (
-  <ul>
+const SessionInactive = () => (
+  <ul className={classNames.sessionInactive}>
     <li><Link to="/login">Login</Link></li>
+    <li><Link to="/signup">Sign Up</Link></li>
   </ul>
-) : (
-  <SessionActive account={account} onSignOut={onSignOut} />
 )
+
+const SessionActions = ({ account, onSignOut }) => !account
+  ? <SessionInactive/>
+  : <SessionActive account={account} onSignOut={onSignOut} />
 
 export const Main = ({ children }) => {
   const [account, setAccount] = useContext(SessionContext)
