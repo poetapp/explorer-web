@@ -39,6 +39,15 @@
       }
     }
 
+    .sessionInactive {
+      >li:last-of-type {
+        padding: 11px 15px;
+        border-radius: 5px;
+        background-color: #36b074;
+        color: #fff;
+      }
+    }
+
     .account {
       position: relative;
       margin-right: 40px;
