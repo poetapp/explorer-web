@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 
-const fetchResponse = isJSON => response => isJSON ? response.json() : response.text()
+const parseResponse = response => isJSON(response) ? response.json() : response.text()
 
-export const useFetch = (url, isJSON = true) => {
+const isJSON = response => response.headers.get('content-type').split(';')[0] === 'application/json'
+
+export const useFetch = (url, options) => {
   const [data, setData] = useState(null)
 
   useEffect(() => {
-    url && url.length && fetch(url)
-      .then(fetchResponse(isJSON))
+    url && url.length && fetch(url, options)
+      .then(parseResponse)
       .then(setData)
   }, [url])
 

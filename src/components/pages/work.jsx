@@ -8,7 +8,7 @@ import { Work } from 'components/organisms/work'
 
 export const WorkById = ({ id }) => {
   const work = useWorkById(id)
-  const content = useFetch(work && work.claim && work.claim.archiveUrl, false)
+  const content = useFetch(work && work.claim && work.claim.archiveUrl)
 
   return (
     <Main>
