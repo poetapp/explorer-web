@@ -1,6 +1,6 @@
 @import 'Fonts';
 
-.login {
+.signup {
   display: flex;
   flex-direction: column;
   max-width: 440px;
@@ -19,19 +19,8 @@
     color: #2c2e3b;
     font-size: 25px;
     font-weight: 400;
-    margin: 20px 0 0;
+    margin: 20px 0 10px;
     line-height: 36px;
-  }
-
-  >h2 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-family: $open-sans;
-    color: #2c2e3b;
-    font-size: 16px;
-    line-height: 25px;
-    text-align: left;
-    font-weight: 400;
   }
 
   >form {
@@ -56,6 +45,19 @@
 
       &:focus {
         border-color: #3898EC;
+      }
+    }
+
+    >p {
+      margin: 0 0 20px;
+      color: #333;
+      line-height: 20px;
+      font-weight: 400;
+
+      >a {
+        color: #36b074;
+        font-weight: 600;
+        text-decoration: underline;
       }
     }
 
@@ -84,17 +86,11 @@
       }
 
       >nav {
-        display: flex;
-        flex-direction: column;
-        text-align: right;
-
         >a {
           color: #36b074;
           font-weight: 600;
-          margin-bottom: 3px;
         }
       }
-
     }
   }
 }

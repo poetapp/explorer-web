@@ -4,24 +4,25 @@ import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
-import classNames from './Login.scss'
+import classNames from './SignUp.scss'
 
 const eventToValue = event => event.currentTarget.value
 
-export const Login = ({ onSubmit }) => {
+export const SignUp = ({ onSubmit }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordRepeat, setPasswordRepeat] = useState('')
 
   const onSubmitWrapper = credentials => event => {
     event.preventDefault()
-    onSubmit(credentials)
+    if (password === passwordRepeat)
+      onSubmit(credentials)
   }
 
   return (
-    <section className={classNames.login}>
+    <section className={classNames.signup}>
       <Link to='/'><img src={Logo} /></Link>
-      <h1>Log Into My Account</h1>
-      <h2>Log in to make, view, and manage your claims on the Po.et Network.</h2>
+      <h1>Sign Up to Start Using Po.et Today</h1>
       <form>
         <input
           type="text"
@@ -37,11 +38,18 @@ export const Login = ({ onSubmit }) => {
           onChange={pipe(eventToValue, setPassword)}
           required
         />
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          value={passwordRepeat}
+          onChange={pipe(eventToValue, setPasswordRepeat)}
+          required
+        />
+        <p>Signing up means that you have read and agreed to the <a href="#">terms of service</a></p>
         <nav>
-          <button type="submit" onClick={onSubmitWrapper({ email, password })}>Log In</button>
+          <button type="submit" onClick={onSubmitWrapper({ email, password })}>Sign Up</button>
           <nav>
-            <Link to="/signup">Don't have an account yet?</Link>
-            <Link to="/forgotpassword">Forgot Password?</Link>
+            <Link to="/login">Already have an account?</Link>
           </nav>
         </nav>
       </form>
