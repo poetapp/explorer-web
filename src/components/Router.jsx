@@ -7,6 +7,7 @@ import { Works } from 'components/routes/works'
 import { IssuerById } from 'components/routes/issuer'
 import { Login } from 'components/routes/Login'
 import { SignUp } from 'components/routes/SignUp'
+import { ConfirmMail } from 'components/routes/ConfirmMail'
 
 import { SessionContext } from 'providers/SessionProvider'
 import {useContext} from 'react'
@@ -25,6 +26,7 @@ export const Router = () => {
         <Route path="/issuers/:id" component={IssuerById} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/confirm-mail" component={ConfirmMail} />
       </Switch>
     </BrowserRouter>
   )
