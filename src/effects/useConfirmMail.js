@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 
 export const useConfirmEmail = token => {
   const [response, setResponse] = useState()
-  const [success, setSuccess] = useState()
+  const [loginToken, setLoginToken] = useState()
   const [error, setError] = useState()
 
   useEffect(() => {
@@ -15,10 +15,10 @@ export const useConfirmEmail = token => {
       return
 
     if (response.ok)
-      response.json().then(setSuccess)
+      response.json().then(_ => _.token).then(setLoginToken)
     else
       response.text().then(setError)
   }, [response])
 
-  return { success, error }
+  return { loginToken, error }
 }
