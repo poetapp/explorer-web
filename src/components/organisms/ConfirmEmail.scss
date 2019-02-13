@@ -8,29 +8,43 @@
   margin-right: auto;
   margin-left: auto;
 
-  >img {
-    display: block;
-    width: 156px;
-    height: 53px;
+  header {
+    img {
+      display: block;
+      width: 156px;
+      height: 53px;
+    }
+
+    h1 {
+      font-family: $roboto-slab;
+      color: #2c2e3b;
+      font-size: 25px;
+      font-weight: 400;
+      margin: 20px 0 0;
+      line-height: 36px;
+    }
   }
 
-  h1 {
-    font-family: $roboto-slab;
-    color: #2c2e3b;
-    font-size: 25px;
-    font-weight: 400;
-    margin: 20px 0 0;
-    line-height: 36px;
+  main {
+    h1 {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-family: $open-sans;
+      color: #2c2e3b;
+      font-size: 16px;
+      line-height: 25px;
+      font-weight: 400;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    a {
+      color: #36b074;
+      font-weight: 600;
+    }
   }
 
-  h2 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-family: $open-sans;
-    color: #2c2e3b;
-    font-size: 16px;
-    line-height: 25px;
-    text-align: left;
-    font-weight: 400;
-  }
 }

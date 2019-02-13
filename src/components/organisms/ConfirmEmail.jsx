@@ -9,39 +9,49 @@ import classNames from './ConfirmEmail.scss'
 
 export const ConfirmEmail = ({ loginToken, error }) => (
   <section className={classNames.confirmEmail}>
-    <img src={Logo} />
-    <h1>Email Address Verification</h1>
+    <Header />
     <Main loginToken={loginToken} error={error} />
   </section>
 )
 
+const Header = () => (
+  <header>
+    <img src={Logo} />
+    <h1>Email Address Verification</h1>
+  </header>
+)
+
 const Main = ({ loginToken, error }) => (
-  !loginToken && !error
-    ? <InProgress />
-    : loginToken
-    ? <Success />
-    : <Failure reason={error} />
+  <main>
+    {
+      !loginToken && !error
+        ? <InProgress />
+        : loginToken
+        ? <Success />
+        : <Failure reason={error} />
+    }
+  </main>
 )
 
 const InProgress = () => {
   const counter = useCounterLoop()
   return (
     <section>
-      <h2>Verifying your email{'.'.repeat(counter + 1)}</h2>
+      <h1>Verifying your email{'.'.repeat(counter + 1)}</h1>
     </section>
   )
 }
 
 const Success = () => (
   <section>
-    <h2>Thanks for verifying your email :)</h2>
-    <h3>Click <Link to="/">here</Link> to go to your dashboard.</h3>
+    <h1>Thank you! Your email is now verified :)</h1>
+    <Link to="/">Go to dashboard</Link>
   </section>
 )
 
 const Failure = ({ reason }) => (
   <section>
-    <h2>Oww, we could not verify your email address :(</h2>
-    <h3>{reason}</h3>
+    <h1>Oww, we could not verify your email address :(</h1>
+    <h2>{reason}</h2>
   </section>
 )
