@@ -17,9 +17,6 @@ export const ConfirmMail = ({ token }) => {
   const { profile, error: profileError } = useProfile(loginToken)
   const [account, setAccount] = useContext(SessionContext)
 
-  console.log('account', account)
-  console.log('profile', profile)
-
   useEffect(() => {
     if (loginToken && profile)
       setAccount({
