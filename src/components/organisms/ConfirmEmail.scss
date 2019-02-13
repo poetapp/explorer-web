@@ -1,0 +1,36 @@
+@import 'Fonts';
+
+.confirmEmail {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+  margin-top: 120px;
+  margin-right: auto;
+  margin-left: auto;
+
+  >img {
+    display: block;
+    width: 156px;
+    height: 53px;
+  }
+
+  h1 {
+    font-family: $roboto-slab;
+    color: #2c2e3b;
+    font-size: 25px;
+    font-weight: 400;
+    margin: 20px 0 0;
+    line-height: 36px;
+  }
+
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: $open-sans;
+    color: #2c2e3b;
+    font-size: 16px;
+    line-height: 25px;
+    text-align: left;
+    font-weight: 400;
+  }
+}
