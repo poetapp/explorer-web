@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { useConfirmEmail } from 'effects/useConfirmMail'
+import { useCounterLoop } from 'effects/useCounterLoop'
 
 export const ConfirmMail = ({ token }) => {
   const { loginToken, error } = useConfirmEmail(token)
@@ -13,9 +14,12 @@ export const ConfirmMail = ({ token }) => {
     : <Failure reason={error} />
 }
 
-const InProgress = () => (
-  <section><h1>Verifying your email...</h1></section>
-)
+const InProgress = () => {
+  const counter = useCounterLoop()
+  return (
+    <section><h1>Verifying your email{'.'.repeat(counter + 1)}</h1></section>
+  )
+}
 
 const Success = () => (
   <section>
