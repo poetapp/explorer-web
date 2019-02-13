@@ -6,7 +6,7 @@ export const useCounterLoop = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setCounter((counter + 1) % 3)
-    }, 1000)
+    }, 250)
     return () => clearTimeout(timeout)
   }, [counter])
 
