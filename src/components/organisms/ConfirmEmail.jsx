@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { useCounterLoop } from 'effects/useCounterLoop'
+import { useCounterLoop } from 'hooks/useCounterLoop'
 
 import { Logo } from 'Images'
 

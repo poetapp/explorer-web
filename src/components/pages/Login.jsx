@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { useLogin } from 'effects/useLogin'
+import { useLogin } from 'hooks/useLogin'
 import { SessionContext } from 'providers/SessionProvider'
 import { Login as LoginOrganism } from 'components/organisms/Login'
 

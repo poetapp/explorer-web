@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 
 import { ConfirmEmail as ConfirmEmailOrganism } from 'components/organisms/ConfirmEmail'
-import { useConfirmEmail } from 'effects/useConfirmMail'
-import { useProfile } from 'effects/useProfile'
+import { useConfirmEmail } from 'hooks/useConfirmMail'
+import { useProfile } from 'hooks/useProfile'
 import { SessionContext } from 'providers/SessionProvider'
 
 const useIfTruthy = fn => value => useEffect(() => {

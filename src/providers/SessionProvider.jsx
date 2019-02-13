@@ -1,6 +1,6 @@
 import React, { createContext } from 'react'
 
-import { usePersistedState } from 'effects/usePersistedState'
+import { usePersistedState } from 'hooks/usePersistedState'
 
 export const SessionContext = createContext()
 

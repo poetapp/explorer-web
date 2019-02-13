@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useWorks } from 'effects/useWork'
+import { useWorks } from 'hooks/useWork'
 import { Main } from 'components/templates/Main'
 import { Works as WorksOrganism } from 'components/organisms/Works'
 
