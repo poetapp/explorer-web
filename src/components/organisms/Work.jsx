@@ -16,16 +16,19 @@ const Issuer = ({ issuer, avatarUrl, name }) => (
   </section>
 )
 
-const Overview = ({ name, author, datePublished, tags }) => (
-  <section className={classNames.overview}>
-    <h1>{name}</h1>
-    <ul>
-      <li>Author: {author}</li>
-      <li>Date Published: {datePublished}</li>
-      <li>Tags: {tags}</li>
-    </ul>
-  </section>
-)
+const Overview = ({ name, author, datePublished, tags }) => {
+  const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
+  return (
+    <section className={classNames.overview}>
+      <h1>{name}</h1>
+      <ul>
+        <li>Author: {author}</li>
+        <li>Date Published: {formatDate(datePublished)}</li>
+        <li>Tags: {tags}</li>
+      </ul>
+    </section>
+  )
+}
 
 const Links = ({ ipfsLink, bitcoinLink }) => (
   <section className={classNames.links}>
@@ -44,14 +47,17 @@ const Content = ({ content }) => (
   </section>
 )
 
-const AuthenticationBadgePreview = ({ date }) => (
-  <section className={''}>
-    <h1>Authentication Badge Preview</h1>
-    <p>Embed this iframe to your site so readers can easily verify your timestamp.</p>
-    <Badge date={date}/>
-    <BadgeUrl />
-  </section>
-)
+const AuthenticationBadgePreview = () => {
+  const formatDate = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
+  return (
+    <section className={''}>
+      <h1>Authentication Badge Preview</h1>
+      <p>Embed this iframe to your site so readers can easily verify your timestamp.</p>
+      <Badge date={formatDate(new Date())}/>
+      <BadgeUrl />
+    </section>
+  )
+}
 
 const Badge = ({ date }) => (
   <section className={classNames.badge}>
@@ -79,16 +85,13 @@ const BadgeUrl = () => (
 const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
 
-const formattedDate = date => moment(date).format('MMMM Do, YYYY')
-const formattedDate2 = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
-
 export const Work = ({ work, content }) => (
   <section className={classNames.work}>
     <header>
       <Overview
         name={work?.claim.name}
         author={work?.claim.author}
-        datePublished={work?.claim.datePublished && formattedDate(work.claim.datePublished)}
+        datePublished={work?.claim.datePublished}
         tags={work?.claim.tags}
       />
       <Issuer issuer={work?.issuer} avatarUrl={DefaultAvatar} name={work?.claim.author} />
@@ -99,7 +102,7 @@ export const Work = ({ work, content }) => (
     </header>
     <main>
       <Content content={content}/>
-      <AuthenticationBadgePreview date={formattedDate2(new Date())}/>
+      <AuthenticationBadgePreview/>
     </main>
   </section>
 )
