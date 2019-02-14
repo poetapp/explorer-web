@@ -37,7 +37,7 @@ const TokenTableRow = ({ token }) => {
   const firstAndLastCharacters = (s, n) => s.slice(0, n) + '...' + s.slice(-n)
   const formatDate = date => moment(date).format('DD/MM/YY')
 
-  const formattedIat = formatDate(token.iat)
+  const formattedIat = formatDate(token.iat * 1000)
   const formattedSerializedToken = firstAndLastCharacters(token.serializedToken, 20)
 
   return (
