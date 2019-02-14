@@ -3,10 +3,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { DefaultAvatar, IPFS, Bitcoin, Quill } from 'Images'
-import { workById, workHeader, claimMadeBy, links, contentClass, badge, badgeUrl } from './Work.scss'
+
+import classNames from './Work.scss'
 
 const Issuer = ({ issuer, avatarUrl, name }) => (
-  <section className={claimMadeBy}>
+  <section className={classNames.claimMadeBy}>
     <h1>Claim Made By:</h1>
     <Link to={`/issuers/${issuer}`}>
       <img src={DefaultAvatar} />
@@ -16,7 +17,7 @@ const Issuer = ({ issuer, avatarUrl, name }) => (
 )
 
 const Overview = ({ name, author, datePublished, tags }) => (
-  <section className={workHeader}>
+  <section className={classNames.workHeader}>
     <h1>{name}</h1>
     <ul>
       <li>Author: {author}</li>
@@ -27,7 +28,7 @@ const Overview = ({ name, author, datePublished, tags }) => (
 )
 
 const Links = ({ ipfsLink, bitcoinLink }) => (
-  <section className={links}>
+  <section className={classNames.links}>
     <a href={ipfsLink} target="_blank">
       <img src={IPFS} />View on IPFS</a>
     <a href={bitcoinLink} target="_blank">
@@ -37,7 +38,7 @@ const Links = ({ ipfsLink, bitcoinLink }) => (
 )
 
 const Content = ({ content }) => (
-  <section className={contentClass}>
+  <section className={classNames.contentClass}>
     <h1>Content</h1>
     <main>{content}</main>
   </section>
@@ -53,7 +54,7 @@ const AuthenticationBadgePreview = ({ date }) => (
 )
 
 const Badge = ({ date }) => (
-  <section className={badge}>
+  <section className={classNames.badge}>
     <img src={Quill}/>
     <h1>Licensed via Po.et</h1>
     <span>{date}</span>
@@ -61,7 +62,7 @@ const Badge = ({ date }) => (
 )
 
 const BadgeUrl = () => (
-  <section className={badgeUrl}>
+  <section className={classNames.badgeUrl}>
     <span>
       {
         '<iframe src="">' +
@@ -82,7 +83,7 @@ const formattedDate = date => moment(date).format('MMMM Do, YYYY')
 const formattedDate2 = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
 
 export const Work = ({ work, content }) => (
-  <section className={workById}>
+  <section className={classNames.workById}>
     <header>
       <Overview
         name={work && work.claim && work.claim.name}
