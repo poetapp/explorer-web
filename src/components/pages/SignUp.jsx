@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { useSignUp } from 'effects/useSignUp'
+import { useSignUp } from 'hooks/useSignUp'
 import { SessionContext } from 'providers/SessionProvider'
 import { SignUp as SignUpOrganism } from 'components/organisms/SignUp'
 

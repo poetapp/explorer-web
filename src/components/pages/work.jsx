@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { useWorkById } from 'effects/useWork'
-import { useFetch } from 'effects/useFetch'
+import { useWorkById } from 'hooks/useWork'
+import { useFetch } from 'hooks/useFetch'
 
 import { Main } from 'components/templates/Main'
 import { Work } from 'components/organisms/work'
