@@ -7,7 +7,7 @@ import { DefaultAvatar, IPFS, Bitcoin, Quill } from 'Images'
 import classNames from './Work.scss'
 
 const Issuer = ({ issuer, avatarUrl, name }) => (
-  <section className={classNames.claimMadeBy}>
+  <section className={classNames.issuer}>
     <h1>Claim Made By:</h1>
     <Link to={`/issuers/${issuer}`}>
       <img src={DefaultAvatar} />
@@ -17,7 +17,7 @@ const Issuer = ({ issuer, avatarUrl, name }) => (
 )
 
 const Overview = ({ name, author, datePublished, tags }) => (
-  <section className={classNames.workHeader}>
+  <section className={classNames.overview}>
     <h1>{name}</h1>
     <ul>
       <li>Author: {author}</li>
@@ -38,7 +38,7 @@ const Links = ({ ipfsLink, bitcoinLink }) => (
 )
 
 const Content = ({ content }) => (
-  <section className={classNames.contentClass}>
+  <section className={classNames.content}>
     <h1>Content</h1>
     <main>{content}</main>
   </section>
@@ -83,7 +83,7 @@ const formattedDate = date => moment(date).format('MMMM Do, YYYY')
 const formattedDate2 = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
 
 export const Work = ({ work, content }) => (
-  <section className={classNames.workById}>
+  <section className={classNames.work}>
     <header>
       <Overview
         name={work && work.claim && work.claim.name}
