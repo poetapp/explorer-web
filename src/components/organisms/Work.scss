@@ -2,7 +2,7 @@
 
 $main-width: 960px;
 
-.claimMadeBy {
+.issuer {
   h1 {
     margin-top: 0px;
     margin-bottom: 5px;
@@ -28,7 +28,7 @@ $main-width: 960px;
   }
 }
 
-.workHeader {
+.overview {
   h1 {
     font-size: 24px;
     margin-top: 0;
@@ -43,7 +43,7 @@ $main-width: 960px;
   }
 }
 
-.workById {
+.work {
   >header {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -106,30 +106,30 @@ $main-width: 960px;
     }
 
     .badgeUrl {
-        $base-color: #dfdfdf;
+      $base-color: #dfdfdf;
 
-        display: flex;
-        flex-direction: column;
-        background-color: white;
-        border: 1px solid $base-color;
-        border-radius: 5px;
-        font-family: monospace;
-        color: darken($base-color, 35%);
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      border: 1px solid $base-color;
+      border-radius: 5px;
+      font-family: monospace;
+      color: darken($base-color, 35%);
 
-        span {
-          display: block;
-          padding: 8px;
-        }
-
-        button {
-          display: block;
-          height: 26px;
-          border: none;
-          border-top: 1px solid $base-color;
-          background-color: lighten($base-color, 5%);
-          color: inherit;
-        }
+      span {
+        display: block;
+        padding: 8px;
       }
+
+      button {
+        display: block;
+        height: 26px;
+        border: none;
+        border-top: 1px solid $base-color;
+        background-color: lighten($base-color, 5%);
+        color: inherit;
+      }
+    }
   }
 
 }
@@ -155,7 +155,7 @@ $main-width: 960px;
   }
 }
 
-.contentClass {
+.content {
   >main {
     background-color: white;
     padding: 10px;
