@@ -1,16 +1,15 @@
-import * as React from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
-import { Home } from 'components/pages/home'
-import { WorkById } from 'components/routes/work'
-import { Works } from 'components/routes/works'
-import { IssuerById } from 'components/routes/issuer'
+import { Home } from 'components/pages/Home'
+import { WorkById } from 'components/routes/Work'
+import { Works } from 'components/routes/Works'
+import { IssuerById } from 'components/routes/Issuer'
 import { Login } from 'components/routes/Login'
 import { SignUp } from 'components/routes/SignUp'
 import { ConfirmMail } from 'components/routes/ConfirmMail'
 
 import { SessionContext } from 'providers/SessionProvider'
-import {useContext} from 'react'
 
 export const Router = () => {
   const [token] = useContext(SessionContext)

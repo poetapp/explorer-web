@@ -4,7 +4,7 @@ import { useWorkById } from 'hooks/useWork'
 import { useFetch } from 'hooks/useFetch'
 
 import { Main } from 'components/templates/Main'
-import { Work } from 'components/organisms/work'
+import { Work } from 'components/organisms/Work'
 
 export const WorkById = ({ id }) => {
   const work = useWorkById(id)

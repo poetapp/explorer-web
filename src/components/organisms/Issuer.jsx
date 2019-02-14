@@ -3,7 +3,7 @@ import React from 'react'
 import { LogoWhite, DefaultAvatar } from 'Images'
 import { Works } from 'components/molecules/Works'
 
-import classNames from './issuer.scss'
+import classNames from './Issuer.scss'
 
 export const IssuerById = ({ works }) => (
   <section className={classNames.issuer}>

@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { DefaultAvatar, IPFS, Bitcoin, Quill } from 'Images'
-import { workById, workHeader, claimMadeBy, links, contentClass, badge, badgeUrl } from './work.scss'
+import { workById, workHeader, claimMadeBy, links, contentClass, badge, badgeUrl } from './Work.scss'
 
 const Issuer = ({ issuer, avatarUrl, name }) => (
   <section className={claimMadeBy}>
