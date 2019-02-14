@@ -86,15 +86,15 @@ export const Work = ({ work, content }) => (
   <section className={classNames.work}>
     <header>
       <Overview
-        name={work && work.claim && work.claim.name}
-        author={work && work.claim && work.claim.author}
-        datePublished={work && work.claim && work.claim.datePublished && formattedDate(work.claim.datePublished)}
-        tags={work && work.tags && work.claim.tags}
+        name={work?.claim.name}
+        author={work?.claim.author}
+        datePublished={work?.claim.datePublished && formattedDate(work.claim.datePublished)}
+        tags={work?.claim.tags}
       />
-      <Issuer issuer={work && work.issuer} avatarUrl={DefaultAvatar} name={work && work.claim && work.claim.author} />
+      <Issuer issuer={work?.issuer} avatarUrl={DefaultAvatar} name={work?.claim.author} />
       <Links
-        bitcoinLink={bitcoinLink(work && work.anchor && work.anchor.transactionId)}
-        ipfsLink={ipfsLink(work && work.anchor && work.anchor.ipfsDirectoryHash)}
+        bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
+        ipfsLink={ipfsLink(work?.anchor?.ipfsDirectoryHash)}
       />
     </header>
     <main>
