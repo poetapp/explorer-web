@@ -35,16 +35,16 @@ const TokenTable = ({ tokens }) => (
 
 const TokenTableRow = ({ token }) => {
   const firstAndLastCharacters = (s, n) => s.slice(0, n) + '...' + s.slice(-n)
-  const formatDate = date => moment.unix(date).format('DD/MM/YY')
 
-  const formattedIat = formatDate(token.iat)
+  const formattedIat = moment.unix(token.iat).format('L')
+  const formattedIatISO = moment.unix(token.iat).format()
   const formattedSerializedToken = firstAndLastCharacters(token.serializedToken, 20)
 
   return (
     <tr>
       <td>1</td>
       <td>{formattedSerializedToken}</td>
-      <td>{formattedIat}</td>
+      <td title={formattedIatISO}>{formattedIat}</td>
       <td>Never</td>
     </tr>
   )
