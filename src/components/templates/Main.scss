@@ -83,9 +83,14 @@
           }
 
           &:last-of-type {
+            border-top: 1px solid #e7e7e7;
             color: #da0000;
             font-weight: 600;
             font-size: 14px;
+          }
+
+          &.tokens {
+            font-weight: bold;
           }
         }
       }

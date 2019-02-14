@@ -15,6 +15,7 @@ const SessionActive = ({ account, onSignOut }) => {
       <img src={DefaultAvatar} onClick={() => setMenuIsOpen(!menuIsOpen)} />
       <ul className={classnames({ [classNames.open]: menuIsOpen })}>
         <li>Logged in as <strong>{account.email}</strong></li>
+        <li className={classNames.tokens}><Link to="/tokens">API Keys</Link></li>
         <li><a href="#" onClick={onSignOut}>Logout</a></li>
       </ul>
     </section>
