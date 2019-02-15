@@ -4,4 +4,37 @@
   width: 960px;
   margin: 0 auto;
   word-break: break-all;
+  padding: 50px 0;
+
+  > h1 {
+    font-family: $roboto-slab;
+    font-size: 32.2px;
+  }
+
+  > h2 {
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  table {
+    $border-color: #c9c9c9;
+
+    width: 100%;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    background-color: #fff;
+    border-spacing: 0;
+
+    > thead > tr > td {
+      padding: 10px;
+      border-bottom: 1px solid $border-color;
+      background-color: #f6f6f5;
+      font-weight: 600;
+    }
+
+    > tbody > tr > td {
+      padding: 10px;
+
+    }
+  }
 }
