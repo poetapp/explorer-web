@@ -18,7 +18,7 @@ const TokenTable = ({ tokens }) => (
     <thead>
       <tr>
         <td>#</td>
-        <td>Token</td>
+        <td>TESTING DRAFT PR!</td>
         <td>Creation</td>
         <td>Expiry</td>
       </tr>
