@@ -25,15 +25,15 @@ const TokenTable = ({ tokens }) => (
     </thead>
     <tbody>
       {
-        tokens?.map(token =>
-          <TokenTableRow token={token} key={token.serializedToken} />
+        tokens?.map((token, index) =>
+          <TokenTableRow token={token} key={token.serializedToken} index={index + 1} />
         )
       }
     </tbody>
   </table>
 )
 
-const TokenTableRow = ({ token }) => {
+const TokenTableRow = ({ token, index }) => {
   const firstAndLastCharacters = (s, n) => s.slice(0, n) + '...' + s.slice(-n)
 
   const formattedIat = moment.unix(token.iat).format('L')
@@ -42,7 +42,7 @@ const TokenTableRow = ({ token }) => {
 
   return (
     <tr>
-      <td>1</td>
+      <td>{index}</td>
       <td>{formattedSerializedToken}</td>
       <td title={formattedIatISO}>{formattedIat}</td>
       <td>Never</td>
