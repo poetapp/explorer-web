@@ -20,6 +20,7 @@ export const Router = () => {
       <Switch>
         { token && <Redirect from='/login' to='/'/> }
         { token && <Redirect from='/signup' to='/'/> }
+        { !token && <Redirect from='/tokens' to='/login'/> }
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
         <Route path="/works/:id" component={WorkById} />
