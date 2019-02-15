@@ -13,7 +13,7 @@ export const useTokens = (parentToken) => {
 
   useEffect(() => {
     if (parentToken)
-      fetchTokens(parentToken).then(setResponse)
+      fetchTokens(parentToken).then(setResponse).catch(setError)
   }, [parentToken])
 
   useEffect(() => {

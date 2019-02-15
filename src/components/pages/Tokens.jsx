@@ -7,12 +7,15 @@ import { useTokens } from 'hooks/useTokens'
 import { SessionContext } from 'providers/SessionProvider'
 
 export const Tokens = () => {
-  const [account] = useContext(SessionContext)
+  const [account, setAccount] = useContext(SessionContext)
   const [tokens, error] = useTokens(account?.token)
   const parsedTokens = tokens?.map(serializedToken => ({
     ...parseJwt(serializedToken),
     serializedToken,
   }))
+
+  if (error) // === 'Expired token.'
+    setAccount(null)
 
   return (
     <Main>
