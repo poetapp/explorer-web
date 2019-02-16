@@ -11,7 +11,7 @@ export const Tokens = () => {
   const [initialTokens, serverError, clientError] = useTokens(account?.token)
   const [createRequested, setCreateRequested] = useState(false)
   const [createdToken, createTokenServerError, createTokenClientError] = useCreateToken(createRequested && account?.token)
-  const [reducedTokens, dispatch] = useReducer(tokenReducer, [])
+  const [tokens, dispatch] = useReducer(tokenReducer, [])
 
   useEffect(() => {
     if (serverError || clientError) {
@@ -46,7 +46,7 @@ export const Tokens = () => {
 
   return (
     <Main>
-      <TokensOrganism tokens={reducedTokens} onCreateToken={() => setCreateRequested(true)} />
+      <TokensOrganism tokens={tokens} onCreateToken={() => setCreateRequested(true)} />
     </Main>
   )
 }
