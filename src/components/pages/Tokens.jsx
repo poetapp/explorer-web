@@ -8,17 +8,17 @@ import { SessionContext } from 'providers/SessionProvider'
 
 export const Tokens = () => {
   const [account, setAccount] = useContext(SessionContext)
-  const [initialTokens, serverError, clientError] = useTokens(account?.token)
+  const [initialTokens, initialTokensServerError, initialTokensClientError] = useTokens(account?.token)
   const [createRequested, setCreateRequested] = useState(false)
   const [createdToken, createTokenServerError, createTokenClientError] = useCreateToken(createRequested && account?.token)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
   useEffect(() => {
-    if (serverError || clientError) {
-      console.error(serverError || clientError)
+    if (initialTokensServerError || initialTokensClientError) {
+      console.error(initialTokensServerError || initialTokensClientError)
       setAccount(null)
     }
-  }, [serverError, clientError])
+  }, [initialTokensServerError, initialTokensClientError])
 
   useEffect(() => {
     if (createTokenServerError || createTokenClientError) {
