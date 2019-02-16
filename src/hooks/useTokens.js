@@ -2,7 +2,7 @@ import { useState, useEffect, useDebugValue } from 'react'
 
 const url = 'https://api.poetnetwork.net/tokens'
 
-const getTokens = token => fetch(url, {
+export const getTokens = token => fetch(url, {
   headers: {
     token,
   }

@@ -3,22 +3,21 @@ import React, { useContext, useEffect, useState, useReducer } from 'react'
 import { Main } from 'components/templates/Main'
 import { Tokens as TokensOrganism } from 'components/organisms/Tokens'
 import { parseJwt } from 'helpers/jwt'
-import { useTokens, useCreateToken } from 'hooks/useTokens'
+import { useCreateToken, getTokens } from 'hooks/useTokens'
 import { SessionContext } from 'providers/SessionProvider'
 
 export const Tokens = () => {
   const [account, setAccount] = useContext(SessionContext)
-  const [initialTokens, initialTokensServerError, initialTokensClientError] = useTokens(account?.token)
   const [createRequested, setCreateRequested] = useState(false)
   const [createdToken, createTokenServerError, createTokenClientError] = useCreateToken(createRequested && account?.token)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
-  useEffect(() => {
-    if (initialTokensServerError || initialTokensClientError) {
-      console.error(initialTokensServerError || initialTokensClientError)
-      setAccount(null)
-    }
-  }, [initialTokensServerError, initialTokensClientError])
+  // useEffect(() => {
+  //   if (initialTokensServerError || initialTokensClientError) {
+  //     console.error(initialTokensServerError || initialTokensClientError)
+  //     setAccount(null)
+  //   }
+  // }, [initialTokensServerError, initialTokensClientError])
 
   useEffect(() => {
     if (createTokenServerError || createTokenClientError) {
@@ -27,12 +26,11 @@ export const Tokens = () => {
   }, [createTokenServerError, createTokenClientError])
 
   useEffect(() => {
-    if (initialTokens)
-      dispatch({
-        type: 'add',
-        tokens: initialTokens,
-      })
-  }, [initialTokens])
+    getTokens(account.token).then(_ => _.json()).then(_ => _.apiTokens).then(tokens => dispatch({
+      type: 'add',
+      tokens,
+    }))
+  }, [])
 
   useEffect(() => {
     if (createdToken) {
