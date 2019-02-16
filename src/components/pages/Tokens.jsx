@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useReducer } from 'react'
 
 import { Main } from 'components/templates/Main'
 import { Tokens as TokensOrganism } from 'components/organisms/Tokens'
@@ -11,8 +11,7 @@ export const Tokens = () => {
   const [initialTokens, serverError, clientError] = useTokens(account?.token)
   const [createRequested, setCreateRequested] = useState(false)
   const [createdToken, createTokenServerError, createTokenClientError] = useCreateToken(createRequested && account?.token)
-  const [tokens, setTokens] = useState([])
-  const [parsedTokens, setParsedTokens] = useState([])
+  const [reducedTokens, dispatch] = useReducer(tokenReducer, [])
 
   useEffect(() => {
     if (serverError || clientError) {
@@ -29,33 +28,43 @@ export const Tokens = () => {
 
   useEffect(() => {
     if (initialTokens)
-      setTokens([
-        ...tokens,
-        ...initialTokens,
-      ])
+      dispatch({
+        type: 'add',
+        tokens: initialTokens,
+      })
   }, [initialTokens])
 
   useEffect(() => {
     if (createdToken) {
-      setTokens([
-        ...tokens,
-        createdToken.apiToken,
-      ])
+      dispatch({
+        type: 'add',
+        tokens: [createdToken.apiToken],
+      })
       setCreateRequested(false)
     }
   }, [createdToken])
 
-  useEffect(() => {
-    if (tokens)
-      setParsedTokens(tokens.map(serializedToken => ({
-        ...parseJwt(serializedToken),
-        serializedToken,
-      })))
-  }, [tokens])
-
   return (
     <Main>
-      <TokensOrganism tokens={parsedTokens} onCreateToken={() => setCreateRequested(true)} />
+      <TokensOrganism tokens={reducedTokens} onCreateToken={() => setCreateRequested(true)} />
     </Main>
   )
 }
+
+const tokenReducer = (tokens, action) => {
+  switch (action.type) {
+    case 'add':
+      const parsedTokens = action.tokens.map(serializedTokenToToken)
+      return [
+        ...tokens,
+        ...parsedTokens,
+      ]
+    default:
+      throw new Error()
+  }
+}
+
+const serializedTokenToToken = serializedToken => ({
+  ...parseJwt(serializedToken),
+  serializedToken,
+})
