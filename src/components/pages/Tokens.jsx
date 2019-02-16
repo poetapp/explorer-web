@@ -12,12 +12,21 @@ export const Tokens = () => {
   const [createdToken, createTokenServerError, createTokenClientError] = useCreateToken(createRequested && account?.token)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
-  // useEffect(() => {
-  //   if (initialTokensServerError || initialTokensClientError) {
-  //     console.error(initialTokensServerError || initialTokensClientError)
-  //     setAccount(null)
-  //   }
-  // }, [initialTokensServerError, initialTokensClientError])
+  const clearAccount = () => setAccount(null)
+
+  const getTokens = async token => {
+    const response = await fetchGetTokens(token)
+    if (response.status === 200) {
+      const tokens = await response.json().then(_ => _.apiTokens)
+      dispatch({
+        type: 'add',
+        tokens,
+      })
+    } else {
+      console.error(await response.text())
+      clearAccount()
+    }
+  }
 
   useEffect(() => {
     if (createTokenServerError || createTokenClientError) {
@@ -26,10 +35,7 @@ export const Tokens = () => {
   }, [createTokenServerError, createTokenClientError])
 
   useEffect(() => {
-    getTokens(account.token).then(_ => _.json()).then(_ => _.apiTokens).then(tokens => dispatch({
-      type: 'add',
-      tokens,
-    }))
+    getTokens(account.token).catch(console.error)
   }, [])
 
   useEffect(() => {
@@ -66,3 +72,11 @@ const serializedTokenToToken = serializedToken => ({
   ...parseJwt(serializedToken),
   serializedToken,
 })
+
+const fetchGetTokens = token => fetch(url, {
+  headers: {
+    token,
+  }
+})
+
+const url = 'https://api.poetnetwork.net/tokens'
