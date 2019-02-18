@@ -3,65 +3,51 @@ import React, { useContext, useEffect, useState, useReducer } from 'react'
 import { Main } from 'components/templates/Main'
 import { Tokens as TokensOrganism } from 'components/organisms/Tokens'
 import { parseJwt } from 'helpers/jwt'
-import { useCreateToken, getTokens } from 'hooks/useTokens'
-import { SessionContext } from 'providers/SessionProvider'
+import { ApiContext } from 'providers/ApiProvider'
 
 export const Tokens = () => {
-  const [account, setAccount] = useContext(SessionContext)
-  const [createRequested, setCreateRequested] = useState(false)
-  const [createdToken, createTokenServerError, createTokenClientError] = useCreateToken(createRequested && account?.token)
+  const api = useContext(ApiContext)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
-  const clearAccount = () => setAccount(null)
+  const apiResponseToAction = type => tokens => ({
+    type,
+    tokens,
+  })
 
-  const getTokens = async token => {
-    const response = await fetchGetTokens(token)
-    if (response.status === 200) {
-      const tokens = await response.json().then(_ => _.apiTokens)
-      dispatch({
-        type: 'add',
-        tokens,
-      })
-    } else {
-      console.error(await response.text())
-      clearAccount()
-    }
+  useEffect(() => {
+    if (api)
+      api.getTokens().then(apiResponseToAction('get')).then(dispatch)
+  }, [api])
+
+  const onCreateToken = () => {
+    api.createToken().then(apiResponseToAction('create')).then(dispatch)
   }
-
-  useEffect(() => {
-    if (createTokenServerError || createTokenClientError) {
-      console.error(createTokenServerError || createTokenClientError)
-    }
-  }, [createTokenServerError, createTokenClientError])
-
-  useEffect(() => {
-    getTokens(account.token).catch(console.error)
-  }, [])
-
-  useEffect(() => {
-    if (createdToken) {
-      dispatch({
-        type: 'add',
-        tokens: [createdToken.apiToken],
-      })
-      setCreateRequested(false)
-    }
-  }, [createdToken])
 
   return (
     <Main>
-      <TokensOrganism tokens={tokens} onCreateToken={() => setCreateRequested(true)} />
+      <TokensOrganism tokens={tokens} onCreateToken={onCreateToken} />
     </Main>
   )
 }
 
 const tokenReducer = (tokens, action) => {
+  console.log('tokenReducer', action)
+
+  if (action.tokens === undefined)
+    return tokens
+
   switch (action.type) {
-    case 'add':
-      const parsedTokens = action.tokens.map(serializedTokenToToken)
+    case 'get':
+      const parsedTokens = action.tokens.apiTokens.map(serializedTokenToToken)
       return [
         ...tokens,
         ...parsedTokens,
+      ]
+    case 'create':
+      const parsedToken = serializedTokenToToken(action.tokens.apiToken)
+      return [
+        ...tokens,
+        parsedToken,
       ]
     default:
       throw new Error()
@@ -72,11 +58,3 @@ const serializedTokenToToken = serializedToken => ({
   ...parseJwt(serializedToken),
   serializedToken,
 })
-
-const fetchGetTokens = token => fetch(url, {
-  headers: {
-    token,
-  }
-})
-
-const url = 'https://api.poetnetwork.net/tokens'
