@@ -27,6 +27,7 @@
     width: 100%;
     background-color: #fff;
     border-spacing: 0;
+    margin-bottom: 40px;
 
     > thead > tr > td {
       padding: 10px;
@@ -74,6 +75,21 @@
   }
 
   .create {
+    display: block;
+    width: 160px;
+    padding: 10px 15px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background-color: #fff;
+    font-family: $open-sans;
+    color: #2c2e3b;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
 
+    &:hover {
+      color: #36b074;
+    }
   }
 }
