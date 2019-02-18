@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
+import { toast } from 'react-toastify'
 
 import { Api } from 'helpers/api'
 import { SessionContext } from './SessionProvider'
@@ -14,10 +15,12 @@ export const ApiProvider = props => {
 
   const onServerError =  ({ status, body, url, options }) => {
     console.error('API Error', 'Server Side', status, body, url, options)
+    toast( body)
   }
 
   const onClientError = (error, url, options) => {
     console.error('API Error', 'Client Side', error, url, options)
+    toast(error)
     clearAccount()
   }
 
