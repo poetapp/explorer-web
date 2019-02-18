@@ -4,7 +4,7 @@ const parseResponseBody = response => isJSON(response) ? response.json() : respo
 
 const parseResponse = async response => ({
   status: response.status,
-  body: parseResponseBody(response)
+  body: await parseResponseBody(response)
 })
 
 export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish }) => {
