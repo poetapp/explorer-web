@@ -6,7 +6,7 @@ import { parseJwt } from 'helpers/jwt'
 import { ApiContext } from 'providers/ApiProvider'
 
 export const Tokens = () => {
-  const api = useContext(ApiContext)
+  const [api, isBusy] = useContext(ApiContext)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
   const apiResponseToAction = type => tokens => ({
@@ -25,7 +25,7 @@ export const Tokens = () => {
 
   return (
     <Main>
-      <TokensOrganism tokens={tokens} onCreateToken={onCreateToken} />
+      <TokensOrganism tokens={tokens} onCreateToken={onCreateToken} createDisabled={isBusy} />
     </Main>
   )
 }

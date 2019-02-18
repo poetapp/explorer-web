@@ -3,13 +3,13 @@ import React from 'react'
 
 import classNames from './Tokens.scss'
 
-export const Tokens = ({ tokens, onCreateToken }) => {
+export const Tokens = ({ tokens, onCreateToken, createDisabled = false }) => {
   return (
     <section className={classNames.tokens}>
       <h1>API Tokens</h1>
       <h2>Manage your API Tokens by authenticating with the Frost API</h2>
       <TokenTable tokens={tokens} />
-      <button className={classNames.create} onClick={onCreateToken}>Create API Token</button>
+      <button className={classNames.create} onClick={onCreateToken} disabled={createDisabled}>Create API Token</button>
     </section>
   )
 }

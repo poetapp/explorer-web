@@ -8,6 +8,7 @@ export const ApiContext = createContext()
 export const ApiProvider = props => {
   const [account, setAccount] = useContext(SessionContext)
   const [api, setApi] = useState(null)
+  const [isBusy, setIsBusy] = useState(false)
 
   const clearAccount = () => setAccount(null)
 
@@ -20,13 +21,20 @@ export const ApiProvider = props => {
     clearAccount()
   }
 
-  useEffect(() => {
-    setApi(Api({ token: account?.token, onServerError, onClientError }))
-  }, [account, setAccount])
+  const onRequestStart = ({ url, options }) => {
+    setIsBusy(true)
+  }
 
+  const onRequestFinish = ({ url, options }) => {
+    setIsBusy(false)
+  }
+
+  useEffect(() => {
+    setApi(Api({ token: account?.token, onServerError, onClientError, onRequestStart, onRequestFinish }))
+  }, [account])
 
   return (
-    <ApiContext.Provider value={api}>
+    <ApiContext.Provider value={[api, isBusy]}>
       { props.children }
     </ApiContext.Provider>
   )

@@ -7,7 +7,7 @@ const parseResponse = async response => ({
   body: parseResponseBody(response)
 })
 
-export const Api = ({ token, onServerError, onClientError }) => {
+export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish }) => {
 
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
@@ -25,7 +25,17 @@ export const Api = ({ token, onServerError, onClientError }) => {
     }
   }
 
-  const apiFetch = (url, options) => authenticatedFetch(url, options).then(parseResponse).then(processParsedResponse({url, options})).catch(error => onClientError(error, url, options))
+  const apiFetch = (url, options) => {
+    onRequestStart({ url, options })
+    return authenticatedFetch(url, options)
+      .then(parseResponse)
+      .then(processParsedResponse({ url, options }))
+      .catch(error => onClientError(error, url, options))
+      .then(_ => {
+        onRequestFinish({ url, options })
+        return _
+      })
+  }
 
   const tokensUrl = 'https://api.poetnetwork.net/tokens'
 
