@@ -36,16 +36,16 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         use: [
           'style-loader',
-          {
+          info => ({
             loader: 'css-loader',
             options: {
-              modules: true,
+              modules: true, // false if info.realResource is in node_modules
               importLoaders: 2,
             },
-          },
+          }),
           'postcss-loader',
           {
             loader: 'resolve-url-loader',
@@ -65,19 +65,6 @@ module.exports = {
               sourceMapContents: false,
             }
           },
-        ]
-      },
-      {
-        test: /\.css$/, // only used for external styles (toastify). see https://github.com/webpack/webpack/issues/8406
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-            },
-          },
-          'postcss-loader',
         ]
       },
       {
