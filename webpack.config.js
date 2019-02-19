@@ -42,6 +42,7 @@ module.exports = {
           info => ({
             loader: 'css-loader',
             options: {
+              ident: 'css-loader',
               modules: true, // false if info.realResource is in node_modules
               importLoaders: 2,
             },
