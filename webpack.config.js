@@ -68,6 +68,19 @@ module.exports = {
         ]
       },
       {
+        test: /\.css$/, // only used for external styles (toastify). see https://github.com/webpack/webpack/issues/8406
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          'postcss-loader',
+        ]
+      },
+      {
         test: [/\.svg$/, /\.jpg$/, /\.png/],
         use: 'file-loader',
       },
