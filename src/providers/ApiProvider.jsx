@@ -15,12 +15,12 @@ export const ApiProvider = props => {
 
   const onServerError =  ({ status, body, url, options }) => {
     console.error('API Error', 'Server Side', status, body, url, options)
-    toast( body)
+    toast.error( body)
   }
 
   const onClientError = (error, url, options) => {
     console.error('API Error', 'Client Side', error, url, options)
-    toast(error)
+    toast.error(error)
     clearAccount()
   }
 
