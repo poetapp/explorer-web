@@ -48,7 +48,7 @@ const TokenTableRow = ({ token, index, onRemove }) => {
       <td>{formattedSerializedToken}</td>
       <td title={formattedIatISO}>{formattedIat}</td>
       <td>Never</td>
-      <td><button onClick={onRemove}>Remove</button></td>
+      <td><button className={classNames.delete} onClick={onRemove}>Remove</button></td>
     </tr>
   )
 }
