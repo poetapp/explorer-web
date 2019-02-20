@@ -40,12 +40,13 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const tokensUrl = 'https://api.poetnetwork.net/tokens'
 
   const getTokens = () => apiFetch(tokensUrl)
-
   const createToken = () => apiFetch(tokensUrl, { method: 'POST' })
+  const deleteToken = (token) => apiFetch(`${tokensUrl}/${token}`, { method: 'DELETE' })
 
   return {
     getTokens,
     createToken,
+    deleteToken,
   }
 
 }

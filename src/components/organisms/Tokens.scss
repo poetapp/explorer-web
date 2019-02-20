@@ -92,4 +92,14 @@
       color: #36b074;
     }
   }
+
+  .delete {
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #f00000;
+    font-size: 14px;
+    font-family: $open-sans;
+  }
 }
