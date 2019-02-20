@@ -9,9 +9,9 @@ export const Tokens = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
-  const apiResponseToAction = type => tokens => ({
+  const apiResponseToAction = type => payload => ({
     type,
-    tokens,
+    payload,
   })
 
   useEffect(() => {
@@ -37,24 +37,24 @@ export const Tokens = () => {
 const tokenReducer = (tokens, action) => {
   console.log('tokenReducer', action)
 
-  if (action.tokens === undefined)
+  if (action.payload === undefined)
     return tokens
 
   switch (action.type) {
     case 'get':
-      const parsedTokens = action.tokens.apiTokens.map(serializedTokenToToken)
+      const parsedTokens = action.payload.apiTokens.map(serializedTokenToToken)
       return [
         ...tokens,
         ...parsedTokens,
       ]
     case 'create':
-      const parsedToken = serializedTokenToToken(action.tokens.apiToken)
+      const parsedToken = serializedTokenToToken(action.payload.apiToken)
       return [
         ...tokens,
         parsedToken,
       ]
     case 'delete':
-      return tokens.filter(({ serializedToken }) => serializedToken !== action.tokens)
+      return tokens.filter(({ serializedToken }) => serializedToken !== action.payload)
     default:
       throw new Error()
   }
