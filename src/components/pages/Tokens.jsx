@@ -23,9 +23,13 @@ export const Tokens = () => {
     api.createToken().then(apiResponseToAction('create')).then(dispatch)
   }
 
+  const onRemove = token => {
+    api.deleteToken(token).then(_ => token).then(apiResponseToAction('delete')).then(dispatch)
+  }
+
   return (
     <Main>
-      <TokensOrganism tokens={tokens} onCreateToken={onCreateToken} createDisabled={isBusy} />
+      <TokensOrganism tokens={tokens} onCreateToken={onCreateToken} onRemove={onRemove} createDisabled={isBusy} />
     </Main>
   )
 }
@@ -49,6 +53,8 @@ const tokenReducer = (tokens, action) => {
         ...tokens,
         parsedToken,
       ]
+    case 'delete':
+      return tokens.filter(({ serializedToken }) => serializedToken !== action.tokens)
     default:
       throw new Error()
   }
