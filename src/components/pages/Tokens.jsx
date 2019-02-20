@@ -17,12 +17,12 @@ export const Tokens = () => {
   const onCreateToken = () =>
     api.createToken().then(apiResponseToAction('create')).then(dispatch)
 
-  const onRemove = token =>
+  const onDelete = token =>
     api.deleteToken(token).then(_ => token).then(apiResponseToAction('delete')).then(dispatch)
 
   return (
     <Main>
-      <TokensOrganism tokens={tokens} onCreateToken={onCreateToken} onRemove={onRemove} createDisabled={isBusy} />
+      <TokensOrganism tokens={tokens} onCreateToken={onCreateToken} onDelete={onDelete} createDisabled={isBusy} />
     </Main>
   )
 }
