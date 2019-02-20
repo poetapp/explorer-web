@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 
 import { Main } from 'components/templates/Main'
 import { Tokens as TokensOrganism } from 'components/organisms/Tokens'
@@ -9,23 +9,16 @@ export const Tokens = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
-  const apiResponseToAction = type => payload => ({
-    type,
-    payload,
-  })
-
   useEffect(() => {
     if (api)
       api.getTokens().then(apiResponseToAction('get')).then(dispatch)
   }, [api])
 
-  const onCreateToken = () => {
+  const onCreateToken = () =>
     api.createToken().then(apiResponseToAction('create')).then(dispatch)
-  }
 
-  const onRemove = token => {
+  const onRemove = token =>
     api.deleteToken(token).then(_ => token).then(apiResponseToAction('delete')).then(dispatch)
-  }
 
   return (
     <Main>
@@ -59,6 +52,11 @@ const tokenReducer = (tokens, { type, payload }) => {
       throw new Error()
   }
 }
+
+const apiResponseToAction = type => payload => ({
+  type,
+  payload,
+})
 
 const serializedTokenToToken = serializedToken => ({
   ...parseJwt(serializedToken),
