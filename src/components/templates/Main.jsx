@@ -33,6 +33,23 @@ const SessionActions = ({ account, onSignOut }) => !account
   ? <SessionInactive/>
   : <SessionActive account={account} onSignOut={onSignOut} />
 
+const More = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleIsOpen = () => setIsOpen(!isOpen)
+
+  return (
+    <nav className={classNames.more}>
+      <span onClick={toggleIsOpen}>More</span>
+      <ul className={classnames({ open: isOpen })}>
+        <li><a href="https://blog.po.et">Blog</a></li>
+        <li><a href="https://www.po.et/roadmap">Roadmap</a></li>
+        <li><a href="https://www.po.et/faq">FAQ</a></li>
+        <li><a href="https://www.po.et/about">About</a></li>
+      </ul>
+    </nav>
+  )
+}
+
 export const Main = ({ children }) => {
   const [account, setAccount] = useContext(SessionContext)
 
@@ -47,8 +64,8 @@ export const Main = ({ children }) => {
         <ul>
           <li><Link to="/works">Explore</Link></li>
           <li><a href="https://docs.poetnetwork.net/" target="_blank">Docs</a></li>
-          <li><a href="https://www.po.et/integrate" target="_blank">Integrate</a></li>
-          <li className={classNames.arrow}>More</li>
+          <li><a href="https://www.po.et/integrate" target="_blank">Integrations</a></li>
+          <li className={classNames.arrow}><More /></li>
         </ul>
         <SessionActions account={account} onSignOut={clearToken} />
       </header>
