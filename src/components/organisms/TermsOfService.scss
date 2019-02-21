@@ -1,0 +1,31 @@
+.termsOfService {
+  width: 960px;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 28px
+  }
+
+  h2 {
+    font-size: 18px
+  }
+
+  h3 {
+    font-size: 18px
+  }
+
+  > ol {
+    list-style: decimal-leading-zero;
+    > li {
+      margin: 15px 0;
+
+      > ol {
+        list-style: inside lower-alpha;
+
+        > li {
+          margin: 15px 0;
+        }
+      }
+    }
+  }
+}

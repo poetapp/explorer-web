@@ -9,6 +9,7 @@ import { Login } from 'components/routes/Login'
 import { SignUp } from 'components/routes/SignUp'
 import { ConfirmMail } from 'components/routes/ConfirmMail'
 import { Tokens } from 'components/routes/Tokens'
+import { TermsOfService } from 'components/routes/TermsOfService'
 
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -29,6 +30,7 @@ export const Router = () => {
         <Route path="/signup" component={SignUp} />
         <Route path="/confirm-mail" component={ConfirmMail} />
         <Route path="/tokens" component={Tokens} />
+        <Route path="/tos" component={TermsOfService} />
       </Switch>
     </BrowserRouter>
   )
