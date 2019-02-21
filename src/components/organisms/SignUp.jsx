@@ -45,7 +45,7 @@ export const SignUp = ({ onSubmit }) => {
           onChange={pipe(eventToValue, setPasswordRepeat)}
           required
         />
-        <p>Signing up means that you have read and agreed to the <a href="#">terms of service</a></p>
+        <p>Signing up means that you have read and agreed to the <Link to="/tos">terms of service</Link></p>
         <nav>
           <button type="submit" onClick={onSubmitWrapper({ email, password })}>Sign Up</button>
           <nav>
