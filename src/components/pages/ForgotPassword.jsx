@@ -14,6 +14,6 @@ export const ForgotPassword = () => {
   }, [email])
 
   return !isDone
-    ? <ForgotPasswordInput onSubmit={setEmail} isDone={isDone} />
+    ? <ForgotPasswordInput onSubmit={setEmail} />
     : <ForgotPasswordSent email={email} />
 }
