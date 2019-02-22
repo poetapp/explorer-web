@@ -20,7 +20,7 @@ export const ForgotPassword = ({ onSubmit }) => {
     <section className={classNames.forgotPassword}>
       <Link to='/'><img src={Logo} /></Link>
       <h1>Forgot password?</h1>
-      <h2>Send a new password to your email</h2>
+      <h2>That's alright, we can reset it for you. All we need is the email address you signed up with.</h2>
       <form>
         <input
           type="text"
@@ -39,3 +39,12 @@ export const ForgotPassword = ({ onSubmit }) => {
     </section>
   )
 }
+
+export const ForgotPasswordSent = ({ email }) => (
+  <section className={classNames.forgotPassword}>
+    <Link to='/'><img src={Logo} /></Link>
+    <h1>Forgot password?</h1>
+    <h2>Great! An email has been sent to {email} with a link to reset the password. Please check your inbox.</h2>
+    <Link to="/login">Go to login</Link>
+  </section>
+)
