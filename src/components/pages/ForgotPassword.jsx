@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 
-import { ForgotPassword as ForgotPasswordOrganism, ForgotPasswordSent } from 'components/organisms/ForgotPassword'
+import { ForgotPasswordInput, ForgotPasswordSent } from 'components/organisms/ForgotPassword'
 import { ApiContext } from 'providers/ApiProvider'
 
 export const ForgotPassword = () => {
@@ -14,6 +14,6 @@ export const ForgotPassword = () => {
   }, [email])
 
   return !isDone
-    ? <ForgotPasswordOrganism onSubmit={setEmail} isDone={isDone} />
+    ? <ForgotPasswordInput onSubmit={setEmail} isDone={isDone} />
     : <ForgotPasswordSent email={email} />
 }

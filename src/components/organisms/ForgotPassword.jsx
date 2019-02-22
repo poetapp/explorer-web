@@ -8,7 +8,7 @@ import classNames from './ForgotPassword.scss'
 
 const eventToValue = event => event.currentTarget.value
 
-export const ForgotPassword = ({ onSubmit }) => {
+export const ForgotPasswordInput = ({ onSubmit }) => {
   const [email, setEmail] = useState('')
 
   const onSubmitWrapper = email => event => {
