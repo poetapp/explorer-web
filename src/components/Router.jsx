@@ -7,6 +7,7 @@ import { Works } from 'components/routes/Works'
 import { IssuerById } from 'components/routes/Issuer'
 import { Login } from 'components/routes/Login'
 import { SignUp } from 'components/routes/SignUp'
+import { ForgotPassword } from 'components/routes/ForgotPassword'
 import { ConfirmMail } from 'components/routes/ConfirmMail'
 import { Tokens } from 'components/routes/Tokens'
 import { TermsOfService } from 'components/routes/TermsOfService'
@@ -28,6 +29,7 @@ export const Router = () => {
         <Route path="/issuers/:id" component={IssuerById} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/forgotpassword" component={ForgotPassword} />
         <Route path="/confirm-mail" component={ConfirmMail} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />

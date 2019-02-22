@@ -7,7 +7,12 @@ const parseResponse = async response => ({
   body: await parseResponseBody(response)
 })
 
+const contentTypeJSON = {
+  'content-type': 'application/json; charset=utf-8'
+}
+
 export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish }) => {
+  const apiUrl = 'https://api.poetnetwork.net'
 
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
@@ -37,16 +42,19 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
       })
   }
 
-  const tokensUrl = 'https://api.poetnetwork.net/tokens'
+  const tokensUrl = `${apiUrl}/tokens`
 
   const getTokens = () => apiFetch(tokensUrl)
   const createToken = () => apiFetch(tokensUrl, { method: 'POST' })
   const deleteToken = (token) => apiFetch(`${tokensUrl}/${token}`, { method: 'DELETE' })
 
+  const passwordReset = (email) => apiFetch(`${apiUrl}/password/reset`, { method: 'POST', body: JSON.stringify({ email }), headers: contentTypeJSON })
+
   return {
     getTokens,
     createToken,
     deleteToken,
+    passwordReset,
   }
 
 }
