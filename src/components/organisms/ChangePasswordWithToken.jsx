@@ -34,7 +34,7 @@ export const Input = ({ onSubmit }) => {
       <h2>Please enter the new password to your account:</h2>
       <form onSubmit={onSubmitWrapper}>
         <input
-          type="text"
+          type="password"
           placeholder="New Password"
           value={password}
           onChange={pipe(eventToValue, setPassword)}
@@ -42,7 +42,7 @@ export const Input = ({ onSubmit }) => {
         />
         <input
           ref={input}
-          type="text"
+          type="password"
           placeholder="Repeat Password"
           value={passwordRepeat}
           onChange={pipe(eventToValue, setPasswordRepeat)}
