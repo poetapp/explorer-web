@@ -10,7 +10,7 @@ export const ChangePasswordWithToken = ({ token }) => {
 
   useEffect(() => {
     if (password)
-      api.passwordChangeWithToken(token, password).then(console.log).then(() => setIsDone(true))
+      api.passwordChangeWithToken(token, password).then(token => setIsDone(token !== undefined))
   }, [password])
 
   return !isDone

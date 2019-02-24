@@ -20,7 +20,7 @@ export const ApiProvider = props => {
 
   const onClientError = (error, url, options) => {
     console.error('API Error', 'Client Side', error, url, options)
-    toast.error(error)
+    toast.error('Oops, something went wrong!')
     clearAccount()
   }
 
