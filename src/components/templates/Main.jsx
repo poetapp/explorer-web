@@ -21,7 +21,10 @@ const AccountDropDown = ({ account, onSignOut }) => {
 
   return (
     <section className={classNames.account}>
-      <img src={DefaultAvatar} onClick={() => setMenuIsOpen(!menuIsOpen)} />
+      <header onClick={() => setMenuIsOpen(!menuIsOpen)}>
+        <img src={DefaultAvatar}/>
+        <div className={classNames.cue}>⌄</div>
+      </header>
       <ul className={classnames({ [classNames.open]: menuIsOpen })}>
         <li className={classNames.email}>Logged in as <strong>{account.email}</strong></li>
         <li className={classNames.tokens}><Link to="/tokens">API Keys</Link></li>
