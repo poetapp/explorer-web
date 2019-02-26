@@ -1,3 +1,5 @@
+@import 'Buttons';
+
 .main {
   height: 100%;
   display: flex;
@@ -13,7 +15,7 @@
     z-index: 1;
     padding-right: 10px;
 
-    >a{
+    .logo {
       margin-right: 10px;
       padding: 13px 10px 10px;
       border-right: 1px solid #d6d6d6;
@@ -39,13 +41,12 @@
       }
     }
 
-    .sessionInactive {
-      >li:last-of-type {
-        padding: 11px 15px;
-        border-radius: 5px;
-        background-color: #36b074;
-        color: #fff;
-      }
+    .signUp {
+      @extend %buttonA
+    }
+
+    .newClaim {
+      @extend %buttonA
     }
 
     .account {
@@ -139,7 +140,6 @@
       padding: 10px 20px;
       display: block;
       color: #222222;
-
     }
   }
 }

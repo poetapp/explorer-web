@@ -7,7 +7,16 @@ import { SessionContext } from 'providers/SessionProvider'
 
 import classNames from './Main.scss'
 
-const SessionActive = ({ account, onSignOut }) => {
+const SessionActive = ({ account, onSignOut }) => (
+  <ul>
+    <li><NewClaim/></li>
+    <li><AccountDropDown account={account} onSignOut={onSignOut}/></li>
+  </ul>
+)
+
+const NewClaim = () => <Link to="/new-claim" className={classNames.newClaim}>New Claim</Link>
+
+const AccountDropDown = ({ account, onSignOut }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
 
   return (
@@ -25,7 +34,7 @@ const SessionActive = ({ account, onSignOut }) => {
 const SessionInactive = () => (
   <ul className={classNames.sessionInactive}>
     <li><Link to="/login">Login</Link></li>
-    <li><Link to="/signup">Sign Up</Link></li>
+    <li><Link to="/signup" className={classNames.signUp}>Sign Up</Link></li>
   </ul>
 )
 
@@ -50,6 +59,12 @@ const More = () => {
   )
 }
 
+const Logo = () => (
+  <Link to="/" className={classNames.logo}>
+    <img src={Quill} />
+  </Link>
+)
+
 export const Main = ({ children }) => {
   const [account, setAccount] = useContext(SessionContext)
 
@@ -58,9 +73,7 @@ export const Main = ({ children }) => {
   return (
     <section className={classNames.main}>
       <header>
-        <Link to="/">
-          <img src={Quill} />
-        </Link>
+        <Logo/>
         <ul>
           <li><Link to="/works">Explore</Link></li>
           <li><a href="https://docs.poetnetwork.net/" target="_blank">Docs</a></li>
