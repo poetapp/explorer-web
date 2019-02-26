@@ -1,0 +1,1 @@
+export const eventToValue = event => event.currentTarget.value

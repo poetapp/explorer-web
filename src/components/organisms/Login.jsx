@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
-import classNames from './Login.scss'
+import { eventToValue } from 'helpers/eventToValue'
 
-const eventToValue = event => event.currentTarget.value
+import classNames from './Login.scss'
 
 export const Login = ({ onSubmit }) => {
   const [email, setEmail] = useState('')
