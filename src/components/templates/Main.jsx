@@ -65,6 +65,15 @@ const Logo = () => (
   </Link>
 )
 
+const GlobalNavigation = () => (
+  <ul className={classNames.globalNavigation}>
+    <li><Link to="/works">Explore</Link></li>
+    <li><a href="https://docs.poetnetwork.net/" target="_blank">Docs</a></li>
+    <li><a href="https://www.po.et/integrate" target="_blank">Integrations</a></li>
+    <li className={classNames.arrow}><More /></li>
+  </ul>
+)
+
 export const Main = ({ children }) => {
   const [account, setAccount] = useContext(SessionContext)
 
@@ -74,12 +83,7 @@ export const Main = ({ children }) => {
     <section className={classNames.main}>
       <header>
         <Logo/>
-        <ul>
-          <li><Link to="/works">Explore</Link></li>
-          <li><a href="https://docs.poetnetwork.net/" target="_blank">Docs</a></li>
-          <li><a href="https://www.po.et/integrate" target="_blank">Integrations</a></li>
-          <li className={classNames.arrow}><More /></li>
-        </ul>
+        <GlobalNavigation/>
         <SessionActions account={account} onSignOut={clearToken} />
       </header>
       <main>
