@@ -1,7 +1,15 @@
+@import 'Fonts';
+
 %buttonA {
   display: block;
   padding: 10px 15px;
   border-radius: 5px;
   background-color: #36b074;
   color: #fff;
+  border: 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2a9e65;
+  }
 }
