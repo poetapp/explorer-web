@@ -27,10 +27,11 @@
     }
 
     >ul {
+      display: flex;
+      align-items: center;
       list-style: none;
 
       >li {
-        display: inline-block;
         margin: 0 10px;
         font-size: 13px;
         font-weight: 600;
