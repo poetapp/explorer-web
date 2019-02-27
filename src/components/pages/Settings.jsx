@@ -31,7 +31,7 @@ const Password = () => {
   const onSubmit = () => {
     event.preventDefault();
     api.passwordChangeWithOld({ password: newPassword, oldPassword: currentPassword })
-      .then(() => toast.success('Your password has been updated!'))
+      .then(result => result && toast.success('Your password has been updated!'))
   }
 
   const customValidity =
