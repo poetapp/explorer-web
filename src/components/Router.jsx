@@ -1,3 +1,4 @@
+import { pipe } from 'ramda'
 import React, { useContext } from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
@@ -8,7 +9,7 @@ import { IssuerById } from 'components/pages/Issuer'
 import { Login } from 'components/pages/Login'
 import { SignUp } from 'components/pages/SignUp'
 import { ForgotPassword } from 'components/pages/ForgotPassword'
-import { ChangePasswordWithToken } from 'components/routes/ChangePasswordWithToken'
+import { ChangePasswordWithToken } from 'components/pages/ChangePasswordWithToken'
 import { ConfirmMail } from 'components/routes/ConfirmMail'
 import { Tokens } from 'components/pages/Tokens'
 import { TermsOfService } from 'components/pages/TermsOfService'
@@ -35,7 +36,7 @@ export const Router = () => {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/changepasswordwithtoken" component={ChangePasswordWithToken} />
+        <Route path="/changepasswordwithtoken" render={pipe(getQueryToken, token => <ChangePasswordWithToken token={token}/>)} />
         <Route path="/confirm-mail" component={ConfirmMail} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
@@ -45,3 +46,5 @@ export const Router = () => {
     </BrowserRouter>
   )
 }
+
+const getQueryToken = ({ location }) => (new URLSearchParams(location.search)).get('token')
