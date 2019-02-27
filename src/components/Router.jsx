@@ -12,6 +12,7 @@ import { ChangePasswordWithToken } from 'components/routes/ChangePasswordWithTok
 import { ConfirmMail } from 'components/routes/ConfirmMail'
 import { Tokens } from 'components/routes/Tokens'
 import { TermsOfService } from 'components/routes/TermsOfService'
+import { NewClaim } from 'components/pages/NewClaim'
 
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -24,6 +25,7 @@ export const Router = () => {
         { token && <Redirect from='/login' to='/'/> }
         { token && <Redirect from='/signup' to='/'/> }
         { !token && <Redirect from='/tokens' to='/login'/> }
+        { !token && <Redirect from='/new-claim' to='/login'/> }
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
         <Route path="/works/:id" component={WorkById} />
@@ -35,6 +37,7 @@ export const Router = () => {
         <Route path="/confirm-mail" component={ConfirmMail} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
+        <Route path="/new-claim" component={NewClaim} />
       </Switch>
     </BrowserRouter>
   )

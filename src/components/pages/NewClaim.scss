@@ -1,0 +1,54 @@
+@import 'Buttons';
+@import 'Layout';
+
+.newClaim {
+  @include letterboxed();
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  h1 {
+    font-size: 32px;
+    line-height: 36px;
+    margin: 20px 0 10px;
+  }
+
+  h2 {
+    margin-bottom: 40px;
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  form {
+    width: 66.66666667%;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      display: block;
+      height: 50px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      color: #000;
+      font-size: 15px;
+      padding: 8px 12px;
+      width: 100%;
+      vertical-align: middle;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+    }
+
+    button {
+      @extend %buttonA;
+      max-width: 144px;
+      padding: 15px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+}

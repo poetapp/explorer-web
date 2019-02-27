@@ -28,6 +28,10 @@ a {
   text-decoration: none;
 }
 
+input, button {
+  font-family: $open-sans;
+}
+
 :global(#react-root) {
   height: 100%
 }
