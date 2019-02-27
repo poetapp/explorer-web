@@ -11,15 +11,14 @@ export const Settings = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [changedPassword, setChangedPassword] = useState(null)
 
-  const onSubmit = ({ password, oldPassword }) => {
-    api.passwordChangeWithOld({ password, oldPassword }).then(setChangedPassword)
+  const onSubmit = ({ currentPassword, newPassword }) => {
+    api.passwordChangeWithOld({ password: newPassword, oldPassword: currentPassword }).then(setChangedPassword)
   }
 
   return (
     <Main>
       <section className={classNames.newClaim}>
-        <h1>New Claim</h1>
-        <h2>Create a New Claim on the Po.et Network</h2>
+        <h1>Password</h1>
         <PasswordForm onSubmit={onSubmit} disabled={isBusy}/>
       </section>
     </Main>
