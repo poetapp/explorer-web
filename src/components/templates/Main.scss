@@ -136,8 +136,8 @@
             white-space: nowrap;
           }
 
-          &.tokens {
-            font-weight: bold;
+          &.tokens, &.settings {
+            font-weight: normal;
           }
 
           &.logout {

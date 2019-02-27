@@ -27,6 +27,7 @@ const AccountDropDown = ({ account, onSignOut }) => {
       </header>
       <ul className={classnames({ [classNames.open]: menuIsOpen })}>
         <li className={classNames.email}>Logged in as <strong>{account.email}</strong></li>
+        <li className={classNames.settings}><Link to="/settings">Settings</Link></li>
         <li className={classNames.tokens}><Link to="/tokens">API Keys</Link></li>
         <li className={classNames.logout}><a href="#" onClick={onSignOut}>Logout</a></li>
       </ul>
