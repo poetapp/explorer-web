@@ -127,24 +127,22 @@
         }
 
         >li {
+          $separator: 1px solid #e7e7e7;
           padding: 10px 20px;
           color: #222;
+          font-size: 14px;
+          font-weight: normal;
 
           &.email {
-            border-bottom: 1px solid #e7e7e7;
+            border-bottom: $separator;
             font-size: 12px;
             white-space: nowrap;
           }
 
-          &.tokens {
-            font-weight: bold;
-          }
-
           &.logout {
-            border-top: 1px solid #e7e7e7;
+            border-top: $separator;
             color: #da0000;
             font-weight: 600;
-            font-size: 14px;
           }
         }
       }

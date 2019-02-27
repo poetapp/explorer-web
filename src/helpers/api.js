@@ -48,8 +48,11 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const createToken = () => apiFetch(tokensUrl, { method: 'POST' })
   const deleteToken = (token) => apiFetch(`${tokensUrl}/${token}`, { method: 'DELETE' })
 
-  const passwordReset = (email) => apiFetch(`${apiUrl}/password/reset`, { method: 'POST', body: JSON.stringify({ email }), headers: contentTypeJSON })
-  const passwordChangeWithToken = (token, password) => apiFetch(`${apiUrl}/password/change/token`, { method: 'POST', body: JSON.stringify({ password }), headers: { ...contentTypeJSON, token } })
+  const passwordUrl = `${apiUrl}/password`
+
+  const passwordReset = (email) => apiFetch(`${passwordUrl}/reset`, { method: 'POST', body: JSON.stringify({ email }), headers: contentTypeJSON })
+  const passwordChangeWithToken = (token, password) => apiFetch(`${passwordUrl}/change/token`, { method: 'POST', body: JSON.stringify({ password }), headers: { ...contentTypeJSON, token } })
+  const passwordChangeWithOld = ({ oldPassword, password }) => apiFetch(`${passwordUrl}/change`, { method: 'POST', body: JSON.stringify({ password, oldPassword }), headers: { ...contentTypeJSON, token } })
 
   const createClaim = (claim) => apiFetch(`${apiUrl}/works`, { method: 'POST', body: JSON.stringify(claim), headers: contentTypeJSON })
 
@@ -59,6 +62,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     deleteToken,
     passwordReset,
     passwordChangeWithToken,
+    passwordChangeWithOld,
     createClaim,
   }
 

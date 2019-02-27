@@ -1,0 +1,72 @@
+@import 'Buttons';
+@import 'Layout';
+
+.settings {
+  > header {
+    @include letterboxed();
+    background-color: #333;
+
+    h1 {
+      margin: 0;
+      padding: 20px 0;
+      font-size: 15.4px;
+      line-height: 24px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+  }
+
+  > main {
+    @include letterboxed();
+
+  }
+
+  h2 {
+    margin-bottom: 40px;
+    font-size: 22.4px;
+    font-weight: 700;
+    font-family: $roboto-slab;
+  }
+
+  form {
+
+    &:global.isBusy {
+      opacity: .3;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="password"] {
+      display: block;
+      height: 40px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      color: #000;
+      font-size: 15px;
+      padding: 8px 12px;
+      width: 100%;
+      vertical-align: middle;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+    }
+
+    button {
+      @extend %buttonB;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      line-height: 20px;
+    }
+  }
+}
+
+.password {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 50px 0;
+}
