@@ -30,7 +30,6 @@ const PasswordForm = ({ onSubmit, disabled }) => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('')
-  const [customValidity, setCustomValidity] = useState('')
 
   const onSubmitWrapper = event => {
     event.preventDefault();
@@ -40,13 +39,10 @@ const PasswordForm = ({ onSubmit, disabled }) => {
     })
   }
 
-  useEffect(() => {
-    setCustomValidity(
-      newPassword === newPasswordConfirmation
-        ? ''
-        : 'Passwords must match.'
-    )
-  }, [newPassword, newPasswordConfirmation])
+  const customValidity =
+    newPassword === newPasswordConfirmation
+      ? ''
+      : 'Passwords must match.'
 
   return (
     <form onSubmit={onSubmitWrapper}>
