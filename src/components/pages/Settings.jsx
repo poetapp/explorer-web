@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import { pipe } from 'ramda'
 import React, { useState, useContext, useEffect, useRef, forwardRef } from 'react'
 
@@ -20,33 +21,16 @@ export const Settings = () => (
   </Main>
 )
 
-
 const Password = () => {
-  const [api, isBusy] = useContext(ApiContext)
-  const [changedPassword, setChangedPassword] = useState(null)
-
-  const onSubmit = ({ currentPassword, newPassword }) => {
-    api.passwordChangeWithOld({ password: newPassword, oldPassword: currentPassword }).then(setChangedPassword)
-  }
-
-  return (
-    <section>
-      <PasswordForm onSubmit={onSubmit} disabled={isBusy}/>
-    </section>
-  )
-}
-
-const PasswordForm = ({ onSubmit, disabled }) => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('')
+  const [api, isBusy] = useContext(ApiContext)
+  const [changedPassword, setChangedPassword] = useState(null)
 
-  const onSubmitWrapper = event => {
+  const onSubmit = () => {
     event.preventDefault();
-    onSubmit({
-      currentPassword,
-      newPassword,
-    })
+    api.passwordChangeWithOld({ password: newPassword, oldPassword: currentPassword }).then(setChangedPassword)
   }
 
   const customValidity =
@@ -57,11 +41,11 @@ const PasswordForm = ({ onSubmit, disabled }) => {
   return (
     <section className={classNames.password}>
       <h2>Password</h2>
-      <form onSubmit={onSubmitWrapper}>
+      <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <PasswordFormInput value={currentPassword} setter={setCurrentPassword} id="currentPassword">Current Password</PasswordFormInput>
         <PasswordFormInput value={newPassword} setter={setNewPassword} id="newPassword">New Password</PasswordFormInput>
         <PasswordFormInput value={newPasswordConfirmation} setter={setNewPasswordConfirmation} id="confirmNewPassword" customValidity={customValidity}>Confirm New Password</PasswordFormInput>
-        <button type="submit" disabled={disabled}>Update Password</button>
+        <button type="submit" disabled={isBusy}>Update Password</button>
       </form>
     </section>
   )
