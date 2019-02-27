@@ -13,6 +13,7 @@ import { ConfirmMail } from 'components/routes/ConfirmMail'
 import { Tokens } from 'components/routes/Tokens'
 import { TermsOfService } from 'components/routes/TermsOfService'
 import { NewClaim } from 'components/pages/NewClaim'
+import { Settings } from 'components/pages/Settings'
 
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -38,6 +39,7 @@ export const Router = () => {
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
         <Route path="/new-claim" component={NewClaim} />
+        <Route path="/settings" component={Settings} />
       </Switch>
     </BrowserRouter>
   )
