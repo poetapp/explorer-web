@@ -39,7 +39,7 @@
 
     input[type="password"] {
       display: block;
-      height: 50px;
+      height: 40px;
       margin-bottom: 10px;
       border-radius: 4px;
       color: #000;
@@ -52,13 +52,10 @@
     }
 
     button {
-      @extend %buttonA;
-      max-width: 144px;
-      padding: 15px 20px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 600;
-      text-align: center;
+      @extend %buttonB;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      line-height: 20px;
     }
   }
 }

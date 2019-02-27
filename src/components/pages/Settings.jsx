@@ -61,7 +61,7 @@ const PasswordForm = ({ onSubmit, disabled }) => {
         <PasswordFormInput value={currentPassword} setter={setCurrentPassword} id="currentPassword">Current Password</PasswordFormInput>
         <PasswordFormInput value={newPassword} setter={setNewPassword} id="newPassword">New Password</PasswordFormInput>
         <PasswordFormInput value={newPasswordConfirmation} setter={setNewPasswordConfirmation} id="confirmNewPassword" customValidity={customValidity}>Confirm New Password</PasswordFormInput>
-        <button type="submit" disabled={disabled}>{ disabled ? 'Please wait...' : 'Submit'}</button>
+        <button type="submit" disabled={disabled}>Update Password</button>
       </form>
     </section>
   )
