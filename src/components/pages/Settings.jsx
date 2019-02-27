@@ -1,6 +1,7 @@
 import classnames from 'classnames'
 import { pipe } from 'ramda'
-import React, { useState, useContext, useEffect, useRef, forwardRef } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
+import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
 import { eventToValue } from 'helpers/eventToValue'
@@ -26,11 +27,11 @@ const Password = () => {
   const [newPassword, setNewPassword] = useState('')
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('')
   const [api, isBusy] = useContext(ApiContext)
-  const [changedPassword, setChangedPassword] = useState(null)
 
   const onSubmit = () => {
     event.preventDefault();
-    api.passwordChangeWithOld({ password: newPassword, oldPassword: currentPassword }).then(setChangedPassword)
+    api.passwordChangeWithOld({ password: newPassword, oldPassword: currentPassword })
+      .then(() => toast.success('Your password has been updated!'))
   }
 
   const customValidity =
