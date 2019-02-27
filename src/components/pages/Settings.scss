@@ -16,6 +16,7 @@
     margin-bottom: 40px;
     font-size: 16px;
     font-weight: normal;
+    font-family: $roboto-slab;
   }
 
   form {
@@ -27,7 +28,7 @@
       font-weight: bold;
     }
 
-    input[type="text"] {
+    input[type="password"] {
       display: block;
       height: 50px;
       margin-bottom: 10px;

@@ -5,9 +5,19 @@ import { Main } from 'components/templates/Main'
 import { eventToValue } from 'helpers/eventToValue'
 import { ApiContext } from 'providers/ApiProvider'
 
-import classNames from './NewClaim.scss'
+import classNames from './Settings.scss'
 
-export const Settings = () => {
+export const Settings = () => (
+  <Main>
+    <section className={classNames.settings}>
+      <h1>Profile Settings</h1>
+      <Password />
+    </section>
+  </Main>
+)
+
+
+const Password = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [changedPassword, setChangedPassword] = useState(null)
 
@@ -16,12 +26,10 @@ export const Settings = () => {
   }
 
   return (
-    <Main>
-      <section className={classNames.newClaim}>
-        <h1>Password</h1>
-        <PasswordForm onSubmit={onSubmit} disabled={isBusy}/>
-      </section>
-    </Main>
+    <section>
+      <h2>Password</h2>
+      <PasswordForm onSubmit={onSubmit} disabled={isBusy}/>
+    </section>
   )
 }
 
