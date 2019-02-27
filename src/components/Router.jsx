@@ -1,17 +1,18 @@
+import { pipe } from 'ramda'
 import React, { useContext } from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import { Home } from 'components/pages/Home'
-import { WorkById } from 'components/routes/Work'
-import { Works } from 'components/routes/Works'
-import { IssuerById } from 'components/routes/Issuer'
-import { Login } from 'components/routes/Login'
-import { SignUp } from 'components/routes/SignUp'
-import { ForgotPassword } from 'components/routes/ForgotPassword'
-import { ChangePasswordWithToken } from 'components/routes/ChangePasswordWithToken'
-import { ConfirmMail } from 'components/routes/ConfirmMail'
-import { Tokens } from 'components/routes/Tokens'
-import { TermsOfService } from 'components/routes/TermsOfService'
+import { WorkById } from 'components/pages/Work'
+import { Works } from 'components/pages/Works'
+import { IssuerById } from 'components/pages/Issuer'
+import { Login } from 'components/pages/Login'
+import { SignUp } from 'components/pages/SignUp'
+import { ForgotPassword } from 'components/pages/ForgotPassword'
+import { ChangePasswordWithToken } from 'components/pages/ChangePasswordWithToken'
+import { ConfirmMail } from 'components/pages/ConfirmMail'
+import { Tokens } from 'components/pages/Tokens'
+import { TermsOfService } from 'components/pages/TermsOfService'
 import { NewClaim } from 'components/pages/NewClaim'
 import { Settings } from 'components/pages/Settings'
 
@@ -30,13 +31,13 @@ export const Router = () => {
         { !token && <Redirect from='/settings' to='/login'/> }
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
-        <Route path="/works/:id" component={WorkById} />
-        <Route path="/issuers/:id" component={IssuerById} />
+        <Route path="/works/:id" render={({ match }) => <WorkById id={match.params.id} />} />
+        <Route path="/issuers/:id" render={({ match }) => <IssuerById id={match.params.id} />} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/changepasswordwithtoken" component={ChangePasswordWithToken} />
-        <Route path="/confirm-mail" component={ConfirmMail} />
+        <Route path="/changepasswordwithtoken" render={pipe(getQueryToken, token => <ChangePasswordWithToken token={token}/>)} />
+        <Route path="/confirm-mail" render={pipe(getQueryToken, token => <ConfirmMail token={token}/>)} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
         <Route path="/new-claim" component={NewClaim} />
@@ -45,3 +46,5 @@ export const Router = () => {
     </BrowserRouter>
   )
 }
+
+const getQueryToken = ({ location }) => (new URLSearchParams(location.search)).get('token')
