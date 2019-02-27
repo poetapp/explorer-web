@@ -10,7 +10,7 @@ import { Login } from 'components/pages/Login'
 import { SignUp } from 'components/pages/SignUp'
 import { ForgotPassword } from 'components/pages/ForgotPassword'
 import { ChangePasswordWithToken } from 'components/pages/ChangePasswordWithToken'
-import { ConfirmMail } from 'components/routes/ConfirmMail'
+import { ConfirmMail } from 'components/pages/ConfirmMail'
 import { Tokens } from 'components/pages/Tokens'
 import { TermsOfService } from 'components/pages/TermsOfService'
 import { NewClaim } from 'components/pages/NewClaim'
@@ -37,7 +37,7 @@ export const Router = () => {
         <Route path="/signup" component={SignUp} />
         <Route path="/forgotpassword" component={ForgotPassword} />
         <Route path="/changepasswordwithtoken" render={pipe(getQueryToken, token => <ChangePasswordWithToken token={token}/>)} />
-        <Route path="/confirm-mail" component={ConfirmMail} />
+        <Route path="/confirm-mail" render={pipe(getQueryToken, token => <ConfirmMail token={token}/>)} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
         <Route path="/new-claim" component={NewClaim} />
