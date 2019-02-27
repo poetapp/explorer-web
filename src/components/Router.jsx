@@ -27,6 +27,7 @@ export const Router = () => {
         { token && <Redirect from='/signup' to='/'/> }
         { !token && <Redirect from='/tokens' to='/login'/> }
         { !token && <Redirect from='/new-claim' to='/login'/> }
+        { !token && <Redirect from='/settings' to='/login'/> }
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
         <Route path="/works/:id" component={WorkById} />
