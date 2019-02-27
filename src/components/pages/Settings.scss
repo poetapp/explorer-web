@@ -2,26 +2,35 @@
 @import 'Layout';
 
 .settings {
-  @include letterboxed();
-  padding-top: 50px;
-  padding-bottom: 50px;
+  > header {
+    @include letterboxed();
+    background-color: #333;
 
-  h1 {
-    font-size: 32px;
-    line-height: 36px;
-    margin: 20px 0 10px;
+    h1 {
+      margin: 0;
+      padding: 20px 0;
+      font-size: 15.4px;
+      line-height: 36px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+  }
+
+  > main {
+    @include letterboxed();
+
   }
 
   h2 {
     margin-bottom: 40px;
-    font-size: 16px;
-    font-weight: normal;
+    font-size: 18px;
+    font-weight: 700;
     font-family: $roboto-slab;
   }
 
   form {
-    width: 66.66666667%;
-
     label {
       display: block;
       margin-bottom: 5px;
@@ -52,4 +61,9 @@
       text-align: center;
     }
   }
+}
+
+.password {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

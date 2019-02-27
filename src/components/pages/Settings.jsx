@@ -10,8 +10,12 @@ import classNames from './Settings.scss'
 export const Settings = () => (
   <Main>
     <section className={classNames.settings}>
-      <h1>Profile Settings</h1>
-      <Password />
+      <header>
+        <h1>Profile Settings</h1>
+      </header>
+      <main>
+        <Password />
+      </main>
     </section>
   </Main>
 )
@@ -27,7 +31,6 @@ const Password = () => {
 
   return (
     <section>
-      <h2>Password</h2>
       <PasswordForm onSubmit={onSubmit} disabled={isBusy}/>
     </section>
   )
@@ -52,12 +55,15 @@ const PasswordForm = ({ onSubmit, disabled }) => {
       : 'Passwords must match.'
 
   return (
-    <form onSubmit={onSubmitWrapper}>
-      <PasswordFormInput value={currentPassword} setter={setCurrentPassword} id="currentPassword">Current Password</PasswordFormInput>
-      <PasswordFormInput value={newPassword} setter={setNewPassword} id="newPassword">New Password</PasswordFormInput>
-      <PasswordFormInput value={newPasswordConfirmation} setter={setNewPasswordConfirmation} id="confirmNewPassword" customValidity={customValidity}>Confirm New Password</PasswordFormInput>
-      <button type="submit" disabled={disabled}>{ disabled ? 'Please wait...' : 'Submit'}</button>
-    </form>
+    <section className={classNames.password}>
+      <h2>Password</h2>
+      <form onSubmit={onSubmitWrapper}>
+        <PasswordFormInput value={currentPassword} setter={setCurrentPassword} id="currentPassword">Current Password</PasswordFormInput>
+        <PasswordFormInput value={newPassword} setter={setNewPassword} id="newPassword">New Password</PasswordFormInput>
+        <PasswordFormInput value={newPasswordConfirmation} setter={setNewPasswordConfirmation} id="confirmNewPassword" customValidity={customValidity}>Confirm New Password</PasswordFormInput>
+        <button type="submit" disabled={disabled}>{ disabled ? 'Please wait...' : 'Submit'}</button>
+      </form>
+    </section>
   )
 }
 
