@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { Home } from 'components/pages/Home'
 import { WorkById } from 'components/pages/Work'
 import { Works } from 'components/pages/Works'
-import { IssuerById } from 'components/routes/Issuer'
+import { IssuerById } from 'components/pages/Issuer'
 import { Login } from 'components/pages/Login'
 import { SignUp } from 'components/pages/SignUp'
 import { ForgotPassword } from 'components/pages/ForgotPassword'
@@ -31,7 +31,7 @@ export const Router = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
         <Route path="/works/:id" render={({ match }) => <WorkById id={match.params.id} />} />
-        <Route path="/issuers/:id" component={IssuerById} />
+        <Route path="/issuers/:id" render={({ match }) => <IssuerById id={match.params.id} />} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/forgotpassword" component={ForgotPassword} />
