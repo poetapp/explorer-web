@@ -1,3 +1,4 @@
+@import 'Buttons';
 @import 'Fonts';
 
 .tokens {
@@ -75,22 +76,9 @@
   }
 
   .create {
-    display: block;
-    width: 160px;
-    padding: 10px 15px;
-    border: 1px solid #000;
-    border-radius: 6px;
-    background-color: #fff;
-    font-family: $open-sans;
-    color: #2c2e3b;
-    font-size: 14px;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-
-    &:hover {
-      color: #36b074;
-    }
+    @extend %buttonB;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .delete {
