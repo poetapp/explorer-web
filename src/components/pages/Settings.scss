@@ -10,7 +10,7 @@
       margin: 0;
       padding: 20px 0;
       font-size: 15.4px;
-      line-height: 36px;
+      line-height: 24px;
       color: #fff;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -25,7 +25,7 @@
 
   h2 {
     margin-bottom: 40px;
-    font-size: 18px;
+    font-size: 22.4px;
     font-weight: 700;
     font-family: $roboto-slab;
   }
@@ -66,4 +66,5 @@
 .password {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 50px 0;
 }
