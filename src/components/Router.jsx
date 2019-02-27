@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
 import { Home } from 'components/pages/Home'
-import { WorkById } from 'components/routes/Work'
+import { WorkById } from 'components/pages/Work'
 import { Works } from 'components/pages/Works'
 import { IssuerById } from 'components/routes/Issuer'
 import { Login } from 'components/pages/Login'
@@ -30,7 +30,7 @@ export const Router = () => {
         { !token && <Redirect from='/settings' to='/login'/> }
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
-        <Route path="/works/:id" component={WorkById} />
+        <Route path="/works/:id" render={({ match }) => <WorkById id={match.params.id} />} />
         <Route path="/issuers/:id" component={IssuerById} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
