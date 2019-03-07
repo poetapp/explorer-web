@@ -37,7 +37,7 @@ export const ConfirmMail = ({ token }) => {
   return (
     <section className={classNames.confirmEmail}>
       <Header />
-      <Main loginToken={loginToken} error={confirmEmailError} />
+      <Main loginToken={loginToken} error={confirmEmailError} issuer={profile?.issuer} />
     </section>
   )
 }
@@ -49,13 +49,13 @@ const Header = () => (
   </header>
 )
 
-const Main = ({ loginToken, error }) => (
+const Main = ({ loginToken, issuer, error }) => (
   <main>
     {
       !loginToken && !error
         ? <InProgress />
         : loginToken
-        ? <Success />
+        ? <Success issuer={issuer} />
         : <Failure reason={error} />
     }
   </main>
@@ -70,10 +70,10 @@ const InProgress = () => {
   )
 }
 
-const Success = () => (
+const Success = ({ issuer }) => (
   <section>
     <h1>Thank you! Your email is now verified :)</h1>
-    <Link to="/">Go to dashboard</Link>
+    <Link to={`/issuers/${issuer}`}>Go to dashboard</Link>
   </section>
 )
 
