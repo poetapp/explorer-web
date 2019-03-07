@@ -56,6 +56,8 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 
   const createClaim = (claim) => apiFetch(`${apiUrl}/works`, { method: 'POST', body: JSON.stringify(claim), headers: contentTypeJSON })
 
+  const login = (credentials) => apiFetch(`${apiUrl}/login`, { method: 'POST', body: JSON.stringify(credentials), headers: contentTypeJSON })
+
   return {
     getTokens,
     createToken,
@@ -64,6 +66,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     passwordChangeWithToken,
     passwordChangeWithOld,
     createClaim,
+    login,
   }
 
 }

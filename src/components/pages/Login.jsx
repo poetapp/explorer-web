@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 
-import { useLogin } from 'hooks/useLogin'
-import { SessionContext } from 'providers/SessionProvider'
 import { Login as LoginOrganism } from 'components/organisms/Login'
+import { ApiContext } from 'providers/ApiProvider'
+import { SessionContext } from 'providers/SessionProvider'
+
 
 export const Login = () => {
-  const [credentials, setCredentials] = useState(null)
+  const [api, isBusy] = useContext(ApiContext)
   const [_, setAccount] = useContext(SessionContext)
-  const { account, error } = useLogin(credentials)
 
-  useEffect(() => {
-    if (account)
-      setAccount(account)
-  }, [account])
+  const setAccountWithEmail = email => account => setAccount(account && { ...account, email })
 
-  error && console.error(error)
+  const onSubmit = credentials => {
+    api.login(credentials).then(setAccountWithEmail(credentials.email))
+  }
 
-  return <LoginOrganism onSubmit={setCredentials} />
+  return <LoginOrganism onSubmit={onSubmit} />
 }
