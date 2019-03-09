@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
+import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
 import { eventToValue } from 'helpers/eventToValue'
-import { SessionContext } from 'providers/SessionProvider'
 import { ApiContext } from 'providers/ApiProvider'
+import { SessionContext } from 'providers/SessionProvider'
 
 import classNames from './SignUp.scss'
 
@@ -15,12 +16,10 @@ export const SignUp = () => {
   const [_, setAccount] = useContext(SessionContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordRepeat, setPasswordRepeat] = useState('')
 
   const onSubmit = event => {
     event.preventDefault()
-    if (password === passwordRepeat)
-      api.accountCreate({ email, password }).then(setAccountFromApiResponse)
+    api.accountCreate({ email, password }).then(setAccountFromApiResponse)
   }
 
   const setAccountFromApiResponse = token => token && setAccount({
@@ -47,13 +46,7 @@ export const SignUp = () => {
           onChange={pipe(eventToValue, setPassword)}
           required
         />
-        <input
-          type="password"
-          placeholder="Repeat Password"
-          value={passwordRepeat}
-          onChange={pipe(eventToValue, setPasswordRepeat)}
-          required
-        />
+        <PasswordRepeat password={password} />
         <p>Signing up means that you have read and agreed to the <Link to="/tos">terms of service</Link></p>
         <nav>
           <button type="submit" disabled={isBusy}>{ !isBusy ? 'Sign Up' : 'Please wait...' }</button>
