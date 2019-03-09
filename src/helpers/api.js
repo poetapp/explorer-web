@@ -52,11 +52,11 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 
   const passwordUrl = `${apiUrl}/password`
 
-  const passwordReset = (email) => apiFetch(`${passwordUrl}/reset`, { method: 'POST', body: JSON.stringify({ email }), headers: contentTypeJSON })
+  const passwordReset = apiPost('password/reset')
   const passwordChangeWithToken = (token, password) => apiFetch(`${passwordUrl}/change/token`, { method: 'POST', body: JSON.stringify({ password }), headers: { ...contentTypeJSON, token } })
   const passwordChangeWithOld = ({ oldPassword, password }) => apiFetch(`${passwordUrl}/change`, { method: 'POST', body: JSON.stringify({ password, oldPassword }), headers: { ...contentTypeJSON, token } })
 
-  const createClaim = (claim) => apiFetch(`${apiUrl}/works`, { method: 'POST', body: JSON.stringify(claim), headers: contentTypeJSON })
+  const createClaim = apiPost('works')
 
   const accountCreate = apiPost('accounts')
   const login = apiPost('login')

@@ -10,7 +10,7 @@ export const ForgotPassword = () => {
 
   useEffect(() => {
     if (email)
-      api.passwordReset(email).then(() => setIsDone(true))
+      api.passwordReset({ email }).then(() => setIsDone(true))
   }, [email])
 
   return !isDone
