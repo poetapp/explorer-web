@@ -56,7 +56,7 @@ export const SignUp = () => {
         />
         <p>Signing up means that you have read and agreed to the <Link to="/tos">terms of service</Link></p>
         <nav>
-          <button type="submit" onClick={onSubmit}>Sign Up</button>
+          <button type="submit" onClick={onSubmit} disabled={isBusy}>{ !isBusy ? 'Sign Up' : 'Please wait...' }</button>
           <nav>
             <Link to="/login">Already have an account?</Link>
           </nav>
