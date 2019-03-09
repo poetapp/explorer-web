@@ -1,8 +1,10 @@
 import { pipe } from 'ramda'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
+
+import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
 
 import classNames from './ChangePasswordWithToken.scss'
 
@@ -10,24 +12,11 @@ const eventToValue = event => event.currentTarget.value
 
 export const Input = ({ onSubmit }) => {
   const [password, setPassword] = useState('')
-  const [passwordRepeat, setPasswordRepeat] = useState('')
-  const input = useRef()
 
   const onSubmitWrapper = event => {
     event.preventDefault()
-
-    if (password !== passwordRepeat)
-      throw new Error('Passwords must match.')
-
     onSubmit(password)
   }
-
-  useEffect(() => {
-    if (password !== passwordRepeat)
-      input.current.setCustomValidity('Passwords must match.')
-    else
-      input.current.setCustomValidity('')
-  }, [password, passwordRepeat])
 
   return (
     <Template>
@@ -40,14 +29,7 @@ export const Input = ({ onSubmit }) => {
           onChange={pipe(eventToValue, setPassword)}
           required
         />
-        <input
-          ref={input}
-          type="password"
-          placeholder="Repeat Password"
-          value={passwordRepeat}
-          onChange={pipe(eventToValue, setPasswordRepeat)}
-          required
-        />
+        <PasswordRepeat password={password} />
         <nav>
           <button type="submit">Change Password</button>
           <nav>
