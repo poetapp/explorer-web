@@ -32,9 +32,9 @@ export const SignUp = () => {
     <section className={classNames.signup}>
       <Link to='/'><img src={Logo} /></Link>
       <h1>Sign Up to Start Using Po.et Today</h1>
-      <form>
+      <form onSubmit={onSubmit} >
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={pipe(eventToValue, setEmail)}
@@ -56,7 +56,7 @@ export const SignUp = () => {
         />
         <p>Signing up means that you have read and agreed to the <Link to="/tos">terms of service</Link></p>
         <nav>
-          <button type="submit" onClick={onSubmit} disabled={isBusy}>{ !isBusy ? 'Sign Up' : 'Please wait...' }</button>
+          <button type="submit" disabled={isBusy}>{ !isBusy ? 'Sign Up' : 'Please wait...' }</button>
           <nav>
             <Link to="/login">Already have an account?</Link>
           </nav>

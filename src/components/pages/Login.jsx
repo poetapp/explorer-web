@@ -28,9 +28,9 @@ export const Login = () => {
       <Link to='/'><img src={Logo} /></Link>
       <h1>Log Into My Account</h1>
       <h2>Log in to make, view, and manage your claims on the Po.et Network.</h2>
-      <form>
+      <form onSubmit={onSubmit}>
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={pipe(eventToValue, setEmail)}
@@ -44,7 +44,7 @@ export const Login = () => {
           required
         />
         <nav>
-          <button type="submit" onClick={onSubmit} disabled={isBusy}>{ !isBusy ? 'Log In' : 'Please wait...'}</button>
+          <button type="submit" disabled={isBusy}>{ !isBusy ? 'Log In' : 'Please wait...'}</button>
           <nav>
             <Link to="/signup">Don't have an account yet?</Link>
             <Link to="/forgotpassword">Forgot Password?</Link>
