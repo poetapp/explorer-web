@@ -42,6 +42,8 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
       })
   }
 
+  const apiPost = (resource) => (json) => apiFetch(`${apiUrl}/${resource}`, { method: 'POST', body: JSON.stringify(json), headers: contentTypeJSON })
+
   const tokensUrl = `${apiUrl}/tokens`
 
   const getTokens = () => apiFetch(tokensUrl)
@@ -50,13 +52,14 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 
   const passwordUrl = `${apiUrl}/password`
 
-  const passwordReset = (email) => apiFetch(`${passwordUrl}/reset`, { method: 'POST', body: JSON.stringify({ email }), headers: contentTypeJSON })
+  const passwordReset = apiPost('password/reset')
   const passwordChangeWithToken = (token, password) => apiFetch(`${passwordUrl}/change/token`, { method: 'POST', body: JSON.stringify({ password }), headers: { ...contentTypeJSON, token } })
   const passwordChangeWithOld = ({ oldPassword, password }) => apiFetch(`${passwordUrl}/change`, { method: 'POST', body: JSON.stringify({ password, oldPassword }), headers: { ...contentTypeJSON, token } })
 
-  const createClaim = (claim) => apiFetch(`${apiUrl}/works`, { method: 'POST', body: JSON.stringify(claim), headers: contentTypeJSON })
+  const createClaim = apiPost('works')
 
-  const login = (credentials) => apiFetch(`${apiUrl}/login`, { method: 'POST', body: JSON.stringify(credentials), headers: contentTypeJSON })
+  const accountCreate = apiPost('accounts')
+  const login = apiPost('login')
 
   return {
     getTokens,
@@ -67,6 +70,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     passwordChangeWithOld,
     createClaim,
     login,
+    accountCreate,
   }
 
 }

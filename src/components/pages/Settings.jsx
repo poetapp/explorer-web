@@ -1,10 +1,10 @@
 import classnames from 'classnames'
-import { pipe } from 'ramda'
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
-import { eventToValue } from 'helpers/eventToValue'
+import { Password } from 'components/molecules/Password'
+import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
 import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './Settings.scss'
@@ -16,16 +16,15 @@ export const Settings = () => (
         <h1>Profile Settings</h1>
       </header>
       <main>
-        <Password />
+        <PasswordForm />
       </main>
     </section>
   </Main>
 )
 
-const Password = () => {
+const PasswordForm = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
-  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('')
   const [api, isBusy] = useContext(ApiContext)
 
   const onSubmit = () => {
@@ -34,43 +33,18 @@ const Password = () => {
       .then(result => result && toast.success('Your password has been updated!'))
   }
 
-  const customValidity =
-    newPassword === newPasswordConfirmation
-      ? ''
-      : 'Passwords must match.'
-
   return (
     <section className={classNames.password}>
       <h2>Password</h2>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
-        <PasswordFormInput value={currentPassword} setter={setCurrentPassword} id="currentPassword">Current Password</PasswordFormInput>
-        <PasswordFormInput value={newPassword} setter={setNewPassword} id="newPassword">New Password</PasswordFormInput>
-        <PasswordFormInput value={newPasswordConfirmation} setter={setNewPasswordConfirmation} id="confirmNewPassword" customValidity={customValidity}>Confirm New Password</PasswordFormInput>
+        <label htmlFor="currentPassword">Current Password</label>
+        <Password value={currentPassword} onChange={setCurrentPassword} id="currentPassword"/>
+        <label htmlFor="newPassword">New Password</label>
+        <Password password={newPassword} onChange={setNewPassword} id="newPassword"/>
+        <label htmlFor="passwordRepeat">Confirm New Password</label>
+        <PasswordRepeat password={newPassword} id="passwordRepeat"/>
         <button type="submit" disabled={isBusy}>Update Password</button>
       </form>
     </section>
-  )
-}
-
-const PasswordFormInput = ({ children, value, setter, id, customValidity = '' }) => {
-  const input = useRef()
-
-  useEffect(() => {
-    if (input.current)
-      input.current.setCustomValidity(customValidity)
-  }, [customValidity])
-
-  return (
-    <div>
-      <label htmlFor={id}>{children}</label>
-      <input
-        type="password"
-        id={id}
-        value={value}
-        onChange={pipe(eventToValue, setter)}
-        required
-        ref={input}
-      />
-    </div>
   )
 }
