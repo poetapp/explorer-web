@@ -1,11 +1,10 @@
 import classnames from 'classnames'
-import { pipe } from 'ramda'
 import React, { useState, useContext } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
+import { Password } from 'components/molecules/Password'
 import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
-import { eventToValue } from 'helpers/eventToValue'
 import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './Settings.scss'
@@ -17,13 +16,13 @@ export const Settings = () => (
         <h1>Profile Settings</h1>
       </header>
       <main>
-        <Password />
+        <PasswordForm />
       </main>
     </section>
   </Main>
 )
 
-const Password = () => {
+const PasswordForm = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [api, isBusy] = useContext(ApiContext)
@@ -38,8 +37,10 @@ const Password = () => {
     <section className={classNames.password}>
       <h2>Password</h2>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
-        <PasswordFormInput value={currentPassword} setter={setCurrentPassword} id="currentPassword">Current Password</PasswordFormInput>
-        <PasswordFormInput value={newPassword} setter={setNewPassword} id="newPassword">New Password</PasswordFormInput>
+        <label htmlFor="currentPassword">Current Password</label>
+        <Password value={currentPassword} onChange={setCurrentPassword} id="currentPassword"/>
+        <label htmlFor="newPassword">New Password</label>
+        <Password password={newPassword} onChange={setNewPassword} id="newPassword"/>
         <label htmlFor="passwordRepeat">Confirm New Password</label>
         <PasswordRepeat password={newPassword} id="passwordRepeat"/>
         <button type="submit" disabled={isBusy}>Update Password</button>
@@ -47,16 +48,3 @@ const Password = () => {
     </section>
   )
 }
-
-const PasswordFormInput = ({ children, value, setter, id }) => (
-  <div>
-    <label htmlFor={id}>{children}</label>
-    <input
-      type="password"
-      id={id}
-      value={value}
-      onChange={pipe(eventToValue, setter)}
-      required
-    />
-  </div>
-)
