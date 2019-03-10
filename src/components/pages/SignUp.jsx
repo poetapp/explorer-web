@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
+import { Password } from 'components/molecules/Password'
 import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
 import { eventToValue } from 'helpers/eventToValue'
 import { ApiContext } from 'providers/ApiProvider'
@@ -39,13 +40,7 @@ export const SignUp = () => {
           onChange={pipe(eventToValue, setEmail)}
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={pipe(eventToValue, setPassword)}
-          required
-        />
+        <Password value={password} onChange={setPassword} />
         <PasswordRepeat password={password} />
         <p>Signing up means that you have read and agreed to the <Link to="/tos">terms of service</Link></p>
         <nav>

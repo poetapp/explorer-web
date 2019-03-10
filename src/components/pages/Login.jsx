@@ -1,10 +1,10 @@
-import { pipe } from 'ramda'
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
-import { eventToValue } from 'helpers/eventToValue'
+import { Email } from 'components/molecules/Email'
+import { Password } from 'components/molecules/Password'
 import { ApiContext } from 'providers/ApiProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -29,20 +29,8 @@ export const Login = () => {
       <h1>Log Into My Account</h1>
       <h2>Log in to make, view, and manage your claims on the Po.et Network.</h2>
       <form onSubmit={onSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={pipe(eventToValue, setEmail)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={pipe(eventToValue, setPassword)}
-          required
-        />
+        <Email value={email} onChange={setEmail} />
+        <Password value={password} onChange={setPassword} />
         <nav>
           <button type="submit" disabled={isBusy}>{ !isBusy ? 'Log In' : 'Please wait...'}</button>
           <nav>

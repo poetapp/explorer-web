@@ -1,12 +1,11 @@
-import { pipe } from 'ramda'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
-import classNames from './ForgotPassword.scss'
+import { Email } from 'components/molecules/Email'
 
-const eventToValue = event => event.currentTarget.value
+import classNames from './ForgotPassword.scss'
 
 export const ForgotPasswordInput = ({ onSubmit }) => {
   const [email, setEmail] = useState('')
@@ -20,13 +19,7 @@ export const ForgotPasswordInput = ({ onSubmit }) => {
     <Template>
       <h2>That's alright, we can reset it for you. All we need is the email address you signed up with.</h2>
       <form>
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={pipe(eventToValue, setEmail)}
-          required
-        />
+        <Email value={email} onChange={setEmail}/>
         <nav>
           <button type="submit" onClick={onSubmitWrapper(email)}>Send Email</button>
           <nav>
