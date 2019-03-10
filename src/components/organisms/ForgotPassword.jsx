@@ -18,10 +18,10 @@ export const ForgotPasswordInput = ({ onSubmit }) => {
   return (
     <Template>
       <h2>That's alright, we can reset it for you. All we need is the email address you signed up with.</h2>
-      <form>
+      <form onSubmit={onSubmitWrapper(email)}>
         <Email value={email} onChange={setEmail}/>
         <nav>
-          <button type="submit" onClick={onSubmitWrapper(email)}>Send Email</button>
+          <button type="submit">Send Email</button>
           <nav>
             <Link to="/login">Go to login</Link>
           </nav>
