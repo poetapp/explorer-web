@@ -1,5 +1,5 @@
 import { pipe } from 'ramda'
-import React, { useState, useContext, useEffect, useCallback } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
