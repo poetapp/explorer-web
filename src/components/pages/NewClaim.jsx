@@ -32,6 +32,7 @@ export const NewClaim = () => {
 const Form = ({ onSubmit, disabled }) => {
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
+  const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
 
@@ -43,7 +44,7 @@ const Form = ({ onSubmit, disabled }) => {
       dateCreated: date,
       author,
       tags,
-      content: 'content',
+      content,
     }
 
     onSubmit(claim)
@@ -55,6 +56,8 @@ const Form = ({ onSubmit, disabled }) => {
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
       <label for="">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
+      <label htmlFor="content">Content</label>
+      <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} required />
       <label for="">Tags</label>
       <input type="text" id="name" value={tags} onChange={pipe(eventToValue, setTags)} required />
       <label for="">Date Created</label>

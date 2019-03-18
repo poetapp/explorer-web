@@ -27,7 +27,7 @@
       font-weight: bold;
     }
 
-    input[type="text"] {
+    input[type="text"], textarea {
       display: block;
       height: 50px;
       margin-bottom: 10px;
@@ -39,6 +39,10 @@
       vertical-align: middle;
       background-color: #ffffff;
       border: 1px solid #cccccc;
+    }
+
+    textarea {
+      height: 140px;
     }
 
     button {
