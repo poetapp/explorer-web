@@ -1,5 +1,5 @@
 import { pipe } from 'ramda'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
@@ -11,9 +11,17 @@ import classNames from './NewClaim.scss'
 export const NewClaim = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
+  const [tokens, setTokens] = useState([])
+
+  useEffect(() => {
+    if (api)
+      api.getTokens().then(setTokens)
+  }, [api])
 
   const onSubmit = claim => {
-    api.createClaim(claim).then(setCreatedWork)
+    const mainnetToken = tokens.apiTokens.filter(token => !token.startsWith('TEST_'))[0]
+    if (mainnetToken)
+      api.createClaim(claim, mainnetToken).then(setCreatedWork)
   }
 
   return (
