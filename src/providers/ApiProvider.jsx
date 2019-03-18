@@ -36,8 +36,17 @@ export const ApiProvider = props => {
     setApi(Api({ token: account?.token, onServerError, onClientError, onRequestStart, onRequestFinish }))
   }, [account])
 
+  const useApi = (endpoint, args = []) => {
+    const [response, setResponse] = useState([])
+    useEffect(() => {
+      if (api && endpoint)
+        api[endpoint](...args).then(setResponse)
+    }, [api, endpoint])
+    return response
+  }
+
   return (
-    <ApiContext.Provider value={[api, isBusy]}>
+    <ApiContext.Provider value={[api, isBusy, useApi]}>
       { props.children }
     </ApiContext.Provider>
   )
