@@ -47,7 +47,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const tokensUrl = `${apiUrl}/tokens`
 
   const getTokens = () => apiFetch(tokensUrl)
-  const createToken = () => apiFetch(tokensUrl, { method: 'POST' })
+  const createToken = (network = 'live') => apiFetch(tokensUrl, { method: 'POST', body: JSON.stringify({ network }), headers: contentTypeJSON })
   const deleteToken = (token) => apiFetch(`${tokensUrl}/${token}`, { method: 'DELETE' })
 
   const passwordUrl = `${apiUrl}/password`
