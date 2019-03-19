@@ -55,15 +55,15 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
 
   return (
     <form onSubmit={onSubmitWrapper} disabled={disabled || isBusy}>
-      <label for="">Name</label>
+      <label htmlFor="name">Name</label>
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
-      <label for="">Author Name</label>
+      <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} required />
-      <label for="">Tags</label>
-      <input type="text" id="name" value={tags} onChange={pipe(eventToValue, setTags)} required />
-      <label for="">Date Created</label>
+      <label htmlFor="tags">Tags</label>
+      <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} required />
+      <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
     </form>
