@@ -55,7 +55,7 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
 
   return (
     <form onSubmit={onSubmitWrapper} disabled={disabled || isBusy}>
-      <label htmlFor="name">Name</label>
+      <label htmlFor="name">Title</label>
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
