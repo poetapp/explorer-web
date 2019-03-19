@@ -1,16 +1,22 @@
 @import 'Fonts';
 
 %buttonA {
+  $background-color: #36b074;
   display: block;
   padding: 10px 15px;
   border: 0;
   border-radius: 5px;
   color: #fff;
-  background-color: #36b074;
+  background-color: $background-color;
   cursor: pointer;
 
   &:hover {
     background-color: #2a9e65;
+  }
+
+  &:disabled {
+    background-color: desaturate($background-color, 50%);
+    cursor: auto;
   }
 }
 
