@@ -12,11 +12,10 @@ export const NewClaim = () => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
   const tokens = useApi('getTokens')
+  const mainnetToken = tokens?.apiTokens?.filter(token => !token.startsWith('TEST_'))[0]
 
   const onSubmit = claim => {
-    const mainnetToken = tokens.apiTokens.filter(token => !token.startsWith('TEST_'))[0]
-    if (mainnetToken)
-      api.createClaim(claim, mainnetToken).then(setCreatedWork)
+    api.createClaim(claim, mainnetToken).then(setCreatedWork)
   }
 
   return (
@@ -24,21 +23,22 @@ export const NewClaim = () => {
       <section className={classNames.newClaim}>
         <h1>New Claim</h1>
         <h2>Create a New Claim on the Po.et Network</h2>
+        { !mainnetToken && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <Form onSubmit={onSubmit} disabled={isBusy}/>
+          ? <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!mainnetToken}/>
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
   )
 }
 
-const Form = ({ onSubmit, disabled }) => {
+const Form = ({ onSubmit, disabled, isBusy }) => {
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
-
+  const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
   const onSubmitWrapper = event => {
     event.preventDefault();
     const claim = {
@@ -54,7 +54,7 @@ const Form = ({ onSubmit, disabled }) => {
   }
 
   return (
-    <form onSubmit={onSubmitWrapper}>
+    <form onSubmit={onSubmitWrapper} disabled={disabled || isBusy}>
       <label for="">Name</label>
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
       <label for="">Author Name</label>
@@ -65,7 +65,7 @@ const Form = ({ onSubmit, disabled }) => {
       <input type="text" id="name" value={tags} onChange={pipe(eventToValue, setTags)} required />
       <label for="">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
-      <button type="submit" disabled={disabled}>{ disabled ? 'Please wait...' : 'Submit'}</button>
+      <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
     </form>
   )
 }
