@@ -9,11 +9,14 @@ import { ApiContext } from 'providers/ApiProvider'
 import classNames from './NewClaim.scss'
 
 export const NewClaim = () => {
-  const [api, isBusy] = useContext(ApiContext)
+  const [api, isBusy, useApi] = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
+  const tokens = useApi('getTokens')
 
   const onSubmit = claim => {
-    api.createClaim(claim).then(setCreatedWork)
+    const mainnetToken = tokens.apiTokens.filter(token => !token.startsWith('TEST_'))[0]
+    if (mainnetToken)
+      api.createClaim(claim, mainnetToken).then(setCreatedWork)
   }
 
   return (

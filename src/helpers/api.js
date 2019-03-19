@@ -17,7 +17,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
     headers: {
-      token,
+      token: requestInit?.headers?.token || token,
       ...requestInit.headers,
     }
   })
@@ -42,7 +42,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
       })
   }
 
-  const apiPost = (resource) => (json) => apiFetch(`${apiUrl}/${resource}`, { method: 'POST', body: JSON.stringify(json), headers: contentTypeJSON })
+  const apiPost = (resource) => (json, token) => apiFetch(`${apiUrl}/${resource}`, { method: 'POST', body: JSON.stringify(json), headers: { ...contentTypeJSON, token } })
 
   const tokensUrl = `${apiUrl}/tokens`
 
