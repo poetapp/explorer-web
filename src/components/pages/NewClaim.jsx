@@ -62,7 +62,7 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} required />
       <label htmlFor="tags">Tags</label>
-      <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} required />
+      <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
