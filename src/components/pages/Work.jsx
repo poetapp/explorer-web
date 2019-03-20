@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useWorkById } from 'hooks/useWork'
@@ -109,12 +109,21 @@ const Badge = ({ date }) => (
   </section>
 )
 
-const BadgeUrl = ({ workId, date }) => (
-  <section className={classNames.badgeUrl}>
-    <textarea value={badgeCode({ workId, date })} readOnly={true} />
-    <button>Copy</button>
-  </section>
-)
+const BadgeUrl = ({ workId, date }) => {
+  const textarea = useRef()
+
+  const onCopy = () => {
+    textarea.current?.select()
+    document.execCommand('copy')
+  }
+
+  return (
+    <section className={classNames.badgeUrl}>
+      <textarea value={badgeCode({ workId, date })} readOnly={true} ref={textarea} />
+      <button onClick={onCopy}>Copy</button>
+    </section>
+  )
+}
 
 const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`

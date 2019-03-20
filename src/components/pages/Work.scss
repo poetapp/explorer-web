@@ -116,6 +116,7 @@ $main-width: 960px;
         border-top: 1px solid $base-color;
         background-color: lighten($base-color, 5%);
         color: inherit;
+        cursor: pointer;
       }
     }
   }
