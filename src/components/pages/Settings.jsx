@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import { pipe } from 'ramda'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
@@ -51,6 +51,7 @@ const ProfileForm = () => {
       ...account,
       ...newFields,
     })
+    toast.success('Profile updated.')
   }
 
   return (
