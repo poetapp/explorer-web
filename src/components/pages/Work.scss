@@ -98,9 +98,15 @@ $main-width: 960px;
       font-family: monospace;
       color: darken($base-color, 35%);
 
-      span {
+      textarea {
         display: block;
         padding: 8px;
+        font-family: monospace;
+        height: 150px;
+        border: none;
+        color: inherit;
+        font-size: 14px;
+        line-height: 20px;
       }
 
       button {
@@ -110,6 +116,7 @@ $main-width: 960px;
         border-top: 1px solid $base-color;
         background-color: lighten($base-color, 5%);
         color: inherit;
+        cursor: pointer;
       }
     }
   }

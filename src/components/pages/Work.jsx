@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useWorkById } from 'hooks/useWork'
@@ -40,7 +40,7 @@ const Work = ({ work, content }) => (
     </header>
     <main>
       <Content content={content}/>
-      <AuthenticationBadgePreview/>
+      <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
     </main>
   </section>
 )
@@ -89,14 +89,14 @@ const Content = ({ content }) => (
   </section>
 )
 
-const AuthenticationBadgePreview = () => {
+const AuthenticationBadgePreview = ({ workId, date }) => {
   const formatDate = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
   return (
     <section className={''}>
       <h1>Authentication Badge Preview</h1>
-      <p>Embed this iframe to your site so readers can easily verify your timestamp.</p>
-      <Badge date={formatDate(new Date())}/>
-      <BadgeUrl />
+      <p>Embed this html and css to your site so readers can easily verify your timestamp.</p>
+      <Badge date={formatDate(date)}/>
+      <BadgeUrl workId={workId} date={formatDate(date)} />
     </section>
   )
 }
@@ -109,20 +109,74 @@ const Badge = ({ date }) => (
   </section>
 )
 
-const BadgeUrl = () => (
-  <section className={classNames.badgeUrl}>
-    <span>
-      {
-        '<iframe src="">' +
-        '<div class="poet-badge" style="script/poetBadge.css" >' +
-        '<img src="embed" />' +
-        '</div>' +
-        '</iframe>'
-      }
-    </span>
-    <button>Copy URL</button>
-  </section>
-)
+const BadgeUrl = ({ workId, date }) => {
+  const textarea = useRef()
+  const [copied, setCopied] = useState(false)
+
+  const onCopy = () => {
+    textarea.current?.select()
+    document.execCommand('copy')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 3000)
+  }
+
+  return (
+    <section className={classNames.badgeUrl}>
+      <textarea value={badgeCode({ workId, date })} readOnly={true} ref={textarea} />
+      <button onClick={onCopy}>{!copied ? 'Copy' : 'Copied!'}</button>
+    </section>
+  )
+}
 
 const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
+const baseUrl = 'https://explorer-mainnet.poetnetwork.net'
+
+const badgeCode = ({ workId, date }) => badgeHTML({ workId, date }) + '\n\n' + badgeCSS
+
+const badgeHTML = ({ workId, date }) => (
+  `<a href="${baseUrl}/works/${workId}" class="poet-badge" >\n` +
+  `  <img src="${baseUrl}/${Quill}" />\n` +
+  `  <h1>Licensed via Po.et</h1>\n` +
+  `  <span>${date}</span>\n` +
+  '</a>'
+)
+
+const badgeCSS = `
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+    .poet-badge {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto;
+      grid-column-gap: 8px;
+      align-items: center;
+      background-color: white;
+      padding: 8px 10px;
+      border: 1px solid #dfdfdf;
+      border-radius: 4px;
+      width: 190px;
+      margin-bottom: 15px;
+      text-decoration: none;
+      font-family: "Open Sans";
+      color: #333;
+    }
+
+    .poet-badge img {
+      grid-row: 1 / 3;
+      width: 39px;
+      margin-right: 8px;
+    }
+
+    .poet-badge h1 {
+      margin: 0;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .poet-badge span {
+      font-size: 10px;
+    }
+  </style>
+`
