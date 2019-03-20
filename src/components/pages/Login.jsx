@@ -37,7 +37,7 @@ export const Login = () => {
           <button type="submit" disabled={isBusy}>{ !isBusy ? 'Log In' : 'Please wait...'}</button>
           <nav>
             <Link to="/signup">Don't have an account yet?</Link>
-            <Link to="/forgotpassword">Forgot Password?</Link>
+            <Link to="/forgot-password">Forgot Password?</Link>
           </nav>
         </nav>
       </form>

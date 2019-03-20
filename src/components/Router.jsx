@@ -35,9 +35,9 @@ export const Router = () => {
         <Route path="/issuers/:id" render={({ match }) => <IssuerById id={match.params.id} />} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/forgotpassword" component={ForgotPassword} />
-        <Route path="/changepasswordwithtoken" render={pipe(getQueryToken, token => <ChangePasswordWithToken token={token}/>)} />
-        <Route path="/confirm-mail" render={pipe(getQueryToken, token => <ConfirmMail token={token}/>)} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/change-password" render={pipe(getQueryToken, token => <ChangePasswordWithToken token={token}/>)} />
+        <Route path="/confirm-email" render={pipe(getQueryToken, token => <ConfirmMail token={token}/>)} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
         <Route path="/new-claim" component={NewClaim} />
