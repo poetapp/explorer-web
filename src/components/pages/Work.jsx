@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useWorkById } from 'hooks/useWork'
@@ -61,9 +61,15 @@ const Overview = ({ name, author, issuer, datePublished, tags }) => {
 }
 
 const Issuer = ({ issuer }) => {
-  const [api, isBusy, useApi] = useContext(ApiContext)
-  const issuerAccount = useApi('accountGet', issuer)
-  return <Link to={`/issuers/${issuer}`}>{issuerAccount?.name || '...'}</Link>
+  const [api] = useContext(ApiContext)
+  const [account, setAccount] = useState()
+
+  useEffect(() => {
+    if (issuer)
+      api.accountGet(issuer).then(setAccount)
+  }, [issuer])
+
+  return <Link to={`/issuers/${issuer}`}>{account?.name || '...'}</Link>
 }
 
 const Links = ({ ipfsLink, bitcoinLink }) => (
