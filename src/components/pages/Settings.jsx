@@ -4,9 +4,9 @@ import React, { useState, useContext } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
-import { Email } from 'components/molecules/Email'
-import { Password } from 'components/molecules/Password'
-import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
+import { Email } from 'components/shared/Email'
+import { Password } from 'components/shared/Password'
+import { PasswordRepeat } from 'components/shared/PasswordRepeat'
 
 import { eventToValue } from 'helpers/eventToValue'
 import { ApiContext } from 'providers/ApiProvider'

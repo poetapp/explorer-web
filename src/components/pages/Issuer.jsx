@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import { DefaultAvatar, LogoWhite } from 'Images'
 
-import { Works } from 'components/molecules/Works'
+import { Works } from 'components/shared/Works'
 import { Main } from 'components/templates/Main'
 import { useWorkByIssuer } from 'hooks/useWork'
 import {ApiContext} from 'providers/ApiProvider'

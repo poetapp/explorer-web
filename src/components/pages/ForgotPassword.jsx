@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
-import { Email } from 'components/molecules/Email'
+import { Email } from 'components/shared/Email'
 import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './ForgotPassword.scss'
