@@ -96,7 +96,7 @@ const WalletForm = () => {
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <label htmlFor="eth">ETH Address</label>
         <input type="text" id="eth" value={ethereumAddress} onChange={pipe(eventToValue, setEthereumAddress)} />
-        <button type="submit" disabled={isBusy}>Submit</button>
+        <button type="submit" disabled={isBusy}>Save</button>
       </form>
     </section>
   )
