@@ -31,13 +31,17 @@ const Profile = ({ issuer }) => {
   return (
     <section className={classNames.profile}>
       <img src={DefaultAvatar}/>
-      <h1>{account?.name}</h1>
+      <h1>{account?.name || 'Po.et User'}</h1>
       <h2>{account?.bio}</h2>
       <span>{account?.email}</span>
-      <a href="#">
-        <img src={LogoWhite} />
-        <span>Tip POE</span>
-      </a>
+      {account?.ethereumAddress_ && <TipPoe/>}
     </section>
   )
 }
+
+const TipPoe = () => (
+  <a href="#">
+    <img src={LogoWhite} />
+    <span>Tip POE</span>
+  </a>
+)
