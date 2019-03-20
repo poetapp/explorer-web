@@ -40,7 +40,7 @@ const Work = ({ work, content }) => (
     </header>
     <main>
       <Content content={content}/>
-      <AuthenticationBadgePreview workId={work?.id} date={work?.datePublished}/>
+      <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
     </main>
   </section>
 )
