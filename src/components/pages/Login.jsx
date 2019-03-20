@@ -16,11 +16,11 @@ export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const setAccountWithEmail = email => account => setAccount(account && { ...account, email })
-
-  const onSubmit = event => {
+  const onSubmit = async event => {
     event.preventDefault()
-    api.login({ email, password }).then(setAccountWithEmail(email))
+    const loginResponse = await api.login({ email, password })
+    if (loginResponse)
+      api.accountGet(loginResponse.issuer).then(setAccount)
   }
 
   return (
