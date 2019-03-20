@@ -1,15 +1,19 @@
 import React from 'react'
 
-import { useWorks } from 'hooks/useWork'
 import { Main } from 'components/templates/Main'
-import { Works as WorksOrganism } from 'components/organisms/Works'
+import { Works as WorksMolecule } from 'components/molecules/Works'
+import { useWorks } from 'hooks/useWork'
+
+import classNames from './Works.scss'
 
 export const Works = () => {
   const works = useWorks()
 
   return (
     <Main>
-      <WorksOrganism works={works}/>
+      <section className={classNames.works}>
+        <WorksMolecule works={works} />
+      </section>
     </Main>
   )
 }
