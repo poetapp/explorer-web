@@ -18,11 +18,6 @@
     }
   }
 
-  > main {
-    @include letterboxed();
-
-  }
-
   h2 {
     margin-bottom: 40px;
     font-size: 22.4px;
@@ -66,8 +61,10 @@
 }
 
 .profile, .wallet, .password {
+  @include letterboxed();
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 50px 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
   border-bottom: 1px solid #cfcfcf;
 }
