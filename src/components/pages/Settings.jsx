@@ -22,6 +22,7 @@ export const Settings = () => (
       </header>
       <main>
         <ProfileForm />
+        <WalletForm />
         <PasswordForm />
       </main>
     </section>
@@ -55,7 +56,7 @@ const ProfileForm = () => {
   }
 
   return (
-    <section className={classNames.password}>
+    <section className={classNames.profile}>
       <h2>Profile</h2>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <label htmlFor="name">Name</label>
@@ -70,6 +71,36 @@ const ProfileForm = () => {
   )
 }
 
+const WalletForm = () => {
+  const [api, isBusy] = useContext(ApiContext)
+  const [account, setAccount] = useContext(SessionContext)
+  const [ethereumAddress, setEthereumAddress] = useState(account.ethereumAddress || '')
+
+  const onSubmit = async () => {
+    event.preventDefault()
+
+    if (!account.issuer)
+      throw new Error('account.issuer not set')
+
+    await api.accountPatch(account.issuer)({ ethereumAddress })
+    setAccount({
+      ...account,
+      ethereumAddress,
+    })
+    toast.success('Wallet updated.')
+  }
+
+  return (
+    <section className={classNames.wallet}>
+      <h2>Wallet</h2>
+      <form onSubmit={onSubmit} className={classnames({ isBusy })}>
+        <label htmlFor="eth">ETH Address</label>
+        <input type="text" id="eth" value={ethereumAddress} onChange={pipe(eventToValue, setEthereumAddress)} />
+        <button type="submit" disabled={isBusy}>Save</button>
+      </form>
+    </section>
+  )
+}
 
 const PasswordForm = () => {
   const [currentPassword, setCurrentPassword] = useState('')

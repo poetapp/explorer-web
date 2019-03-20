@@ -1,5 +1,7 @@
 $letterboxed-width: 960px;
 
 @mixin letterboxed() {
-  padding: 0 calc(50% - #{$letterboxed-width / 2});
+  $padding: calc(50% - #{$letterboxed-width / 2});
+  padding-left: $padding;
+  padding-right: $padding;
 }
