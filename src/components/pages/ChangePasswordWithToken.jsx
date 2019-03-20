@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
-import { Password } from 'components/molecules/Password'
-import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
+import { Password } from 'components/shared/Password'
+import { PasswordRepeat } from 'components/shared/PasswordRepeat'
 import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './ChangePasswordWithToken.scss'

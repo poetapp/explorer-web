@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Main } from 'components/templates/Main'
-import { Works as WorksMolecule } from 'components/molecules/Works'
+import { Works as WorksMolecule } from 'components/shared/Works'
 import { useWorks } from 'hooks/useWork'
 
 import classNames from './Works.scss'

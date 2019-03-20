@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 import { Logo } from 'Images'
 
-import { Email } from 'components/molecules/Email'
-import { Password } from 'components/molecules/Password'
+import { Email } from 'components/shared/Email'
+import { Password } from 'components/shared/Password'
 import { ApiContext } from 'providers/ApiProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
