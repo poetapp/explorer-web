@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { DefaultAvatar, LogoWhite } from 'Images'
 
 import { Works } from 'components/molecules/Works'
 import { Main } from 'components/templates/Main'
 import { useWorkByIssuer } from 'hooks/useWork'
+import {ApiContext} from 'providers/ApiProvider'
 
 import classNames from './Issuer.scss'
 
@@ -15,7 +16,7 @@ export const IssuerById = ({ id }) => {
     <Main>
       <section className={classNames.issuer}>
         <div className={classNames.letterBoxing}>
-          <Profile name={works && works[0] && works[0].claim && works[0].claim.author || 'Author'} />
+          <Profile issuer={id} />
           <Works works={works} />
         </div>
       </section>
@@ -23,15 +24,20 @@ export const IssuerById = ({ id }) => {
   )
 }
 
-const Profile = ({ name }) => (
-  <section className={classNames.profile}>
-    <img src={DefaultAvatar}/>
-    <h1>{name}</h1>
-    <h2>Two roads diverged in a yellow wood, and sorry I could not travel both.</h2>
-    <span>contact@po.et</span>
-    <a href="#">
-      <img src={LogoWhite} />
-      <span>Tip POE</span>
-    </a>
-  </section>
-)
+const Profile = ({ issuer }) => {
+  const [api, isBusy, useApi] = useContext(ApiContext)
+  const account = useApi('accountGet', issuer)
+
+  return (
+    <section className={classNames.profile}>
+      <img src={DefaultAvatar}/>
+      <h1>{account?.name}</h1>
+      <h2>{account?.bio}</h2>
+      <span>{account?.email}</span>
+      <a href="#">
+        <img src={LogoWhite} />
+        <span>Tip POE</span>
+      </a>
+    </section>
+  )
+}
