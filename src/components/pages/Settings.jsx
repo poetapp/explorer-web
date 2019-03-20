@@ -35,13 +35,21 @@ const ProfileForm = () => {
   const [email, setEmail] = useState(account.email || '')
   const [bio, setBio] = useState(account.bio || '')
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     event.preventDefault()
-    setAccount({
-      ...account,
+
+    if (!account.issuer)
+      throw new Error('account.issuer not set')
+
+    const newFields = {
       name,
       email,
       bio,
+    }
+    await api.accountPatch(account.issuer)(newFields)
+    setAccount({
+      ...account,
+      ...newFields,
     })
   }
 
