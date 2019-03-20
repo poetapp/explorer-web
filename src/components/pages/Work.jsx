@@ -40,7 +40,7 @@ const Work = ({ work, content }) => (
     </header>
     <main>
       <Content content={content}/>
-      <AuthenticationBadgePreview issuer={work?.issuer}/>
+      <AuthenticationBadgePreview workId={work?.id} date={work?.datePublished}/>
     </main>
   </section>
 )
@@ -89,14 +89,14 @@ const Content = ({ content }) => (
   </section>
 )
 
-const AuthenticationBadgePreview = ({ issuer }) => {
+const AuthenticationBadgePreview = ({ workId, date }) => {
   const formatDate = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
   return (
     <section className={''}>
       <h1>Authentication Badge Preview</h1>
-      <p>Embed this iframe to your site so readers can easily verify your timestamp.</p>
-      <Badge date={formatDate(new Date())}/>
-      <BadgeUrl issuer={issuer} />
+      <p>Embed this html and css to your site so readers can easily verify your timestamp.</p>
+      <Badge date={formatDate(date)}/>
+      <BadgeUrl workId={workId} date={formatDate(date)} />
     </section>
   )
 }
@@ -109,13 +109,9 @@ const Badge = ({ date }) => (
   </section>
 )
 
-const BadgeUrl = ({ issuer, date }) => (
+const BadgeUrl = ({ workId, date }) => (
   <section className={classNames.badgeUrl}>
-    <span>
-      {
-        badgeHTML({ issuer, date })
-      }
-    </span>
+    <textarea value={badgeHTML({ workId, date })} readOnly={true} />
     <button>Copy</button>
   </section>
 )
@@ -124,10 +120,10 @@ const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
 const baseUrl = 'https://explorer-mainnet.poetnetwork.net'
 
-const badgeHTML = ({ issuer, date }) => (
-  `<a href="${baseUrl}/issuers/${issuer}" class="poet-badge" >` +
-  `<img src="${baseUrl}/${Quill}" />` +
-  `<h1>Licensed via Po.et</h1>` +
-  `<span>${date}</span>` +
+const badgeHTML = ({ workId, date }) => (
+  `<a href="${baseUrl}/works/${workId}" class="poet-badge" >\n` +
+  `  <img src="${baseUrl}/${Quill}" />\n` +
+  `  <h1>Licensed via Po.et</h1>\n` +
+  `  <span>${date}</span>\n` +
   '</a>'
 )
