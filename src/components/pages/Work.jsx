@@ -111,16 +111,19 @@ const Badge = ({ date }) => (
 
 const BadgeUrl = ({ workId, date }) => {
   const textarea = useRef()
+  const [copied, setCopied] = useState(false)
 
   const onCopy = () => {
     textarea.current?.select()
     document.execCommand('copy')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 3000)
   }
 
   return (
     <section className={classNames.badgeUrl}>
       <textarea value={badgeCode({ workId, date })} readOnly={true} ref={textarea} />
-      <button onClick={onCopy}>Copy</button>
+      <button onClick={onCopy}>{!copied ? 'Copy' : 'Copied!'}</button>
     </section>
   )
 }
