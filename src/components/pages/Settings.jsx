@@ -1,14 +1,16 @@
 import classnames from 'classnames'
 import { pipe } from 'ramda'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
+import { Email } from 'components/molecules/Email'
 import { Password } from 'components/molecules/Password'
 import { PasswordRepeat } from 'components/molecules/PasswordRepeat'
-import { eventToValue } from 'helpers/eventToValue'
 
+import { eventToValue } from 'helpers/eventToValue'
 import { ApiContext } from 'providers/ApiProvider'
+import { SessionContext } from 'providers/SessionProvider'
 
 import classNames from './Settings.scss'
 
@@ -27,13 +29,20 @@ export const Settings = () => (
 )
 
 const ProfileForm = () => {
-  const [api, isBusy, useApi] = useContext(ApiContext)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [bio, setBio] = useState('')
+  const [api, isBusy] = useContext(ApiContext)
+  const [account, setAccount] = useContext(SessionContext)
+  const [name, setName] = useState(account.name || '')
+  const [email, setEmail] = useState(account.email || '')
+  const [bio, setBio] = useState(account.bio || '')
 
   const onSubmit = () => {
     event.preventDefault()
+    setAccount({
+      ...account,
+      name,
+      email,
+      bio,
+    })
   }
 
   return (
@@ -43,7 +52,7 @@ const ProfileForm = () => {
         <label htmlFor="name">Name</label>
         <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} />
         <label htmlFor="email">Email</label>
-        <input type="text" id="email" value={email} onChange={pipe(eventToValue, setEmail)} />
+        <Email value={email} onChange={setEmail} id="email" />
         <label htmlFor="bio">Bio</label>
         <input type="text" id="bio" value={bio} onChange={pipe(eventToValue, setBio)} />
         <button type="submit" disabled={isBusy}>Submit</button>
