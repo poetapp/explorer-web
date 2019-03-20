@@ -17,8 +17,8 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
     headers: {
-      token: requestInit?.headers?.token || token,
       ...requestInit.headers,
+      token: requestInit?.headers?.token || token,
     }
   })
 
@@ -43,6 +43,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   }
 
   const apiPost = (resource) => (json, token) => apiFetch(`${apiUrl}/${resource}`, { method: 'POST', body: JSON.stringify(json), headers: { ...contentTypeJSON, token } })
+  const apiPatch = (resource) => (json, token) => apiFetch(`${apiUrl}/${resource}`, { method: 'PATCH', body: JSON.stringify(json), headers: { ...contentTypeJSON, token } })
 
   const tokensUrl = `${apiUrl}/tokens`
 
@@ -59,6 +60,9 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const createClaim = apiPost('works')
 
   const accountCreate = apiPost('accounts')
+  const accountGet = (issuer) => apiFetch(`${apiUrl}/accounts/${issuer}`)
+  const accountPatch = (issuer) => apiPatch(`accounts/${issuer}`)
+
   const login = apiPost('login')
 
   return {
@@ -71,6 +75,8 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     createClaim,
     login,
     accountCreate,
+    accountGet,
+    accountPatch,
   }
 
 }
