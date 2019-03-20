@@ -16,11 +16,13 @@ export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const setAccountWithLoginData = ({ token, issuer }) => account => setAccount(account && { ...account, token, issuer })
+
   const onSubmit = async event => {
     event.preventDefault()
     const loginResponse = await api.login({ email, password })
     if (loginResponse)
-      api.accountGet(loginResponse.issuer).then(setAccount)
+      api.accountGet(loginResponse.issuer).then(setAccountWithLoginData(loginResponse))
   }
 
   return (
