@@ -65,8 +65,9 @@
   }
 }
 
-.password {
+.profile, .wallet, .password {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 50px 0;
+  border-bottom: 1px solid #cfcfcf;
 }

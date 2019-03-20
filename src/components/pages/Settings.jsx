@@ -56,7 +56,7 @@ const ProfileForm = () => {
   }
 
   return (
-    <section className={classNames.password}>
+    <section className={classNames.profile}>
       <h2>Profile</h2>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <label htmlFor="name">Name</label>
@@ -91,7 +91,7 @@ const WalletForm = () => {
   }
 
   return (
-    <section className={classNames.password}>
+    <section className={classNames.wallet}>
       <h2>Wallet</h2>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <label htmlFor="eth">ETH Address</label>
@@ -101,7 +101,6 @@ const WalletForm = () => {
     </section>
   )
 }
-
 
 const PasswordForm = () => {
   const [currentPassword, setCurrentPassword] = useState('')
