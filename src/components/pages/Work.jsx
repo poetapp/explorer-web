@@ -1,13 +1,14 @@
 import moment from 'moment'
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useWorkById } from 'hooks/useWork'
 import { useFetch } from 'hooks/useFetch'
+import { ApiContext } from 'providers/ApiProvider'
 
 import { Main } from 'components/templates/Main'
 
-import { DefaultAvatar, IPFS, Bitcoin, Quill } from 'Images'
+import { IPFS, Bitcoin, Quill } from 'Images'
 
 import classNames from './Work.scss'
 
@@ -28,10 +29,10 @@ const Work = ({ work, content }) => (
       <Overview
         name={work?.claim.name}
         author={work?.claim.author}
+        issuer={work?.issuer}
         datePublished={work?.claim.datePublished}
         tags={work?.claim.tags}
       />
-      <Issuer issuer={work?.issuer} avatarUrl={DefaultAvatar} name={work?.claim.author} />
       <Links
         bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
         ipfsLink={ipfsLink(work?.anchor?.ipfsDirectoryHash)}
@@ -44,28 +45,25 @@ const Work = ({ work, content }) => (
   </section>
 )
 
-const Issuer = ({ issuer, avatarUrl, name }) => (
-  <section className={classNames.issuer}>
-    <h1>Claim Made By:</h1>
-    <Link to={`/issuers/${issuer}`}>
-      <img src={DefaultAvatar} />
-      <span>{name}</span>
-    </Link>
-  </section>
-)
-
-const Overview = ({ name, author, datePublished, tags }) => {
+const Overview = ({ name, author, issuer, datePublished, tags }) => {
   const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
   return (
     <section className={classNames.overview}>
       <h1>{name}</h1>
       <ul>
         <li>Author: {author}</li>
+        <li>Claim made by: <Issuer issuer={issuer}/></li>
         <li>Date Published: {formatDate(datePublished)}</li>
         <li>Tags: {tags}</li>
       </ul>
     </section>
   )
+}
+
+const Issuer = ({ issuer }) => {
+  const [api, isBusy, useApi] = useContext(ApiContext)
+  const issuerAccount = useApi('accountGet', issuer)
+  return <Link to={`/issuers/${issuer}`}>{issuerAccount?.name || '...'}</Link>
 }
 
 const Links = ({ ipfsLink, bitcoinLink }) => (
