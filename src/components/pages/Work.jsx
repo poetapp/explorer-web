@@ -40,7 +40,7 @@ const Work = ({ work, content }) => (
     </header>
     <main>
       <Content content={content}/>
-      <AuthenticationBadgePreview/>
+      <AuthenticationBadgePreview issuer={work?.issuer}/>
     </main>
   </section>
 )
@@ -89,14 +89,14 @@ const Content = ({ content }) => (
   </section>
 )
 
-const AuthenticationBadgePreview = () => {
+const AuthenticationBadgePreview = ({ issuer }) => {
   const formatDate = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
   return (
     <section className={''}>
       <h1>Authentication Badge Preview</h1>
       <p>Embed this iframe to your site so readers can easily verify your timestamp.</p>
       <Badge date={formatDate(new Date())}/>
-      <BadgeUrl />
+      <BadgeUrl issuer={issuer} />
     </section>
   )
 }
@@ -109,20 +109,25 @@ const Badge = ({ date }) => (
   </section>
 )
 
-const BadgeUrl = () => (
+const BadgeUrl = ({ issuer, date }) => (
   <section className={classNames.badgeUrl}>
     <span>
       {
-        '<iframe src="">' +
-        '<div class="poet-badge" style="script/poetBadge.css" >' +
-        '<img src="embed" />' +
-        '</div>' +
-        '</iframe>'
+        badgeHTML({ issuer, date })
       }
     </span>
-    <button>Copy URL</button>
+    <button>Copy</button>
   </section>
 )
 
 const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
+const baseUrl = 'https://explorer-mainnet.poetnetwork.net'
+
+const badgeHTML = ({ issuer, date }) => (
+  `<a href="${baseUrl}/issuers/${issuer}" class="poet-badge" >` +
+  `<img src="${baseUrl}/${Quill}" />` +
+  `<h1>Licensed via Po.et</h1>` +
+  `<span>${date}</span>` +
+  '</a>'
+)
