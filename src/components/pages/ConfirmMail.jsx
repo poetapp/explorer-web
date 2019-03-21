@@ -3,41 +3,25 @@ import { Link } from 'react-router-dom'
 
 import { useConfirmEmail } from 'hooks/useConfirmMail'
 import { useCounterLoop } from 'hooks/useCounterLoop'
-import { useProfile } from 'hooks/useProfile'
 import { SessionContext } from 'providers/SessionProvider'
 
 import { Logo } from 'Images'
 
 import classNames from './ConfirmEmail.scss'
 
-const useIfTruthy = fn => value => useEffect(() => {
-  if (value)
-    fn(value)
-}, [value])
-
-const useLogIfTruthy = useIfTruthy(console.error.bind(console))
-
 export const ConfirmMail = ({ token }) => {
   const { loginToken, error: confirmEmailError } = useConfirmEmail(token)
-  const { profile, error: profileError } = useProfile(loginToken)
   const [account, setAccount] = useContext(SessionContext)
 
   useEffect(() => {
-    if (loginToken && profile)
-      setAccount({
-        token: loginToken,
-        email: profile.email,
-        issuer: profile.issuer,
-      })
-  }, [loginToken, profile])
-
-  useLogIfTruthy(confirmEmailError)
-  useLogIfTruthy(profileError)
+    if (loginToken)
+      setAccount()
+  }, [loginToken])
 
   return (
     <section className={classNames.confirmEmail}>
       <Header />
-      <Main loginToken={loginToken} error={confirmEmailError} issuer={profile?.issuer} />
+      <Main loginToken={loginToken} error={confirmEmailError} />
     </section>
   )
 }
@@ -49,13 +33,13 @@ const Header = () => (
   </header>
 )
 
-const Main = ({ loginToken, issuer, error }) => (
+const Main = ({ loginToken, error }) => (
   <main>
     {
       !loginToken && !error
         ? <InProgress />
         : loginToken
-        ? <Success issuer={issuer} />
+        ? <Success />
         : <Failure reason={error} />
     }
   </main>
@@ -70,10 +54,10 @@ const InProgress = () => {
   )
 }
 
-const Success = ({ issuer }) => (
+const Success = () => (
   <section>
     <h1>Thank you! Your email is now verified :)</h1>
-    <Link to={`/issuers/${issuer}`}>Go to dashboard</Link>
+    <Link to="/login">Go to login</Link>
   </section>
 )
 
