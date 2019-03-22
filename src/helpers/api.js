@@ -87,4 +87,4 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 
 }
 
-const filtersToQueryParams = (filters) => Object.entries(filters, ([key, value]) => `${key}=${value}`).join('&')
+const filtersToQueryParams = (filters) => Object.entries(filters).map(([key, value]) => `${key}=${value}`).join('&')
