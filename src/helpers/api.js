@@ -67,6 +67,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const login = apiPost('login')
 
   const workGetById = (id) => apiFetch(`${nodeUrl}/works/${id}`)
+  const worksGetByFilters = (filters = {}) => apiFetch(`${nodeUrl}/works?${filtersToQueryParams(filters)}`)
 
   return {
     getTokens,
@@ -81,6 +82,9 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     accountGet,
     accountPatch,
     workGetById,
+    worksGetByFilters,
   }
 
 }
+
+const filtersToQueryParams = (filters) => Object.entries(filters, ([key, value]) => `${key}=${value}`).join('&')
