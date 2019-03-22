@@ -13,6 +13,7 @@ const contentTypeJSON = {
 
 export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish }) => {
   const apiUrl = 'https://api.poetnetwork.net'
+  const nodeUrl = 'https://mainnet.poetnetwork.net'
 
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
@@ -65,6 +66,8 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 
   const login = apiPost('login')
 
+  const workGetById = (id) => apiFetch(`${nodeUrl}/works/${id}`)
+
   return {
     getTokens,
     createToken,
@@ -77,6 +80,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     accountCreate,
     accountGet,
     accountPatch,
+    workGetById,
   }
 
 }

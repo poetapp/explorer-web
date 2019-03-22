@@ -2,7 +2,6 @@ import moment from 'moment'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useWorkById } from 'hooks/useWork'
 import { useFetch } from 'hooks/useFetch'
 import { ApiContext } from 'providers/ApiProvider'
 
@@ -13,12 +12,15 @@ import { IPFS, Bitcoin, Quill } from 'Images'
 import classNames from './Work.scss'
 
 export const WorkById = ({ id }) => {
-  const work = useWorkById(id)
-  const content = useFetch(work && work.claim && work.claim.archiveUrl)
+  const [api, isBusy, useApi] = useContext(ApiContext)
+  const work = useApi('workGetById', id)
+  const content = useFetch(work?.claim?.archiveUrl)
+
+  console.log('work', work)
 
   return (
     <Main>
-      <Work work={work} content={content && content.substring(0, 3000)} />
+      <Work work={work} content={content?.substring(0, 3000)} />
     </Main>
   )
 }
@@ -27,11 +29,11 @@ const Work = ({ work, content }) => (
   <section className={classNames.work}>
     <header>
       <Overview
-        name={work?.claim.name}
-        author={work?.claim.author}
+        name={work?.claim?.name}
+        author={work?.claim?.author}
         issuer={work?.issuer}
-        datePublished={work?.claim.datePublished}
-        tags={work?.claim.tags}
+        datePublished={work?.claim?.datePublished}
+        tags={work?.claim?.tags}
       />
       <Links
         bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
