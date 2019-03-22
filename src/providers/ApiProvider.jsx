@@ -37,7 +37,7 @@ export const ApiProvider = props => {
   }, [account])
 
   const useApi = (endpoint, ...args) => {
-    const [response, setResponse] = useState([])
+    const [response, setResponse] = useState()
     useEffect(() => {
       if (api && endpoint)
         api[endpoint](...args).then(setResponse)
