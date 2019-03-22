@@ -23,7 +23,7 @@ export const SignUp = () => {
     api.accountCreate({ email, password }).then(setAccountFromApiResponse)
   }
 
-  const setAccountFromApiResponse = token => token && setAccount({
+  const setAccountFromApiResponse = ({ token } = {}) => token && setAccount({
     token,
     email,
   })
