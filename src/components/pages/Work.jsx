@@ -2,7 +2,6 @@ import moment from 'moment'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useWorkById } from 'hooks/useWork'
 import { useFetch } from 'hooks/useFetch'
 import { ApiContext } from 'providers/ApiProvider'
 
@@ -13,12 +12,13 @@ import { IPFS, Bitcoin, Quill } from 'Images'
 import classNames from './Work.scss'
 
 export const WorkById = ({ id }) => {
-  const work = useWorkById(id)
-  const content = useFetch(work && work.claim && work.claim.archiveUrl)
+  const [api, isBusy, useApi] = useContext(ApiContext)
+  const work = useApi('workGetById', id)
+  const content = useFetch(work?.claim?.archiveUrl)
 
   return (
     <Main>
-      <Work work={work} content={content && content.substring(0, 3000)} />
+      <Work work={work} content={content?.substring(0, 3000)} />
     </Main>
   )
 }

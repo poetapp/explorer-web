@@ -13,6 +13,7 @@ const contentTypeJSON = {
 
 export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish }) => {
   const apiUrl = 'https://api.poetnetwork.net'
+  const nodeUrl = 'https://mainnet.poetnetwork.net'
 
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
@@ -64,6 +65,10 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const accountPatch = (issuer) => apiPatch(`accounts/${issuer}`)
 
   const login = apiPost('login')
+  const accountVerify = (token) => apiFetch(`${apiUrl}/accounts/verify/${token}`, { headers: { token }})
+
+  const workGetById = (id) => apiFetch(`${nodeUrl}/works/${id}`)
+  const worksGetByFilters = (filters = {}) => apiFetch(`${nodeUrl}/works?${filtersToQueryParams(filters)}`)
 
   return {
     getTokens,
@@ -74,9 +79,14 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     passwordChangeWithOld,
     createClaim,
     login,
+    accountVerify,
     accountCreate,
     accountGet,
     accountPatch,
+    workGetById,
+    worksGetByFilters,
   }
 
 }
+
+const filtersToQueryParams = (filters) => Object.entries(filters).map(([key, value]) => `${key}=${value}`).join('&')
