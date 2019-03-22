@@ -13,11 +13,7 @@ export const ConfirmMail = ({ token }) => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
 
-  console.log('accountVerify token', token)
-
   const loginToken = useApi('accountVerify', token)
-
-  console.log('accountVerify loginToken', loginToken)
 
   useEffect(() => {
     if (loginToken)
