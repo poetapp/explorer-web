@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useConfirmEmail } from 'hooks/useConfirmMail'
 import { useCounterLoop } from 'hooks/useCounterLoop'
+import { ApiContext } from 'providers/ApiProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
 import { Logo } from 'Images'
@@ -10,8 +10,10 @@ import { Logo } from 'Images'
 import classNames from './ConfirmEmail.scss'
 
 export const ConfirmMail = ({ token }) => {
-  const { loginToken, error: confirmEmailError } = useConfirmEmail(token)
+  const [api, isBusy, useApi] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
+
+  const loginToken = useApi('accountVerify', token)
 
   useEffect(() => {
     if (loginToken)
@@ -21,7 +23,7 @@ export const ConfirmMail = ({ token }) => {
   return (
     <section className={classNames.confirmEmail}>
       <Header />
-      <Main loginToken={loginToken} error={confirmEmailError} />
+      <Main loginToken={loginToken} error={null} />
     </section>
   )
 }

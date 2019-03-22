@@ -65,6 +65,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
   const accountPatch = (issuer) => apiPatch(`accounts/${issuer}`)
 
   const login = apiPost('login')
+  const accountVerify = (token) => apiFetch(`${apiUrl}/accounts/verify/${token}`)
 
   const workGetById = (id) => apiFetch(`${nodeUrl}/works/${id}`)
   const worksGetByFilters = (filters = {}) => apiFetch(`${nodeUrl}/works?${filtersToQueryParams(filters)}`)
@@ -78,6 +79,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
     passwordChangeWithOld,
     createClaim,
     login,
+    accountVerify,
     accountCreate,
     accountGet,
     accountPatch,
