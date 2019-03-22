@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useCounterLoop } from 'hooks/useCounterLoop'
@@ -12,8 +12,12 @@ import classNames from './ConfirmEmail.scss'
 export const ConfirmMail = ({ token }) => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
+  const [loginToken, setLoginToken] = useState()
 
-  const loginToken = useApi('accountVerify', token)
+  useEffect(() => {
+    if (api && !loginToken)
+      api.accountVerify(token).then(setLoginToken)
+  }, [api])
 
   useEffect(() => {
     if (loginToken)
