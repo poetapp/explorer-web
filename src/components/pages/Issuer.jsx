@@ -4,20 +4,20 @@ import { DefaultAvatar, LogoWhite } from 'Images'
 
 import { Works } from 'components/shared/Works'
 import { Main } from 'components/templates/Main'
-import { useWorkByIssuer } from 'hooks/useWork'
-import {ApiContext} from 'providers/ApiProvider'
+import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './Issuer.scss'
 
 export const IssuerById = ({ id }) => {
-  const works = useWorkByIssuer(id)
+  const [api, isBusy, useApi] = useContext(ApiContext)
+  const works = useApi('worksGetByFilters', { issuer: id })
 
   return (
     <Main>
       <section className={classNames.issuer}>
         <div className={classNames.letterBoxing}>
           <Profile issuer={id} />
-          <Works works={works} />
+          <Works works={works || []} />
         </div>
       </section>
     </Main>
