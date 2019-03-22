@@ -27,11 +27,11 @@ const Work = ({ work, content }) => (
   <section className={classNames.work}>
     <header>
       <Overview
-        name={work?.claim?.name}
-        author={work?.claim?.author}
+        name={work?.claim.name}
+        author={work?.claim.author}
         issuer={work?.issuer}
-        datePublished={work?.claim?.datePublished}
-        tags={work?.claim?.tags}
+        datePublished={work?.claim.datePublished}
+        tags={work?.claim.tags}
       />
       <Links
         bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
