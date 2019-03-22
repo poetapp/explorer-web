@@ -16,8 +16,6 @@ export const WorkById = ({ id }) => {
   const work = useApi('workGetById', id)
   const content = useFetch(work?.claim?.archiveUrl)
 
-  console.log('work', work)
-
   return (
     <Main>
       <Work work={work} content={content?.substring(0, 3000)} />
