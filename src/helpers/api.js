@@ -11,8 +11,16 @@ const contentTypeJSON = {
   'content-type': 'application/json; charset=utf-8'
 }
 
-export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish, environment = 'production' }) => {
-  const { apiUrl, nodeUrl } = environmentToUrls(environment)
+export const Api = ({
+  token,
+  onServerError,
+  onClientError,
+  onRequestStart,
+  onRequestFinish,
+  environment = 'production',
+  network = 'mainnet'
+}) => {
+  const { apiUrl, nodeUrl } = environmentToUrls(environment, network)
 
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
@@ -90,13 +98,13 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 
 const filtersToQueryParams = (filters) => Object.entries(filters).map(([key, value]) => `${key}=${value}`).join('&')
 
-const environmentToUrls = (environment) => {
+const environmentToUrls = (environment, network) => {
   assertEnvironment(environment)
 
   const environmentPrefix = environment === 'production' ? '' : environment + '.'
 
   const apiUrl = `https://api.${environmentPrefix}poetnetwork.net`
-  const nodeUrl = `https://mainnet.${environmentPrefix}poetnetwork.net`
+  const nodeUrl = `https://${network}.${environmentPrefix}poetnetwork.net`
 
   return {
     apiUrl,
@@ -111,4 +119,13 @@ export const isValidEnvironment = (environment) => validEnvironments.includes(en
 export const assertEnvironment = (environment) => {
   if (!isValidEnvironment(environment))
     throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}]`)
+}
+
+export const validNetworks = ['mainnet', 'testnet', 'regtest']
+
+export const isValidNetwork = network => validNetworks.includes(network)
+
+export const assertNetwork = (network) => {
+  if (!isValidNetwork(network))
+    throw new Error(`Argument network can't be '${network}'. Must be one of [${isValidNetwork.join(', ')}]`)
 }
