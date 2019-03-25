@@ -12,7 +12,7 @@ export const ApiProvider = props => {
   const [account, setAccount] = useContext(SessionContext)
   const [api, setApi] = useState(null)
   const [isBusy, setIsBusy] = useState(false)
-  const [environment, setEnvironment] = useEnvironment()
+  const [environment] = useEnvironment()
 
   const clearAccount = () => setAccount(null)
 

@@ -1,17 +1,22 @@
 import { useEffect } from 'react'
 
 import { usePersistedState } from './usePersistedState'
-import {isValidEnvironment} from '../helpers/api'
+import { assertEnvironment, isValidEnvironment} from '../helpers/api'
 
 export const useEnvironment = () => {
   const [environment, setEnvironment] = usePersistedState('environment')
 
   const coercedEnvironment = isValidEnvironment(environment) ? environment : 'production'
 
-  useAttatchToWindow(coercedEnvironment, 'environment')
-  useAttatchToWindow(setEnvironment, 'setEnvironment')
+  const coercedSetEnvironment = (environment) => {
+    assertEnvironment(environment)
+    setEnvironment(environment)
+  }
 
-  return [coercedEnvironment, setEnvironment]
+  useAttatchToWindow(coercedEnvironment, 'environment')
+  useAttatchToWindow(coercedSetEnvironment, 'setEnvironment')
+
+  return [coercedEnvironment, coercedSetEnvironment]
 }
 
 const useAttatchToWindow = (thing, keyName) => useEffect(() => {

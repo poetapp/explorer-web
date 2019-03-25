@@ -91,8 +91,7 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 const filtersToQueryParams = (filters) => Object.entries(filters).map(([key, value]) => `${key}=${value}`).join('&')
 
 const environmentToUrls = (environment) => {
-  if (!isValidEnvironment(environment))
-    throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}]`)
+  assertEnvironment(environment)
 
   const environmentPrefix = environment === 'production' ? '' : environment + '.'
 
@@ -108,3 +107,8 @@ const environmentToUrls = (environment) => {
 export const validEnvironments = ['production', 'qa']
 
 export const isValidEnvironment = (environment) => validEnvironments.includes(environment)
+
+export const assertEnvironment = (environment) => {
+  if (!isValidEnvironment(environment))
+    throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}]`)
+}
