@@ -11,23 +11,6 @@ const contentTypeJSON = {
   'content-type': 'application/json; charset=utf-8'
 }
 
-const environmentToUrls = (environment) => {
-  const validEnvironments = ['production', 'qa']
-
-  if (!validEnvironments.includes(environment))
-    throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}]`)
-
-  const environmentPrefix = environment === 'production' ? '' : environment + '.'
-
-  const apiUrl = `https://api.${environmentPrefix}poetnetwork.net`
-  const nodeUrl = `https://mainnet.${environmentPrefix}poetnetwork.net`
-
-  return {
-    apiUrl,
-    nodeUrl,
-  }
-}
-
 export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish, environment = 'production' }) => {
   const { apiUrl, nodeUrl } = environmentToUrls(environment)
 
@@ -106,3 +89,22 @@ export const Api = ({ token, onServerError, onClientError, onRequestStart, onReq
 }
 
 const filtersToQueryParams = (filters) => Object.entries(filters).map(([key, value]) => `${key}=${value}`).join('&')
+
+const environmentToUrls = (environment) => {
+  if (!isValidEnvironment(environment))
+    throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}]`)
+
+  const environmentPrefix = environment === 'production' ? '' : environment + '.'
+
+  const apiUrl = `https://api.${environmentPrefix}poetnetwork.net`
+  const nodeUrl = `https://mainnet.${environmentPrefix}poetnetwork.net`
+
+  return {
+    apiUrl,
+    nodeUrl,
+  }
+}
+
+export const validEnvironments = ['production', 'qa']
+
+export const isValidEnvironment = (environment) => validEnvironments.includes(environment)
