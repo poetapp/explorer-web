@@ -18,7 +18,7 @@ export const Api = ({
   onRequestStart,
   onRequestFinish,
   environment = 'production',
-  network = 'mainnet'
+  network = 'mainnet',
 }) => {
   const { apiUrl, nodeUrl } = environmentToUrls(environment, network)
 
