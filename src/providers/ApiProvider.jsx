@@ -2,6 +2,10 @@ import React, { useState, useEffect, createContext, useContext } from 'react'
 import { toast } from 'react-toastify'
 
 import { Api } from 'helpers/api'
+import { useEnvironment } from 'hooks/useEnvironment'
+import { useEnvironmentNetworkConsole } from 'hooks/useEnvironmentNetworkConsole'
+import { useNetwork } from 'hooks/useNetwork'
+
 import { SessionContext } from './SessionProvider'
 
 export const ApiContext = createContext()
@@ -10,6 +14,9 @@ export const ApiProvider = props => {
   const [account, setAccount] = useContext(SessionContext)
   const [api, setApi] = useState(null)
   const [isBusy, setIsBusy] = useState(false)
+  const [environment] = useEnvironment()
+  const [network] = useNetwork()
+  useEnvironmentNetworkConsole()
 
   const clearAccount = () => setAccount(null)
 
@@ -33,8 +40,16 @@ export const ApiProvider = props => {
   }
 
   useEffect(() => {
-    setApi(Api({ token: account?.token, onServerError, onClientError, onRequestStart, onRequestFinish }))
-  }, [account])
+    setApi(Api({
+      token: account?.token,
+      onServerError,
+      onClientError,
+      onRequestStart,
+      onRequestFinish,
+      environment,
+      network,
+    }))
+  }, [account, environment, network])
 
   const useApi = (endpoint, ...args) => {
     const [response, setResponse] = useState()
