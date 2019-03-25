@@ -1,6 +1,5 @@
 import { assertEnvironment, isValidEnvironment} from 'helpers/api'
 
-import { useAttachToWindow } from './useAttachToWindow'
 import { usePersistedState } from './usePersistedState'
 
 export const useEnvironment = () => {
@@ -12,9 +11,6 @@ export const useEnvironment = () => {
     assertEnvironment(environment)
     setEnvironment(environment)
   }
-
-  useAttachToWindow(coercedEnvironment, 'environment')
-  useAttachToWindow(coercedSetEnvironment, 'setEnvironment')
 
   return [coercedEnvironment, coercedSetEnvironment]
 }
