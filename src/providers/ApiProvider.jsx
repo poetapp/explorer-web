@@ -42,7 +42,7 @@ export const ApiProvider = props => {
       onClientError,
       onRequestStart,
       onRequestFinish,
-      environment: environment || 'production',
+      environment,
     }))
   }, [account])
 
