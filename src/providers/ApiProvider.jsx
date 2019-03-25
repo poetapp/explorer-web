@@ -49,7 +49,7 @@ export const ApiProvider = props => {
       environment,
       network,
     }))
-  }, [account])
+  }, [account, environment, network])
 
   const useApi = (endpoint, ...args) => {
     const [response, setResponse] = useState()
