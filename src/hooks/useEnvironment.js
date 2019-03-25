@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-
+import { useAttatchToWindow } from './useAttachToWindow'
 import { usePersistedState } from './usePersistedState'
 import { assertEnvironment, isValidEnvironment} from '../helpers/api'
 
@@ -18,8 +17,3 @@ export const useEnvironment = () => {
 
   return [coercedEnvironment, coercedSetEnvironment]
 }
-
-const useAttatchToWindow = (thing, keyName) => useEffect(() => {
-  window[keyName] = thing
-  return () => delete window[keyName]
-}, [thing])
