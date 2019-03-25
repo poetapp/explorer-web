@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 
 import { Api } from 'helpers/api'
 import { useEnvironment } from 'hooks/useEnvironment'
+import { useNetwork } from 'hooks/useNetwork'
 
 import { SessionContext } from './SessionProvider'
 
@@ -13,6 +14,7 @@ export const ApiProvider = props => {
   const [api, setApi] = useState(null)
   const [isBusy, setIsBusy] = useState(false)
   const [environment] = useEnvironment()
+  const [network] = useNetwork()
 
   const clearAccount = () => setAccount(null)
 
@@ -43,6 +45,7 @@ export const ApiProvider = props => {
       onRequestStart,
       onRequestFinish,
       environment,
+      network,
     }))
   }, [account])
 
