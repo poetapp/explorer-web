@@ -118,7 +118,7 @@ export const isValidEnvironment = (environment) => validEnvironments.includes(en
 
 export const assertEnvironment = (environment) => {
   if (!isValidEnvironment(environment))
-    throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}]`)
+    throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}].`)
 }
 
 export const validNetworks = ['mainnet', 'testnet', 'regtest']
@@ -127,5 +127,5 @@ export const isValidNetwork = network => validNetworks.includes(network)
 
 export const assertNetwork = (network) => {
   if (!isValidNetwork(network))
-    throw new Error(`Argument network can't be '${network}'. Must be one of [${isValidNetwork.join(', ')}]`)
+    throw new Error(`Argument network can't be '${network}'. Must be one of [${validNetworks.join(', ')}].`)
 }
