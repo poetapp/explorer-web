@@ -11,10 +11,20 @@ export const useEnvironmentNetworkConsole = () => {
   window.setNetwork = setNetwork
   window.environment = environment
   window.setEnvironment = setEnvironment
+  window.production = () => {
+    setEnvironment('production')
+    setNetwork('mainnet')
+  }
+  window.qa = () => {
+    setEnvironment('qa')
+    setNetwork('testnet')
+  }
 
   useEffect(() => {
     console.log(`Using API environment '${environment}' and network '${network}'.`)
-    console.log(`To change these use window.setEnvironment and window.setNetwork.`)
   }, [environment, network])
+  useEffect(() => {
+    console.log(`To change these use window.setEnvironment(environment), window.setNetwork(network), window.production() and window.qa().`)
+  }, [])
 
 }
