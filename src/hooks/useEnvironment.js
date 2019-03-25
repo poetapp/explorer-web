@@ -1,6 +1,7 @@
+import { assertEnvironment, isValidEnvironment} from 'helpers/api'
+
 import { useAttachToWindow } from './useAttachToWindow'
 import { usePersistedState } from './usePersistedState'
-import { assertEnvironment, isValidEnvironment} from '../helpers/api'
 
 export const useEnvironment = () => {
   const [environment, setEnvironment] = usePersistedState('environment')

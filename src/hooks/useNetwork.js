@@ -1,6 +1,7 @@
+import { assertNetwork, isValidNetwork } from 'helpers/api'
+
 import { useAttachToWindow } from './useAttachToWindow'
 import { usePersistedState } from './usePersistedState'
-import { assertNetwork, isValidNetwork } from '../helpers/api'
 
 export const useNetwork = () => {
   const [network, setNetwork] = usePersistedState('network')
