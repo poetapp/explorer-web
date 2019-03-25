@@ -1,4 +1,4 @@
-import { useAttatchToWindow } from './useAttachToWindow'
+import { useAttachToWindow } from './useAttachToWindow'
 import { usePersistedState } from './usePersistedState'
 import { assertEnvironment, isValidEnvironment} from '../helpers/api'
 
@@ -12,8 +12,8 @@ export const useEnvironment = () => {
     setEnvironment(environment)
   }
 
-  useAttatchToWindow(coercedEnvironment, 'environment')
-  useAttatchToWindow(coercedSetEnvironment, 'setEnvironment')
+  useAttachToWindow(coercedEnvironment, 'environment')
+  useAttachToWindow(coercedSetEnvironment, 'setEnvironment')
 
   return [coercedEnvironment, coercedSetEnvironment]
 }

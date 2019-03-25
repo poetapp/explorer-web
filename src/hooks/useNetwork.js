@@ -1,4 +1,4 @@
-import { useAttatchToWindow } from './useAttachToWindow'
+import { useAttachToWindow } from './useAttachToWindow'
 import { usePersistedState } from './usePersistedState'
 import { assertNetwork, isValidNetwork } from '../helpers/api'
 
@@ -12,8 +12,8 @@ export const useNetwork = () => {
     setNetwork(network)
   }
 
-  useAttatchToWindow(coercedNetwork, 'network')
-  useAttatchToWindow(coercedSetNetwork, 'setNetwork')
+  useAttachToWindow(coercedNetwork, 'network')
+  useAttachToWindow(coercedSetNetwork, 'setNetwork')
 
   return [coercedNetwork, coercedSetNetwork]
 }
