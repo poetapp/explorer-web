@@ -11,9 +11,25 @@ const contentTypeJSON = {
   'content-type': 'application/json; charset=utf-8'
 }
 
-export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish }) => {
-  const apiUrl = 'https://api.poetnetwork.net'
-  const nodeUrl = 'https://mainnet.poetnetwork.net'
+const environmentToUrls = (environment) => {
+  const validEnvironments = ['production', 'qa']
+
+  if (!validEnvironments.includes(environment))
+    throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}]`)
+
+  const environmentPrefix = environment === 'production' ? '' : environment + '.'
+
+  const apiUrl = `https://api.${environmentPrefix}poetnetwork.net`
+  const nodeUrl = `https://mainnet.${environmentPrefix}poetnetwork.net`
+
+  return {
+    apiUrl,
+    nodeUrl,
+  }
+}
+
+export const Api = ({ token, onServerError, onClientError, onRequestStart, onRequestFinish, environment = 'production' }) => {
+  const { apiUrl, nodeUrl } = environmentToUrls(environment)
 
   const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
