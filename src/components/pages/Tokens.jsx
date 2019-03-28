@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { useContext, useEffect, useReducer, useState, useRef} from 'react'
+import React, { useContext, useEffect, useReducer, useState, useRef } from 'react'
 
 import { Main } from 'components/templates/Main'
 import { parseJwt } from 'helpers/jwt'
