@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { useContext, useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer, useState, useRef} from 'react'
 
 import { Main } from 'components/templates/Main'
 import { parseJwt } from 'helpers/jwt'
@@ -90,16 +90,25 @@ const TokenTable = ({ tokens, onDelete }) => (
 )
 
 const TokenTableRow = ({ token, index, onDelete }) => {
-  const firstAndLastCharacters = (s, n) => s.slice(0, n) + '...' + s.slice(-n)
-
   const formattedIat = moment.unix(token.iat).format('L')
   const formattedIatISO = moment.unix(token.iat).format()
-  const formattedSerializedToken = firstAndLastCharacters(token.serializedToken, 20)
+  const copy = useRef()
+  const [copied, setCopied] = useState(false)
+
+  const onCopy = () => {
+    copy.current?.select()
+    document.execCommand('copy')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 3000)
+  }
 
   return (
     <tr>
       <td>{index}</td>
-      <td>{formattedSerializedToken}</td>
+      <td className={classNames.copy}>
+        <input type="text" value={token.serializedToken} readOnly ref={copy}/>
+        <button onClick={onCopy}>{!copied ? 'Copy' : 'Copied!'}</button>
+      </td>
       <td title={formattedIatISO}>{formattedIat}</td>
       <td>Never</td>
       <td><button className={classNames.delete} onClick={onDelete}>Remove</button></td>
