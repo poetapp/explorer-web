@@ -90,4 +90,22 @@
     font-size: 14px;
     font-family: $open-sans;
   }
+
+  .copy {
+    input {
+      border: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 250px;
+      margin-right: 20px;
+    }
+
+    button {
+      @extend %buttonB;
+      display: inline-block;
+      font-weight: normal;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+  }
 }
