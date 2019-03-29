@@ -18,10 +18,20 @@ export const WorkById = ({ id }) => {
 
   return (
     <Main>
-      <Work work={work} content={content?.substring(0, 3000)} />
+      {
+        !work
+          ? <NoWork />
+          : <Work work={work} content={content?.substring(0, 3000)} />
+      }
     </Main>
   )
 }
+
+const NoWork = () => (
+  <section className={classNames.noWork}>
+    <div>Work not found? It can take some time for a new claim to sync across nodes, so check back soon!</div>
+  </section>
+)
 
 const Work = ({ work, content }) => (
   <section className={classNames.work}>
