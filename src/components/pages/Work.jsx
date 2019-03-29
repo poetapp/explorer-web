@@ -7,7 +7,7 @@ import { ApiContext } from 'providers/ApiProvider'
 
 import { Main } from 'components/templates/Main'
 
-import { IPFS, Bitcoin, Quill } from 'Images'
+import { IPFS, Bitcoin, QuillS3 } from 'Images'
 
 import classNames from './Work.scss'
 
@@ -103,7 +103,7 @@ const AuthenticationBadgePreview = ({ workId, date }) => {
 
 const Badge = ({ date }) => (
   <section className={classNames.badge}>
-    <img src={Quill}/>
+    <img src={QuillS3}/>
     <h1>Licensed via Po.et</h1>
     <span>{date}</span>
   </section>
@@ -136,7 +136,7 @@ const badgeCode = ({ workId, date }) => badgeHTML({ workId, date }) + '\n\n' + b
 
 const badgeHTML = ({ workId, date }) => (
   `<a href="${baseUrl}/works/${workId}" class="poet-badge" >\n` +
-  `  <img src="${baseUrl}/${Quill}" />\n` +
+  `  <img src="${QuillS3}" />\n` +
   `  <h1>Licensed via Po.et</h1>\n` +
   `  <span>${date}</span>\n` +
   '</a>'
