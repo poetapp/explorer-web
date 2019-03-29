@@ -158,3 +158,9 @@ $main-width: 960px;
   }
 }
 
+.noWork {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+}
