@@ -22,4 +22,8 @@
 
 
 [context.branch-deploy]
-  command = "echo 'deploying ${BRANCH}"
+  command = "echo 'deploying branch ${BRANCH}'"
+
+
+[context.deploy-preview]
+  command = "echo 'deploying  preview ${REVIEW_ID}'"
