@@ -3,21 +3,21 @@
 [build]
   publish = "dist"
   command = "npm run build"
-  environment = { 
-      API_URL = "https://testnet.qa.poetnetwork.net",
-      FROST_API_URL = "https://api.qa.poetnetwork.net",
-      LINK_BTC_BLOCK_HASH = "https://www.blockchain.com/btc/block/",
-      LINK_BTC_BLOCK_HEIGHT = "https://www.blockchain.com/btc/block-height/",
-      LINK_BTC_TX = "https://www.blockchain.com/btc/tx/",
+
+[build.environment] 
+      API_URL = "https://testnet.qa.poetnetwork.net"
+      FROST_API_URL = "https://api.qa.poetnetwork.net"
+      LINK_BTC_BLOCK_HASH = "https://www.blockchain.com/btc/block/"
+      LINK_BTC_BLOCK_HEIGHT = "https://www.blockchain.com/btc/block-height/"
+      LINK_BTC_TX = "https://www.blockchain.com/btc/tx/"
       LINK_IPFS = "https://ipfs.qa.poetnetwork.net/ipfs/"
-   }
   
 [context.production.environment]
-      API_URL = "https://mainnet.poetnetwork.net",
-      FROST_API_URL = "https://api.poetnetwork.net",
-      LINK_BTC_BLOCK_HASH = "https://www.blockchain.com/btc/block/",
-      LINK_BTC_BLOCK_HEIGHT = "https://www.blockchain.com/btc/block-height/",
-      LINK_BTC_TX = "https://www.blockchain.com/btc/tx/",
+      API_URL = "https://mainnet.poetnetwork.net"
+      FROST_API_URL = "https://api.poetnetwork.net"
+      LINK_BTC_BLOCK_HASH = "https://www.blockchain.com/btc/block/"
+      LINK_BTC_BLOCK_HEIGHT = "https://www.blockchain.com/btc/block-height/"
+      LINK_BTC_TX = "https://www.blockchain.com/btc/tx/"
       LINK_IPFS = "https://ipfs.poetnetwork.net/ipfs/"
 
 
