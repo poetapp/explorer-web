@@ -1,10 +1,12 @@
 import { pipe } from 'ramda'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
 import { eventToValue } from 'helpers/eventToValue'
+import { parseJwt } from 'helpers/jwt'
 import { ApiContext } from 'providers/ApiProvider'
+import { SessionContext } from 'providers/SessionProvider'
 
 import classNames from './NewClaim.scss'
 
@@ -12,20 +14,25 @@ export const NewClaim = () => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
   const tokens = useApi('getTokens')
-  const mainnetToken = tokens?.apiTokens?.filter(token => !token.startsWith('TEST_'))[0]
+  const [account] = useContext(SessionContext)
+  const token = selectToken(tokens, account.email)
 
   const onSubmit = claim => {
-    api.createClaim(claim, mainnetToken).then(setCreatedWork)
+    api.createClaim(claim, token).then(setCreatedWork)
   }
+
+  useEffect(() => {
+    console.log('Using token for claim creation', token, token && parseJwt(token))
+  }, [token])
 
   return (
     <Main>
       <section className={classNames.newClaim}>
         <h1>New Claim</h1>
         <h2>Create a New Claim on the Po.et Network</h2>
-        { !mainnetToken && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
+        { !token && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!mainnetToken}/>
+          ? <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!token}/>
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
@@ -76,3 +83,8 @@ const Done = ({ workId }) => (
     <p>It will be available at <Link to={`/works/${workId}`}>{`/works/${workId}`}</Link> as soon as it is confirmed on the blockchain.</p>
   </section>
 )
+
+const selectToken = (tokens, email) => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_')).map(token => ({
+  token,
+  parsed: parseJwt(token),
+})).filter(({ token, parsed }) => parsed.email === email)[0]?.token
