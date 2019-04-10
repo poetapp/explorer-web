@@ -1,5 +1,5 @@
 import { pipe } from 'ramda'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
@@ -17,6 +17,10 @@ export const NewClaim = () => {
   const onSubmit = claim => {
     api.createClaim(claim, token).then(setCreatedWork)
   }
+
+  useEffect(() => {
+    console.log('Using token for claim creation', token)
+  }, [token])
 
   return (
     <Main>
