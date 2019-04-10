@@ -12,10 +12,10 @@ export const NewClaim = () => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
   const tokens = useApi('getTokens')
-  const mainnetToken = tokens?.apiTokens?.filter(token => !token.startsWith('TEST_'))[0]
+  const token = selectToken(tokens)
 
   const onSubmit = claim => {
-    api.createClaim(claim, mainnetToken).then(setCreatedWork)
+    api.createClaim(claim, token).then(setCreatedWork)
   }
 
   return (
@@ -23,9 +23,9 @@ export const NewClaim = () => {
       <section className={classNames.newClaim}>
         <h1>New Claim</h1>
         <h2>Create a New Claim on the Po.et Network</h2>
-        { !mainnetToken && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
+        { !token && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!mainnetToken}/>
+          ? <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!token}/>
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
@@ -76,3 +76,5 @@ const Done = ({ workId }) => (
     <p>It will be available at <Link to={`/works/${workId}`}>{`/works/${workId}`}</Link> as soon as it is confirmed on the blockchain.</p>
   </section>
 )
+
+const selectToken = tokens => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_'))[0]
