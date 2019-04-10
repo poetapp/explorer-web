@@ -62,7 +62,7 @@ const ProfileForm = () => {
         <label htmlFor="name">Name</label>
         <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} />
         <label htmlFor="email">Email</label>
-        <Email value={email} onChange={setEmail} id="email" />
+        <Email value={email} onChange={setEmail} id="email" disabled={true} />
         <label htmlFor="bio">Bio</label>
         <input type="text" id="bio" value={bio} onChange={pipe(eventToValue, setBio)} />
         <button type="submit" disabled={isBusy}>Submit</button>
