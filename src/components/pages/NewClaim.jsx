@@ -6,6 +6,7 @@ import { Main } from 'components/templates/Main'
 import { eventToValue } from 'helpers/eventToValue'
 import { parseJwt } from 'helpers/jwt'
 import { ApiContext } from 'providers/ApiProvider'
+import { SessionContext } from 'providers/SessionProvider'
 
 import classNames from './NewClaim.scss'
 
@@ -13,14 +14,15 @@ export const NewClaim = () => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
   const tokens = useApi('getTokens')
-  const token = selectToken(tokens)
+  const [account] = useContext(SessionContext)
+  const token = selectToken(tokens, account.email)
 
   const onSubmit = claim => {
     api.createClaim(claim, token).then(setCreatedWork)
   }
 
   useEffect(() => {
-    console.log('Using token for claim creation', token)
+    console.log('Using token for claim creation', token, token && parseJwt(token))
   }, [token])
 
   return (
@@ -82,7 +84,7 @@ const Done = ({ workId }) => (
   </section>
 )
 
-const selectToken = tokens => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_')).map(token => ({
+const selectToken = (tokens, email) => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_')).map(token => ({
   token,
   parsed: parseJwt(token),
-})).filter(({ token, parsed }) => parsed.email)[0].token
+})).filter(({ token, parsed }) => parsed.email === email)[0]?.token
