@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
 import { eventToValue } from 'helpers/eventToValue'
+import { parseJwt } from 'helpers/jwt'
 import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './NewClaim.scss'
@@ -81,4 +82,7 @@ const Done = ({ workId }) => (
   </section>
 )
 
-const selectToken = tokens => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_'))[0]
+const selectToken = tokens => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_')).map(token => ({
+  token,
+  parsed: parseJwt(token),
+})).filter(({ token, parsed }) => parsed.email)[0].token
