@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
+import { SessionContext } from 'providers/SessionProvider'
 
 import { Logo } from 'Images'
 
@@ -16,16 +17,20 @@ export const Home = () => (
   </Main>
 )
 
-const HomeMain = () => (
-  <main>
-    <h1>Welcome to the Po.et Network</h1>
-    <h2>Po.et is a decentralized protocol for content ownership, discovery, and monetization in media.</h2>
-    <div>
-      <a className={classNames.makeClaim} target="_blank" href={'https://docs.poetnetwork.net/use-poet/create-your-first-claim.html'}>Make a Claim</a>
-      <a className={classNames.integrate} target="_blank" href="https://www.po.et/integrate">Integrate with Po.et</a>
-    </div>
-  </main>
-)
+const HomeMain = () => {
+  const [account] = useContext(SessionContext)
+  const link = account ? '/new-claim' : 'login'
+  return (
+    <main>
+      <h1>Welcome to the Po.et Network</h1>
+      <h2>Po.et is a decentralized protocol for content ownership, discovery, and monetization in media.</h2>
+      <div>
+        <a className={classNames.makeClaim} href={link}>Make a Claim</a>
+        <a className={classNames.integrate} target="_blank" href="https://www.po.et/integrate">Integrate with Po.et</a>
+      </div>
+    </main>
+  )
+}
 
 const Footer = () => (
   <footer>
