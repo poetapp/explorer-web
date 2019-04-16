@@ -45,7 +45,7 @@ const Work = ({ work, content }) => (
       />
       <Links
         bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
-        ipfsLink={ipfsLink(work?.anchor?.ipfsDirectoryHash)}
+        ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
       />
     </header>
     <main>
