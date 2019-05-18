@@ -22,6 +22,7 @@ export const Settings = () => (
       </header>
       <main>
         <ProfileForm />
+        <PoeWalletForm />
         <WalletForm />
         <PasswordForm />
       </main>
@@ -66,6 +67,37 @@ const ProfileForm = () => {
         <label htmlFor="bio">Bio</label>
         <input type="text" id="bio" value={bio} onChange={pipe(eventToValue, setBio)} />
         <button type="submit" disabled={isBusy}>Submit</button>
+      </form>
+    </section>
+  )
+}
+
+const PoeWalletForm = () => {
+  const [api, isBusy] = useContext(ApiContext)
+  const [account, setAccount] = useContext(SessionContext)
+  const [poeAddress, setPoeAddress] = useState(account.poeAddress || '')
+
+  const onSubmit = async () => {
+    event.preventDefault()
+
+    if (!account.issuer)
+      throw new Error('account.issuer not set')
+
+    await api.accountPatch(account.issuer)({ poeAddress })
+    setAccount({
+      ...account,
+      poeAddress,
+    })
+    toast.success('POE Wallet updated.')
+  }
+
+  return (
+    <section className={classNames.wallet}>
+      <h2>Connect your Wallet</h2>
+      <form onSubmit={onSubmit} className={classnames({ isBusy })}>
+        <label htmlFor="poeAddress">POE Address</label>
+        <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
+        <button type="submit" disabled={isBusy}>Save</button>
       </form>
     </section>
   )
