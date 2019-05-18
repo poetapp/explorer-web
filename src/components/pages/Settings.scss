@@ -25,6 +25,13 @@
     font-family: $roboto-slab;
   }
 
+  h3 {
+    color: #2C2E3B;
+    font-size: 12px;
+    line-height: 23px;
+    font-weight: normal;
+  }
+
   form {
 
     &:global.isBusy {
@@ -63,7 +70,8 @@
 .profile, .wallet, .password {
   @include letterboxed();
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 5fr 7fr;
+  grid-column-gap: 16px;
   padding-top: 50px;
   padding-bottom: 50px;
   border-bottom: 1px solid #cfcfcf;

@@ -93,7 +93,10 @@ const PoeWalletForm = () => {
 
   return (
     <section className={classNames.wallet}>
-      <h2>Connect your Wallet</h2>
+      <header>
+        <h2>Connect your Wallet</h2>
+        <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
+      </header>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <label htmlFor="poeAddress">POE Address</label>
         <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
