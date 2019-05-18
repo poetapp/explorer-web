@@ -98,6 +98,16 @@ const PoeWalletForm = () => {
       api.accountPoeChallengePost(account.issuer)().then(_ => _.poeAddressMessage).then(setPoeAddressMessage)
   }, [api, account])
 
+  const Verify = () => (
+    <section>
+      <label htmlFor="poeAddressMessage">POE Address Message</label>
+      <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+      <label htmlFor="poeAddressSignature">POE Address Signature</label>
+      <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
+      <button type="submit" disabled={isBusy}>Verify</button>
+    </section>
+  )
+
   return (
     <section className={classNames.wallet}>
       <header>
@@ -105,15 +115,11 @@ const PoeWalletForm = () => {
         <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
       </header>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
-        <label htmlFor="poeAddress">POE Address</label>
+        <label htmlFor="poeAddress">POE Address ({account.poeAddressVerified ? 'Verified' : 'Not Verified'})</label>
         <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
-        <label htmlFor="poeAddress">POE Address Message</label>
-        <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
-        <label htmlFor="poeAddress">POE Address Signature</label>
-        <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
-        <label htmlFor="poeAddressVerified">POE Address Verified</label>
-        <input type="text" id="poeAddressVerified" value={account.poeAddressVerified ? 'Yes' : 'No'} readOnly />
         <button type="submit" disabled={isBusy}>Save</button>
+        { account.poeAddress && !account.poeAddressVerified && <Verify/> }
+
       </form>
     </section>
   )
