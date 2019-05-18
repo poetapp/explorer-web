@@ -102,24 +102,6 @@ const PoeWalletForm = () => {
         .then(clearSignature)
   }, [api, account])
 
-  const Address = () => (
-    <section>
-      <label htmlFor="poeAddress">POE Address <VerificationStatus/></label>
-      <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
-      <button type="submit" disabled={isBusy}>Save</button>
-    </section>
-  )
-
-  const Verification = () => account.poeAddress && !account.poeAddressVerified && (
-    <section>
-      <label htmlFor="poeAddressMessage">POE Address Message</label>
-      <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
-      <label htmlFor="poeAddressSignature">POE Address Signature</label>
-      <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
-      <button type="submit" disabled={isBusy}>Verify</button>
-    </section>
-  )
-
   const VerificationStatus = () => !account.poeAddress
     ? ''
     : account.poeAddressVerified
@@ -133,8 +115,20 @@ const PoeWalletForm = () => {
         <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
       </header>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
-        <Address />
-        <Verification/>
+        <section>
+          <label htmlFor="poeAddress">POE Address <VerificationStatus/></label>
+          <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
+          <button type="submit" disabled={isBusy}>Save</button>
+        </section>
+        { account.poeAddress && !account.poeAddressVerified && (
+          <section>
+            <label htmlFor="poeAddressMessage">POE Address Message</label>
+            <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+            <label htmlFor="poeAddressSignature">POE Address Signature</label>
+            <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
+            <button type="submit" disabled={isBusy}>Verify</button>
+          </section>
+        ) }
       </form>
     </section>
   )
