@@ -122,9 +122,10 @@ const PoeWalletForm = () => {
         </section>
         { account.poeAddress && !account.poeAddressVerified && (
           <section>
-            <label htmlFor="poeAddressMessage">POE Address Message</label>
+            <h3>Sign the following message with your wallet and paste the generated signature here. See <a href="">Proof of POE guide</a> for help and troubleshooting.</h3>
+            <label htmlFor="poeAddressMessage">Message</label>
             <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
-            <label htmlFor="poeAddressSignature">POE Address Signature</label>
+            <label htmlFor="poeAddressSignature">Signature</label>
             <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
             <button type="submit" disabled={isBusy}>Verify</button>
           </section>
