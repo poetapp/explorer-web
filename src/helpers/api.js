@@ -70,6 +70,7 @@ export const Api = ({
   const accountCreate = apiPost('accounts')
   const accountGet = (issuer) => apiFetch(`${apiUrl}/accounts/${issuer}`)
   const accountPatch = (issuer) => apiPatch(`accounts/${issuer}`)
+  const accountPoeChallengePost = (issuer) => apiPost(`accounts/${issuer}/poe-challenge`)
 
   const login = apiPost('login')
   const accountVerify = (token) => apiFetch(`${apiUrl}/accounts/verify/${token}`, { headers: { token }})
@@ -90,6 +91,7 @@ export const Api = ({
     accountCreate,
     accountGet,
     accountPatch,
+    accountPoeChallengePost,
     workGetById,
     worksGetByFilters,
   }
