@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import { pipe } from 'ramda'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
@@ -79,6 +79,8 @@ const PoeWalletForm = () => {
   const [poeAddressMessage, setPoeAddressMessage] = useState('')
   const [poeSignature, setPoeSignature] = useState('')
   const clearSignature = () => setPoeSignature('')
+  const timer = useRef()
+  const [poeBalance, setPoeBalance] = useState(null)
 
   const onSubmit = async () => {
     event.preventDefault()
@@ -102,6 +104,20 @@ const PoeWalletForm = () => {
         .then(clearSignature)
   }, [api, account])
 
+  useEffect(() => {
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => {
+      if (poeAddress)
+        fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
+          .then(_ => _.json())
+          .then(_ => _.balance)
+          .then(setPoeBalance)
+      else
+        setPoeBalance(null)
+    }, 500)
+
+  }, [poeAddress])
+
   const VerificationStatus = () => !account.poeAddress
     ? ''
     : account.poeAddressVerified
@@ -116,7 +132,7 @@ const PoeWalletForm = () => {
       </header>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <section>
-          <label htmlFor="poeAddress">POE Address <VerificationStatus/></label>
+          <label htmlFor="poeAddress">POE Address <VerificationStatus/> { poeBalance !== null && `Balance: ${poeBalance} POE` }</label>
           <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
           <button type="submit" disabled={isBusy}>Save</button>
         </section>
