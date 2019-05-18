@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import { pipe } from 'ramda'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
@@ -76,6 +76,8 @@ const PoeWalletForm = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [poeAddress, setPoeAddress] = useState(account.poeAddress || '')
+  const [poeAddressMessage, setPoeAddressMessage] = useState('')
+  const [poeSignature, setPoeSignature] = useState(account.poeSignature || '')
 
   const onSubmit = async () => {
     event.preventDefault()
@@ -83,13 +85,18 @@ const PoeWalletForm = () => {
     if (!account.issuer)
       throw new Error('account.issuer not set')
 
-    await api.accountPatch(account.issuer)({ poeAddress })
+    const patchedAccount = await api.accountPatch(account.issuer)({ poeAddress, poeSignature })
     setAccount({
       ...account,
-      poeAddress,
+      ...patchedAccount,
     })
     toast.success('POE Wallet updated.')
   }
+
+  useEffect(() => {
+    if (api && !account.poeAddressVerified)
+      api.accountPoeChallengePost(account.issuer)().then(_ => _.poeAddressMessage).then(setPoeAddressMessage)
+  }, [api, account])
 
   return (
     <section className={classNames.wallet}>
@@ -100,6 +107,12 @@ const PoeWalletForm = () => {
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <label htmlFor="poeAddress">POE Address</label>
         <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
+        <label htmlFor="poeAddress">POE Address Message</label>
+        <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+        <label htmlFor="poeAddress">POE Address Signature</label>
+        <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
+        <label htmlFor="poeAddressVerified">POE Address Verified</label>
+        <input type="text" id="poeAddressVerified" value={account.poeAddressVerified ? 'Yes' : 'No'} readOnly />
         <button type="submit" disabled={isBusy}>Save</button>
       </form>
     </section>
