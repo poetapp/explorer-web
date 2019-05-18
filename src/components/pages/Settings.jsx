@@ -106,7 +106,7 @@ const PoeWalletForm = () => {
     </section>
   )
 
-  const Verify = () => account.poeAddress && !account.poeAddressVerified && (
+  const Verification = () => account.poeAddress && !account.poeAddressVerified && (
     <section>
       <label htmlFor="poeAddressMessage">POE Address Message</label>
       <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
@@ -124,7 +124,7 @@ const PoeWalletForm = () => {
       </header>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
         <Address />
-        <Verify/>
+        <Verification/>
       </form>
     </section>
   )
