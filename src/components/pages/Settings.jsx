@@ -77,7 +77,8 @@ const PoeWalletForm = () => {
   const [account, setAccount] = useContext(SessionContext)
   const [poeAddress, setPoeAddress] = useState(account.poeAddress || '')
   const [poeAddressMessage, setPoeAddressMessage] = useState('')
-  const [poeSignature, setPoeSignature] = useState(account.poeSignature || '')
+  const [poeSignature, setPoeSignature] = useState('')
+  const clearSignature = () => setPoeSignature('')
 
   const onSubmit = async () => {
     event.preventDefault()
@@ -95,12 +96,15 @@ const PoeWalletForm = () => {
 
   useEffect(() => {
     if (api && !account.poeAddressVerified)
-      api.accountPoeChallengePost(account.issuer)().then(_ => _.poeAddressMessage).then(setPoeAddressMessage)
+      api.accountPoeChallengePost(account.issuer)()
+        .then(_ => _.poeAddressMessage)
+        .then(setPoeAddressMessage)
+        .then(clearSignature)
   }, [api, account])
 
   const Address = () => (
     <section>
-      <label htmlFor="poeAddress">POE Address ({account.poeAddressVerified ? 'Verified' : 'Not Verified'})</label>
+      <label htmlFor="poeAddress">POE Address <VerificationStatus/></label>
       <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
       <button type="submit" disabled={isBusy}>Save</button>
     </section>
@@ -115,6 +119,12 @@ const PoeWalletForm = () => {
       <button type="submit" disabled={isBusy}>Verify</button>
     </section>
   )
+
+  const VerificationStatus = () => !account.poeAddress
+    ? ''
+    : account.poeAddressVerified
+    ? '(Verified)'
+    : '(Not Verified)'
 
   return (
     <section className={classNames.wallet}>
