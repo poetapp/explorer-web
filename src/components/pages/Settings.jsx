@@ -98,7 +98,15 @@ const PoeWalletForm = () => {
       api.accountPoeChallengePost(account.issuer)().then(_ => _.poeAddressMessage).then(setPoeAddressMessage)
   }, [api, account])
 
-  const Verify = () => (
+  const Address = () => (
+    <section>
+      <label htmlFor="poeAddress">POE Address ({account.poeAddressVerified ? 'Verified' : 'Not Verified'})</label>
+      <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
+      <button type="submit" disabled={isBusy}>Save</button>
+    </section>
+  )
+
+  const Verify = () => account.poeAddress && !account.poeAddressVerified && (
     <section>
       <label htmlFor="poeAddressMessage">POE Address Message</label>
       <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
@@ -115,11 +123,8 @@ const PoeWalletForm = () => {
         <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
       </header>
       <form onSubmit={onSubmit} className={classnames({ isBusy })}>
-        <label htmlFor="poeAddress">POE Address ({account.poeAddressVerified ? 'Verified' : 'Not Verified'})</label>
-        <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
-        <button type="submit" disabled={isBusy}>Save</button>
-        { account.poeAddress && !account.poeAddressVerified && <Verify/> }
-
+        <Address />
+        <Verify/>
       </form>
     </section>
   )
