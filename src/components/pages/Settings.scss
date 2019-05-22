@@ -25,10 +25,26 @@
     font-family: $roboto-slab;
   }
 
+  h3 {
+    color: #2C2E3B;
+    font-size: 12px;
+    line-height: 23px;
+    font-weight: normal;
+  }
+
   form {
 
     &:global.isBusy {
       opacity: .3;
+    }
+
+    > section {
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid #cfcfcf;
+      }
     }
 
     label {
@@ -57,13 +73,20 @@
       padding-bottom: 5px;
       line-height: 20px;
     }
+
+    a {
+      color: #36b074;
+      font-weight: 600;
+      text-decoration: underline;
+    }
   }
 }
 
 .profile, .wallet, .password {
   @include letterboxed();
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 5fr 7fr;
+  grid-column-gap: 16px;
   padding-top: 50px;
   padding-bottom: 50px;
   border-bottom: 1px solid #cfcfcf;

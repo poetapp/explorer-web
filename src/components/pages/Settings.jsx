@@ -1,6 +1,6 @@
 import classnames from 'classnames'
 import { pipe } from 'ramda'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
 
 import { Main } from 'components/templates/Main'
@@ -66,6 +66,85 @@ const ProfileForm = () => {
         <label htmlFor="bio">Bio</label>
         <input type="text" id="bio" value={bio} onChange={pipe(eventToValue, setBio)} />
         <button type="submit" disabled={isBusy}>Submit</button>
+      </form>
+    </section>
+  )
+}
+
+const PoeWalletForm = () => {
+  const [api, isBusy] = useContext(ApiContext)
+  const [account, setAccount] = useContext(SessionContext)
+  const [poeAddress, setPoeAddress] = useState(account.poeAddress || '')
+  const [poeAddressMessage, setPoeAddressMessage] = useState('')
+  const [poeSignature, setPoeSignature] = useState('')
+  const clearSignature = () => setPoeSignature('')
+  const timer = useRef()
+  const [poeBalance, setPoeBalance] = useState(null)
+
+  const onSubmit = async () => {
+    event.preventDefault()
+
+    if (!account.issuer)
+      throw new Error('account.issuer not set')
+
+    const patchedAccount = await api.accountPatch(account.issuer)({ poeAddress, poeSignature })
+    setAccount({
+      ...account,
+      ...patchedAccount,
+    })
+    toast.success('POE Wallet updated.')
+  }
+
+  useEffect(() => {
+    if (api && !account.poeAddressVerified)
+      api.accountPoeChallengePost(account.issuer)()
+        .then(_ => _.poeAddressMessage)
+        .then(setPoeAddressMessage)
+        .then(clearSignature)
+  }, [api, account])
+
+  useEffect(() => {
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => {
+      if (poeAddress)
+        fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
+          .then(_ => _.json())
+          .then(_ => _.balance)
+          .then(setPoeBalance)
+      else
+        setPoeBalance(null)
+    }, 500)
+
+  }, [poeAddress])
+
+  const VerificationStatus = () => !account.poeAddress
+    ? ''
+    : account.poeAddressVerified
+    ? '(Verified)'
+    : '(Not Verified)'
+
+  return (
+    <section className={classNames.wallet}>
+      <header>
+        <h2>Connect your Wallet</h2>
+        <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
+      </header>
+      <form onSubmit={onSubmit} className={classnames({ isBusy })}>
+        <section>
+          <label htmlFor="poeAddress">POE Address <VerificationStatus/> { poeBalance !== null && `Balance: ${poeBalance} POE` }</label>
+          <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
+          <button type="submit" disabled={isBusy}>Save</button>
+        </section>
+        { account.poeAddress && !account.poeAddressVerified && (
+          <section>
+            <h3>Sign the following message with your wallet and paste the generated signature here. See <a target="_blank" href="">Proof of POE</a> for help and troubleshooting.</h3>
+            <label htmlFor="poeAddressMessage">Message</label>
+            <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+            <label htmlFor="poeAddressSignature">Signature</label>
+            <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
+            <button type="submit" disabled={isBusy}>Verify</button>
+          </section>
+        ) }
       </form>
     </section>
   )
