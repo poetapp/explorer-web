@@ -156,6 +156,14 @@ $main-width: 960px;
     height: 400px;
     line-height: 25px;
   }
+
+  >img {
+    background-color: white;
+    padding: 10px;
+    overflow: scroll;
+    border: 1px solid #dfdfdf;
+    height: 400px;
+  }
 }
 
 .noWork {
