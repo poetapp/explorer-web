@@ -17,8 +17,16 @@ export const NewClaim = () => {
   const [account] = useContext(SessionContext)
   const token = selectToken(tokens, account.email)
 
-  const onSubmit = (claim, files) => {
-    console.log('onSubmit', claim, files)
+  console.log('account verified', account.poeAddressVerified)
+
+  const onSubmit = async (claim, file) => {
+    console.log('onSubmit', claim, file)
+
+    if (file) {
+      const bla = await api.postArchive(file, token)
+      console.log(bla)
+    }
+
     // api.createClaim(claim, token).then(setCreatedWork)
   }
 
