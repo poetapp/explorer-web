@@ -146,6 +146,7 @@ $main-width: 960px;
 
 .content {
   >main {
+    display: flex;
     background-color: white;
     padding: 10px;
     font-family: Inconsolata, monospace;
@@ -155,6 +156,19 @@ $main-width: 960px;
     border: 1px solid #dfdfdf;
     height: 400px;
     line-height: 25px;
+
+    > iframe {
+      flex: 1 1 auto;
+      border: none;
+    }
+  }
+
+  >img {
+    background-color: white;
+    padding: 10px;
+    overflow: scroll;
+    border: 1px solid #dfdfdf;
+    height: 400px;
   }
 }
 

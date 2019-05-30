@@ -33,7 +33,7 @@ const NoWork = () => (
   </section>
 )
 
-const Work = ({ work, content }) => (
+const Work = ({ work }) => (
   <section className={classNames.work}>
     <header>
       <Overview
@@ -49,7 +49,7 @@ const Work = ({ work, content }) => (
       />
     </header>
     <main>
-      <Content content={content}/>
+      <Content archiveUrl={work?.claim?.archiveUrl}/>
       <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
     </main>
   </section>
@@ -92,12 +92,16 @@ const Links = ({ ipfsLink, bitcoinLink }) => (
   </section>
 )
 
-const Content = ({ content }) => (
-  <section className={classNames.content}>
-    <h1>Content</h1>
-    <main>{content}</main>
-  </section>
-)
+const Content = ({ archiveUrl }) => {
+  return (
+    <section className={classNames.content}>
+      <h1>Content</h1>
+      <main>
+        <iframe src={archiveUrl} />
+      </main>
+    </section>
+  )
+}
 
 const AuthenticationBadgePreview = ({ workId, date }) => {
   const formatDate = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')

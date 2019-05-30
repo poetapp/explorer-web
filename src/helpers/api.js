@@ -78,6 +78,8 @@ export const Api = ({
   const workGetById = (id) => apiFetch(`${nodeUrl}/works/${id}`)
   const worksGetByFilters = (filters = {}) => apiFetch(`${nodeUrl}/works?${filtersToQueryParams(filters)}`)
 
+  const postArchive = (file, token) => apiFetch(`${apiUrl}/archives`, { method: 'POST', body: file, headers: { token } })
+
   return {
     getTokens,
     createToken,
@@ -94,6 +96,7 @@ export const Api = ({
     accountPoeChallengePost,
     workGetById,
     worksGetByFilters,
+    postArchive,
   }
 
 }

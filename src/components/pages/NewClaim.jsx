@@ -1,5 +1,5 @@
 import { pipe } from 'ramda'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
@@ -17,8 +17,24 @@ export const NewClaim = () => {
   const [account] = useContext(SessionContext)
   const token = selectToken(tokens, account.email)
 
-  const onSubmit = claim => {
-    api.createClaim(claim, token).then(setCreatedWork)
+  const claimWithFile = async (claim, file) => {
+    const response = await api.postArchive(file, token)
+
+    const { archiveUrl, hash } = response?.[0] || {}
+
+    if (!archiveUrl || !hash)
+      throw new Error('Unexpected response from POST /archives.')
+
+    return {
+      ...claim,
+      archiveUrl,
+      hash,
+    }
+  }
+
+  const onSubmit = async (claim, file) => {
+    const claimToUse = !file? claim : await claimWithFile(claim, file)
+    api.createClaim(claimToUse, token).then(setCreatedWork)
   }
 
   useEffect(() => {
@@ -32,22 +48,34 @@ export const NewClaim = () => {
         <h2>Create a New Claim on the Po.et Network</h2>
         { !token && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!token}/>
+          ? <FormAndBanner onSubmit={onSubmit} isBusy={isBusy} disabled={!token} poeAddressVerified={account.poeAddressVerified} />
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
   )
 }
 
-const Form = ({ onSubmit, disabled, isBusy }) => {
+const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified }) => (
+  <section className={classNames.formAndBanner}>
+    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} />
+    <Banner render={!poeAddressVerified}/>
+  </section>
+)
+
+const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
+  const [selectedFile, setSelectedFile] = useState()
+  const contentInput = useRef()
+
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
+
   const onSubmitWrapper = event => {
-    event.preventDefault();
+    event.preventDefault()
+
     const claim = {
       name,
       datePublished: date,
@@ -57,7 +85,15 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
       content,
     }
 
-    onSubmit(claim)
+    onSubmit(claim, selectedFile)
+  }
+
+  useEffect(() => {
+    contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
+  }, [selectedFile, content])
+
+  const onFileSelected = (file) => {
+    setSelectedFile(file)
   }
 
   return (
@@ -67,7 +103,8 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
-      <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} required />
+      <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
+      <FileInput render={archiveUploadEnabled} onFileSelected={onFileSelected} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
@@ -76,6 +113,38 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
     </form>
   )
 }
+
+const FileInput = ({ render, onFileSelected }) => {
+  const fileInput = useRef()
+  const [selectedFile, setSelectedFile] = useState()
+
+  const onFileInputChange = (event) => {
+    setSelectedFile(event.currentTarget?.files?.[0])
+    onFileSelected(event.currentTarget?.files?.[0])
+  }
+
+  const onButtonClick = (event) => {
+    event.preventDefault()
+    fileInput.current?.click()
+  }
+
+  return render && (
+    <section className={classNames.fileInput}>
+      <input type="file" ref={fileInput} onChange={onFileInputChange} />
+      <button onClick={onButtonClick}>Upload File</button>
+      <span>{selectedFile?.name}</span>
+    </section>
+  )
+}
+
+const Banner = ({ render }) => render && (
+  <section className={classNames.banner}>
+    <img src="https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5cd6d59a3d256b4702ed70b9_icon.svg" />
+    <h1>Want to unlock more amazing features?</h1>
+    <h2>By proving you have POE in a wallet, you can begin uploading actual media files.</h2>
+    <Link to='/settings'>Connect Your Wallet</Link>
+  </section>
+)
 
 const Done = ({ workId }) => (
   <section>
