@@ -22,6 +22,7 @@ export const Settings = () => (
       </header>
       <main>
         <ProfileForm />
+        <PoeWalletForm/>
         <WalletForm />
         <PasswordForm />
       </main>
