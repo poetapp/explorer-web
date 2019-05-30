@@ -61,7 +61,6 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [date, setDate] = useState(new Date().toISOString())
   const [selectedFile, setSelectedFile] = useState()
   const contentInput = useRef()
-  const fileInput = useRef()
 
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
 
@@ -77,15 +76,15 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       content,
     }
 
-    onSubmit(claim, fileInput.current.files[0])
+    onSubmit(claim, selectedFile)
   }
 
   useEffect(() => {
     contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
   }, [selectedFile, content])
 
-  const onFileInputChange = () => {
-    setSelectedFile(fileInput.current?.files?.[0])
+  const onFileSelected = (file) => {
+    setSelectedFile(file)
   }
 
   return (
@@ -96,13 +95,36 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
-      { archiveUploadEnabled && <input type="file" ref={fileInput} onChange={onFileInputChange} /> }
+      <FileInput render={archiveUploadEnabled} onFileSelected={onFileSelected} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
     </form>
+  )
+}
+
+const FileInput = ({ render, onFileSelected }) => {
+  const fileInput = useRef()
+  const [selectedFile, setSelectedFile] = useState()
+
+  const onFileInputChange = (event) => {
+    setSelectedFile(event.currentTarget?.files?.[0])
+    onFileSelected(event.currentTarget?.files?.[0])
+  }
+
+  const onButtonClick = (event) => {
+    event.preventDefault()
+    fileInput.current?.click()
+  }
+
+  return render && (
+    <section className={classNames.fileInput}>
+      <input type="file" ref={fileInput} onChange={onFileInputChange} />
+      <button onClick={onButtonClick}>Upload File</button>
+      <span>{selectedFile?.name}</span>
+    </section>
   )
 }
 
