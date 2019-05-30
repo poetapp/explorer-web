@@ -39,17 +39,21 @@ export const NewClaim = () => {
         <h2>Create a New Claim on the Po.et Network</h2>
         { !token && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <section className={classNames.formAndBanner}>
-              <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!token}/>
-              <Banner isVerified={account.poeAddressVerified}/>
-            </section>
+          ? <FormAndBanner onSubmit={onSubmit} isBusy={isBusy} disabled={!token} poeAddressVerified={account.poeAddressVerified} />
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
   )
 }
 
-const Form = ({ onSubmit, disabled, isBusy }) => {
+const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified }) => (
+  <section className={classNames.formAndBanner}>
+    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} />
+    <Banner render={!poeAddressVerified}/>
+  </section>
+)
+
+const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
@@ -92,7 +96,7 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
-      <input type="file" ref={fileInput} onChange={onFileInputChange} />
+      { archiveUploadEnabled && <input type="file" ref={fileInput} onChange={onFileInputChange} /> }
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
@@ -102,7 +106,7 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
   )
 }
 
-const Banner = ({ isVerified }) => !isVerified && (
+const Banner = ({ render }) => render && (
   <section className={classNames.banner}>
     <img src="https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5cd6d59a3d256b4702ed70b9_icon.svg" />
     <h1>Want to unlock more amazing features?</h1>
