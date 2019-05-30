@@ -93,42 +93,11 @@ const Links = ({ ipfsLink, bitcoinLink }) => (
 )
 
 const Content = ({ archiveUrl }) => {
-  const [contentType, setContentType] = useState('')
-  const [parsedContentType, setParsedContentType] = useState('')
-  const [textContent, setTextContent] = useState('')
-
-  useEffect(() => {
-    if (!archiveUrl)
-      return
-
-    fetch(archiveUrl, { method: 'HEAD' })
-      .then(_ => _.headers.get('content-type'))
-      .then(setContentType)
-  }, [archiveUrl])
-
-  useEffect(() => {
-    const [firstPart] = contentType.split(';')
-    switch (firstPart) {
-      case 'text/plain':
-        setParsedContentType('text')
-        break;
-      case 'image/png':
-        setParsedContentType('image')
-        break;
-    }
-  }, [contentType])
-
-  useEffect(() => {
-    if (parsedContentType === 'text')
-      fetch(archiveUrl).then(_ => _.text()).then(setTextContent)
-  }, [parsedContentType])
-
   return (
     <section className={classNames.content}>
       <h1>Content</h1>
       <main>
-        { parsedContentType === 'text' && <p>{textContent}</p> }
-        { parsedContentType === 'image' && <img src={archiveUrl} /> }
+        <iframe src={archiveUrl} />
       </main>
     </section>
   )
