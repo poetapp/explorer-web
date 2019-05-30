@@ -17,15 +17,24 @@ export const NewClaim = () => {
   const [account] = useContext(SessionContext)
   const token = selectToken(tokens, account.email)
 
-  const onSubmit = async (claim, file) => {
-    console.log('onSubmit', claim, file)
+  const claimWithFile = async (claim, file) => {
+    const response = await api.postArchive(file, token)
 
-    if (file) {
-      const bla = await api.postArchive(file, token)
-      console.log(bla)
+    const { archiveUrl, hash } = response?.[0] || {}
+
+    if (!archiveUrl || !hash)
+      throw new Error('Unexpected response from POST /archives.')
+
+    return {
+      ...claim,
+      archiveUrl,
+      hash,
     }
+  }
 
-    // api.createClaim(claim, token).then(setCreatedWork)
+  const onSubmit = async (claim, file) => {
+    const claimToUse = !file? claim : await claimWithFile(claim, file)
+    api.createClaim(claimToUse, token).then(setCreatedWork)
   }
 
   useEffect(() => {
