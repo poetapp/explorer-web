@@ -17,8 +17,6 @@ export const NewClaim = () => {
   const [account] = useContext(SessionContext)
   const token = selectToken(tokens, account.email)
 
-  console.log('account verified', account.poeAddressVerified)
-
   const onSubmit = async (claim, file) => {
     console.log('onSubmit', claim, file)
 
@@ -41,7 +39,10 @@ export const NewClaim = () => {
         <h2>Create a New Claim on the Po.et Network</h2>
         { !token && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!token}/>
+          ? <section className={classNames.formAndBanner}>
+              <Form onSubmit={onSubmit} isBusy={isBusy} disabled={!token}/>
+              <Banner isVerified={account.poeAddressVerified}/>
+            </section>
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
@@ -61,7 +62,7 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
 
   const onSubmitWrapper = event => {
-    event.preventDefault();
+    event.preventDefault()
 
     const claim = {
       name,
@@ -100,6 +101,15 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
     </form>
   )
 }
+
+const Banner = ({ isVerified }) => !isVerified && (
+  <section className={classNames.banner}>
+    <img src="https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5cd6d59a3d256b4702ed70b9_icon.svg" />
+    <h1>Want to unlock more amazing features?</h1>
+    <h2>By proving you have POE in a wallet, you can begin uploading actual media files.</h2>
+    <Link to='/settings'>Connect Your Wallet</Link>
+  </section>
+)
 
 const Done = ({ workId }) => (
   <section>

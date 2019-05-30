@@ -22,45 +22,78 @@
     color: #36b074;
   }
 
-  form {
-    width: 66.66666667%;
+  section.formAndBanner {
+    display: flex;
+    align-items: flex-start;
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
+    form {
+      width: 66.66666667%;
 
-    input[type="text"], textarea {
-      display: block;
-      height: 50px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-      color: #000;
-      font-size: 15px;
-      padding: 8px 12px;
-      width: 100%;
-      vertical-align: middle;
-      background-color: #ffffff;
-      border: 1px solid #cccccc;
-    }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
 
-    textarea {
-      height: 140px;
+      input[type="text"], textarea {
+        display: block;
+        height: 50px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        color: #000;
+        font-size: 15px;
+        padding: 8px 12px;
+        width: 100%;
+        vertical-align: middle;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+      }
 
-      &:disabled {
-        background-color: lightgrey;
+      textarea {
+        height: 140px;
+
+        &:disabled {
+          background-color: lightgrey;
+        }
+      }
+
+      button {
+        @extend %buttonA;
+        max-width: 144px;
+        padding: 15px 20px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
       }
     }
 
-    button {
-      @extend %buttonA;
-      max-width: 144px;
-      padding: 15px 20px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: 600;
+    section.banner {
+      padding: 25px;
+      border: solid 1px rgb(236, 236, 236);
+      border-radius: 4px;
       text-align: center;
+      background-color: white;
+      width: 33.333%;
+
+      img {
+        width: 63px;
+      }
+
+      h1 {
+        font-size: 22.4px;
+        font-weight: 700;
+        font-family: $roboto-slab;
+      }
+
+      h2 {
+        font-size: 14px;
+      }
+
+      a {
+        @extend %buttonB;
+      }
     }
   }
+
 }
