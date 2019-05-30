@@ -46,9 +46,9 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
+  const [selectedFile, setSelectedFile] = useState()
   const contentInput = useRef()
   const fileInput = useRef()
-  const [selectedFile, setSelectedFile] = useState()
 
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
 
@@ -82,7 +82,7 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
-      <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} />
+      <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
       <input type="file" ref={fileInput} onChange={onFileInputChange} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
