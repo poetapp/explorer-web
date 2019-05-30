@@ -1,5 +1,5 @@
 import { pipe } from 'ramda'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { Main } from 'components/templates/Main'
@@ -17,8 +17,9 @@ export const NewClaim = () => {
   const [account] = useContext(SessionContext)
   const token = selectToken(tokens, account.email)
 
-  const onSubmit = claim => {
-    api.createClaim(claim, token).then(setCreatedWork)
+  const onSubmit = (claim, files) => {
+    console.log('onSubmit', claim, files)
+    // api.createClaim(claim, token).then(setCreatedWork)
   }
 
   useEffect(() => {
@@ -45,9 +46,15 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
+  const contentInput = useRef()
+  const fileInput = useRef()
+  const [selectedFile, setSelectedFile] = useState()
+
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
+
   const onSubmitWrapper = event => {
     event.preventDefault();
+
     const claim = {
       name,
       datePublished: date,
@@ -57,7 +64,15 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
       content,
     }
 
-    onSubmit(claim)
+    onSubmit(claim, fileInput.current.files[0])
+  }
+
+  useEffect(() => {
+    contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
+  }, [selectedFile, content])
+
+  const onFileInputChange = () => {
+    setSelectedFile(fileInput.current?.files?.[0])
   }
 
   return (
@@ -67,7 +82,8 @@ const Form = ({ onSubmit, disabled, isBusy }) => {
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
-      <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} required />
+      <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} />
+      <input type="file" ref={fileInput} onChange={onFileInputChange} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
