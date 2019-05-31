@@ -128,23 +128,23 @@ const FileInput = ({ render, onFileSelected }) => {
     fileInput.current?.click()
   }
 
-  return render && (
+  return render ? (
     <section className={classNames.fileInput}>
       <input type="file" ref={fileInput} onChange={onFileInputChange} />
       <button onClick={onButtonClick}>Upload File</button>
       <span>{selectedFile?.name}</span>
     </section>
-  )
+  ) : null
 }
 
-const Banner = ({ render }) => render && (
+const Banner = ({ render }) => render ? (
   <section className={classNames.banner}>
     <img src="https://uploads-ssl.webflow.com/5bb569975d49a4750c2b4f1e/5cd6d59a3d256b4702ed70b9_icon.svg" />
     <h1>Want to unlock more amazing features?</h1>
     <h2>By proving you have POE in a wallet, you can begin uploading actual media files.</h2>
     <Link to='/settings'>Connect Your Wallet</Link>
   </section>
-)
+) : null
 
 const Done = ({ workId }) => (
   <section>
