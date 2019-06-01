@@ -76,9 +76,7 @@ const PoeWalletForm = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [mewVisible, setMewVisible] = useState(false)
-
-  // const timer = useRef()
-  // const [poeBalance, setPoeBalance] = useState(null)
+  const [poeBalance, setPoeBalance] = useState(null)
 
   // const onSubmit = async (event) => {
   //   event.preventDefault()
@@ -94,25 +92,15 @@ const PoeWalletForm = () => {
   //   toast.success('POE Wallet updated.')
   // }
 
-  // useEffect(() => {
-  //   clearTimeout(timer.current)
-  //   timer.current = setTimeout(() => {
-  //     if (poeAddress)
-  //       fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
-  //         .then(_ => _.json())
-  //         .then(_ => _.balance)
-  //         .then(setPoeBalance)
-  //     else
-  //       setPoeBalance(null)
-  //   }, 500)
-  //
-  // }, [poeAddress])
-
-  // const VerificationStatus = () => !account.poeAddress
-  //   ? ''
-  //   : account.poeAddressVerified
-  //   ? '(Verified)'
-  //   : '(Not Verified)'
+  useEffect(() => {
+    if (account.poeAddress && account.poeAddressVerified)
+      fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
+        .then(_ => _.json())
+        .then(_ => _.balance)
+        .then(setPoeBalance)
+    else
+      setPoeBalance(null)
+  }, [account])
 
   const onDisconnect = () => {
     setAccount({
@@ -126,11 +114,14 @@ const PoeWalletForm = () => {
     <section className={classNames.wallet}>
       <header>
         <h2>Connect your Wallet</h2>
-        <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
+        { !account.poeAddressVerified && <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3> }
+        { account.poeAddressVerified && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
+        { account.poeAddressVerified && <section>Balance: ${poeBalance} </section> }
+        { account.poeAddressVerified &&  <section>Verified </section>}
       </header>
       <main>
-        { !account.poeAddressVerified && <button onClick={() => setMewVisible(true)}>Connect with MEW</button> }
-        { account.poeAddressVerified && <button onClick={onDisconnect}>Disconnect</button> }
+        { !account.poeAddressVerified && <button onClick={() => setMewVisible(true)}>Connect with MyEtherWallet</button> }
+        { account.poeAddressVerified && <button onClick={onDisconnect}>Unlink Address</button> }
         { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
       </main>
     </section>
