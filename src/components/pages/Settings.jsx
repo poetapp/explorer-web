@@ -73,28 +73,13 @@ const ProfileForm = () => {
 }
 
 const PoeWalletForm = () => {
-  const [api, isBusy] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [mewVisible, setMewVisible] = useState(false)
   const [poeBalance, setPoeBalance] = useState(null)
 
-  // const onSubmit = async (event) => {
-  //   event.preventDefault()
-  //
-  //   if (!account.issuer)
-  //     throw new Error('account.issuer not set')
-  //
-  //   const patchedAccount = await api.accountPatch(account.issuer)({ poeAddress, poeSignature })
-  //   setAccount({
-  //     ...account,
-  //     ...patchedAccount,
-  //   })
-  //   toast.success('POE Wallet updated.')
-  // }
-
   useEffect(() => {
     if (account.poeAddress && account.poeAddressVerified)
-      fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
+      fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${account.poeAddress}`)
         .then(_ => _.json())
         .then(_ => _.balance)
         .then(setPoeBalance)
@@ -161,12 +146,29 @@ const PoeWalletMewOverlay = ({ onDone }) => {
     }
   }, [])
 
+  const onSubmit = async (event) => {
+    event.preventDefault()
+
+    const patchedAccount = await api.accountPatch(account.issuer)({ poeAddress, poeSignature })
+    setAccount({
+      ...account,
+      ...patchedAccount,
+    })
+
+    if (patchedAccount.poeAddressVerified)
+      toast.success('POE Wallet updated.')
+    else
+      toast.error('POE address could not be verified.')
+
+    onDone()
+  }
+
   return (
     <section className={classNames.poeWalletMewOverlay} onClick={onOverlayClick}>
       <section>
         <h1>Connect with MyEtherWallet</h1>
         <h2>sdasdasdasd</h2>
-        <form onSubmit={onDone}>
+        <form onSubmit={onSubmit}>
           <label htmlFor="poeAddressMessage">Message</label>
           <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
           <label>Signed Message</label>
