@@ -75,54 +75,52 @@ const ProfileForm = () => {
 const PoeWalletForm = () => {
   const [api, isBusy] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
-  const [poeAddress, setPoeAddress] = useState(account.poeAddress || '')
-  const [poeAddressMessage, setPoeAddressMessage] = useState('')
-  const [poeSignature, setPoeSignature] = useState('')
-  const clearSignature = () => setPoeSignature('')
-  const timer = useRef()
-  const [poeBalance, setPoeBalance] = useState(null)
+  const [mewVisible, setMewVisible] = useState(false)
 
-  const onSubmit = async () => {
-    event.preventDefault()
+  // const timer = useRef()
+  // const [poeBalance, setPoeBalance] = useState(null)
 
-    if (!account.issuer)
-      throw new Error('account.issuer not set')
+  // const onSubmit = async (event) => {
+  //   event.preventDefault()
+  //
+  //   if (!account.issuer)
+  //     throw new Error('account.issuer not set')
+  //
+  //   const patchedAccount = await api.accountPatch(account.issuer)({ poeAddress, poeSignature })
+  //   setAccount({
+  //     ...account,
+  //     ...patchedAccount,
+  //   })
+  //   toast.success('POE Wallet updated.')
+  // }
 
-    const patchedAccount = await api.accountPatch(account.issuer)({ poeAddress, poeSignature })
+  // useEffect(() => {
+  //   clearTimeout(timer.current)
+  //   timer.current = setTimeout(() => {
+  //     if (poeAddress)
+  //       fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
+  //         .then(_ => _.json())
+  //         .then(_ => _.balance)
+  //         .then(setPoeBalance)
+  //     else
+  //       setPoeBalance(null)
+  //   }, 500)
+  //
+  // }, [poeAddress])
+
+  // const VerificationStatus = () => !account.poeAddress
+  //   ? ''
+  //   : account.poeAddressVerified
+  //   ? '(Verified)'
+  //   : '(Not Verified)'
+
+  const onDisconnect = () => {
     setAccount({
       ...account,
-      ...patchedAccount,
+      poeAddress: '',
+      poeAddressVerified: '',
     })
-    toast.success('POE Wallet updated.')
   }
-
-  useEffect(() => {
-    if (api && !account.poeAddressVerified)
-      api.accountPoeChallengePost(account.issuer)()
-        .then(_ => _.poeAddressMessage)
-        .then(setPoeAddressMessage)
-        .then(clearSignature)
-  }, [api, account])
-
-  useEffect(() => {
-    clearTimeout(timer.current)
-    timer.current = setTimeout(() => {
-      if (poeAddress)
-        fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
-          .then(_ => _.json())
-          .then(_ => _.balance)
-          .then(setPoeBalance)
-      else
-        setPoeBalance(null)
-    }, 500)
-
-  }, [poeAddress])
-
-  const VerificationStatus = () => !account.poeAddress
-    ? ''
-    : account.poeAddressVerified
-    ? '(Verified)'
-    : '(Not Verified)'
 
   return (
     <section className={classNames.wallet}>
@@ -130,23 +128,61 @@ const PoeWalletForm = () => {
         <h2>Connect your Wallet</h2>
         <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
       </header>
-      <form onSubmit={onSubmit} className={classnames({ isBusy })}>
-        <section>
-          <label htmlFor="poeAddress">POE Address <VerificationStatus/> { poeBalance !== null && `Balance: ${poeBalance} POE` }</label>
-          <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
-          <button type="submit" disabled={isBusy}>Save</button>
-        </section>
-        { account.poeAddress && !account.poeAddressVerified && (
-          <section>
-            <h3>Sign the following message with your wallet and paste the generated signature here. See <a target="_blank" href="">Proof of POE</a> for help and troubleshooting.</h3>
-            <label htmlFor="poeAddressMessage">Message</label>
-            <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
-            <label htmlFor="poeAddressSignature">Signature</label>
-            <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
-            <button type="submit" disabled={isBusy}>Verify</button>
-          </section>
-        ) }
-      </form>
+      <main>
+        { !account.poeAddressVerified && <button onClick={() => setMewVisible(true)}>Connect with MEW</button> }
+        { account.poeAddressVerified && <button onClick={onDisconnect}>Disconnect</button> }
+        { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
+      </main>
+    </section>
+  )
+}
+
+const PoeWalletMewOverlay = ({ onDone }) => {
+  const [api, isBusy] = useContext(ApiContext)
+  const [account, setAccount] = useContext(SessionContext)
+  const [poeAddressMessage, setPoeAddressMessage] = useState('')
+  const [signedMessage, setSignedMessage] = useState('')
+  const [poeAddress, setPoeAddress] = useState('')
+  const [poeSignature, setPoeSignature] = useState('')
+
+  useEffect(() => {
+    if (api)
+      api.accountPoeChallengePost(account.issuer)()
+        .then(_ => _.poeAddressMessage)
+        .then(setPoeAddressMessage)
+  }, [api, account])
+
+  const onOverlayClick = (event) => {
+    if (event.target === event.currentTarget)
+      onDone()
+  }
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape')
+        onDone()
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [])
+
+  return (
+    <section className={classNames.poeWalletMewOverlay} onClick={onOverlayClick}>
+      <section>
+        <h1>Connect with MyEtherWallet</h1>
+        <h2>sdasdasdasd</h2>
+        <form onSubmit={onDone}>
+          <label htmlFor="poeAddressMessage">Message</label>
+          <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+          <label>Signed Message</label>
+          <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} />
+          <button type="submit">Submit</button>
+        </form>
+      </section>
     </section>
   )
 }
