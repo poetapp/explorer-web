@@ -166,15 +166,19 @@ const PoeWalletMewOverlay = ({ onDone }) => {
   return (
     <section className={classNames.poeWalletMewOverlay} onClick={onOverlayClick}>
       <section>
-        <h1>Connect with MyEtherWallet</h1>
-        <h2>sdasdasdasd</h2>
-        <form onSubmit={onSubmit}>
-          <label htmlFor="poeAddressMessage">Message</label>
-          <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
-          <label>Signed Message</label>
-          <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} />
-          <button type="submit">Submit</button>
-        </form>
+        <head>
+          <h1>Connect your POE Wallet</h1>
+          <h2>Read <a href="">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
+        </head>
+        <main>
+          <form onSubmit={onSubmit}>
+            <label htmlFor="poeAddressMessage">Message (copy and paste into MEW)</label>
+            <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+            <label>Signed Message</label>
+            <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} />
+            <button type="submit">Submit</button>
+          </form>
+        </main>
       </section>
     </section>
   )
