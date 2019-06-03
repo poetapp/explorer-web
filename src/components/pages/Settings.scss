@@ -111,3 +111,33 @@
 
   }
 }
+
+.mew {
+  //background-image: url('/mew.jpg');
+  background-position: 0% 42%;
+  background-size: auto 105px;
+  background-repeat: no-repeat;
+
+  height: 70px;
+  margin-bottom: 20px;
+  padding-right: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e0e0e0;
+  border-radius: 4px;
+  background-color: #fafafa;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  button {
+    @extend %buttonB;
+    color: #36b074;
+    border-color: #36b074;
+
+    &:hover {
+      color: black;
+    }
+  }
+}
