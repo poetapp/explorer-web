@@ -96,12 +96,12 @@ const PoeWalletForm = () => {
   }
 
   return (
-    <section className={classNames.wallet}>
+    <section className={classNames.poeWallet}>
       <header>
         <h2>Connect your Wallet</h2>
         { !account.poeAddressVerified && <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3> }
         { account.poeAddressVerified && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
-        { account.poeAddressVerified && <section>Balance: ${poeBalance} </section> }
+        { account.poeAddressVerified && <PoeBalance poeBalance={poeBalance} /> }
         { account.poeAddressVerified &&  <section>Verified </section>}
       </header>
       <main>
@@ -112,6 +112,10 @@ const PoeWalletForm = () => {
     </section>
   )
 }
+
+const PoeBalance = ({ poeBalance }) => (
+  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}>Balance: <span>{poeBalance} POE</span> </section>
+)
 
 const UnlinkAddress = ({ onDisconnect, address }) => {
   return (

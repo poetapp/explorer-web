@@ -81,6 +81,16 @@
     }
   }
 
+  .poeWallet {
+    .poeBalance {
+      color: #f83d04;
+
+      &.enough {
+        color: #36b074;
+      }
+    }
+  }
+
   .poeWalletMewOverlay {
     position: fixed;
     left: 0;
@@ -162,7 +172,7 @@
   }
 }
 
-.profile, .wallet, .password {
+.profile, .wallet, .password, .poeWallet {
   @include letterboxed();
   display: grid;
   grid-template-columns: 5fr 7fr;
