@@ -144,7 +144,7 @@ const AddressLinkingAction = ({ address, verified, onLink, onUnlink }) =>
     : <UnlinkAddress onUnlink={onUnlink} address={address} />
 
 const LinkAddress = ({ onLink }) => (
-  <section className={classNames.mew}>
+  <section className={classNames.linkAddress}>
     <button onClick={onLink}>Connect with MyEtherWallet</button>
   </section>
 )
