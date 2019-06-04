@@ -101,7 +101,7 @@ const PoeWalletForm = () => {
       </header>
       <main>
         { !account.poeAddressVerified && <div className={classNames.mew}><button onClick={() => setMewVisible(true)}>Connect with MyEtherWallet</button></div> }
-        { account.poeAddressVerified && <UnlinkAddress onClick={onDisconnect}/> }
+        { account.poeAddressVerified && <UnlinkAddress onClick={onDisconnect} address={account?.poeAddress} /> }
         { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
       </main>
     </section>
