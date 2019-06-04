@@ -146,6 +146,21 @@ const PoeWalletMewOverlay = ({ onDone }) => {
     }
   }, [])
 
+  useEffect(() => {
+    try {
+      const { address, sig } = JSON.parse(signedMessage)
+      setPoeAddress(address || '')
+      setPoeSignature(sig || '')
+    } catch {
+      setPoeAddress('')
+      setPoeSignature('')
+    }
+  }, [signedMessage])
+
+  useEffect(() => {
+    console.log('poeAddress, poeSignature', poeAddress, poeSignature)
+  }, [poeAddress, poeSignature])
+
   const onSubmit = async (event) => {
     event.preventDefault()
 
