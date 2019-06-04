@@ -12,6 +12,7 @@ import { PasswordRepeat } from 'components/shared/PasswordRepeat'
 
 import { eventToValue } from 'helpers/eventToValue'
 
+import { useDocumentKeyDownFilter } from 'hooks/useDocumentKeyDown'
 import { usePoeBalance } from 'hooks/usePoeBalance'
 
 import { ApiContext } from 'providers/ApiProvider'
@@ -82,6 +83,10 @@ const PoeWalletForm = () => {
   const [mewVisible, setMewVisible] = useState(false)
   const poeBalance = usePoeBalance(account?.poeAddress)
 
+  const onLink = () => {
+    setMewVisible(true)
+  }
+
   const onUnlink = () => {
     setAccount({
       ...account,
@@ -94,19 +99,29 @@ const PoeWalletForm = () => {
     <section className={classNames.poeWallet}>
       <header>
         <h2>Connect your Wallet</h2>
-        { !account.poeAddressVerified && <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3> }
-        { account.poeAddressVerified && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
+        <PoeStatus poeAddressVerified={account.poeAddressVerified} poeBalance={poeBalance} />
         { account.poeAddressVerified && <PoeBalance poeBalance={poeBalance} /> }
         { account.poeAddressVerified &&  <PoeVerified/>}
       </header>
       <main>
-        { !account.poeAddressVerified && <div className={classNames.mew}><button onClick={() => setMewVisible(true)}>Connect with MyEtherWallet</button></div> }
-        { account.poeAddressVerified && <UnlinkAddress onUnlink={onUnlink} address={account?.poeAddress} /> }
+        <AddressLinkingAction
+          address={account?.poeAddress}
+          verified={account?.poeAddressVerified}
+          onLink={onLink}
+          onUnlink={onUnlink}
+        />
         { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
       </main>
     </section>
   )
 }
+
+const PoeStatus = ({ poeAddressVerified, poeBalance }) =>
+  !poeAddressVerified
+  ? <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3>
+  : poeBalance >= 1000
+  ? <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3>
+  : <h3>Your wallet needs at least 1000 POE to access exclusive features. Click <a href="https://www.binance.com/en" target="_blank">here</a> to find out where to buy POE.</h3>
 
 const PoeVerified = () => (
   <section className={classNames.poeVerified}>
@@ -124,15 +139,24 @@ const PoeBalance = ({ poeBalance }) => (
   <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
 )
 
-const UnlinkAddress = ({ onUnlink, address }) => {
-  return (
-    <section className={classNames.unlinkAddress}>
-      <label>ETH Address</label>
-      <input type="text" value={address} readOnly />
-      <button onClick={onUnlink}>Unlink Address</button>
-    </section>
-  )
-}
+const AddressLinkingAction = ({ address, verified, onLink, onUnlink }) =>
+  !verified
+    ? <LinkAddress onLink={onLink}/>
+    : <UnlinkAddress onUnlink={onUnlink} address={address} />
+
+const LinkAddress = ({ onLink }) => (
+  <section className={classNames.linkAddress}>
+    <button onClick={onLink}>Connect with MyEtherWallet</button>
+  </section>
+)
+
+const UnlinkAddress = ({ onUnlink, address }) => (
+  <section className={classNames.unlinkAddress}>
+    <label>ETH Address</label>
+    <input type="text" value={address} readOnly />
+    <button onClick={onUnlink}>Unlink Address</button>
+  </section>
+)
 
 const PoeWalletMewOverlay = ({ onDone }) => {
   const [api, isBusy] = useContext(ApiContext)
@@ -154,18 +178,7 @@ const PoeWalletMewOverlay = ({ onDone }) => {
       onDone()
   }
 
-  useEffect(() => {
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape')
-        onDone()
-    }
-
-    document.addEventListener('keydown', onKeyDown)
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-    }
-  }, [])
+  useDocumentKeyDownFilter('Escape', onDone)
 
   useEffect(() => {
     try {
@@ -204,18 +217,35 @@ const PoeWalletMewOverlay = ({ onDone }) => {
       <section>
         <header>
           <h1>Connect your POE Wallet</h1>
-          <h2>Read <a href="http://po.et/verify-poe">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
+          <h2>Read <a href="https://docs.poetnetwork.net/" target="_blank">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
         </header>
         <main>
           <form onSubmit={onSubmit}>
-            <label htmlFor="poeAddressMessage">Message (copy and paste into MEW)</label>
-            <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+            <label htmlFor="poeAddressMessage">Message (<a target="_blank" href="https://www.myetherwallet.com/interface/sign-message">copy and paste into MEW</a>)</label>
+            <CopyInput className={classNames.poeAddressMessage} id="poeAddressMessage" value={poeAddressMessage} />
             <label>Signed Message</label>
             <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} required />
             <button type="submit">Connect Your Wallet</button>
           </form>
         </main>
       </section>
+    </section>
+  )
+}
+
+const CopyInput = ({ className, id, value }) => {
+  const copy = useRef()
+
+  const onCopy = (event) => {
+    event.preventDefault()
+    copy.current?.select()
+    document.execCommand('copy')
+  }
+
+  return (
+    <section className={className}>
+      <input type="text" ref={copy} id={id} value={value} readOnly />
+      <button onClick={onCopy}>Copy</button>
     </section>
   )
 }
