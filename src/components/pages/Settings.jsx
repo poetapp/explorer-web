@@ -95,7 +95,8 @@ const PoeWalletForm = () => {
       <header>
         <h2>Connect your Wallet</h2>
         { !account.poeAddressVerified && <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3> }
-        { account.poeAddressVerified && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
+        { account.poeAddressVerified && poeBalance >= 1000 && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
+        { account.poeAddressVerified && poeBalance < 1000 && <h3>Your wallet needs at least 1000 POE to access exclusive features. Click <a href="https://www.binance.com/en" target="_blank">here</a> to find out where to buy POE.</h3> }
         { account.poeAddressVerified && <PoeBalance poeBalance={poeBalance} /> }
         { account.poeAddressVerified &&  <PoeVerified/>}
       </header>
@@ -204,7 +205,7 @@ const PoeWalletMewOverlay = ({ onDone }) => {
       <section>
         <header>
           <h1>Connect your POE Wallet</h1>
-          <h2>Read <a href="http://po.et/verify-poe">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
+          <h2>Read <a href="https://docs.poetnetwork.net/" target="_blank">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
         </header>
         <main>
           <form onSubmit={onSubmit}>
