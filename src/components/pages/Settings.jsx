@@ -221,7 +221,7 @@ const PoeWalletMewOverlay = ({ onDone }) => {
         </header>
         <main>
           <form onSubmit={onSubmit}>
-            <label htmlFor="poeAddressMessage">Message (copy and paste into MEW)</label>
+            <label htmlFor="poeAddressMessage">Message (<a target="_blank" href="https://www.myetherwallet.com/interface/sign-message">copy and paste into MEW</a>)</label>
             <CopyInput className={classNames.poeAddressMessage} id="poeAddressMessage" value={poeAddressMessage} />
             <label>Signed Message</label>
             <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} required />
