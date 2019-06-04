@@ -12,7 +12,7 @@ import { PasswordRepeat } from 'components/shared/PasswordRepeat'
 
 import { eventToValue } from 'helpers/eventToValue'
 
-import { useDocumentKeyDown } from 'hooks/useDocumentKeyDown'
+import { useDocumentKeyDownFilter } from 'hooks/useDocumentKeyDown'
 import { usePoeBalance } from 'hooks/usePoeBalance'
 
 import { ApiContext } from 'providers/ApiProvider'
@@ -178,10 +178,7 @@ const PoeWalletMewOverlay = ({ onDone }) => {
       onDone()
   }
 
-  useDocumentKeyDown((event) => {
-    if (event.key === 'Escape')
-      onDone()
-  })
+  useDocumentKeyDownFilter('Escape', onDone)
 
   useEffect(() => {
     try {

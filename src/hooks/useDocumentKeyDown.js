@@ -9,3 +9,8 @@ export const useDocumentKeyDown = (onKeyDown) => {
     }
   }, [])
 }
+
+export const useDocumentKeyDownFilter = (key, onKeyDown) => useDocumentKeyDown((event) => {
+  if (event.key === key)
+    onKeyDown()
+})
