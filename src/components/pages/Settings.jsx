@@ -168,7 +168,7 @@ const PoeWalletMewOverlay = ({ onDone }) => {
       <section>
         <header>
           <h1>Connect your POE Wallet</h1>
-          <h2>Read <a href="">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
+          <h2>Read <a href="http://po.et/verify-poe">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
         </header>
         <main>
           <form onSubmit={onSubmit}>
