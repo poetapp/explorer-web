@@ -83,21 +83,46 @@
   }
 
   .poeWallet {
-    .poeBalance {
-      main {
-        color: #f83d04;
-      }
-
-      &.enough main {
-        color: #36b074;
-      }
-
+    .poeBalance, .poeVerified {
       header, main {
         display: inline;
       }
 
       header {
         font-weight: bold;
+      }
+    }
+    .poeBalance {
+      margin-bottom: 8px;
+
+      main {
+        margin-left: 8px;
+        color: #f83d04;
+      }
+
+      &.enough main {
+        color: #36b074;
+      }
+    }
+    .poeVerified {
+      display: flex;
+      align-items: center;
+
+      main {
+        margin-left: 8px;
+        display: flex;
+        align-items: center;
+        color: #57a4ff;
+        font-weight: 800;
+
+        img {
+          width: 34px;
+          height: auto;
+        }
+
+        span {
+          margin-left: 8px;
+        }
       }
     }
   }

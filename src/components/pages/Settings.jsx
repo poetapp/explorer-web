@@ -3,6 +3,8 @@ import { pipe } from 'ramda'
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
 
+import { PoeVerifiedBadge } from 'Images'
+
 import { Main } from 'components/templates/Main'
 import { Email } from 'components/shared/Email'
 import { Password } from 'components/shared/Password'
@@ -95,7 +97,7 @@ const PoeWalletForm = () => {
         { !account.poeAddressVerified && <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3> }
         { account.poeAddressVerified && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
         { account.poeAddressVerified && <PoeBalance poeBalance={poeBalance} /> }
-        { account.poeAddressVerified &&  <section>Verified </section>}
+        { account.poeAddressVerified &&  <PoeVerified/>}
       </header>
       <main>
         { !account.poeAddressVerified && <div className={classNames.mew}><button onClick={() => setMewVisible(true)}>Connect with MyEtherWallet</button></div> }
@@ -105,6 +107,18 @@ const PoeWalletForm = () => {
     </section>
   )
 }
+
+const PoeVerified = () => (
+  <section className={classNames.poeVerified}>
+    <header>
+      Verified:
+    </header>
+    <main>
+      <img src={PoeVerifiedBadge} />
+      <span>Verified</span>
+    </main>
+  </section>
+)
 
 const PoeBalance = ({ poeBalance }) => (
   <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
