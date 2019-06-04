@@ -102,6 +102,7 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, .3);
+  z-index: 1;
 
   > section {
     background-color: white;
@@ -109,7 +110,7 @@
     width: 360px;
 
     header, main {
-      padding: 12px;
+      padding: 20px;
     }
 
     header {
