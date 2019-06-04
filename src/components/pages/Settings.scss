@@ -188,9 +188,27 @@
             font-size: 14px;
             color: #5E5E5E
           }
-          input {
+          .poeAddressMessage {
+            display: flex;
+            height: 40px;
             margin-bottom: 20px;
-            background-color: rgba(244, 244, 244, .67)
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            overflow: hidden;
+            flex: 0;
+            padding: 0;
+
+            input {
+              margin: 0;
+              border: 0;
+              background-color: rgba(244, 244, 244, .67)
+            }
+            button {
+              @extend %buttonB;
+              border: none;
+              border-radius: 0;
+              border-left: 1px solid #cccccc;
+            }
           }
           textarea {
             height: 182px;

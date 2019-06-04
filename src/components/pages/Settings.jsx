@@ -222,13 +222,30 @@ const PoeWalletMewOverlay = ({ onDone }) => {
         <main>
           <form onSubmit={onSubmit}>
             <label htmlFor="poeAddressMessage">Message (copy and paste into MEW)</label>
-            <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
+            <CopyInput className={classNames.poeAddressMessage} id="poeAddressMessage" value={poeAddressMessage} />
             <label>Signed Message</label>
             <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} required />
             <button type="submit">Connect Your Wallet</button>
           </form>
         </main>
       </section>
+    </section>
+  )
+}
+
+const CopyInput = ({ className, id, value }) => {
+  const copy = useRef()
+
+  const onCopy = (event) => {
+    event.preventDefault()
+    copy.current?.select()
+    document.execCommand('copy')
+  }
+
+  return (
+    <section className={className}>
+      <input type="text" ref={copy} id={id} value={value} readOnly />
+      <button onClick={onCopy}>Copy</button>
     </section>
   )
 }
