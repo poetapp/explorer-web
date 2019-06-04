@@ -175,8 +175,8 @@ const PoeWalletMewOverlay = ({ onDone }) => {
             <label htmlFor="poeAddressMessage">Message (copy and paste into MEW)</label>
             <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
             <label>Signed Message</label>
-            <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} />
-            <button type="submit">Submit</button>
+            <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} required />
+            <button type="submit">Connect Your Wallet</button>
           </form>
         </main>
       </section>
