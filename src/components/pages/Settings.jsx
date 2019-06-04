@@ -114,7 +114,7 @@ const PoeWalletForm = () => {
 }
 
 const PoeBalance = ({ poeBalance }) => (
-  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}>Balance: <span>{poeBalance} POE</span> </section>
+  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
 )
 
 const UnlinkAddress = ({ onDisconnect, address }) => {

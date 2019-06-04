@@ -19,7 +19,8 @@
   }
 
   h2 {
-    margin-bottom: 40px;
+    margin-top: 0;
+    margin-bottom: 20px;
     font-size: 22.4px;
     font-weight: 700;
     font-family: $roboto-slab;
@@ -27,8 +28,8 @@
 
   h3 {
     color: #2C2E3B;
-    font-size: 12px;
-    line-height: 23px;
+    font-size: 14px;
+    line-height: 22px;
     font-weight: normal;
   }
 
@@ -83,10 +84,20 @@
 
   .poeWallet {
     .poeBalance {
-      color: #f83d04;
+      main {
+        color: #f83d04;
+      }
 
-      &.enough {
+      &.enough main {
         color: #36b074;
+      }
+
+      header, main {
+        display: inline;
+      }
+
+      header {
+        font-weight: bold;
       }
     }
   }
