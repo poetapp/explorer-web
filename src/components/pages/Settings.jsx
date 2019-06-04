@@ -9,6 +9,9 @@ import { Password } from 'components/shared/Password'
 import { PasswordRepeat } from 'components/shared/PasswordRepeat'
 
 import { eventToValue } from 'helpers/eventToValue'
+
+import { usePoeBalance } from 'hooks/usePoeBalance'
+
 import { ApiContext } from 'providers/ApiProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -75,17 +78,7 @@ const ProfileForm = () => {
 const PoeWalletForm = () => {
   const [account, setAccount] = useContext(SessionContext)
   const [mewVisible, setMewVisible] = useState(false)
-  const [poeBalance, setPoeBalance] = useState(null)
-
-  useEffect(() => {
-    if (account.poeAddress && account.poeAddressVerified)
-      fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${account.poeAddress}`)
-        .then(_ => _.json())
-        .then(_ => _.balance)
-        .then(setPoeBalance)
-    else
-      setPoeBalance(null)
-  }, [account])
+  const poeBalance = usePoeBalance(account?.poeAddress)
 
   const onDisconnect = () => {
     setAccount({
