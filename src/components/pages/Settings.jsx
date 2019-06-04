@@ -82,7 +82,7 @@ const PoeWalletForm = () => {
   const [mewVisible, setMewVisible] = useState(false)
   const poeBalance = usePoeBalance(account?.poeAddress)
 
-  const onDisconnect = () => {
+  const onUnlink = () => {
     setAccount({
       ...account,
       poeAddress: '',
@@ -101,7 +101,7 @@ const PoeWalletForm = () => {
       </header>
       <main>
         { !account.poeAddressVerified && <div className={classNames.mew}><button onClick={() => setMewVisible(true)}>Connect with MyEtherWallet</button></div> }
-        { account.poeAddressVerified && <UnlinkAddress onClick={onDisconnect} address={account?.poeAddress} /> }
+        { account.poeAddressVerified && <UnlinkAddress onUnlink={onUnlink} address={account?.poeAddress} /> }
         { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
       </main>
     </section>
@@ -124,12 +124,12 @@ const PoeBalance = ({ poeBalance }) => (
   <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
 )
 
-const UnlinkAddress = ({ onDisconnect, address }) => {
+const UnlinkAddress = ({ onUnlink, address }) => {
   return (
     <section className={classNames.unlinkAddress}>
       <label>ETH Address</label>
       <input type="text" value={address} readOnly />
-      <button onClick={onDisconnect}>Unlink Address</button>
+      <button onClick={onUnlink}>Unlink Address</button>
     </section>
   )
 }
