@@ -80,6 +80,86 @@
       text-decoration: underline;
     }
   }
+
+  .poeWalletMewOverlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 1;
+
+    > section {
+      background-color: white;
+      border-radius: 3px;
+      width: 360px;
+
+      header, main {
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+      }
+
+      header {
+        padding: 23px 20px;
+        border-bottom: 1px solid #D6D6D6;
+        color: #101010;
+
+        h1 {
+          font-family: $source-sans;
+          font-weight: 600;
+          font-size: 17px;
+          padding: 0;
+          margin: 0 0 11px 0;
+        }
+        h2 {
+          font-family: $source-sans;
+          font-weight: normal;
+          font-size: 14px;
+          margin: 0;
+          padding: 0;
+
+          >a {
+            font-weight: bold;
+            color: #43B980;
+          }
+        }
+      }
+
+      main {
+        form {
+          display: flex;
+          flex-direction: column;
+          label {
+            font-family: $source-sans;
+            font-weight: 600;
+            font-size: 14px;
+            color: #5E5E5E
+          }
+          input {
+            margin-bottom: 20px;
+            background-color: rgba(244, 244, 244, .67)
+          }
+          textarea {
+            height: 182px;
+            margin-bottom: 20px;
+            border: 1px solid #DEDEDE;
+            border-radius: 4px;
+            padding: 4px;
+          }
+          button {
+            @extend %buttonA;
+          }
+        }
+      }
+    }
+  }
 }
 
 .profile, .wallet, .password {
@@ -90,87 +170,6 @@
   padding-top: 50px;
   padding-bottom: 50px;
   border-bottom: 1px solid #cfcfcf;
-}
-
-.poeWalletMewOverlay {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, .3);
-  z-index: 1;
-
-  > section {
-    background-color: white;
-    border-radius: 3px;
-    width: 360px;
-
-    header, main {
-      padding: 20px;
-    }
-
-    header {
-      text-align: center;
-    }
-
-    header {
-      padding: 23px 20px;
-      border-bottom: 1px solid #D6D6D6;
-      color: #101010;
-
-      h1 {
-        font-family: $source-sans;
-        font-weight: 600;
-        font-size: 17px;
-        padding: 0;
-        margin: 0 0 11px 0;
-      }
-      h2 {
-        font-family: $source-sans;
-        font-weight: normal;
-        font-size: 14px;
-        margin: 0;
-        padding: 0;
-
-        >a {
-          font-weight: bold;
-          color: #43B980;
-        }
-      }
-    }
-
-    main {
-      form {
-        display: flex;
-        flex-direction: column;
-        label {
-          font-family: $source-sans;
-          font-weight: 600;
-          font-size: 14px;
-          color: #5E5E5E
-        }
-        input {
-          height: 182px;
-          margin-bottom: 20px;
-          background-color: rgba(244, 244, 244, .67)
-        }
-        textarea {
-          height: 182px;
-          margin-bottom: 20px;
-          border: 1px solid #DEDEDE;
-          border-radius: 4px;
-          padding: 4px;
-        }
-        button {
-          @extend %buttonA;
-        }
-      }
-    }
-  }
 }
 
 .mew {
