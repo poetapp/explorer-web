@@ -149,15 +149,13 @@ const LinkAddress = ({ onLink }) => (
   </section>
 )
 
-const UnlinkAddress = ({ onUnlink, address }) => {
-  return (
-    <section className={classNames.unlinkAddress}>
-      <label>ETH Address</label>
-      <input type="text" value={address} readOnly />
-      <button onClick={onUnlink}>Unlink Address</button>
-    </section>
-  )
-}
+const UnlinkAddress = ({ onUnlink, address }) => (
+  <section className={classNames.unlinkAddress}>
+    <label>ETH Address</label>
+    <input type="text" value={address} readOnly />
+    <button onClick={onUnlink}>Unlink Address</button>
+  </section>
+)
 
 const PoeWalletMewOverlay = ({ onDone }) => {
   const [api, isBusy] = useContext(ApiContext)
