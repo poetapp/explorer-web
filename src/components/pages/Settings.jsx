@@ -94,9 +94,7 @@ const PoeWalletForm = () => {
     <section className={classNames.poeWallet}>
       <header>
         <h2>Connect your Wallet</h2>
-        { !account.poeAddressVerified && <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3> }
-        { account.poeAddressVerified && poeBalance >= 1000 && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
-        { account.poeAddressVerified && poeBalance < 1000 && <h3>Your wallet needs at least 1000 POE to access exclusive features. Click <a href="https://www.binance.com/en" target="_blank">here</a> to find out where to buy POE.</h3> }
+        <PoeStatus poeAddressVerified={account.poeAddressVerified} poeBalance={poeBalance} />
         { account.poeAddressVerified && <PoeBalance poeBalance={poeBalance} /> }
         { account.poeAddressVerified &&  <PoeVerified/>}
       </header>
@@ -108,6 +106,13 @@ const PoeWalletForm = () => {
     </section>
   )
 }
+
+const PoeStatus = ({ poeAddressVerified, poeBalance }) =>
+  !poeAddressVerified
+  ? <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3>
+  : poeBalance >= 1000
+  ? <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3>
+  : <h3>Your wallet needs at least 1000 POE to access exclusive features. Click <a href="https://www.binance.com/en" target="_blank">here</a> to find out where to buy POE.</h3>
 
 const PoeVerified = () => (
   <section className={classNames.poeVerified}>
