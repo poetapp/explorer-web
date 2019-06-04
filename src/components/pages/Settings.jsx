@@ -82,6 +82,10 @@ const PoeWalletForm = () => {
   const [mewVisible, setMewVisible] = useState(false)
   const poeBalance = usePoeBalance(account?.poeAddress)
 
+  const onLink = () => {
+    setMewVisible(true)
+  }
+
   const onUnlink = () => {
     setAccount({
       ...account,
@@ -99,8 +103,12 @@ const PoeWalletForm = () => {
         { account.poeAddressVerified &&  <PoeVerified/>}
       </header>
       <main>
-        { !account.poeAddressVerified && <LinkAddress onLink={() => setMewVisible(true)}/> }
-        { account.poeAddressVerified && <UnlinkAddress onUnlink={onUnlink} address={account?.poeAddress} /> }
+        <AddressLinkingAction
+          address={account?.poeAddress}
+          verified={account?.poeAddressVerified}
+          onLink={onLink}
+          onUnlink={onUnlink}
+        />
         { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
       </main>
     </section>
@@ -129,6 +137,11 @@ const PoeVerified = () => (
 const PoeBalance = ({ poeBalance }) => (
   <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
 )
+
+const AddressLinkingAction = ({ address, verified, onLink, onUnlink }) =>
+  !verified
+    ? <LinkAddress onLink={onLink}/>
+    : <UnlinkAddress onUnlink={onUnlink} address={address} />
 
 const LinkAddress = ({ onLink }) => (
   <section className={classNames.mew}>
