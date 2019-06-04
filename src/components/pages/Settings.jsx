@@ -128,7 +128,7 @@ const UnlinkAddress = ({ onDisconnect, address }) => {
   return (
     <section className={classNames.unlinkAddress}>
       <label>ETH Address</label>
-      <input type="text" value={address} />
+      <input type="text" value={address} readOnly />
       <button onClick={onDisconnect}>Unlink Address</button>
     </section>
   )
