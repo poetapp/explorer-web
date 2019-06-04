@@ -99,7 +99,7 @@ const PoeWalletForm = () => {
         { account.poeAddressVerified &&  <PoeVerified/>}
       </header>
       <main>
-        { !account.poeAddressVerified && <div className={classNames.mew}><button onClick={() => setMewVisible(true)}>Connect with MyEtherWallet</button></div> }
+        { !account.poeAddressVerified && <LinkAddress onLink={() => setMewVisible(true)}/> }
         { account.poeAddressVerified && <UnlinkAddress onUnlink={onUnlink} address={account?.poeAddress} /> }
         { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
       </main>
@@ -128,6 +128,12 @@ const PoeVerified = () => (
 
 const PoeBalance = ({ poeBalance }) => (
   <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
+)
+
+const LinkAddress = ({ onLink }) => (
+  <section className={classNames.mew}>
+    <button onClick={onLink}>Connect with MyEtherWallet</button>
+  </section>
 )
 
 const UnlinkAddress = ({ onUnlink, address }) => {
