@@ -19,7 +19,8 @@
   }
 
   h2 {
-    margin-bottom: 40px;
+    margin-top: 0;
+    margin-bottom: 20px;
     font-size: 22.4px;
     font-weight: 700;
     font-family: $roboto-slab;
@@ -27,8 +28,8 @@
 
   h3 {
     color: #2C2E3B;
-    font-size: 12px;
-    line-height: 23px;
+    font-size: 14px;
+    line-height: 22px;
     font-weight: normal;
   }
 
@@ -80,9 +81,137 @@
       text-decoration: underline;
     }
   }
+
+  .poeWallet {
+    .poeBalance, .poeVerified {
+      header, main {
+        display: inline;
+      }
+
+      header {
+        font-weight: bold;
+      }
+    }
+    .poeBalance {
+      margin-bottom: 8px;
+
+      main {
+        margin-left: 8px;
+        color: #f83d04;
+      }
+
+      &.enough main {
+        color: #36b074;
+      }
+    }
+    .poeVerified {
+      display: flex;
+      align-items: center;
+
+      main {
+        margin-left: 8px;
+        display: flex;
+        align-items: center;
+        color: #57a4ff;
+        font-weight: 800;
+
+        img {
+          width: 34px;
+          height: auto;
+        }
+
+        span {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  .poeWalletMewOverlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 1;
+
+    > section {
+      background-color: white;
+      border-radius: 3px;
+      width: 360px;
+
+      header, main {
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+      }
+
+      header {
+        padding: 23px 20px;
+        border-bottom: 1px solid #D6D6D6;
+        color: #101010;
+
+        h1 {
+          font-family: $source-sans;
+          font-weight: 600;
+          font-size: 17px;
+          padding: 0;
+          margin: 0 0 11px 0;
+        }
+        h2 {
+          font-family: $source-sans;
+          font-weight: normal;
+          font-size: 14px;
+          margin: 0;
+          padding: 0;
+
+          >a {
+            font-weight: bold;
+            color: #43B980;
+          }
+        }
+      }
+
+      main {
+        form {
+          display: flex;
+          flex-direction: column;
+          label {
+            font-family: $source-sans;
+            font-weight: 600;
+            font-size: 14px;
+            color: #5E5E5E
+          }
+          input {
+            margin-bottom: 20px;
+            background-color: rgba(244, 244, 244, .67)
+          }
+          textarea {
+            height: 182px;
+            margin-bottom: 20px;
+            border: 1px solid #DEDEDE;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #888;
+            padding: 8px;
+          }
+          button {
+            @extend %buttonA;
+          }
+        }
+      }
+    }
+  }
 }
 
-.profile, .wallet, .password {
+.profile, .wallet, .password, .poeWallet {
   @include letterboxed();
   display: grid;
   grid-template-columns: 5fr 7fr;
@@ -90,4 +219,72 @@
   padding-top: 50px;
   padding-bottom: 50px;
   border-bottom: 1px solid #cfcfcf;
+}
+
+.mew {
+  background-image: url('/mew.png');
+  background-position: 0% 42%;
+  background-size: auto 105px;
+  background-repeat: no-repeat;
+
+  height: 70px;
+  margin-bottom: 20px;
+  padding-right: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e0e0e0;
+  border-radius: 4px;
+  background-color: #fafafa;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  button {
+    @extend %buttonB;
+    color: #36b074;
+    border-color: #36b074;
+
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+.unlinkAddress {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"] {
+    display: block;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    color: #000;
+    font-size: 15px;
+    padding: 8px 12px;
+    width: 100%;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+  }
+
+  button {
+    @extend %buttonB;
+    $color: #d63939;
+    color: $color;
+    border-color: $color;
+    align-self: flex-start;
+
+    &:hover {
+      color: lighten($color, 15%)
+    }
+  }
 }

@@ -3,12 +3,17 @@ import { pipe } from 'ramda'
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
 
+import { PoeVerifiedBadge } from 'Images'
+
 import { Main } from 'components/templates/Main'
 import { Email } from 'components/shared/Email'
 import { Password } from 'components/shared/Password'
 import { PasswordRepeat } from 'components/shared/PasswordRepeat'
 
 import { eventToValue } from 'helpers/eventToValue'
+
+import { usePoeBalance } from 'hooks/usePoeBalance'
+
 import { ApiContext } from 'providers/ApiProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -73,80 +78,144 @@ const ProfileForm = () => {
 }
 
 const PoeWalletForm = () => {
+  const [account, setAccount] = useContext(SessionContext)
+  const [mewVisible, setMewVisible] = useState(false)
+  const poeBalance = usePoeBalance(account?.poeAddress)
+
+  const onUnlink = () => {
+    setAccount({
+      ...account,
+      poeAddress: '',
+      poeAddressVerified: '',
+    })
+  }
+
+  return (
+    <section className={classNames.poeWallet}>
+      <header>
+        <h2>Connect your Wallet</h2>
+        { !account.poeAddressVerified && <h3>Connect your Ethereum wallet with at least 1000 POE to gain access to exclusive features, like uploading images, videos, and audio files.</h3> }
+        { account.poeAddressVerified && <h3>Your wallet is verified and has a sufficient POE balance for exclusive features.</h3> }
+        { account.poeAddressVerified && <PoeBalance poeBalance={poeBalance} /> }
+        { account.poeAddressVerified &&  <PoeVerified/>}
+      </header>
+      <main>
+        { !account.poeAddressVerified && <div className={classNames.mew}><button onClick={() => setMewVisible(true)}>Connect with MyEtherWallet</button></div> }
+        { account.poeAddressVerified && <UnlinkAddress onUnlink={onUnlink} address={account?.poeAddress} /> }
+        { mewVisible && <PoeWalletMewOverlay issuer={account.issuer} onDone={() => setMewVisible(false)}/> }
+      </main>
+    </section>
+  )
+}
+
+const PoeVerified = () => (
+  <section className={classNames.poeVerified}>
+    <header>
+      Verified:
+    </header>
+    <main>
+      <img src={PoeVerifiedBadge} />
+      <span>Verified</span>
+    </main>
+  </section>
+)
+
+const PoeBalance = ({ poeBalance }) => (
+  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
+)
+
+const UnlinkAddress = ({ onUnlink, address }) => {
+  return (
+    <section className={classNames.unlinkAddress}>
+      <label>ETH Address</label>
+      <input type="text" value={address} readOnly />
+      <button onClick={onUnlink}>Unlink Address</button>
+    </section>
+  )
+}
+
+const PoeWalletMewOverlay = ({ onDone }) => {
   const [api, isBusy] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
-  const [poeAddress, setPoeAddress] = useState(account.poeAddress || '')
   const [poeAddressMessage, setPoeAddressMessage] = useState('')
+  const [signedMessage, setSignedMessage] = useState('')
+  const [poeAddress, setPoeAddress] = useState('')
   const [poeSignature, setPoeSignature] = useState('')
-  const clearSignature = () => setPoeSignature('')
-  const timer = useRef()
-  const [poeBalance, setPoeBalance] = useState(null)
 
-  const onSubmit = async () => {
+  useEffect(() => {
+    if (api)
+      api.accountPoeChallengePost(account.issuer)()
+        .then(_ => _.poeAddressMessage)
+        .then(setPoeAddressMessage)
+  }, [api, account])
+
+  const onOverlayClick = (event) => {
+    if (event.target === event.currentTarget)
+      onDone()
+  }
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape')
+        onDone()
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [])
+
+  useEffect(() => {
+    try {
+      const { address, sig } = JSON.parse(signedMessage)
+      setPoeAddress(address || '')
+      setPoeSignature(sig || '')
+    } catch {
+      setPoeAddress('')
+      setPoeSignature('')
+    }
+  }, [signedMessage])
+
+  useEffect(() => {
+    console.log('poeAddress, poeSignature', poeAddress, poeSignature)
+  }, [poeAddress, poeSignature])
+
+  const onSubmit = async (event) => {
     event.preventDefault()
-
-    if (!account.issuer)
-      throw new Error('account.issuer not set')
 
     const patchedAccount = await api.accountPatch(account.issuer)({ poeAddress, poeSignature })
     setAccount({
       ...account,
       ...patchedAccount,
     })
-    toast.success('POE Wallet updated.')
+
+    if (patchedAccount.poeAddressVerified)
+      toast.success('POE Wallet updated.')
+    else
+      toast.error('POE address could not be verified.')
+
+    onDone()
   }
 
-  useEffect(() => {
-    if (api && !account.poeAddressVerified)
-      api.accountPoeChallengePost(account.issuer)()
-        .then(_ => _.poeAddressMessage)
-        .then(setPoeAddressMessage)
-        .then(clearSignature)
-  }, [api, account])
-
-  useEffect(() => {
-    clearTimeout(timer.current)
-    timer.current = setTimeout(() => {
-      if (poeAddress)
-        fetch(`https://api.tokenbalance.com/token/0x0e0989b1f9b8a38983c2ba8053269ca62ec9b195/${poeAddress}`)
-          .then(_ => _.json())
-          .then(_ => _.balance)
-          .then(setPoeBalance)
-      else
-        setPoeBalance(null)
-    }, 500)
-
-  }, [poeAddress])
-
-  const VerificationStatus = () => !account.poeAddress
-    ? ''
-    : account.poeAddressVerified
-    ? '(Verified)'
-    : '(Not Verified)'
-
   return (
-    <section className={classNames.wallet}>
-      <header>
-        <h2>Connect your Wallet</h2>
-        <h3>Once you connect your wallet with a POE balance, a whole world of opportunity opens up to you.</h3>
-      </header>
-      <form onSubmit={onSubmit} className={classnames({ isBusy })}>
-        <section>
-          <label htmlFor="poeAddress">POE Address <VerificationStatus/> { poeBalance !== null && `Balance: ${poeBalance} POE` }</label>
-          <input type="text" id="poeAddress" value={poeAddress} onChange={pipe(eventToValue, setPoeAddress)} />
-          <button type="submit" disabled={isBusy}>Save</button>
-        </section>
-        { account.poeAddress && !account.poeAddressVerified && (
-          <section>
-            <h3>Sign the following message with your wallet and paste the generated signature here. See <a target="_blank" href="">Proof of POE</a> for help and troubleshooting.</h3>
-            <label htmlFor="poeAddressMessage">Message</label>
+    <section className={classNames.poeWalletMewOverlay} onClick={onOverlayClick}>
+      <section>
+        <header>
+          <h1>Connect your POE Wallet</h1>
+          <h2>Read <a href="http://po.et/verify-poe">this guide</a> for a full tutorial on how to connect your Ethereum address on MEW</h2>
+        </header>
+        <main>
+          <form onSubmit={onSubmit}>
+            <label htmlFor="poeAddressMessage">Message (copy and paste into MEW)</label>
             <input type="text" id="poeAddressMessage" value={poeAddressMessage} readOnly />
-            <label htmlFor="poeAddressSignature">Signature</label>
-            <input type="text" id="poeAddressSignature" value={poeSignature} onChange={pipe(eventToValue, setPoeSignature)} />
-            <button type="submit" disabled={isBusy}>Verify</button>
-          </section>
-        ) }
-      </form>
+            <label>Signed Message</label>
+            <textarea value={signedMessage} onChange={pipe(eventToValue, setSignedMessage)} required />
+            <button type="submit">Connect Your Wallet</button>
+          </form>
+        </main>
+      </section>
     </section>
   )
 }
