@@ -136,7 +136,10 @@ const PoeVerified = () => (
 )
 
 const PoeBalance = ({ poeBalance }) => (
-  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
+  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}>
+    <header>Balance: </header>
+    <main>{poeBalance} POE</main>
+  </section>
 )
 
 const AddressLinkingAction = ({ address, verified, onLink, onUnlink }) =>
