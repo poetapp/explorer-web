@@ -170,7 +170,7 @@ const PoeWalletMewOverlay = ({ onDone }) => {
   const [poeSignature, setPoeSignature] = useState('')
 
   useEffect(() => {
-    if (api)
+    if (api && account && !account.poeAddressVerified)
       api.accountPoeChallengePost(account.issuer)()
         .then(_ => _.poeAddressMessage)
         .then(setPoeAddressMessage)
