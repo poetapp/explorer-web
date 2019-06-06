@@ -136,7 +136,10 @@ const PoeVerified = () => (
 )
 
 const PoeBalance = ({ poeBalance }) => (
-  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}><header>Balance:</header> <main>{poeBalance} POE</main> </section>
+  <section className={classnames(classNames.poeBalance, { [classNames.enough]: poeBalance >= 1000 })}>
+    <header>Balance: </header>
+    <main>{poeBalance} POE</main>
+  </section>
 )
 
 const AddressLinkingAction = ({ address, verified, onLink, onUnlink }) =>
@@ -167,7 +170,7 @@ const PoeWalletMewOverlay = ({ onDone }) => {
   const [poeSignature, setPoeSignature] = useState('')
 
   useEffect(() => {
-    if (api)
+    if (api && account && !account.poeAddressVerified)
       api.accountPoeChallengePost(account.issuer)()
         .then(_ => _.poeAddressMessage)
         .then(setPoeAddressMessage)
