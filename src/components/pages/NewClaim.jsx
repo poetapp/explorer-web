@@ -135,7 +135,6 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
-      <p>contentType: {contentType}</p>
       <select>
         { contentTypeProperties?.map(({ id, label }) => <option key={id}>{label}</option> ) }
       </select>
