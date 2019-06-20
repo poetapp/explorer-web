@@ -105,7 +105,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   useEffect(() => {
     setContentTypeProperties(
       contentTypeSchema?.['@graph']
-        ?.filter(_ => _['@type'] === 'rdf:Property')
+        .filter(_ => _['@type'] === 'rdf:Property')
         .map(({ '@id': id, 'rdfs:label': rawLabel }) => ({ id, rawLabel }))
         .map(({ id, rawLabel }) => ({
           id,
