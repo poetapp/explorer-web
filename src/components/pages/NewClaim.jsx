@@ -92,10 +92,6 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
     contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
   }, [selectedFile, content])
 
-  const onFileSelected = (file) => {
-    setSelectedFile(file)
-  }
-
   return (
     <form onSubmit={onSubmitWrapper} disabled={disabled || isBusy}>
       <label htmlFor="name">Title</label>
@@ -104,7 +100,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
-      <FileInput render={archiveUploadEnabled} onFileSelected={onFileSelected} />
+      <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
