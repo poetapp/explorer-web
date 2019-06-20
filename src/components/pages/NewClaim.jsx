@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Main } from 'components/templates/Main'
 import { eventToValue } from 'helpers/eventToValue'
 import { parseJwt } from 'helpers/jwt'
+import { ContentType, ContentTypeSchemas, labelToString } from 'helpers/schema.org'
 import { ApiContext } from 'providers/ApiProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -62,20 +63,6 @@ const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified }) => (
   </section>
 )
 
-const ContentType = {
-  Text: 0,
-  Audio: 1,
-  Image: 2,
-  Video: 3,
-}
-
-const ContentTypeSchemas = {
-  [ContentType.Text]: 'https://schema.org/CreativeWork.jsonld',
-  [ContentType.Audio]: 'https://schema.org/AudioObject.jsonld',
-  [ContentType.Image]: 'https://schema.org/ImageObject.jsonld',
-  [ContentType.Video]: 'https://schema.org/VideoObject.jsonld',
-}
-
 const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
@@ -115,13 +102,6 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       .then(setContentTypeSchema)
   }, [contentType])
 
-  const rawLabelToLabel = rawLabel =>
-    typeof rawLabel === 'string'
-    ? rawLabel
-    : typeof rawLabel === 'object'
-    ? rawLabel['@value']
-    : rawLabel.toString()
-
   useEffect(() => {
     setContentTypeProperties(
       contentTypeSchema?.['@graph']
@@ -129,7 +109,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
         .map(({ '@id': id, 'rdfs:label': rawLabel }) => ({ id, rawLabel }))
         .map(({ id, rawLabel }) => ({
           id,
-          label: rawLabelToLabel(rawLabel),
+          label: labelToString(rawLabel),
         }))
     )
   }, [contentTypeSchema])
