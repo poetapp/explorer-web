@@ -62,6 +62,20 @@ const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified }) => (
   </section>
 )
 
+const ContentType = {
+  Text: 0,
+  Audio: 1,
+  Image: 2,
+  Video: 3,
+}
+
+const ContentTypeSchemas = {
+  [ContentType.Text]: 'https://schema.org/CreativeWork.jsonld',
+  [ContentType.Audio]: 'https://schema.org/AudioObject.jsonld',
+  [ContentType.Image]: 'https://schema.org/ImageObject.jsonld',
+  [ContentType.Video]: 'https://schema.org/VideoObject.jsonld',
+}
+
 const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
@@ -69,6 +83,9 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
   const [selectedFile, setSelectedFile] = useState()
+  const [contentType, setContentType] = useState(ContentType.Text)
+  const [contentTypeSchema, setContentTypeSchema] = useState()
+  const [contentTypeProperties, setContentTypeProperties] = useState()
   const contentInput = useRef()
 
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
@@ -92,10 +109,42 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
     contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
   }, [selectedFile, content])
 
+  useEffect(() => {
+    fetch(ContentTypeSchemas[contentType])
+      .then(_ => _.json())
+      .then(setContentTypeSchema)
+  }, [contentType])
+
+  const rawLabelToLabel = rawLabel =>
+    typeof rawLabel === 'string'
+    ? rawLabel
+    : typeof rawLabel === 'object'
+    ? rawLabel['@value']
+    : rawLabel.toString()
+
+  useEffect(() => {
+    setContentTypeProperties(
+      contentTypeSchema?.['@graph']
+        ?.filter(_ => _['@type'] === 'rdf:Property')
+        .map(({ '@id': id, 'rdfs:label': rawLabel }) => ({ id, rawLabel }))
+        .map(({ id, rawLabel }) => ({
+          id,
+          label: rawLabelToLabel(rawLabel),
+        }))
+    )
+  }, [contentTypeSchema])
+
   return (
     <form onSubmit={onSubmitWrapper} disabled={disabled || isBusy}>
       <label htmlFor="name">Title</label>
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
+      <label htmlFor="contentType">Content Type</label>
+      <select id="contentType" value={contentType} onChange={pipe(eventToValue, setContentType)} required >
+        <option value={ContentType.Text}>Text</option>
+        <option value={ContentType.Audio}>Audio</option>
+        <option value={ContentType.Image}>Image</option>
+        <option value={ContentType.Video}>Video</option>
+      </select>
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
@@ -106,6 +155,10 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
+      <p>contentType: {contentType}</p>
+      <select>
+        { contentTypeProperties?.map(({ id, label }) => <option key={id}>{label}</option> ) }
+      </select>
     </form>
   )
 }
