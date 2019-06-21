@@ -119,12 +119,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <label htmlFor="name">Title</label>
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
       <label htmlFor="contentType">Content Type</label>
-      <select id="contentType" value={contentType} onChange={pipe(eventToValue, setContentType)} required >
-        <option value={ContentType.Text}>Text</option>
-        <option value={ContentType.Audio}>Audio</option>
-        <option value={ContentType.Image}>Image</option>
-        <option value={ContentType.Video}>Video</option>
-      </select>
+      <ContentTypeSelect value={contentType} onChange={setContentType} />
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
@@ -139,6 +134,15 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
     </form>
   )
 }
+
+const ContentTypeSelect = ({ value, onChange }) => (
+  <select id="contentType" value={value} onChange={pipe(eventToValue, onChange)} required >
+    <option value={ContentType.Text}>Text</option>
+    <option value={ContentType.Audio}>Audio</option>
+    <option value={ContentType.Image}>Image</option>
+    <option value={ContentType.Video}>Video</option>
+  </select>
+)
 
 const CustomFields = ({ contentTypeProperties }) => {
   const [fields, setFields] = useState([])
