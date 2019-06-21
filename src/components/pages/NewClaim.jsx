@@ -152,17 +152,11 @@ const CustomFields = ({ contentTypeProperties }) => {
     ...fields.slice(index + 1),
   ])
 
-  const onAdd = () => {
-    setFields(fields => [...fields, { propertyName: null, value: '' }])
-  }
+  const onAdd = () => setFields(fields => [...fields, { propertyName: null, value: '' }])
 
-  const onPropertyChange = (index) => (propertyName) => {
-    setField(index, { propertyName })
-  }
+  const onPropertyChange = (index) => (propertyName) => setField(index, { propertyName })
 
-  const onValueChange = (index) => (value) => {
-    setField(index, { value })
-  }
+  const onValueChange = (index) => (value) => setField(index, { value })
 
   return (
     <section>
