@@ -134,13 +134,61 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
+      <CustomFields contentTypeProperties={contentTypeProperties}/>
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
-      <select>
-        { contentTypeProperties?.map(({ id, label }) => <option key={id}>{label}</option> ) }
-      </select>
     </form>
   )
 }
+
+const CustomFields = ({ contentTypeProperties }) => {
+  const [fields, setFields] = useState([])
+
+  const setField = (index, updates) => setFields(fields => [
+    ...fields.slice(0, index),
+    {
+      ...fields[index],
+      ...updates,
+    },
+    ...fields.slice(index + 1),
+  ])
+
+  const onAdd = () => {
+    setFields(fields => [...fields, { propertyName: null, value: '' }])
+  }
+
+  const onPropertyChange = (index) => (propertyName) => {
+    setField(index, { propertyName })
+  }
+
+  const onValueChange = (index) => (value) => {
+    setField(index, { value })
+  }
+
+  return (
+    <section>
+      <button onClick={onAdd}>Add Field</button>
+      { fields.map((field, index) =>
+        <CustomFieldType
+          key={index}
+          contentTypeProperties={contentTypeProperties}
+          propertyName={field.key}
+          onPropertyChange={pipe(eventToValue, onPropertyChange(index))}
+          value={field.value}
+          onValueChange={pipe(eventToValue, onValueChange(index))}
+        />)
+      }
+    </section>
+  )
+}
+
+const CustomFieldType = ({ contentTypeProperties, propertyName, onPropertyChange, value, onValueChange }) => (
+  <section>
+    <select value={propertyName} onChange={onPropertyChange}>
+      { contentTypeProperties?.map(({ id, label }) => <option key={id}>{label}</option> ) }
+    </select>
+    <input type="text" value={value} onChange={onValueChange} />
+  </section>
+)
 
 const FileInput = ({ render, onFileSelected }) => {
   const fileInput = useRef()
