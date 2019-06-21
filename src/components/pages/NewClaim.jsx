@@ -81,14 +81,25 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const onSubmitWrapper = event => {
     event.preventDefault()
 
+    const context = customFields.reduce((accumulator, currentValue) => ({
+      ...accumulator,
+      [currentValue.label]: currentValue.id,
+    }), {})
+
+    const fields = customFields.reduce((accumulator, currentValue) => ({
+      ...accumulator,
+      [currentValue.label]: currentValue.value,
+    }), {})
+
     const claim = {
+      '@context': context,
       name,
       datePublished: date,
       dateCreated: date,
       author,
       tags,
       content,
-      ...customFields,
+      ...fields,
     }
 
     onSubmit(claim, selectedFile)
@@ -160,9 +171,9 @@ const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
     ...fields.slice(index + 1),
   ])
 
-  const onAdd = () => onChange([...fields, { propertyName: null, value: '' }])
+  const onAdd = () => onChange([...fields, { ...contentTypeProperties[0], value: '' }])
 
-  const onPropertyChange = (index) => (propertyName) => setField(index, { propertyName })
+  const onPropertyChange = (index) => (id) => setField(index, { id, label: contentTypeProperties.find(_ => _.id === id).label })
 
   const onValueChange = (index) => (value) => setField(index, { value })
 
@@ -173,7 +184,7 @@ const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
         <CustomFieldType
           key={index}
           contentTypeProperties={contentTypeProperties}
-          propertyName={field.key}
+          propertyId={field.id}
           onPropertyChange={pipe(eventToValue, onPropertyChange(index))}
           value={field.value}
           onValueChange={pipe(eventToValue, onValueChange(index))}
@@ -183,9 +194,9 @@ const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
   )
 }
 
-const CustomFieldType = ({ contentTypeProperties, propertyName, onPropertyChange, value, onValueChange }) => (
+const CustomFieldType = ({ contentTypeProperties, propertyId, onPropertyChange, value, onValueChange }) => (
   <section>
-    <select value={propertyName} onChange={onPropertyChange}>
+    <select value={propertyId} onChange={onPropertyChange}>
       { contentTypeProperties?.map(({ id, label }) => <option key={id} value={id}>{label}</option> ) }
     </select>
     <input type="text" value={value} onChange={onValueChange} />
