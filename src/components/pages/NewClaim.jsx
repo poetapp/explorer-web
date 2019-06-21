@@ -88,6 +88,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       author,
       tags,
       content,
+      ...customFields,
     }
 
     onSubmit(claim, selectedFile)
@@ -185,7 +186,7 @@ const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
 const CustomFieldType = ({ contentTypeProperties, propertyName, onPropertyChange, value, onValueChange }) => (
   <section>
     <select value={propertyName} onChange={onPropertyChange}>
-      { contentTypeProperties?.map(({ id, label }) => <option key={id}>{label}</option> ) }
+      { contentTypeProperties?.map(({ id, label }) => <option key={id} value={id}>{label}</option> ) }
     </select>
     <input type="text" value={value} onChange={onValueChange} />
   </section>
@@ -233,4 +234,4 @@ const Done = ({ workId }) => (
 const selectToken = (tokens, email) => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_')).map(token => ({
   token,
   parsed: parseJwt(token),
-})).filter(({ token, parsed }) => parsed.email === email)[0]?.token
+})).filter(({ token, parsed }) => parsed.email === email || !parsed.email)[0]?.token
