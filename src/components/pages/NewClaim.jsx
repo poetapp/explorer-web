@@ -73,6 +73,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [contentType, setContentType] = useState(ContentType.Text)
   const [contentTypeSchema, setContentTypeSchema] = useState()
   const [contentTypeProperties, setContentTypeProperties] = useState()
+  const [customFields, setCustomFields] = useState([])
   const contentInput = useRef()
 
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
@@ -129,7 +130,11 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
-      <CustomFields contentTypeProperties={contentTypeProperties}/>
+      <CustomFields
+        contentTypeProperties={contentTypeProperties}
+        fields={customFields}
+        onChange={setCustomFields}
+      />
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
     </form>
   )
@@ -144,10 +149,8 @@ const ContentTypeSelect = ({ value, onChange }) => (
   </select>
 )
 
-const CustomFields = ({ contentTypeProperties }) => {
-  const [fields, setFields] = useState([])
-
-  const setField = (index, updates) => setFields(fields => [
+const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
+  const setField = (index, updates) => onChange([
     ...fields.slice(0, index),
     {
       ...fields[index],
@@ -156,7 +159,7 @@ const CustomFields = ({ contentTypeProperties }) => {
     ...fields.slice(index + 1),
   ])
 
-  const onAdd = () => setFields(fields => [...fields, { propertyName: null, value: '' }])
+  const onAdd = () => onChange([...fields, { propertyName: null, value: '' }])
 
   const onPropertyChange = (index) => (propertyName) => setField(index, { propertyName })
 
