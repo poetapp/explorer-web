@@ -25,6 +25,8 @@
   section.formAndBanner {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    grid-column-gap: 16px;
+    align-items: start;
 
     form {
       label {
