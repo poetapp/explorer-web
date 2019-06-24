@@ -153,7 +153,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
 }
 
 const ContentTypeSelect = ({ value, onChange }) => (
-  <select id="contentType" value={value} onChange={pipe(eventToValue, onChange)} required >
+  <select id="contentType" className={classNames.contentTypeSelect} value={value} onChange={pipe(eventToValue, onChange)} required >
     <option value={ContentType.Text}>Text</option>
     <option value={ContentType.Audio}>Audio</option>
     <option value={ContentType.Image}>Image</option>
