@@ -131,8 +131,8 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
     <form onSubmit={onSubmitWrapper} disabled={disabled || isBusy}>
       <label htmlFor="name">Title</label>
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
-      <label htmlFor="contentType">Content Type</label>
-      <ContentTypeSelect value={contentType} onChange={setContentType} />
+      { archiveUploadEnabled && <label htmlFor="contentType">Content Type</label> }
+      { archiveUploadEnabled && <ContentTypeSelect value={contentType} onChange={setContentType} /> }
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
@@ -142,11 +142,11 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
-      <CustomFields
+      { archiveUploadEnabled && <CustomFields
         contentTypeProperties={contentTypeProperties}
         fields={customFields}
         onChange={setCustomFields}
-      />
+      /> }
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
     </form>
   )
