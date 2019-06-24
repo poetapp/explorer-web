@@ -23,12 +23,10 @@
   }
 
   section.formAndBanner {
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 
     form {
-      width: 66.66666667%;
-
       label {
         display: block;
         margin-bottom: 5px;
@@ -130,7 +128,6 @@
       border-radius: 4px;
       text-align: center;
       background-color: white;
-      width: 33.333%;
 
       img {
         width: 63px;
