@@ -89,6 +89,36 @@
         font-weight: 600;
         text-align: center;
       }
+
+      .customFields {
+        padding: 12px 0;
+
+        button {
+          @extend %buttonB;
+        }
+
+        .customFieldType {
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          padding: 6px;
+          background-color: white;
+          border-radius: 3px;
+          border: 1px solid #cccccc;
+          height: 50px;
+
+          .select {
+            border: none;
+          }
+          input[type=text] {
+            margin: 0;
+            margin-left: 8px;
+            border: none;
+            height: auto;
+            padding: 0;
+          }
+        }
+      }
     }
 
     section.banner {

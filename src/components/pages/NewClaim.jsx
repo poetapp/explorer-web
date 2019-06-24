@@ -171,15 +171,17 @@ const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
     ...fields.slice(index + 1),
   ])
 
-  const onAdd = () => onChange([...fields, { ...contentTypeProperties[0], value: '' }])
+  const onAdd = (event) => {
+    event.preventDefault()
+    onChange([...fields, { ...contentTypeProperties[0], value: '' }])
+  }
 
   const onPropertyChange = (index) => (id) => setField(index, { id, label: contentTypeProperties.find(_ => _.id === id).label })
 
   const onValueChange = (index) => (value) => setField(index, { value })
 
   return (
-    <section>
-      <button onClick={onAdd}>Add Field</button>
+    <section className={classNames.customFields}>
       { fields.map((field, index) =>
         <CustomFieldType
           key={index}
@@ -190,12 +192,13 @@ const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
           onValueChange={pipe(eventToValue, onValueChange(index))}
         />)
       }
+      <button onClick={onAdd}>Add Another Field</button>
     </section>
   )
 }
 
 const CustomFieldType = ({ contentTypeProperties, propertyId, onPropertyChange, value, onValueChange }) => (
-  <section>
+  <section className={classNames.customFieldType}>
     <select value={propertyId} onChange={onPropertyChange}>
       { contentTypeProperties?.map(({ id, label }) => <option key={id} value={id}>{label}</option> ) }
     </select>
