@@ -23,12 +23,12 @@
   }
 
   section.formAndBanner {
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 16px;
+    align-items: start;
 
     form {
-      width: 66.66666667%;
-
       label {
         display: block;
         margin-bottom: 5px;
@@ -89,6 +89,40 @@
         font-weight: 600;
         text-align: center;
       }
+
+      .contentTypeSelect {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .customFields {
+        padding: 12px 0;
+
+        button {
+          @extend %buttonB;
+        }
+
+        .customFieldType {
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          padding: 6px;
+          background-color: white;
+          border-radius: 3px;
+          border: 1px solid #cccccc;
+          height: 50px;
+
+          .select {
+            border: none;
+          }
+          input[type=text] {
+            margin: 0 0 0 8px;
+            border: none;
+            height: auto;
+            padding: 0;
+          }
+        }
+      }
     }
 
     section.banner {
@@ -97,7 +131,6 @@
       border-radius: 4px;
       text-align: center;
       background-color: white;
-      width: 33.333%;
 
       img {
         width: 63px;

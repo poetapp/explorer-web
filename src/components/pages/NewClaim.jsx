@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Main } from 'components/templates/Main'
 import { eventToValue } from 'helpers/eventToValue'
 import { parseJwt } from 'helpers/jwt'
+import { ContentType, ContentTypeSchemas, labelToString } from 'helpers/schema.org'
 import { ApiContext } from 'providers/ApiProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
@@ -69,6 +70,10 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
   const [selectedFile, setSelectedFile] = useState()
+  const [contentType, setContentType] = useState(ContentType.Text)
+  const [contentTypeSchema, setContentTypeSchema] = useState()
+  const [contentTypeProperties, setContentTypeProperties] = useState()
+  const [customFields, setCustomFields] = useState([])
   const contentInput = useRef()
 
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
@@ -76,13 +81,25 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
   const onSubmitWrapper = event => {
     event.preventDefault()
 
+    const context = customFields.reduce((accumulator, currentValue) => ({
+      ...accumulator,
+      [currentValue.label]: currentValue.id,
+    }), {})
+
+    const fields = customFields.reduce((accumulator, currentValue) => ({
+      ...accumulator,
+      [currentValue.label]: currentValue.value,
+    }), {})
+
     const claim = {
+      '@context': context,
       name,
       datePublished: date,
       dateCreated: date,
       author,
       tags,
       content,
+      ...fields,
     }
 
     onSubmit(claim, selectedFile)
@@ -92,27 +109,102 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled }) => {
     contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
   }, [selectedFile, content])
 
-  const onFileSelected = (file) => {
-    setSelectedFile(file)
-  }
+  useEffect(() => {
+    fetch(ContentTypeSchemas[contentType])
+      .then(_ => _.json())
+      .then(setContentTypeSchema)
+  }, [contentType])
+
+  useEffect(() => {
+    setContentTypeProperties(
+      contentTypeSchema?.['@graph']
+        .filter(_ => _['@type'] === 'rdf:Property')
+        .map(({ '@id': id, 'rdfs:label': rawLabel }) => ({ id, rawLabel }))
+        .map(({ id, rawLabel }) => ({
+          id,
+          label: labelToString(rawLabel),
+        }))
+    )
+  }, [contentTypeSchema])
 
   return (
     <form onSubmit={onSubmitWrapper} disabled={disabled || isBusy}>
       <label htmlFor="name">Title</label>
       <input type="text" id="name" value={name} onChange={pipe(eventToValue, setName)} required />
+      { archiveUploadEnabled && <label htmlFor="contentType">Content Type</label> }
+      { archiveUploadEnabled && <ContentTypeSelect value={contentType} onChange={setContentType} /> }
       <label htmlFor="author">Author Name</label>
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
-      <FileInput render={archiveUploadEnabled} onFileSelected={onFileSelected} />
+      <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
+      { archiveUploadEnabled && <CustomFields
+        contentTypeProperties={contentTypeProperties}
+        fields={customFields}
+        onChange={setCustomFields}
+      /> }
       <button type="submit" disabled={disabled || isBusy}>{submitButtonText}</button>
     </form>
   )
 }
+
+const ContentTypeSelect = ({ value, onChange }) => (
+  <select id="contentType" className={classNames.contentTypeSelect} value={value} onChange={pipe(eventToValue, onChange)} required >
+    <option value={ContentType.Text}>Text</option>
+    <option value={ContentType.Audio}>Audio</option>
+    <option value={ContentType.Image}>Image</option>
+    <option value={ContentType.Video}>Video</option>
+  </select>
+)
+
+const CustomFields = ({ contentTypeProperties, fields, onChange }) => {
+  const setField = (index, updates) => onChange([
+    ...fields.slice(0, index),
+    {
+      ...fields[index],
+      ...updates,
+    },
+    ...fields.slice(index + 1),
+  ])
+
+  const onAdd = (event) => {
+    event.preventDefault()
+    onChange([...fields, { ...contentTypeProperties[0], value: '' }])
+  }
+
+  const onPropertyChange = (index) => (id) => setField(index, { id, label: contentTypeProperties.find(_ => _.id === id).label })
+
+  const onValueChange = (index) => (value) => setField(index, { value })
+
+  return (
+    <section className={classNames.customFields}>
+      { fields.map((field, index) =>
+        <CustomFieldType
+          key={index}
+          contentTypeProperties={contentTypeProperties}
+          propertyId={field.id}
+          onPropertyChange={pipe(eventToValue, onPropertyChange(index))}
+          value={field.value}
+          onValueChange={pipe(eventToValue, onValueChange(index))}
+        />)
+      }
+      <button onClick={onAdd}>Add Another Field</button>
+    </section>
+  )
+}
+
+const CustomFieldType = ({ contentTypeProperties, propertyId, onPropertyChange, value, onValueChange }) => (
+  <section className={classNames.customFieldType}>
+    <select value={propertyId} onChange={onPropertyChange}>
+      { contentTypeProperties?.map(({ id, label }) => <option key={id} value={id}>{label}</option> ) }
+    </select>
+    <input type="text" value={value} onChange={onValueChange} />
+  </section>
+)
 
 const FileInput = ({ render, onFileSelected }) => {
   const fileInput = useRef()
@@ -156,4 +248,4 @@ const Done = ({ workId }) => (
 const selectToken = (tokens, email) => tokens?.apiTokens?.filter(token => !token.startsWith('TEST_')).map(token => ({
   token,
   parsed: parseJwt(token),
-})).filter(({ token, parsed }) => parsed.email === email)[0]?.token
+})).filter(({ token, parsed }) => parsed.email === email || !parsed.email)[0]?.token
