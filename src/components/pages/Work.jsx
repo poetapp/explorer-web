@@ -70,7 +70,7 @@ const Overview = ({ name, author, issuer, datePublished, tags, customFields }) =
         <li>Claim made by: <Issuer issuer={issuer}/></li>
         <li>Date Published: {formatDate(datePublished)}</li>
         <li>Tags: {tags}</li>
-        { customFields && Object.entries(customFields).map(([key, value]) => <li>{capitalize(key)}: {value}</li>) }
+        { customFields && Object.entries(customFields).map(([key, value]) => <li key={key}>{capitalize(key)}: {value}</li>) }
       </ul>
     </section>
   )
