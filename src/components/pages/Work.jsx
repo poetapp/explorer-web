@@ -2,7 +2,6 @@ import moment from 'moment'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useFetch } from 'hooks/useFetch'
 import { ApiContext } from 'providers/ApiProvider'
 
 import { Main } from 'components/templates/Main'
@@ -14,14 +13,13 @@ import classNames from './Work.scss'
 export const WorkById = ({ id }) => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const work = useApi('workGetById', id)
-  const content = useFetch(work?.claim?.archiveUrl)
 
   return (
     <Main>
       {
         !work
           ? <NoWork />
-          : <Work work={work} content={content?.substring(0, 3000)} />
+          : <Work work={work} />
       }
     </Main>
   )
@@ -33,38 +31,46 @@ const NoWork = () => (
   </section>
 )
 
-const Work = ({ work }) => (
-  <section className={classNames.work}>
-    <header>
-      <Overview
-        name={work?.claim.name}
-        author={work?.claim.author}
-        issuer={work?.issuer}
-        datePublished={work?.claim.datePublished}
-        tags={work?.claim.tags}
-      />
-      <Links
-        bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
-        ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
-      />
-    </header>
-    <main>
-      <Content archiveUrl={work?.claim?.archiveUrl}/>
-      <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
-    </main>
-  </section>
-)
+const Work = ({ work }) => {
+  const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, hash, ...customFields }, issuer } = work
 
-const Overview = ({ name, author, issuer, datePublished, tags }) => {
+  return (
+    <section className={classNames.work}>
+      <header>
+        <Overview
+          name={name}
+          author={author}
+          issuer={issuer}
+          datePublished={datePublished}
+          tags={tags}
+          customFields={customFields}
+        />
+        <Links
+          bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
+          ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
+        />
+      </header>
+      <main>
+        <Content archiveUrl={work?.claim?.archiveUrl}/>
+        <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
+      </main>
+    </section>
+  )
+}
+
+const Overview = ({ name, author, issuer, datePublished, tags, customFields }) => {
   const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
+  const formatFieldName = fieldName => fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1)
+
   return (
     <section className={classNames.overview}>
       <h1>{name}</h1>
       <ul>
         <li>Author: {author}</li>
-        <li>Claim made by: <Issuer issuer={issuer}/></li>
+        <li>Claim Made By: <Issuer issuer={issuer}/></li>
         <li>Date Published: {formatDate(datePublished)}</li>
         <li>Tags: {tags}</li>
+        { customFields && Object.entries(customFields).map(([key, value]) => <li key={key}>{formatFieldName(key)}: {value}</li>) }
       </ul>
     </section>
   )

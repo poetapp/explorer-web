@@ -58,7 +58,7 @@ export const NewClaim = () => {
 
 const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified }) => (
   <section className={classNames.formAndBanner}>
-    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={false} />
+    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={poeAddressVerified} />
     <Banner render={!poeAddressVerified}/>
   </section>
 )
