@@ -58,10 +58,10 @@ const Work = ({ work }) => {
   )
 }
 
-const capitalize = string => string.slice(0, 1).toUpperCase() + string.slice(1)
-
 const Overview = ({ name, author, issuer, datePublished, tags, customFields }) => {
   const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
+  const formatFieldName = fieldName => fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1)
+
   return (
     <section className={classNames.overview}>
       <h1>{name}</h1>
@@ -70,7 +70,7 @@ const Overview = ({ name, author, issuer, datePublished, tags, customFields }) =
         <li>Claim Made By: <Issuer issuer={issuer}/></li>
         <li>Date Published: {formatDate(datePublished)}</li>
         <li>Tags: {tags}</li>
-        { customFields && Object.entries(customFields).map(([key, value]) => <li key={key}>{capitalize(key)}: {value}</li>) }
+        { customFields && Object.entries(customFields).map(([key, value]) => <li key={key}>{formatFieldName(key)}: {value}</li>) }
       </ul>
     </section>
   )
