@@ -17,6 +17,10 @@ export const Works = () => {
     api && api.worksGetByFilters({ offset }).then(setWorks)
   }, [api, page])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [works])
+
   return (
     <Main>
       <section className={classNames.works}>
