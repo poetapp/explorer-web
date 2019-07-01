@@ -4,4 +4,8 @@ $main-width: 960px;
 
 .works {
   padding: 0 calc(50% - #{$main-width / 2});
+
+  .selected {
+    background-color: red;
+  }
 }
