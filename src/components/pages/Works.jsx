@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import React, { useContext, useState, useEffect } from 'react'
 
 import { Main } from 'components/templates/Main'
@@ -23,7 +24,7 @@ export const Works = () => {
 
   return (
     <Main>
-      <section className={classNames.works}>
+      <section className={classnames(classNames.works, { [classNames.busy]: isBusy })}>
         <WorksMolecule works={works} />
         <Pagination value={page} onChange={setPage} />
       </section>
