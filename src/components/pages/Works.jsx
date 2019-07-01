@@ -29,7 +29,7 @@ export const Works = () => {
 
 const Pagination = ({ pageCount = 10, value, onChange }) => {
   return (
-    <section>
+    <section className={classNames.pagination}>
       { Array(pageCount).fill(undefined).map((e, i) => i).map(i =>
         <button
           key={`key${i}`}

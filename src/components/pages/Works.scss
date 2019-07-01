@@ -1,3 +1,4 @@
+@import 'Buttons';
 @import 'Fonts';
 
 $main-width: 960px;
@@ -5,7 +6,17 @@ $main-width: 960px;
 .works {
   padding: 0 calc(50% - #{$main-width / 2});
 
-  .selected {
-    background-color: red;
+  .pagination {
+    display: flex;
+
+    button {
+      @extend %buttonB;
+
+      margin-right: 8px;
+
+      &.selected {
+        background-color: red;
+      }
+    }
   }
 }
