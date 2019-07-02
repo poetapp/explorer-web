@@ -8,6 +8,8 @@ import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './Works.scss'
 
+const pageSize = 10
+
 export const Works = () => {
   const [api, isBusy, useApi] = useContext(ApiContext)
   const [page, setPage] = useState(0)
@@ -25,9 +27,9 @@ export const Works = () => {
   return (
     <Main>
       <section className={classnames(classNames.works, { [classNames.busy]: isBusy })}>
-        { works?.length && <Pagination value={page} onChange={setPage} /> }
+        { works?.length && <Pagination pageCount={works.totalCount / 10} value={page} onChange={setPage} /> }
         <WorksMolecule works={works} />
-        { works?.length && <Pagination value={page} onChange={setPage} /> }
+        { works?.length && <Pagination pageCount={works.totalCount / 10} value={page} onChange={setPage} /> }
       </section>
     </Main>
   )
