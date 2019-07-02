@@ -1,6 +1,8 @@
 import classnames from 'classnames'
 import React from 'react'
 
+import { OfNumbers } from 'helpers/array'
+
 import classNames from './Pagination.scss'
 
 export const Pagination = ({ pageCount = 10, value, onChange }) => {
@@ -8,7 +10,7 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
   console.log('Pagination', cappedPageCount, pageCount)
   return (
     <section className={classNames.pagination}>
-      { Array(cappedPageCount).fill(undefined).map((e, i) => i).map(i =>
+      { OfNumbers(cappedPageCount).map(i =>
         <button
           key={`key${i}`}
           onClick={() => onChange(i)}
