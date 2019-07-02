@@ -4,4 +4,4 @@ export const withTotalCount = (array, totalCount) => {
   return arr
 }
 
-export const OfNumbers = length => Array(length).fill(undefined).map((e, i) => i)
+export const ofNumbers = (length, base = 0) => Array(length).fill(undefined).map((e, i) => i + base)
