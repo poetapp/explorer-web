@@ -11,15 +11,37 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
 
   return (
     <section className={classNames.pagination}>
+      {
+        value > 5 && <Button
+          i={0}
+          onClick={onChange}
+          isSelected={value === 0}
+        />
+      }
       { ofNumbers(cappedPageCount, cappedValue).map(i =>
-        <button
-          key={`key${i}`}
-          onClick={() => onChange(i)}
-          className={classnames({[classNames.selected]: value === i})}
-        >
-          {i + 1}
-        </button>
+        <Button
+          i={i}
+          onClick={onChange}
+          isSelected={value === i}
+        />
       ) }
+      {
+        value < pageCount - 5 && <Button
+          i={pageCount}
+          onClick={onChange}
+          isSelected={value === pageCount}
+        />
+      }
     </section>
   )
 }
+
+const Button = ({ i, onClick, isSelected }) => (
+  <button
+    key={`key${i}`}
+    onClick={() => onClick(i)}
+    className={classnames({[classNames.selected]: isSelected})}
+  >
+    {i + 1}
+  </button>
+)
