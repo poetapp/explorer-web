@@ -9,9 +9,7 @@ import { ApiContext } from 'providers/ApiProvider'
 
 import classNames from './Issuer.scss'
 
-const pageSize = 10
-
-export const IssuerById = ({ id }) => {
+export const IssuerById = ({ id, pageSize = 10 }) => {
   const [api, isBusy] = useContext(ApiContext)
   const [page, setPage] = useState(0)
   const [works, setWorks] = useState([])
