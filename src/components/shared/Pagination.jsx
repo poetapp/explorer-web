@@ -41,6 +41,6 @@ const Button = ({ page, onClick, isSelected = false }) => (
     onClick={() => onClick(page)}
     className={classnames({[classNames.selected]: isSelected})}
   >
-    {page + 1}
+    { page + 1 }
   </button>
 )
