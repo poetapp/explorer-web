@@ -5,7 +5,18 @@ import { ofNumbers } from 'helpers/array'
 
 import classNames from './Pagination.scss'
 
+export const PaginationWrapper = ({ children, ...props }) => (
+  <section>
+    <Pagination {...props} />
+    { children }
+    <Pagination {...props} />
+  </section>
+)
+
 export const Pagination = ({ pageCount = 10, value, onChange }) => {
+  if (!pageCount)
+    return null
+
   const cappedPageCount = Math.min(pageCount, 10)
   const cappedValue = Math.min(Math.max(value - 5, 0), pageCount - 9)
 
@@ -15,6 +26,7 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
       { ofNumbers(cappedPageCount, cappedValue).map(i =>
         <Button
           i={i}
+          key={`key${i}`}
           onClick={onChange}
           isSelected={value === i}
         />
@@ -26,7 +38,6 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
 
 const Button = ({ i, onClick, isSelected = false }) => (
   <button
-    key={`key${i}`}
     onClick={() => onClick(i)}
     className={classnames({[classNames.selected]: isSelected})}
   >
