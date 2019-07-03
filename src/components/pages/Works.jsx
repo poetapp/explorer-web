@@ -27,9 +27,9 @@ export const Works = () => {
   return (
     <Main>
       <section className={classnames(classNames.works, { [classNames.busy]: isBusy })}>
-        { works?.length > 0 && <Pagination pageCount={works.totalCount / pageSize} value={page} onChange={setPage} /> }
+        { works?.length > 0 && <Pagination pageCount={Math.floor(works.totalCount / pageSize)} value={page} onChange={setPage} /> }
         <WorksMolecule works={works} />
-        { works?.length > 0 && <Pagination pageCount={works.totalCount / pageSize} value={page} onChange={setPage} /> }
+        { works?.length > 0 && <Pagination pageCount={Math.floor(works.totalCount / pageSize)} value={page} onChange={setPage} /> }
       </section>
     </Main>
   )
