@@ -1,10 +1,13 @@
+import { withTotalCount } from 'helpers/array'
+
 const isJSON = response => response.headers.get('content-type').split(';')[0] === 'application/json'
 
 const parseResponseBody = response => isJSON(response) ? response.json() : response.text()
 
 const parseResponse = async response => ({
   status: response.status,
-  body: await parseResponseBody(response)
+  body: await parseResponseBody(response),
+  headers: response.headers,
 })
 
 const contentTypeJSON = {
@@ -30,9 +33,11 @@ export const Api = ({
     }
   })
 
-  const processParsedResponse = ({ url, options }) => ({ status, body }) => {
+  const processParsedResponse = ({ url, options }) => ({ status, body, headers }) => {
     if (status === 200) {
-      return body
+      return Array.isArray(body)
+        ? withTotalCount(body, headers.get('X-TOTAL-COUNT'))
+        : body
     } else {
       onServerError({ status, body, url, options })
     }

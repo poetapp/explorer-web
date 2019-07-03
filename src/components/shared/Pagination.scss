@@ -1,0 +1,15 @@
+@import 'Buttons';
+
+.pagination {
+  display: flex;
+
+  button {
+    @extend %buttonB;
+
+    margin-right: 8px;
+
+    &.selected {
+      color: #36b074;
+    }
+  }
+}

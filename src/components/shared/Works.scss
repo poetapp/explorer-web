@@ -6,7 +6,10 @@
   >li {
     padding-top: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #d4d4d4;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #d4d4d4;
+    }
 
     >h1 {
       display: block;
