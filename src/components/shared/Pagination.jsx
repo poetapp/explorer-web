@@ -7,16 +7,11 @@ import classNames from './Pagination.scss'
 
 export const Pagination = ({ pageCount = 10, value, onChange }) => {
   const cappedPageCount = Math.min(pageCount, 10)
-  const cappedValue = Math.max(value - 5, 0)
+  const cappedValue = Math.min(Math.max(value - 5, 0), pageCount - 9)
 
   return (
     <section className={classNames.pagination}>
-      {
-        value > 5 && <Button
-          i={0}
-          onClick={onChange}
-        />
-      }
+      { value > 5 && <Button i={0} onClick={onChange} /> }
       { ofNumbers(cappedPageCount, cappedValue).map(i =>
         <Button
           i={i}
@@ -24,12 +19,7 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
           isSelected={value === i}
         />
       ) }
-      {
-        value < pageCount - 5 && <Button
-          i={pageCount}
-          onClick={onChange}
-        />
-      }
+      { value <= pageCount - 5 && <Button i={pageCount} onClick={onChange} /> }
     </section>
   )
 }
