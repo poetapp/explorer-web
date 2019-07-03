@@ -15,7 +15,6 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
         value > 5 && <Button
           i={0}
           onClick={onChange}
-          isSelected={value === 0}
         />
       }
       { ofNumbers(cappedPageCount, cappedValue).map(i =>
@@ -29,14 +28,13 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
         value < pageCount - 5 && <Button
           i={pageCount}
           onClick={onChange}
-          isSelected={value === pageCount}
         />
       }
     </section>
   )
 }
 
-const Button = ({ i, onClick, isSelected }) => (
+const Button = ({ i, onClick, isSelected = false }) => (
   <button
     key={`key${i}`}
     onClick={() => onClick(i)}
