@@ -18,12 +18,12 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
     return null
 
   const cappedPageCount = Math.min(pageCount, 10)
-  const cappedValue = Math.min(Math.max(value - 5, 0), pageCount - 9)
+  const offset = Math.max(Math.min(pageCount - 10, value - 5), 0)
 
   return (
     <section className={classNames.pagination}>
       { value > 5 && <Button page={0} onClick={onChange} /> }
-      { ofNumbers(cappedPageCount, cappedValue).map(page =>
+      { ofNumbers(cappedPageCount, offset).map(page =>
         <Button
           page={page}
           key={`key${page}`}
@@ -31,7 +31,7 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
           isSelected={value === page}
         />
       ) }
-      { value <= pageCount - 5 && <Button page={pageCount} onClick={onChange} /> }
+      { value < pageCount - 5 && <Button page={pageCount - 1} onClick={onChange} /> }
     </section>
   )
 }
