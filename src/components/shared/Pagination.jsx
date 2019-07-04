@@ -13,16 +13,16 @@ export const PaginationWrapper = ({ children, ...props }) => (
   </section>
 )
 
-export const Pagination = ({ pageCount = 10, value, onChange }) => {
+export const Pagination = ({ pageCount = 10, value, onChange, maxVisiblePageCount = 10 }) => {
   if (!pageCount)
     return null
 
-  const visiblePageCount = Math.min(pageCount, 10)
-  const offset = Math.max(Math.min(pageCount - 10, value - 5), 0)
+  const visiblePageCount = Math.min(pageCount, maxVisiblePageCount)
+  const offset = Math.max(Math.min(pageCount - maxVisiblePageCount, value - maxVisiblePageCount / 2), 0)
 
   return (
     <section className={classNames.pagination}>
-      { value > 5 && <Button page={0} onClick={onChange} /> }
+      { value > maxVisiblePageCount / 2 && <Button page={0} onClick={onChange} /> }
       { ofNumbers(visiblePageCount, offset).map(page =>
         <Button
           page={page}
@@ -31,7 +31,7 @@ export const Pagination = ({ pageCount = 10, value, onChange }) => {
           isSelected={value === page}
         />
       ) }
-      { value < pageCount - 5 && <Button page={pageCount - 1} onClick={onChange} /> }
+      { value < pageCount - maxVisiblePageCount / 2 && <Button page={pageCount - 1} onClick={onChange} /> }
     </section>
   )
 }
