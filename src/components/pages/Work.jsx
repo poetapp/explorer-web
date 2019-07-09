@@ -103,7 +103,7 @@ const Content = ({ archiveUrl }) => {
     <section className={classNames.content}>
       <h1>Content</h1>
       <main>
-        <iframe src={archiveUrl} />
+        <iframe sandbox="" src={archiveUrl} />
       </main>
     </section>
   )
