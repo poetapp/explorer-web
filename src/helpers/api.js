@@ -14,6 +14,14 @@ const contentTypeJSON = {
   'content-type': 'application/json; charset=utf-8'
 }
 
+const fetchWithToken = token => (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
+  ...requestInit,
+  headers: {
+    ...requestInit.headers,
+    token: requestInit?.headers?.token || token,
+  }
+})
+
 export const Api = ({
   token,
   onServerError,
@@ -25,13 +33,7 @@ export const Api = ({
 }) => {
   const { apiUrl, nodeUrl } = environmentToUrls(environment, network)
 
-  const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
-    ...requestInit,
-    headers: {
-      ...requestInit.headers,
-      token: requestInit?.headers?.token || token,
-    }
-  })
+  const authenticatedFetch = token !== undefined ? fetchWithToken(token) : fetch
 
   const processParsedResponse = ({ url, options }) => ({ status, body, headers }) => {
     if (status === 200) {
