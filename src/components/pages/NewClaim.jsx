@@ -202,7 +202,7 @@ const CustomFieldType = ({ contentTypeProperties, propertyId, onPropertyChange, 
     <select value={propertyId} onChange={onPropertyChange}>
       { contentTypeProperties?.map(({ id, label }) => <option key={id} value={id}>{label}</option> ) }
     </select>
-    <input type="text" value={value} onChange={onValueChange} placeholder="enter value here" />
+    <input type="text" value={value} onChange={onValueChange} placeholder="enter metadata here" />
   </section>
 )
 
