@@ -21,7 +21,7 @@ export const Works = ({ pageSize = 10 }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    setPageCount(works?.totalCount ? Math.ceil(works.totalCount / pageSize) : 0)
+    setPageCount(Math.min(works?.totalCount ? Math.ceil(works.totalCount / pageSize) : 0, 10))
   }, [works])
 
   return (

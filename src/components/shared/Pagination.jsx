@@ -24,6 +24,7 @@ export const Pagination = ({ pageCount = 10, value, onChange, maxVisiblePageCoun
     <section className={classNames.pagination}>
       <FirstPageButton
         value={value}
+        pageCount={pageCount}
         maxVisiblePageCount={maxVisiblePageCount}
         onClick={onChange}
       />
@@ -35,8 +36,8 @@ export const Pagination = ({ pageCount = 10, value, onChange, maxVisiblePageCoun
       />
       <LastPageButton
         value={value}
-        maxVisiblePageCount={maxVisiblePageCount}
         pageCount={pageCount}
+        maxVisiblePageCount={maxVisiblePageCount}
         onClick={onChange}
       />
     </section>
@@ -52,11 +53,11 @@ const Button = ({ page, onClick, isSelected = false }) => (
   </button>
 )
 
-const FirstPageButton = ({ value, maxVisiblePageCount, onClick }) =>
-  value > maxVisiblePageCount / 2 && <Button page={0} onClick={onClick} />
+const FirstPageButton = ({ value, pageCount, maxVisiblePageCount, onClick }) =>
+  pageCount > maxVisiblePageCount && value > maxVisiblePageCount / 2 && <Button page={0} onClick={onClick} />
 
-const LastPageButton = ({ value, maxVisiblePageCount, pageCount, onClick }) =>
-  value < pageCount - maxVisiblePageCount / 2 && <Button page={pageCount - 1} onClick={onClick} />
+const LastPageButton = ({ value, pageCount, maxVisiblePageCount, onClick }) =>
+  pageCount > maxVisiblePageCount && value < pageCount - maxVisiblePageCount / 2 && <Button page={pageCount - 1} onClick={onClick} />
 
 const PageButtonList = ({ value, length, offset, onClick }) =>
   ofNumbers(length, offset).map(page =>
