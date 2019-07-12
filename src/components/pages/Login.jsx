@@ -16,7 +16,7 @@ export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const setAccountWithLoginData = ({ token, issuer }) => account => setAccount(account && { ...account, token, issuer })
+  const setAccountWithLoginData = ({ token, issuer }) => account => setAccount(account && { ...account, token, issuer, email })
 
   const onSubmit = async event => {
     event.preventDefault()
