@@ -29,7 +29,7 @@ export const Api = ({
     ...requestInit,
     headers: {
       ...requestInit.headers,
-      token: requestInit?.headers?.token || token,
+      ...(requestInit?.headers?.token || token ? {token: requestInit?.headers?.token || token} : {}),
     }
   })
 
