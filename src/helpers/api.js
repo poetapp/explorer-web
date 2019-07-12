@@ -25,13 +25,13 @@ export const Api = ({
 }) => {
   const { apiUrl, nodeUrl } = environmentToUrls(environment, network)
 
-  const authenticatedFetch = (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
+  const authenticatedFetch = token !== undefined ? (requestInfo, requestInit = { headers: {}}) => fetch(requestInfo, {
     ...requestInit,
     headers: {
       ...requestInit.headers,
-      ...(requestInit?.headers?.token || token ? {token: requestInit?.headers?.token || token} : {}),
+      token: requestInit?.headers?.token || token,
     }
-  })
+  }) : fetch
 
   const processParsedResponse = ({ url, options }) => ({ status, body, headers }) => {
     if (status === 200) {
