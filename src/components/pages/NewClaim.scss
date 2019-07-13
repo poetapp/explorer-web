@@ -105,21 +105,11 @@
         .customFieldType {
           margin-bottom: 10px;
           display: flex;
-          align-items: center;
-          padding: 6px;
-          background-color: white;
-          border-radius: 3px;
-          border: 1px solid #cccccc;
           height: 50px;
 
-          .select {
-            border: none;
-          }
           input[type=text] {
             margin: 0 0 0 8px;
-            border: none;
             height: auto;
-            padding: 0;
           }
         }
       }
