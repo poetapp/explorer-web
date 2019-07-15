@@ -5,7 +5,10 @@ import { Router } from 'components/Router'
 import { SessionProvider } from 'providers/SessionProvider'
 import { ApiProvider } from 'providers/ApiProvider'
 
-const x = ({ environment, setEnvironment, network, setNetwork }) => {
+const x = () => {
+  const [environment, setEnvironment] = useState('production')
+  const [network, setNetwork] = useState('mainnet')
+
   useEffect(() => {
     window.setEnvironment = setEnvironment
     window.setNetwork = setNetwork
@@ -29,18 +32,12 @@ const x = ({ environment, setEnvironment, network, setNetwork }) => {
   useEffect(() => {
     console.log(`To change these use window.setEnvironment(environment), window.setNetwork(network), window.production() and window.qa().`)
   }, [])
+
+  return [environment, network]
 }
 
 export const App = () => {
-  const [environment, setEnvironment] = useState('production')
-  const [network, setNetwork] = useState('mainnet')
-
-  x({
-    environment,
-    setEnvironment,
-    network,
-    setNetwork,
-  })
+  const [environment, network] = x()
 
   return (
     <SessionProvider>
