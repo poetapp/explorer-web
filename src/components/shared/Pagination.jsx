@@ -14,7 +14,7 @@ export const PaginationWrapper = ({ children, ...props }) => (
 )
 
 export const Pagination = ({ pageCount = 10, value, onChange, maxVisiblePageCount = 10 }) => {
-  if (!pageCount)
+  if (!pageCount || pageCount <= 1)
     return null
 
   const visiblePageCount = Math.min(pageCount, maxVisiblePageCount)
