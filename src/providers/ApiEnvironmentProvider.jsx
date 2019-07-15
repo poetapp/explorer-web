@@ -30,6 +30,7 @@ export const ApiEnvironmentProvider = (props) => {
   }, [environment, network])
 
   useEffect(() => {
+     if (account && environment !== account?.environment)
     setAccount(undefined)
   }, [environment])
 
