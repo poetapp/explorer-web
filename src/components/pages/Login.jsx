@@ -11,12 +11,18 @@ import { SessionContext } from 'providers/SessionProvider'
 import classNames from './Login.scss'
 
 export const Login = () => {
-  const [api, isBusy] = useContext(ApiContext)
+  const [api, isBusy, useApi, environment] = useContext(ApiContext)
   const [_, setAccount] = useContext(SessionContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const setAccountWithLoginData = ({ token, issuer }) => account => setAccount(account && { ...account, token, issuer, email })
+  const setAccountWithLoginData = ({ token, issuer }) => account => setAccount(account && {
+    ...account,
+    token,
+    email,
+    issuer,
+    environment,
+  })
 
   const onSubmit = async event => {
     event.preventDefault()

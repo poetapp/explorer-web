@@ -59,7 +59,7 @@ export const ApiProvider = props => {
   }
 
   return (
-    <ApiContext.Provider value={[api, isBusy, useApi]}>
+    <ApiContext.Provider value={[api, isBusy, useApi, environment, network]}>
       { props.children }
     </ApiContext.Provider>
   )
