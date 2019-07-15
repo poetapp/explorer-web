@@ -4,11 +4,13 @@ import { toast } from 'react-toastify'
 import { Api } from 'helpers/api'
 
 import { SessionContext } from './SessionProvider'
+import { ApiEnvironmentContext } from './ApiEnvironmentProvider'
 
 export const ApiContext = createContext()
 
-export const ApiProvider = ({environment, network, ...props}) => {
+export const ApiProvider = (props) => {
   const [account, setAccount] = useContext(SessionContext)
+  const [environment, network] = useContext(ApiEnvironmentContext)
   const [api, setApi] = useState(null)
   const [isBusy, setIsBusy] = useState(false)
 
