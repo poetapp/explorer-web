@@ -36,7 +36,7 @@ export const ApiProvider = props => {
   }
 
   useEffect(() => {
-    if (environment === 'qa' && network === 'mainnet')
+    if (!isValidEnvironmentNetworkCombination(environment, network))
       return
     setApi(Api({
       token: account?.token,
@@ -64,3 +64,6 @@ export const ApiProvider = props => {
     </ApiContext.Provider>
   )
 }
+
+const isValidEnvironmentNetworkCombination = (environment, network) =>
+  !(environment === 'qa' && network === 'mainnet')
