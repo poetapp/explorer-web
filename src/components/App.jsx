@@ -5,7 +5,7 @@ import { Router } from 'components/Router'
 import { SessionProvider } from 'providers/SessionProvider'
 import { ApiProvider } from 'providers/ApiProvider'
 
-const useEnvironmentAndNetwork = () => {
+const useApiEnvironmentConsole = () => {
   const [environment, setEnvironment] = useState('production')
   const [network, setNetwork] = useState('mainnet')
 
@@ -37,7 +37,7 @@ const useEnvironmentAndNetwork = () => {
 }
 
 export const App = () => {
-  const [environment, network] = useEnvironmentAndNetwork()
+  const [environment, network] = useApiEnvironmentConsole()
 
   return (
     <SessionProvider>
