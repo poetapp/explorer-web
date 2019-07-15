@@ -7,12 +7,10 @@ import { SessionContext } from './SessionProvider'
 
 export const ApiContext = createContext()
 
-export const ApiProvider = props => {
+export const ApiProvider = ({environment, network, ...props}) => {
   const [account, setAccount] = useContext(SessionContext)
   const [api, setApi] = useState(null)
   const [isBusy, setIsBusy] = useState(false)
-  const [environment, setEnvironment] = useState('production')
-  const [network, setNetwork] = useState('mainnet')
 
   const clearAccount = () => setAccount(null)
 
@@ -57,30 +55,6 @@ export const ApiProvider = props => {
     }, [api, endpoint])
     return response
   }
-
-  useEffect(() => {
-    window.setEnvironment = setEnvironment
-    window.setNetwork = setNetwork
-
-    window.production = () => {
-      setEnvironment('production')
-      setNetwork('mainnet')
-    }
-    window.qa = () => {
-      setEnvironment('qa')
-      setNetwork('testnet')
-    }
-  }, [setEnvironment, setNetwork])
-
-  useEffect(() => {
-    window.environment = environment
-    window.network = network
-    console.log(`Using API environment '${environment}' and network '${network}'.`)
-  }, [environment, network])
-
-  useEffect(() => {
-    console.log(`To change these use window.setEnvironment(environment), window.setNetwork(network), window.production() and window.qa().`)
-  }, [])
 
   return (
     <ApiContext.Provider value={[api, isBusy, useApi]}>
