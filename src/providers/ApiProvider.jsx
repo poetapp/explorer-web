@@ -8,7 +8,7 @@ import { ApiEnvironmentContext } from './ApiEnvironmentProvider'
 
 export const ApiContext = createContext()
 
-export const ApiProvider = (props) => {
+export const ApiProvider = props => {
   const [account, setAccount] = useContext(SessionContext)
   const [environment, network] = useContext(ApiEnvironmentContext)
   const [api, setApi] = useState(null)
