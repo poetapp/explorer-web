@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
-import {SessionContext} from './SessionProvider'
+
+import { SessionContext } from './SessionProvider'
 
 export const ApiEnvironmentContext = createContext()
 
