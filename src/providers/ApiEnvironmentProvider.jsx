@@ -31,7 +31,7 @@ export const ApiEnvironmentProvider = (props) => {
 
   useEffect(() => {
     setAccount(undefined)
-  }, [network])
+  }, [environment])
 
   useEffect(() => {
     console.log(`To change these use window.setEnvironment(environment), window.setNetwork(network), window.production() and window.qa().`)
