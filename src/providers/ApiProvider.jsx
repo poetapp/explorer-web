@@ -2,21 +2,17 @@ import React, { useState, useEffect, createContext, useContext } from 'react'
 import { toast } from 'react-toastify'
 
 import { Api } from 'helpers/api'
-import { useEnvironment } from 'hooks/useEnvironment'
-import { useEnvironmentNetworkConsole } from 'hooks/useEnvironmentNetworkConsole'
-import { useNetwork } from 'hooks/useNetwork'
 
 import { SessionContext } from './SessionProvider'
+import { ApiEnvironmentContext } from './ApiEnvironmentProvider'
 
 export const ApiContext = createContext()
 
 export const ApiProvider = props => {
   const [account, setAccount] = useContext(SessionContext)
+  const [environment, network] = useContext(ApiEnvironmentContext)
   const [api, setApi] = useState(null)
   const [isBusy, setIsBusy] = useState(false)
-  const [environment] = useEnvironment()
-  const [network] = useNetwork()
-  useEnvironmentNetworkConsole()
 
   const clearAccount = () => setAccount(null)
 
@@ -40,6 +36,8 @@ export const ApiProvider = props => {
   }
 
   useEffect(() => {
+    if (!isValidEnvironmentNetworkCombination(environment, network))
+      return
     setApi(Api({
       token: account?.token,
       onServerError,
@@ -66,3 +64,6 @@ export const ApiProvider = props => {
     </ApiContext.Provider>
   )
 }
+
+const isValidEnvironmentNetworkCombination = (environment, network) =>
+  !(environment === 'qa' && network === 'mainnet')

@@ -1,11 +1,13 @@
-import { useEffect } from 'react'
+import React, { useState, useEffect, useContext, createContext } from 'react'
 
-import { useEnvironment } from 'hooks/useEnvironment'
-import { useNetwork } from 'hooks/useNetwork'
+import { SessionContext } from './SessionProvider'
 
-export const useEnvironmentNetworkConsole = () => {
-  const [environment, setEnvironment] = useEnvironment()
-  const [network, setNetwork] = useNetwork()
+export const ApiEnvironmentContext = createContext()
+
+export const ApiEnvironmentProvider = (props) => {
+  const [environment, setEnvironment] = useState('production')
+  const [network, setNetwork] = useState('mainnet')
+  const [account, setAccount] = useContext(SessionContext)
 
   useEffect(() => {
     window.setEnvironment = setEnvironment
@@ -28,7 +30,16 @@ export const useEnvironmentNetworkConsole = () => {
   }, [environment, network])
 
   useEffect(() => {
+    setAccount(undefined)
+  }, [environment])
+
+  useEffect(() => {
     console.log(`To change these use window.setEnvironment(environment), window.setNetwork(network), window.production() and window.qa().`)
   }, [])
 
+  return (
+    <ApiEnvironmentContext.Provider value={[environment, network]}>
+      { props.children }
+    </ApiEnvironmentContext.Provider>
+  )
 }
