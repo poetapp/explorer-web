@@ -88,6 +88,8 @@ export const Api = ({
   const postArchive = (file, token) => apiFetch(`${apiUrl}/archives`, { method: 'POST', body: file, headers: { token } })
 
   return {
+    token,
+
     getTokens,
     createToken,
     deleteToken,
