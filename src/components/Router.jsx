@@ -19,16 +19,16 @@ import { Settings } from 'components/pages/Settings'
 import { SessionContext } from 'providers/SessionProvider'
 
 export const Router = () => {
-  const [token] = useContext(SessionContext)
+  const [account] = useContext(SessionContext)
 
   return (
     <BrowserRouter>
       <Switch>
-        { token && <Redirect from='/login' to='/'/> }
-        { token && <Redirect from='/signup' to='/'/> }
-        { !token && <Redirect from='/tokens' to='/login'/> }
-        { !token && <Redirect from='/new-claim' to='/login'/> }
-        { !token && <Redirect from='/settings' to='/login'/> }
+        { account?.id && <Redirect from='/login' to='/'/> }
+        { account && <Redirect from='/signup' to='/'/> }
+        { !account && <Redirect from='/tokens' to='/login'/> }
+        { !account && <Redirect from='/new-claim' to='/login'/> }
+        { !account && <Redirect from='/settings' to='/login'/> }
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
         <Route path="/works/:id" render={({ match }) => <WorkById id={match.params.id} />} />
