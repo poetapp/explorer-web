@@ -1,4 +1,5 @@
 import { withTotalCount } from 'helpers/array'
+import { objectToQueryParams } from 'helpers/query'
 
 const isJSON = response => response.headers.get('content-type').split(';')[0] === 'application/json'
 
@@ -76,6 +77,7 @@ export const Api = ({
 
   const accountCreate = apiPost('accounts')
   const accountGet = (issuer) => apiFetch(`${apiUrl}/accounts/${issuer}`)
+  const accountFind = (searchParams) => apiFetch(`${apiUrl}/accounts?${objectToQueryParams(searchParams)}`)
   const accountPatch = (issuer) => apiPatch(`accounts/${issuer}`)
   const accountPoeChallengePost = (issuer) => apiPost(`accounts/${issuer}/poe-challenge`)
 
@@ -101,6 +103,7 @@ export const Api = ({
     accountVerify,
     accountCreate,
     accountGet,
+    accountFind,
     accountPatch,
     accountPoeChallengePost,
     workGetById,
