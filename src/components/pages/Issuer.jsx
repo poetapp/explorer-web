@@ -41,7 +41,7 @@ export const IssuerById = ({ id, pageSize = 10 }) => {
 
 const Profile = ({ issuer }) => {
   const [api, isBusy, useApi] = useContext(ApiContext)
-  const account = useApi('accountGet', issuer)
+  const account = useApi('accountFind', { issuer })
 
   return (
     <section className={classNames.profile}>
