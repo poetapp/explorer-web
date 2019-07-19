@@ -1,42 +1,9 @@
-import { flattenArray } from './array'
 import { filtersToQueryParams } from './api'
-import {mapObjectValues} from './object'
-
-// export const ApiClient = (api) => {
-//   const headers = {
-//     'content-type': 'application/json; charset=utf-8',
-//     ...api.headers,
-//   }
-//
-//   const resources = apiDefinitionToFlat(api.endpoints).map(resource => ({
-//     ...resource,
-//     url: api.url + resource.url,
-//     headers,
-//   }))
-//
-//   const apiClient = resources.map(resource => ({
-//     resource,
-//     fetchArguments: (...args) => {
-//       const fetchArguments = resourceDefinitionToFetchArguments(resource)(...args)
-//       return fetchArguments
-//     },
-//   })).reduce((acc, val) => ({
-//     ...acc,
-//     [val.resource.resource]: {
-//       ...acc[val.resource.resource],
-//       [val.resource.method]: (...args) => {
-//         const { url, init } = val.fetchArguments(...args)
-//         return fetch(url, init)
-//       },
-//     },
-//   }), {})
-//
-//   return apiClient
-// }
+import { mapObjectValues } from './object'
 
 export const ApiClient = (api) => mapObjectValues(
   api.endpoints,
-  (resourceName, resource) => mapObjectValues(
+  (resourceName, resource) => mapObjectValues( // todo: filterObjectEntries(filterOperations)
     resource,
     (method, options) => resourceDefinitionToFetchArguments({
       url: api.url + '/' + (resource.url || resourceName),
@@ -49,27 +16,6 @@ export const ApiClient = (api) => mapObjectValues(
     }),
   )
 )
-
-const apiDefinitionToFlat = (resources) => {
-  const apiClient = Object.entries(resources)
-    .map(([endpoint, endpointOptions]) => ({
-      endpoint,
-      endpointOptions,
-    }))
-    .map(({ endpoint, endpointOptions }) => (
-      Object
-        .entries(endpointOptions)
-        .filter(filterOperations)
-        .map(([ method, options ]) => ({ method, options }))
-        .map(({ method, options }) => ({
-          resource: endpoint,
-          url: endpointOptions.url || '/' + endpoint,
-          method,
-          options,
-        }))
-    ))
-  return flattenArray(apiClient)
-}
 
 const operations = ['get', 'find', 'post', 'put', 'patch', 'delete']
 
