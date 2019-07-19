@@ -1,7 +1,22 @@
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 
-export const ApiClient = (api) => mapObjectEntries(
+export const ApiClient = (api) => {
+  const fetchArguments = apiToFetchArguments(api)
+
+  return mapObjectEntries(
+    fetchArguments,
+    (resourceName, resource) => mapObjectEntries(
+      resource,
+      (method, getFetchArguments) => (...args) => {
+        const { url, init } = getFetchArguments(...args)
+        return fetch(url, init)
+      }
+    )
+  )
+}
+
+const apiToFetchArguments = (api) => mapObjectEntries(
   api.endpoints,
   (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, filterOperations),
