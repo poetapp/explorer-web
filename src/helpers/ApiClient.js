@@ -38,7 +38,7 @@ export const ApiClient = (api) => mapObjectValues(
   api.endpoints,
   (resourceName, resource) => mapObjectValues(
     resource,
-    (method, options) => ({ // resourceDefinitionToFetchArguments
+    (method, options) => resourceDefinitionToFetchArguments({
       url: api.url + '/' + (resource.url || resourceName),
       method,
       // options,
