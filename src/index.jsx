@@ -13,6 +13,6 @@ const reactRoot = document.getElementById('react-root');
 
 render(<App/>, reactRoot)
 
-const apiClient = ApiClient(FrostApi('https://api.qa.poetnetwork.net', ''))
+const apiClient = ApiClient(FrostApi('https://api.poetnetwork.net', ''))
 
 window.apiClient = apiClient

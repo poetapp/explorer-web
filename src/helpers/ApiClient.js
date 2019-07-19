@@ -23,7 +23,10 @@ export const ApiClient = (api) => {
     ...acc,
     [val.resource.resource]: {
       ...acc[val.resource.resource],
-      [val.resource.method]: val.fetchArguments,
+      [val.resource.method]: (...args) => {
+        const { url, init } = val.fetchArguments(...args)
+        return fetch(url, init)
+      },
     },
   }), {})
 
