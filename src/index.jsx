@@ -13,4 +13,6 @@ const reactRoot = document.getElementById('react-root');
 
 render(<App/>, reactRoot)
 
-console.log(ApiClient(FrostApi('', '')))
+const apiClient = ApiClient(FrostApi('https://api.qa.poetnetwork.net', ''))
+
+window.apiClient = apiClient
