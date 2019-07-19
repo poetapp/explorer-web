@@ -6,7 +6,7 @@ export const ApiClient = (api) => mapObjectEntries(
   (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, filterOperations),
     (method, options) => resourceDefinitionToFetchArguments({
-      url: api.url + '/' + (resource.url || resourceName),
+      url: api.url + (resource.url || '/' + resourceName),
       method,
       // options,
       headers: {
