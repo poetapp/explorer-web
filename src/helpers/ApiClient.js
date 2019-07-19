@@ -2,19 +2,16 @@ import { flattenArray } from './array'
 import { filtersToQueryParams } from './api'
 
 export const ApiClient = (api) => {
-  const resources = apiDefinitionToFlat(api.endpoints).map(resource => ({
-    ...resource,
-    url: api.url + resource.url,
-  }))
-
   const headers = {
     'content-type': 'application/json; charset=utf-8',
     ...api.headers,
   }
 
-  // const resourceDefinitionToFunction = ({ baseUrl, method }) => {
-  //   const {}
-  // }
+  const resources = apiDefinitionToFlat(api.endpoints).map(resource => ({
+    ...resource,
+    url: api.url + resource.url,
+    headers,
+  }))
 
   const apiClient = resources.map(resource => ({
     resource,
@@ -55,46 +52,52 @@ const endpointOptionIsOperation = (operation) => operations.includes(operation)
 
 const filterOperations = ([operation]) => endpointOptionIsOperation(operation)
 
-const resourceDefinitionToFetchArguments = ({ url: baseUrl, method }) => {
+const resourceDefinitionToFetchArguments = ({ url: baseUrl, method, headers }) => {
   const map = {
     get: id => ({
       url: `${baseUrl}/${id}`,
       init: {
         method: 'get',
+        headers,
       },
     }),
     find: searchParams => ({
       url: `${baseUrl}?${filtersToQueryParams(searchParams)}`,
       init: {
         method: 'get',
+        headers,
       },
     }),
     post: body => ({
       url: baseUrl,
       init: {
         method: 'post',
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers,
       }
     }),
     put: (id, body) => ({
       url: `${baseUrl}/${id}`,
       init: {
         method: 'put',
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers,
       }
     }),
     patch: (id, body) => ({
       url: `${baseUrl}/${id}`,
       init: {
         method: 'patch',
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers,
       }
     }),
     delete: (id, body) => ({
       url: `${baseUrl}/${id}`,
       init: {
         method: 'delete',
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        headers,
       }
     }),
   }
