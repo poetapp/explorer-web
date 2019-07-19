@@ -1,9 +1,9 @@
 import { filtersToQueryParams } from './api'
-import { mapObjectValues } from './object'
+import { mapObjectEntries } from './object'
 
-export const ApiClient = (api) => mapObjectValues(
+export const ApiClient = (api) => mapObjectEntries(
   api.endpoints,
-  (resourceName, resource) => mapObjectValues( // todo: filterObjectEntries(filterOperations)
+  (resourceName, resource) => mapObjectEntries( // todo: filterObjectEntries(filterOperations)
     resource,
     (method, options) => resourceDefinitionToFetchArguments({
       url: api.url + '/' + (resource.url || resourceName),
