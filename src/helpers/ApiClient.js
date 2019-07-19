@@ -17,11 +17,11 @@ export const ApiClient = (api) => mapObjectEntries(
   )
 )
 
-const operations = ['get', 'find', 'post', 'put', 'patch', 'delete']
+const filterOperations = ([operation]) => endpointOptionIsOperation(operation)
 
 const endpointOptionIsOperation = (operation) => operations.includes(operation)
 
-const filterOperations = ([operation]) => endpointOptionIsOperation(operation)
+const operations = ['get', 'find', 'post', 'put', 'patch', 'delete']
 
 const resourceDefinitionToFetchArguments = ({ url, method, headers }) => {
   switch (method) {
