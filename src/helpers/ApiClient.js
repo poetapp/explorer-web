@@ -17,10 +17,15 @@ export const ApiClient = (api) => {
     resource,
     fetchArguments: (...args) => {
       const fetchArguments = resourceDefinitionToFetchArguments(resource)(...args)
-      // return fetch(fetchArguments.url, fetchArguments.init)
       return fetchArguments
     },
-  }))
+  })).reduce((acc, val) => ({
+    ...acc,
+    [val.resource.resource]: {
+      ...acc[val.resource.resource],
+      [val.resource.method]: val.fetchArguments,
+    },
+  }), {})
 
   return apiClient
 }
