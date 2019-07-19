@@ -1,37 +1,54 @@
 import { flattenArray } from './array'
 import { filtersToQueryParams } from './api'
+import {mapObjectValues} from './object'
 
-export const ApiClient = (api) => {
-  const headers = {
-    'content-type': 'application/json; charset=utf-8',
-    ...api.headers,
-  }
+// export const ApiClient = (api) => {
+//   const headers = {
+//     'content-type': 'application/json; charset=utf-8',
+//     ...api.headers,
+//   }
+//
+//   const resources = apiDefinitionToFlat(api.endpoints).map(resource => ({
+//     ...resource,
+//     url: api.url + resource.url,
+//     headers,
+//   }))
+//
+//   const apiClient = resources.map(resource => ({
+//     resource,
+//     fetchArguments: (...args) => {
+//       const fetchArguments = resourceDefinitionToFetchArguments(resource)(...args)
+//       return fetchArguments
+//     },
+//   })).reduce((acc, val) => ({
+//     ...acc,
+//     [val.resource.resource]: {
+//       ...acc[val.resource.resource],
+//       [val.resource.method]: (...args) => {
+//         const { url, init } = val.fetchArguments(...args)
+//         return fetch(url, init)
+//       },
+//     },
+//   }), {})
+//
+//   return apiClient
+// }
 
-  const resources = apiDefinitionToFlat(api.endpoints).map(resource => ({
-    ...resource,
-    url: api.url + resource.url,
-    headers,
-  }))
-
-  const apiClient = resources.map(resource => ({
+export const ApiClient = (api) => mapObjectValues(
+  api.endpoints,
+  (resourceName, resource) => mapObjectValues(
     resource,
-    fetchArguments: (...args) => {
-      const fetchArguments = resourceDefinitionToFetchArguments(resource)(...args)
-      return fetchArguments
-    },
-  })).reduce((acc, val) => ({
-    ...acc,
-    [val.resource.resource]: {
-      ...acc[val.resource.resource],
-      [val.resource.method]: (...args) => {
-        const { url, init } = val.fetchArguments(...args)
-        return fetch(url, init)
+    (method, options) => ({ // resourceDefinitionToFetchArguments
+      url: api.url + '/' + (resource.url || resourceName),
+      method,
+      // options,
+      headers: {
+        'content-type': 'application/json; charset=utf-8',
+        ...api.headers,
       },
-    },
-  }), {})
-
-  return apiClient
-}
+    }),
+  )
+)
 
 const apiDefinitionToFlat = (resources) => {
   const apiClient = Object.entries(resources)
@@ -118,3 +135,4 @@ const resourceDefinitionToFetchArguments = ({ url: baseUrl, method, headers }) =
 //   const createdAccount = await apiClient.accounts.post({ email: 'email@domain.com' })
 //   const patchedAccount = await apiClient.accounts.patch('issuer', { poeAddress: 'poeAddress' })
 // }
+
