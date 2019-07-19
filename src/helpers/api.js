@@ -112,7 +112,7 @@ export const Api = ({
 
 }
 
-const filtersToQueryParams = (filters) => Object.entries(filters).map(([key, value]) => `${key}=${value}`).join('&')
+export const filtersToQueryParams = (filters) => Object.entries(filters).map(([key, value]) => `${key}=${value}`).join('&')
 
 const environmentToUrls = (environment, network) => {
   assertEnvironment(environment)
