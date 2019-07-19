@@ -2,7 +2,7 @@ import * as React from 'react'
 import { render} from 'react-dom'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { ApiClient } from 'src/helpers/ApiClient'
+import { ApiClient } from 'helpers/ApiClient'
 import { FrostApi } from 'apis/frost'
 
 import './index.scss'
