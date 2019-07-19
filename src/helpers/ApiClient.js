@@ -24,55 +24,60 @@ const endpointOptionIsOperation = (operation) => operations.includes(operation)
 const filterOperations = ([operation]) => endpointOptionIsOperation(operation)
 
 const resourceDefinitionToFetchArguments = ({ url, method, headers }) => {
-  const map = {
-    get: id => ({
-      url: `${url}/${id}`,
-      init: {
-        method: 'get',
-        headers,
-      },
-    }),
-    find: searchParams => ({
-      url: `${url}?${filtersToQueryParams(searchParams)}`,
-      init: {
-        method: 'get',
-        headers,
-      },
-    }),
-    post: body => ({
-      url,
-      init: {
-        method: 'post',
-        body: JSON.stringify(body),
-        headers,
-      }
-    }),
-    put: (id, body) => ({
-      url: `${url}/${id}`,
-      init: {
-        method: 'put',
-        body: JSON.stringify(body),
-        headers,
-      }
-    }),
-    patch: (id, body) => ({
-      url: `${url}/${id}`,
-      init: {
-        method: 'patch',
-        body: JSON.stringify(body),
-        headers,
-      }
-    }),
-    delete: (id, body) => ({
-      url: `${url}/${id}`,
-      init: {
-        method: 'delete',
-        body: JSON.stringify(body),
-        headers,
-      }
-    }),
+  switch (method) {
+    case 'get':
+      return id => ({
+        url: `${url}/${id}`,
+        init: {
+          method,
+          headers,
+        },
+      })
+    case 'find':
+      return searchParams => ({
+        url: `${url}?${filtersToQueryParams(searchParams)}`,
+        init: {
+          method: 'get',
+          headers,
+        },
+      })
+    case 'post':
+      return body => ({
+        url,
+        init: {
+          method,
+          headers,
+          body: JSON.stringify(body),
+        }
+      })
+    case 'put':
+      return (id, body) => ({
+        url: `${url}/${id}`,
+        init: {
+          method,
+          headers,
+          body: JSON.stringify(body),
+        }
+      })
+    case 'patch':
+      return (id, body) => ({
+        url: `${url}/${id}`,
+        init: {
+          method,
+          headers,
+          body: JSON.stringify(body),
+        }
+      })
+    case 'delete':
+      return (id, body) => ({
+        url: `${url}/${id}`,
+        init: {
+          method,
+          headers,
+          body: JSON.stringify(body),
+        }
+      })
   }
-  return map[method]
 }
 
 // const usage =  async (apiClient) => {
