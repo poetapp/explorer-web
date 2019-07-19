@@ -23,24 +23,24 @@ const endpointOptionIsOperation = (operation) => operations.includes(operation)
 
 const filterOperations = ([operation]) => endpointOptionIsOperation(operation)
 
-const resourceDefinitionToFetchArguments = ({ url: baseUrl, method, headers }) => {
+const resourceDefinitionToFetchArguments = ({ url, method, headers }) => {
   const map = {
     get: id => ({
-      url: `${baseUrl}/${id}`,
+      url: `${url}/${id}`,
       init: {
         method: 'get',
         headers,
       },
     }),
     find: searchParams => ({
-      url: `${baseUrl}?${filtersToQueryParams(searchParams)}`,
+      url: `${url}?${filtersToQueryParams(searchParams)}`,
       init: {
         method: 'get',
         headers,
       },
     }),
     post: body => ({
-      url: baseUrl,
+      url,
       init: {
         method: 'post',
         body: JSON.stringify(body),
@@ -48,7 +48,7 @@ const resourceDefinitionToFetchArguments = ({ url: baseUrl, method, headers }) =
       }
     }),
     put: (id, body) => ({
-      url: `${baseUrl}/${id}`,
+      url: `${url}/${id}`,
       init: {
         method: 'put',
         body: JSON.stringify(body),
@@ -56,7 +56,7 @@ const resourceDefinitionToFetchArguments = ({ url: baseUrl, method, headers }) =
       }
     }),
     patch: (id, body) => ({
-      url: `${baseUrl}/${id}`,
+      url: `${url}/${id}`,
       init: {
         method: 'patch',
         body: JSON.stringify(body),
@@ -64,7 +64,7 @@ const resourceDefinitionToFetchArguments = ({ url: baseUrl, method, headers }) =
       }
     }),
     delete: (id, body) => ({
-      url: `${baseUrl}/${id}`,
+      url: `${url}/${id}`,
       init: {
         method: 'delete',
         body: JSON.stringify(body),
