@@ -5,13 +5,8 @@ export const ApiClient = ({
   url,
   headers,
   resources,
-  afterResponse,
+  afterResponse = _ => _,
 }) => {
-  const processParsedResponseWrapper = _ =>
-    afterResponse
-      ? afterResponse(_)
-      : _
-
   const takeBody = ({ body }) => body
 
   const apiInit = (init) => ({
@@ -32,7 +27,7 @@ export const ApiClient = ({
     const { url: resourceUrl, init } = getFetchArguments(...args)
     return fetch(url + resourceUrl, apiInit(init))
       .then(parseResponse)
-      .then(processParsedResponseWrapper)
+      .then(afterResponse)
       .then(takeBody)
   }
 
