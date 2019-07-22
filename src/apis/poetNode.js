@@ -1,4 +1,6 @@
-export const PoetNodeApi = (url) => ({
+import { ApiClient } from 'helpers/ApiClient'
+
+export const PoetNodeApi = (url) => ApiClient({
   url,
   resources,
 })
