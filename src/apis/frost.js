@@ -1,5 +1,8 @@
-export const FrostApi = (url, token) => ({
-  url,
+import { assertEnvironment } from 'helpers/api'
+import { ApiClient } from 'helpers/ApiClient'
+
+export const FrostApi = (environment, token) => ApiClient({
+  url: environmentToUrl(environment),
   endpoints,
   headers: {
     token,
@@ -48,3 +51,9 @@ export const endpoints = {
 
 // const accountPoeChallengePost = (issuer) => apiPost(`accounts/${issuer}/poe-challenge`)
 // const accountVerify = (token) => apiFetch(`${apiUrl}/accounts/verify/${token}`, { headers: { token }})
+
+const environmentToUrl = (environment) => {
+  assertEnvironment(environment)
+  const environmentPrefix = environment === 'production' ? '' : environment + '.'
+  return `https://api.${environmentPrefix}poetnetwork.net`
+}
