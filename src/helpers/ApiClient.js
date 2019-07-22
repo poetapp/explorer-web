@@ -23,27 +23,37 @@ export const ApiClient = ({
     }
   })
 
+  const resourceOperationToFetch = (resourceName, resource) => (method, options) => (...args) => {
+    const getFetchArguments = resourceDefinitionToFetchArguments({
+      url: resource.url || '/' + resourceName,
+      method,
+      // options,
+    })
+    const { url: resourceUrl, init } = getFetchArguments(...args)
+    return fetch(url + resourceUrl, apiInit(init))
+      .then(parseResponse)
+      .then(processParsedResponseWrapper)
+      .then(takeBody)
+  }
+
+  const resourceToFetch = (resourceName, resource) => mapObjectEntries(
+    filterObjectEntries(resource, resourceEntryIsOperation),
+    resourceOperationToFetch(resourceName, resource)
+  )
+
   return mapObjectEntries(
     resources,
-    (resourceName, resource) => mapObjectEntries(
-      filterObjectEntries(resource, filterOperations),
-      (method, options) => (...args) => {
-        const getFetchArguments = resourceDefinitionToFetchArguments({
-          url: resource.url || '/' + resourceName,
-          method,
-          // options,
-        })
-        const { url: resourceUrl, init } = getFetchArguments(...args)
-        return fetch(url + resourceUrl, apiInit(init))
-          .then(parseResponse)
-          .then(processParsedResponseWrapper)
-          .then(takeBody)
-      }
-    )
+    resourceToFetch,
   )
+
+  // return resources.mapEntries(
+  //   (resourceName, resource) => resource
+  //     .filterEntries(resourceEntryIsOperation)
+  //     .mapEntries(resourceOperationToFetch(resourceName, resource))
+  // )
 }
 
-const filterOperations = ([operation]) => resourceOptionIsOperation(operation)
+const resourceEntryIsOperation = ([operation]) => resourceOptionIsOperation(operation)
 
 const resourceOptionIsOperation = (operation) => operations.includes(operation)
 
