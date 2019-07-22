@@ -4,10 +4,10 @@ import { mapObjectEntries, filterObjectEntries } from './object'
 export const ApiClient = ({
   url,
   headers,
-  endpoints,
+  resources,
   afterResponse,
 }) => {
-  const resources = resourcesToFetchArguments(endpoints)
+  const processedResources = resourcesToFetchArguments(resources)
 
   const processParsedResponseWrapper = _ =>
     afterResponse
@@ -26,7 +26,7 @@ export const ApiClient = ({
   })
 
   return mapObjectEntries(
-    resources,
+    processedResources,
     (resourceName, resource) => mapObjectEntries(
       resource,
       (method, getFetchArguments) => (...args) => {
@@ -52,9 +52,9 @@ const resourcesToFetchArguments = (resources) => mapObjectEntries(
   )
 )
 
-const filterOperations = ([operation]) => endpointOptionIsOperation(operation)
+const filterOperations = ([operation]) => resourceOptionIsOperation(operation)
 
-const endpointOptionIsOperation = (operation) => operations.includes(operation)
+const resourceOptionIsOperation = (operation) => operations.includes(operation)
 
 const operations = ['get', 'find', 'post', 'put', 'patch', 'delete']
 

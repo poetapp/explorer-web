@@ -4,7 +4,7 @@ import { ApiClient } from 'helpers/ApiClient'
 
 export const FrostApi = (environment, token) => ApiClient({
   url: environmentToUrl(environment),
-  endpoints,
+  resources,
   headers: {
     token,
   },
@@ -17,7 +17,7 @@ export const FrostApi = (environment, token) => ApiClient({
   })
 })
 
-export const endpoints = {
+export const resources = {
   accounts: {
     get: true,
     find: true,

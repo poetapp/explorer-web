@@ -1,9 +1,9 @@
 export const PoetNodeApi = (url) => ({
   url,
-  endpoints,
+  resources,
 })
 
-const endpoints = {
+const resources = {
   works: {
     get: true,
     find: true,
