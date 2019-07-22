@@ -1,3 +1,4 @@
+import { withTotalCount } from 'helpers/array'
 import { assertEnvironment } from 'helpers/api'
 import { ApiClient } from 'helpers/ApiClient'
 
@@ -7,6 +8,13 @@ export const FrostApi = (environment, token) => ApiClient({
   headers: {
     token,
   },
+  afterResponse: ({ status, headers, body }) => ({
+    status,
+    headers,
+    body: Array.isArray(body)
+      ? withTotalCount(body, headers.get('X-TOTAL-COUNT'))
+      : body,
+  })
 })
 
 export const endpoints = {

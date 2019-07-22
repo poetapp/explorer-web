@@ -1,12 +1,12 @@
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 
-export const ApiClient = (api, processParsedResponse) => {
+export const ApiClient = (api) => {
   const fetchArguments = apiToFetchArguments(api)
 
   const processParsedResponseWrapper = _ => {
-    if (processParsedResponse)
-      return processParsedResponse(_)
+    if (api.afterResponse)
+      return api.afterResponse(_)
     return _.body
   }
 
