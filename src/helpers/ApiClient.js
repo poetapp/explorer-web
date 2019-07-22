@@ -125,11 +125,3 @@ const parseResponse = async response => ({
   body: await parseResponseBody(response),
   headers: response.headers,
 })
-
-// const usage =  async (apiClient) => {
-//   const account = await apiClient.accounts.get('issuer')
-//   const accounts = await apiClient.accounts.find({ issuer: 'issuer' })
-//   const createdAccount = await apiClient.accounts.post({ email: 'email@domain.com' })
-//   const patchedAccount = await apiClient.accounts.patch('issuer', { poeAddress: 'poeAddress' })
-// }
-
