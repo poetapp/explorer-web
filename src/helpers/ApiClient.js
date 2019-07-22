@@ -34,8 +34,8 @@ export const ApiClient = (api) => {
   )
 }
 
-const apiToFetchArguments = (api) => mapObjectEntries(
-  api.endpoints,
+const apiToFetchArguments = (endpoints) => mapObjectEntries(
+  endpoints,
   (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, filterOperations),
     (method, options) => resourceDefinitionToFetchArguments({
