@@ -28,7 +28,7 @@ export const ApiClient = ({
   return mapObjectEntries(
     processedResources,
     (resourceName, resource) => mapObjectEntries(
-      resource,
+      filterObjectEntries(resource, filterOperations),
       (method, getFetchArguments) => (...args) => {
         const { url: resourceUrl, init } = getFetchArguments(...args)
         return fetch(url + resourceUrl, apiInit(init))
@@ -43,7 +43,7 @@ export const ApiClient = ({
 const resourcesToFetchArguments = (resources) => mapObjectEntries(
   resources,
   (resourceName, resource) => mapObjectEntries(
-    filterObjectEntries(resource, filterOperations),
+    resource,
     (method, options) => resourceDefinitionToFetchArguments({
       url: resource.url || '/' + resourceName,
       method,
