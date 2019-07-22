@@ -2,7 +2,7 @@ import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 
 export const ApiClient = (api) => {
-  const fetchArguments = apiToFetchArguments(api)
+  const resources = resourcesToFetchArguments(api)
 
   const processParsedResponseWrapper = _ =>
     api.afterResponse
@@ -12,7 +12,7 @@ export const ApiClient = (api) => {
   const takeBody = ({ body }) => body
 
   return mapObjectEntries(
-    fetchArguments,
+    resources,
     (resourceName, resource) => mapObjectEntries(
       resource,
       (method, getFetchArguments) => (...args) => {
@@ -34,8 +34,8 @@ export const ApiClient = (api) => {
   )
 }
 
-const apiToFetchArguments = (endpoints) => mapObjectEntries(
-  endpoints,
+const resourcesToFetchArguments = (resources) => mapObjectEntries(
+  resources,
   (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, filterOperations),
     (method, options) => resourceDefinitionToFetchArguments({
