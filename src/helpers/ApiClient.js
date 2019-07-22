@@ -1,12 +1,17 @@
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 
-export const ApiClient = (api) => {
-  const resources = resourcesToFetchArguments(api.endpoints)
+export const ApiClient = ({
+  url,
+  headers,
+  endpoints,
+  afterResponse,
+}) => {
+  const resources = resourcesToFetchArguments(endpoints)
 
   const processParsedResponseWrapper = _ =>
-    api.afterResponse
-      ? api.afterResponse(_)
+    afterResponse
+      ? afterResponse(_)
       : _
 
   const takeBody = ({ body }) => body
@@ -16,7 +21,7 @@ export const ApiClient = (api) => {
     headers: {
       'content-type': 'application/json; charset=utf-8',
       ...init.headers,
-      ...api.headers,
+      ...headers,
     }
   })
 
@@ -25,8 +30,8 @@ export const ApiClient = (api) => {
     (resourceName, resource) => mapObjectEntries(
       resource,
       (method, getFetchArguments) => (...args) => {
-        const { url, init } = getFetchArguments(...args)
-        return fetch(api.url + url, apiInit(init))
+        const { url: resourceUrl, init } = getFetchArguments(...args)
+        return fetch(url + resourceUrl, apiInit(init))
           .then(parseResponse)
           .then(processParsedResponseWrapper)
           .then(takeBody)
