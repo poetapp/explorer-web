@@ -48,6 +48,3 @@ export const endpoints = {
 
 // const accountPoeChallengePost = (issuer) => apiPost(`accounts/${issuer}/poe-challenge`)
 // const accountVerify = (token) => apiFetch(`${apiUrl}/accounts/verify/${token}`, { headers: { token }})
-//
-// const workGetById = (id) => apiFetch(`${nodeUrl}/works/${id}`)
-// const worksGetByFilters = (filters = {}) => apiFetch(`${nodeUrl}/works?${filtersToQueryParams(filters)}`)
