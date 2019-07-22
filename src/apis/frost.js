@@ -17,7 +17,7 @@ export const FrostApi = (environment, token) => ApiClient({
   })
 })
 
-export const resources = {
+const resources = {
   accounts: {
     get: true,
     find: true,
