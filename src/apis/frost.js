@@ -8,23 +8,13 @@ export const FrostApi = (url, token) => ({
 
 export const endpoints = {
   accounts: {
-    get: {
-      // `${apiUrl}/accounts/${issuer}`
-    },
-    find: {
-      // apiFetch(`${apiUrl}/accounts?${filtersToQueryParams(searchParams)}`)
-    },
-    post: {
-
-    },
-    patch: {
-      // apiPatch(`accounts/${issuer}`)
-    },
+    get: true,
+    find: true,
+    post: true,
+    patch: true,
   },
   login: {
-    post: {
-
-    },
+    post: true,
   },
   tokens: {
     get: true,
@@ -33,21 +23,15 @@ export const endpoints = {
   },
   passwordReset: {
     url: '/password/reset',
-    post: {
-
-    },
+    post: true,
   },
   passwordChangeWithToken: {
     url: '/password/change/token',
-    post: {
-
-    },
+    post: true,
   },
   passwordChangeWithOld: {
     url: '/password/change',
-    post: {
-
-    },
+    post: true,
   },
   works: {
     post: {
