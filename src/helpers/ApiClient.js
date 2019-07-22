@@ -7,8 +7,6 @@ export const ApiClient = ({
   resources,
   afterResponse,
 }) => {
-  const processedResources = resourcesToFetchArguments(resources)
-
   const processParsedResponseWrapper = _ =>
     afterResponse
       ? afterResponse(_)
@@ -26,10 +24,15 @@ export const ApiClient = ({
   })
 
   return mapObjectEntries(
-    processedResources,
+    resources,
     (resourceName, resource) => mapObjectEntries(
       filterObjectEntries(resource, filterOperations),
-      (method, getFetchArguments) => (...args) => {
+      (method, options) => (...args) => {
+        const getFetchArguments = resourceDefinitionToFetchArguments({
+          url: resource.url || '/' + resourceName,
+          method,
+          // options,
+        })
         const { url: resourceUrl, init } = getFetchArguments(...args)
         return fetch(url + resourceUrl, apiInit(init))
           .then(parseResponse)
@@ -39,18 +42,6 @@ export const ApiClient = ({
     )
   )
 }
-
-const resourcesToFetchArguments = (resources) => mapObjectEntries(
-  resources,
-  (resourceName, resource) => mapObjectEntries(
-    resource,
-    (method, options) => resourceDefinitionToFetchArguments({
-      url: resource.url || '/' + resourceName,
-      method,
-      // options,
-    }),
-  )
-)
 
 const filterOperations = ([operation]) => resourceOptionIsOperation(operation)
 
