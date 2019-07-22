@@ -19,12 +19,11 @@ export const ApiClient = ({
   })
 
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => (...args) => {
-    const getFetchArguments = resourceDefinitionToFetchArguments({
+    const { url: resourceUrl, init } = resourceDefinitionToFetchArguments({
       url: resource.url || '/' + resourceName,
       method,
-      // options,
-    })
-    const { url: resourceUrl, init } = getFetchArguments(...args)
+      // headers: { ...resource.headers, ...options.headers },
+    })(...args)
     return fetch(url + resourceUrl, apiInit(init))
       .then(parseResponse)
       .then(afterResponse)
