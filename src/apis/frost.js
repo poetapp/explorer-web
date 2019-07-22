@@ -8,13 +8,7 @@ export const FrostApi = (environment, token) => ApiClient({
   headers: {
     token,
   },
-  afterResponse: ({ status, headers, body }) => ({
-    status,
-    headers,
-    body: Array.isArray(body)
-      ? withTotalCount(body, headers.get('X-TOTAL-COUNT'))
-      : body,
-  })
+  afterResponse,
 })
 
 const resources = {
@@ -58,6 +52,14 @@ const resources = {
     }
   },
 }
+
+const afterResponse = ({ status, headers, body }) => ({
+  status,
+  headers,
+  body: Array.isArray(body)
+    ? withTotalCount(body, headers.get('X-TOTAL-COUNT'))
+    : body,
+})
 
 const environmentToUrl = (environment) => {
   assertEnvironment(environment)
