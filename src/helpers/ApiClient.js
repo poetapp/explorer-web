@@ -1,8 +1,14 @@
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 
-export const ApiClient = (api) => {
+export const ApiClient = (api, processParsedResponse) => {
   const fetchArguments = apiToFetchArguments(api)
+
+  const processParsedResponseWrapper = _ => {
+    if (processParsedResponse)
+      return processParsedResponse(_)
+    return _.body
+  }
 
   return mapObjectEntries(
     fetchArguments,
@@ -11,6 +17,8 @@ export const ApiClient = (api) => {
       (method, getFetchArguments) => (...args) => {
         const { url, init } = getFetchArguments(...args)
         return fetch(url, init)
+          .then(parseResponse)
+          .then(processParsedResponseWrapper)
       }
     )
   )
@@ -94,6 +102,16 @@ const resourceDefinitionToFetchArguments = ({ url, method, headers }) => {
       })
   }
 }
+
+const isJSON = response => response.headers.get('content-type').split(';')[0] === 'application/json'
+
+const parseResponseBody = response => isJSON(response) ? response.json() : response.text()
+
+const parseResponse = async response => ({
+  status: response.status,
+  body: await parseResponseBody(response),
+  headers: response.headers,
+})
 
 // const usage =  async (apiClient) => {
 //   const account = await apiClient.accounts.get('issuer')
