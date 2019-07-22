@@ -11,7 +11,7 @@ import { SessionContext } from 'providers/SessionProvider'
 import classNames from './Login.scss'
 
 export const Login = () => {
-  const [api, isBusy, useApi, environment, network] = useContext(ApiContext)
+  const [api, isBusy, useApi, environment, network, frostApi] = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,7 +20,7 @@ export const Login = () => {
 
   const onSubmit = event => {
     event.preventDefault()
-    api.login({ email, password }).then(setLoginResponse)
+    frostApi.login({ email, password }).then(setLoginResponse)
   }
 
   useEffect(() => {
