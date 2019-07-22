@@ -61,6 +61,10 @@ export const ApiProvider = props => {
     return response
   }
 
+  useEffect(() => {
+    window.frostApi = frostApi
+  }, [frostApi])
+
   return (
     <ApiContext.Provider value={[api, isBusy, useApi, environment, network, frostApi]}>
       { props.children }
