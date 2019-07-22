@@ -29,9 +29,9 @@ export const Login = () => {
   }, [loginResponse])
 
   useEffect(() => {
-    if (api?.token)
-      api.accountGet(loginResponse.issuer).then(setGetAccountResponse)
-  }, [api])
+    if (frostApi && account && loginResponse)
+      frostApi.accounts.get(loginResponse.issuer).then(setGetAccountResponse)
+  }, [frostApi])
 
   useEffect(() => {
     if (getAccountResponse)
