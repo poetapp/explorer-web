@@ -17,7 +17,15 @@ export const ApiClient = (api) => {
       resource,
       (method, getFetchArguments) => (...args) => {
         const { url, init } = getFetchArguments(...args)
-        return fetch(url, init)
+        const mergedInit = {
+          ...init,
+          headers: {
+            'content-type': 'application/json; charset=utf-8',
+            ...init.headers,
+            ...api.headers,
+          }
+        }
+        return fetch(api.url + url, mergedInit)
           .then(parseResponse)
           .then(processParsedResponseWrapper)
           .then(takeBody)
@@ -31,13 +39,9 @@ const apiToFetchArguments = (api) => mapObjectEntries(
   (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, filterOperations),
     (method, options) => resourceDefinitionToFetchArguments({
-      url: api.url + (resource.url || '/' + resourceName),
+      url: resource.url || '/' + resourceName,
       method,
       // options,
-      headers: {
-        'content-type': 'application/json; charset=utf-8',
-        ...api.headers,
-      },
     }),
   )
 )
