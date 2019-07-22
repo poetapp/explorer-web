@@ -11,21 +11,22 @@ export const ApiClient = (api) => {
 
   const takeBody = ({ body }) => body
 
+  const apiInit = (init) => ({
+    ...init,
+    headers: {
+      'content-type': 'application/json; charset=utf-8',
+      ...init.headers,
+      ...api.headers,
+    }
+  })
+
   return mapObjectEntries(
     resources,
     (resourceName, resource) => mapObjectEntries(
       resource,
       (method, getFetchArguments) => (...args) => {
         const { url, init } = getFetchArguments(...args)
-        const mergedInit = {
-          ...init,
-          headers: {
-            'content-type': 'application/json; charset=utf-8',
-            ...init.headers,
-            ...api.headers,
-          }
-        }
-        return fetch(api.url + url, mergedInit)
+        return fetch(api.url + url, apiInit(init))
           .then(parseResponse)
           .then(processParsedResponseWrapper)
           .then(takeBody)
