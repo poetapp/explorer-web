@@ -4,11 +4,12 @@ import { mapObjectEntries, filterObjectEntries } from './object'
 export const ApiClient = (api) => {
   const fetchArguments = apiToFetchArguments(api)
 
-  const processParsedResponseWrapper = _ => {
-    if (api.afterResponse)
-      return api.afterResponse(_)
-    return _.body
-  }
+  const processParsedResponseWrapper = _ =>
+    api.afterResponse
+      ? api.afterResponse(_)
+      : _
+
+  const takeBody = ({ body }) => body
 
   return mapObjectEntries(
     fetchArguments,
@@ -19,6 +20,7 @@ export const ApiClient = (api) => {
         return fetch(url, init)
           .then(parseResponse)
           .then(processParsedResponseWrapper)
+          .then(takeBody)
       }
     )
   )
