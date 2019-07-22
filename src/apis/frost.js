@@ -15,6 +15,8 @@ export const endpoints = {
     find: true,
     post: true,
     patch: true,
+// const accountPoeChallengePost = (issuer) => apiPost(`accounts/${issuer}/poe-challenge`)
+// const accountVerify = (token) => apiFetch(`${apiUrl}/accounts/verify/${token}`, { headers: { token }})
   },
   login: {
     post: true,
@@ -48,9 +50,6 @@ export const endpoints = {
     }
   },
 }
-
-// const accountPoeChallengePost = (issuer) => apiPost(`accounts/${issuer}/poe-challenge`)
-// const accountVerify = (token) => apiFetch(`${apiUrl}/accounts/verify/${token}`, { headers: { token }})
 
 const environmentToUrl = (environment) => {
   assertEnvironment(environment)
