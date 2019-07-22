@@ -20,7 +20,7 @@ export const Login = () => {
 
   const onSubmit = event => {
     event.preventDefault()
-    frostApi.login({ email, password }).then(setLoginResponse)
+    frostApi.login.post({ email, password }).then(setLoginResponse)
   }
 
   useEffect(() => {
