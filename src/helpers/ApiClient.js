@@ -12,8 +12,8 @@ export const ApiClient = ({
 }) => {
   const pickBody = ({ body }) => body
 
-  const makeUrl = (resourceName, resource) => ({ url: asd = '', init }) => ({
-    url: url + (resource.url || '/' + resourceName) + asd,
+  const makeUrl = (resourceName, resource) => ({ url: operationUrl = '', init }) => ({
+    url: url + (resource.url || '/' + resourceName) + operationUrl,
     init,
   })
 
