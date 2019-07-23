@@ -12,12 +12,14 @@ export const ApiClient = ({
 }) => {
   const pickBody = ({ body }) => body
 
+  const bleh = (resourceName, resource, method, options) => ({
+    url: url + (resource.url || '/' + resourceName),
+    method,
+    headers: { ...headers, ...resource.headers, ...options.headers },
+  })
+
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
-    operationToFetchArguments({
-      url: url + (resource.url || '/' + resourceName),
-      method,
-      headers: { ...headers, ...resource.headers, ...options.headers },
-    }),
+    operationToFetchArguments(bleh(resourceName, resource, method, options)),
     unaryFetch,
     parseResponse,
     afterResponse,
