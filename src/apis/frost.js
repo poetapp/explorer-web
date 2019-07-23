@@ -4,7 +4,7 @@ import { withTotalCount } from 'helpers/array'
 import { assertEnvironment } from 'helpers/api'
 import { ApiClient } from 'helpers/ApiClient'
 
-export const FrostApi = (environment, token, afterResponse = identity) => ApiClient({
+export const FrostApi = ({ environment, token, afterResponse = identity }) => ApiClient({
   url: environmentToUrl(environment),
   resources,
   headers: {

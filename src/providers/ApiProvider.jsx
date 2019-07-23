@@ -49,7 +49,10 @@ export const ApiProvider = props => {
       environment,
       network,
     }))
-    setFrostApi(FrostApi(environment, account?.token))
+    setFrostApi(FrostApi({
+      environment,
+      token: account?.token,
+    }))
   }, [account, environment, network])
 
   const useApi = (endpoint, ...args) => {
