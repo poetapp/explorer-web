@@ -12,24 +12,12 @@ export const ApiClient = ({
 }) => {
   const pickBody = ({ body }) => body
 
-  const apiInit = (init) => ({
-    ...init,
-    headers: {
-      'content-type': 'application/json; charset=utf-8',
-      ...init.headers,
-      ...headers,
-    }
-  })
-
-  const addApiFetchArguments = ({ url, init }) => ({ url, init: apiInit(init) })
-
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
     resourceDefinitionToFetchArguments({
       url: url + (resource.url || '/' + resourceName),
       method,
-      // headers: { ...resource.headers, ...options.headers },
+      headers: { ...headers, ...resource.headers, ...options.headers },
     }),
-    addApiFetchArguments,
     unaryFetch,
     parseResponse,
     afterResponse,

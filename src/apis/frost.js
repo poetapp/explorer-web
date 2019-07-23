@@ -6,6 +6,7 @@ export const FrostApi = (environment, token) => ApiClient({
   url: environmentToUrl(environment),
   resources,
   headers: {
+    'content-type': 'application/json; charset=utf-8',
     token,
   },
   afterResponse,
