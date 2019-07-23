@@ -13,7 +13,7 @@ export const ApiClient = ({
   const pickBody = ({ body }) => body
 
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
-    resourceDefinitionToFetchArguments({
+    operationToFetchArguments({
       url: url + (resource.url || '/' + resourceName),
       method,
       headers: { ...headers, ...resource.headers, ...options.headers },
@@ -41,7 +41,7 @@ const resourceOptionIsOperation = (operation) => operations.includes(operation)
 
 const operations = ['get', 'find', 'post', 'put', 'patch', 'delete']
 
-const resourceDefinitionToFetchArguments = ({ url, method, headers }) => {
+const operationToFetchArguments = ({ url, method, headers }) => {
   switch (method) {
     case 'get':
       return id => ({
