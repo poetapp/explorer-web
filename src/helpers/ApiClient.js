@@ -12,14 +12,19 @@ export const ApiClient = ({
 }) => {
   const pickBody = ({ body }) => body
 
-  const bleh = (resourceName, resource, method, options) => ({
-    url: url + (resource.url || '/' + resourceName),
+  const bleh = (resource, method, options) => ({
     method,
     headers: { ...headers, ...resource.headers, ...options.headers },
   })
 
+  const makeUrl = (resourceName, resource) => ({ url: asd = '', init }) => ({
+    url: url + (resource.url || '/' + resourceName) + asd,
+    init,
+  })
+
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
-    operationToFetchArguments(bleh(resourceName, resource, method, options)),
+    operationToFetchArguments(bleh(resource, method, options)),
+    makeUrl(resourceName, resource),
     unaryFetch,
     parseResponse,
     afterResponse,
@@ -47,7 +52,7 @@ const operationToFetchArguments = ({ url, method, headers }) => {
   switch (method) {
     case 'get':
       return id => ({
-        url: `${url}/${id}`,
+        url: `/${id}`,
         init: {
           method,
           headers,
@@ -55,7 +60,7 @@ const operationToFetchArguments = ({ url, method, headers }) => {
       })
     case 'find':
       return searchParams => ({
-        url: `${url}?${filtersToQueryParams(searchParams)}`,
+        url: `?${filtersToQueryParams(searchParams)}`,
         init: {
           method: 'get',
           headers,
@@ -63,7 +68,6 @@ const operationToFetchArguments = ({ url, method, headers }) => {
       })
     case 'post':
       return body => ({
-        url,
         init: {
           method,
           headers,
@@ -72,7 +76,7 @@ const operationToFetchArguments = ({ url, method, headers }) => {
       })
     case 'put':
       return (id, body) => ({
-        url: `${url}/${id}`,
+        url: `/${id}`,
         init: {
           method,
           headers,
@@ -81,7 +85,7 @@ const operationToFetchArguments = ({ url, method, headers }) => {
       })
     case 'patch':
       return (id, body) => ({
-        url: `${url}/${id}`,
+        url: `/${id}`,
         init: {
           method,
           headers,
@@ -90,7 +94,7 @@ const operationToFetchArguments = ({ url, method, headers }) => {
       })
     case 'delete':
       return (id, body) => ({
-        url: `${url}/${id}`,
+        url: `/${id}`,
         init: {
           method,
           headers,
