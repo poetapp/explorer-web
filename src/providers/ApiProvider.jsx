@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
 import { toast } from 'react-toastify'
 
+import { FrostApi } from 'apis/frost'
 import { Api } from 'helpers/api'
 
 import { SessionContext } from './SessionProvider'
@@ -13,6 +14,7 @@ export const ApiProvider = props => {
   const [environment, network] = useContext(ApiEnvironmentContext)
   const [api, setApi] = useState(null)
   const [isBusy, setIsBusy] = useState(false)
+  const [frostApi, setFrostApi] = useState(false)
 
   const clearAccount = () => setAccount(null)
 
@@ -47,6 +49,17 @@ export const ApiProvider = props => {
       environment,
       network,
     }))
+    setFrostApi(FrostApi({
+      environment,
+      token: account?.token,
+      afterResponse: _ => {
+        if (_.status !== 200) {
+          toast.error(_.body)
+          return null
+        }
+        return _
+      }
+    }))
   }, [account, environment, network])
 
   const useApi = (endpoint, ...args) => {
@@ -58,8 +71,12 @@ export const ApiProvider = props => {
     return response
   }
 
+  useEffect(() => {
+    window.frostApi = frostApi
+  }, [frostApi])
+
   return (
-    <ApiContext.Provider value={[api, isBusy, useApi, environment, network]}>
+    <ApiContext.Provider value={[api, isBusy, useApi, environment, network, frostApi]}>
       { props.children }
     </ApiContext.Provider>
   )
