@@ -12,7 +12,7 @@ export const ApiClient = ({
   resources,
   afterResponse = _ => _,
 }) => {
-  const takeBody = ({ body }) => body
+  const pickBody = ({ body }) => body
 
   const apiInit = (init) => ({
     ...init,
@@ -35,7 +35,7 @@ export const ApiClient = ({
     unaryFetch,
     parseResponse,
     afterResponse,
-    takeBody
+    pickBody
   )
 
   const resourceToFetch = (resourceName, resource) => mapObjectEntries(
