@@ -25,10 +25,19 @@ export const ApiClient = ({
     }
   })
 
+  const addMethod = (method) => ({ url, init }) => ({
+    url,
+    init: {
+      method,
+      ...init,
+    }
+  })
+
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
     operationToFetchArguments(method),
     makeUrl(resourceName, resource),
     makeHeaders(resource, options),
+    addMethod(method),
     unaryFetch,
     parseResponse,
     afterResponse,
@@ -57,9 +66,6 @@ const operationToFetchArguments = (method) => {
     case 'get':
       return id => ({
         url: `/${id}`,
-        init: {
-          method,
-        },
       })
     case 'find':
       return searchParams => ({
@@ -71,7 +77,6 @@ const operationToFetchArguments = (method) => {
     case 'post':
       return body => ({
         init: {
-          method,
           body: JSON.stringify(body),
         }
       })
@@ -79,7 +84,6 @@ const operationToFetchArguments = (method) => {
       return (id, body) => ({
         url: `/${id}`,
         init: {
-          method,
           body: JSON.stringify(body),
         }
       })
@@ -87,7 +91,6 @@ const operationToFetchArguments = (method) => {
       return (id, body) => ({
         url: `/${id}`,
         init: {
-          method,
           body: JSON.stringify(body),
         }
       })
@@ -95,7 +98,6 @@ const operationToFetchArguments = (method) => {
       return (id, body) => ({
         url: `/${id}`,
         init: {
-          method,
           body: JSON.stringify(body),
         }
       })
