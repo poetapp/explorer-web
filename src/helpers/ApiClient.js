@@ -21,11 +21,11 @@ export const ApiClient = ({
     }
   })
 
-  const addApiFetchArguments = ({ url: operationUrl, init }) => ({ url: url + operationUrl, init: apiInit(init) })
+  const addApiFetchArguments = ({ url, init }) => ({ url, init: apiInit(init) })
 
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
     resourceDefinitionToFetchArguments({
-      url: resource.url || '/' + resourceName,
+      url: url + (resource.url || '/' + resourceName),
       method,
       // headers: { ...resource.headers, ...options.headers },
     }),
