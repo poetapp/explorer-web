@@ -34,7 +34,7 @@ export const ApiClient = ({
   })
 
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
-    operationToFetchArguments(method),
+    operationToFetchArguments[method],
     makeUrl(resourceName, resource),
     makeHeaders(resource, options),
     addMethod(method),
@@ -61,47 +61,39 @@ const resourceOptionIsOperation = (operation) => operations.includes(operation)
 
 const operations = ['get', 'find', 'post', 'put', 'patch', 'delete']
 
-const operationToFetchArguments = (method) => {
-  switch (method) {
-    case 'get':
-      return id => ({
-        url: `/${id}`,
-      })
-    case 'find':
-      return searchParams => ({
-        url: `?${filtersToQueryParams(searchParams)}`,
-        init: {
-          method: 'get',
-        },
-      })
-    case 'post':
-      return body => ({
-        init: {
-          body: JSON.stringify(body),
-        }
-      })
-    case 'put':
-      return (id, body) => ({
-        url: `/${id}`,
-        init: {
-          body: JSON.stringify(body),
-        }
-      })
-    case 'patch':
-      return (id, body) => ({
-        url: `/${id}`,
-        init: {
-          body: JSON.stringify(body),
-        }
-      })
-    case 'delete':
-      return (id, body) => ({
-        url: `/${id}`,
-        init: {
-          body: JSON.stringify(body),
-        }
-      })
-  }
+const operationToFetchArguments = {
+  'get': id => ({
+    url: `/${id}`,
+  }),
+  'find': searchParams => ({
+    url: `?${filtersToQueryParams(searchParams)}`,
+    init: {
+      method: 'get',
+    },
+  }),
+  'post': body => ({
+    init: {
+      body: JSON.stringify(body),
+    }
+  }),
+  'put': (id, body) => ({
+    url: `/${id}`,
+    init: {
+      body: JSON.stringify(body),
+    }
+  }),
+  'patch': (id, body) => ({
+    url: `/${id}`,
+    init: {
+      body: JSON.stringify(body),
+    }
+  }),
+  'delete': (id, body) => ({
+    url: `/${id}`,
+    init: {
+      body: JSON.stringify(body),
+    }
+  }),
 }
 
 const isJSON = response => response.headers.get('content-type').split(';')[0] === 'application/json'
