@@ -53,7 +53,10 @@ export const ApiProvider = props => {
       environment,
       token: account?.token,
       afterResponse: _ => {
-        toast.error(_.body)
+        if (_.status !== 200) {
+          toast.error(_.body)
+          return null
+        }
         return _
       }
     }))
