@@ -17,7 +17,7 @@ export const ApiClient = ({
     init,
   })
 
-  const makeHeaders = (resource, options) => ({ url, init }) => ({
+  const addHeaders = (resource, options) => ({ url, init }) => ({
     url,
     init: {
       ...init,
@@ -36,7 +36,7 @@ export const ApiClient = ({
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
     operationToFetchArguments[method],
     makeUrl(resourceName, resource),
-    makeHeaders(resource, options),
+    addHeaders(resource, options),
     addMethod(method),
     unaryFetch,
     parseResponse,
