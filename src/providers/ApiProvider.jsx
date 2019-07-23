@@ -52,6 +52,10 @@ export const ApiProvider = props => {
     setFrostApi(FrostApi({
       environment,
       token: account?.token,
+      afterResponse: _ => {
+        toast.error(_.body)
+        return _
+      }
     }))
   }, [account, environment, network])
 
