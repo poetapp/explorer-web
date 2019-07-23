@@ -1,3 +1,5 @@
+import { identity } from 'ramda'
+
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 import { asyncPipe, unaryFetch } from './functional'
@@ -6,7 +8,7 @@ export const ApiClient = ({
   url,
   headers,
   resources,
-  afterResponse = _ => _,
+  afterResponse = identity,
 }) => {
   const pickBody = ({ body }) => body
 
