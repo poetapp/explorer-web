@@ -45,12 +45,6 @@ export const ApiClient = ({
     resources,
     resourceToFetch,
   )
-
-  // return resources.mapEntries(
-  //   (resourceName, resource) => resource
-  //     .filterEntries(resourceEntryIsOperation)
-  //     .mapEntries(resourceOperationToFetch(resourceName, resource))
-  // )
 }
 
 const resourceEntryIsOperation = ([operation]) => resourceOptionIsOperation(operation)
