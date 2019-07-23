@@ -1,10 +1,6 @@
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
-
-export const asyncPipe = (...fns) =>
-  (v) => fns.reduce(async (a, c) => c(await a), Promise.resolve(v))
-
-const unaryFetch = ({ url, init}) => fetch(url, init)
+import { asyncPipe, unaryFetch } from './functional'
 
 export const ApiClient = ({
   url,
