@@ -1,6 +1,11 @@
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 
+export const asyncPipe = (...fns) =>
+  (v) => fns.reduce(async (a, c) => c(await a), Promise.resolve(v))
+
+const unaryFetch = ({ url, init}) => fetch(url, init)
+
 export const ApiClient = ({
   url,
   headers,
@@ -18,17 +23,20 @@ export const ApiClient = ({
     }
   })
 
-  const resourceOperationToFetch = (resourceName, resource) => (method, options) => (...args) => {
-    const { url: operationUrl, init } = resourceDefinitionToFetchArguments({
+  const addApiFetchArguments = ({ url: operationUrl, init }) => ({ url: url + operationUrl, init: apiInit(init) })
+
+  const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
+    resourceDefinitionToFetchArguments({
       url: resource.url || '/' + resourceName,
       method,
       // headers: { ...resource.headers, ...options.headers },
-    })(...args)
-    return fetch(url + operationUrl, apiInit(init))
-      .then(parseResponse)
-      .then(afterResponse)
-      .then(takeBody)
-  }
+    }),
+    addApiFetchArguments,
+    unaryFetch,
+    parseResponse,
+    afterResponse,
+    takeBody
+  )
 
   const resourceToFetch = (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, resourceEntryIsOperation),
