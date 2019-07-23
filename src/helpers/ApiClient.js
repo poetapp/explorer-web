@@ -12,19 +12,23 @@ export const ApiClient = ({
 }) => {
   const pickBody = ({ body }) => body
 
-  const bleh = (resource, method, options) => ({
-    method,
-    headers: { ...headers, ...resource.headers, ...options.headers },
-  })
-
   const makeUrl = (resourceName, resource) => ({ url: asd = '', init }) => ({
     url: url + (resource.url || '/' + resourceName) + asd,
     init,
   })
 
+  const makeHeaders = (resource, options) => ({ url, init }) => ({
+    url,
+    init: {
+      ...init,
+      headers: { ...headers, ...resource.headers, ...options.headers },
+    }
+  })
+
   const resourceOperationToFetch = (resourceName, resource) => (method, options) => asyncPipe(
-    operationToFetchArguments(bleh(resource, method, options)),
+    operationToFetchArguments({ method }),
     makeUrl(resourceName, resource),
+    makeHeaders(resource, options),
     unaryFetch,
     parseResponse,
     afterResponse,
@@ -48,14 +52,13 @@ const resourceOptionIsOperation = (operation) => operations.includes(operation)
 
 const operations = ['get', 'find', 'post', 'put', 'patch', 'delete']
 
-const operationToFetchArguments = ({ url, method, headers }) => {
+const operationToFetchArguments = ({ method }) => {
   switch (method) {
     case 'get':
       return id => ({
         url: `/${id}`,
         init: {
           method,
-          headers,
         },
       })
     case 'find':
@@ -63,14 +66,12 @@ const operationToFetchArguments = ({ url, method, headers }) => {
         url: `?${filtersToQueryParams(searchParams)}`,
         init: {
           method: 'get',
-          headers,
         },
       })
     case 'post':
       return body => ({
         init: {
           method,
-          headers,
           body: JSON.stringify(body),
         }
       })
@@ -79,7 +80,6 @@ const operationToFetchArguments = ({ url, method, headers }) => {
         url: `/${id}`,
         init: {
           method,
-          headers,
           body: JSON.stringify(body),
         }
       })
@@ -88,7 +88,6 @@ const operationToFetchArguments = ({ url, method, headers }) => {
         url: `/${id}`,
         init: {
           method,
-          headers,
           body: JSON.stringify(body),
         }
       })
@@ -97,7 +96,6 @@ const operationToFetchArguments = ({ url, method, headers }) => {
         url: `/${id}`,
         init: {
           method,
-          headers,
           body: JSON.stringify(body),
         }
       })
