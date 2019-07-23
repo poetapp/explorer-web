@@ -1,15 +1,17 @@
+import { identity, pipe } from 'ramda'
+
 import { withTotalCount } from 'helpers/array'
 import { assertEnvironment } from 'helpers/api'
 import { ApiClient } from 'helpers/ApiClient'
 
-export const FrostApi = (environment, token) => ApiClient({
+export const FrostApi = (environment, token, afterResponse = identity) => ApiClient({
   url: environmentToUrl(environment),
   resources,
   headers: {
     'content-type': 'application/json; charset=utf-8',
     token,
   },
-  afterResponse,
+  afterResponse: pipe(internalAfterResponse, afterResponse),
 })
 
 const resources = {
@@ -54,7 +56,7 @@ const resources = {
   },
 }
 
-const afterResponse = ({ status, headers, body }) => ({
+const internalAfterResponse = ({ status, headers, body }) => ({
   status,
   headers,
   body: Array.isArray(body)
