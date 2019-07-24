@@ -76,7 +76,7 @@ export const ApiProvider = props => {
   }, [frostApi])
 
   return (
-    <ApiContext.Provider value={[api, isBusy, useApi, environment, network, frostApi]}>
+    <ApiContext.Provider value={{api, isBusy, useApi, environment, network, frostApi}}>
       { props.children }
     </ApiContext.Provider>
   )

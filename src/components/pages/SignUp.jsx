@@ -13,7 +13,7 @@ import { SessionContext } from 'providers/SessionProvider'
 import classNames from './SignUp.scss'
 
 export const SignUp = () => {
-  const [api, isBusy, useApi, environment] = useContext(ApiContext)
+  const { api, isBusy, environment } = useContext(ApiContext)
   const [_, setAccount] = useContext(SessionContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

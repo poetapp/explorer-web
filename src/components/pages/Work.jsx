@@ -11,7 +11,7 @@ import { IPFS, Bitcoin, QuillS3 } from 'Images'
 import classNames from './Work.scss'
 
 export const WorkById = ({ id }) => {
-  const [api, isBusy, useApi] = useContext(ApiContext)
+  const { useApi } = useContext(ApiContext)
   const work = useApi('workGetById', id)
 
   return (
@@ -77,7 +77,7 @@ const Overview = ({ name, author, issuer, datePublished, tags, customFields }) =
 }
 
 const Issuer = ({ issuer }) => {
-  const [api] = useContext(ApiContext)
+  const { api } = useContext(ApiContext)
   const [account, setAccount] = useState()
 
   useEffect(() => {

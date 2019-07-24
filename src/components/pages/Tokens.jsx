@@ -8,7 +8,7 @@ import { ApiContext } from 'providers/ApiProvider'
 import classNames from './Tokens.scss'
 
 export const Tokens = () => {
-  const [api, isBusy] = useContext(ApiContext)
+  const { api, isBusy } = useContext(ApiContext)
   const [tokens, dispatch] = useReducer(tokenReducer, [])
 
   useEffect(() => {
