@@ -33,8 +33,8 @@ import { useState, useEffect } from 'react'
  * In practice this means this function should only be called once per key in the entire application.
  * The best place to do so will usually be a Context Provider.
  */
-export const usePersistedState = (key) => {
-  const [state, setState] = useState(JSON.parse(window.localStorage.getItem(key)))
+export const usePersistedState = (key, defaultValue) => {
+  const [state, setState] = useState(JSON.parse(window.localStorage.getItem(key)) || defaultValue)
 
   useEffect(() => {
     if (state)

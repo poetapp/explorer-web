@@ -7,8 +7,8 @@ import { SessionContext } from './SessionProvider'
 export const ApiEnvironmentContext = createContext()
 
 export const ApiEnvironmentProvider = (props) => {
-  const [environment, setEnvironment] = usePersistedState('environment')
-  const [network, setNetwork] = usePersistedState('network')
+  const [environment, setEnvironment] = usePersistedState('environment', 'production')
+  const [network, setNetwork] = usePersistedState('network', 'mainnet')
   const [account, setAccount] = useContext(SessionContext)
 
   useEffect(() => {
