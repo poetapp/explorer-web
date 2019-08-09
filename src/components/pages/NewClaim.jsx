@@ -12,7 +12,7 @@ import { SessionContext } from 'providers/SessionProvider'
 import classNames from './NewClaim.scss'
 
 export const NewClaim = () => {
-  const [api, isBusy, useApi] = useContext(ApiContext)
+  const { api, isBusy, useApi } = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
   const tokens = useApi('getTokens')
   const [account] = useContext(SessionContext)

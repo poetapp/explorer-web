@@ -10,7 +10,7 @@ import { Logo } from 'Images'
 import classNames from './ConfirmEmail.scss'
 
 export const ConfirmMail = ({ token }) => {
-  const [api, isBusy, useApi] = useContext(ApiContext)
+  const { api } = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [loginToken, setLoginToken] = useState()
 

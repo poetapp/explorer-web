@@ -11,7 +11,7 @@ import { SessionContext } from 'providers/SessionProvider'
 import classNames from './Login.scss'
 
 export const Login = () => {
-  const [api, isBusy, useApi, environment, network, frostApi] = useContext(ApiContext)
+  const { isBusy, environment, frostApi } = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

@@ -37,7 +37,7 @@ export const Settings = () => (
 )
 
 const ProfileForm = () => {
-  const [api, isBusy] = useContext(ApiContext)
+  const { api, isBusy } = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [name, setName] = useState(account.name || '')
   const [email, setEmail] = useState(account.email || '')
@@ -162,7 +162,7 @@ const UnlinkAddress = ({ onUnlink, address }) => (
 )
 
 const PoeWalletMewOverlay = ({ onDone }) => {
-  const [api, isBusy] = useContext(ApiContext)
+  const { api } = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [poeAddressMessage, setPoeAddressMessage] = useState('')
   const [signedMessage, setSignedMessage] = useState('')
@@ -254,7 +254,7 @@ const CopyInput = ({ className, id, value }) => {
 }
 
 const WalletForm = () => {
-  const [api, isBusy] = useContext(ApiContext)
+  const { api, isBusy } = useContext(ApiContext)
   const [account, setAccount] = useContext(SessionContext)
   const [ethereumAddress, setEthereumAddress] = useState(account.ethereumAddress || '')
 
@@ -287,7 +287,7 @@ const WalletForm = () => {
 const PasswordForm = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
-  const [api, isBusy] = useContext(ApiContext)
+  const { api, isBusy } = useContext(ApiContext)
 
   const onSubmit = () => {
     event.preventDefault();

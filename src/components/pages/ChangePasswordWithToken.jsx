@@ -10,7 +10,7 @@ import { ApiContext } from 'providers/ApiProvider'
 import classNames from './ChangePasswordWithToken.scss'
 
 export const ChangePasswordWithToken = ({ token }) => {
-  const [api, isBusy] = useContext(ApiContext)
+  const { api } = useContext(ApiContext)
   const [isDone, setIsDone] = useState(false)
   const [password, setPassword] = useState(null)
 

@@ -9,7 +9,7 @@ import { ApiContext } from 'providers/ApiProvider'
 import classNames from './ForgotPassword.scss'
 
 export const ForgotPassword = () => {
-  const [api, isBusy] = useContext(ApiContext)
+  const { api } = useContext(ApiContext)
   const [isDone, setIsDone] = useState(false)
   const [email, setEmail] = useState(null)
 

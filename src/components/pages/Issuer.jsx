@@ -10,7 +10,7 @@ import { ApiContext } from 'providers/ApiProvider'
 import classNames from './Issuer.scss'
 
 export const IssuerById = ({ id, pageSize = 10 }) => {
-  const [api, isBusy] = useContext(ApiContext)
+  const { api } = useContext(ApiContext)
   const [page, setPage] = useState(0)
   const [works, setWorks] = useState([])
   const [pageCount, setPageCount] = useState(0)
@@ -40,7 +40,7 @@ export const IssuerById = ({ id, pageSize = 10 }) => {
 }
 
 const Profile = ({ issuer }) => {
-  const [api, isBusy, useApi] = useContext(ApiContext)
+  const { useApi } = useContext(ApiContext)
   const account = useApi('accountFind', { issuer })
 
   return (
