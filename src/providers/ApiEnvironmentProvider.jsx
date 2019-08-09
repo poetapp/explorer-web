@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useContext, createContext } from 'react'
+import React, { useEffect, useContext, createContext } from 'react'
+
+import { usePersistedState } from 'hooks/usePersistedState'
 
 import { SessionContext } from './SessionProvider'
 
 export const ApiEnvironmentContext = createContext()
 
 export const ApiEnvironmentProvider = (props) => {
-  const [environment, setEnvironment] = useState('production')
-  const [network, setNetwork] = useState('mainnet')
+  const [environment, setEnvironment] = usePersistedState('environment', 'production')
+  const [network, setNetwork] = usePersistedState('network', 'mainnet')
   const [account, setAccount] = useContext(SessionContext)
 
   useEffect(() => {
