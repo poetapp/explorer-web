@@ -1,14 +1,18 @@
 import moment from 'moment'
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { Fragment, useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { ApiContext } from 'providers/ApiProvider'
 
 import { Main } from 'components/templates/Main'
+import { Sidebar } from 'components/shared/Sidebar'
+import { Tabs } from 'components/shared/Tabs'
 
 import { IPFS, Bitcoin, QuillS3 } from 'Images'
 
 import classNames from './Work.scss'
+
+setTimeout(() => window.qa(), 1000)
 
 export const WorkById = ({ id }) => {
   const { useApi } = useContext(ApiContext)
@@ -36,24 +40,28 @@ const Work = ({ work }) => {
 
   return (
     <section className={classNames.work}>
-      <header>
-        <Overview
-          name={name}
-          author={author}
-          issuer={issuer}
-          datePublished={datePublished}
-          tags={tags}
-          customFields={customFields}
-        />
-        <Links
-          bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
-          ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
-        />
-      </header>
-      <main>
-        <Content archiveUrl={work?.claim?.archiveUrl}/>
-        <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
-      </main>
+      <Sidebar scrollable>
+        <Fragment>
+          <header className={classNames.sidebarHeader}>
+            <Overview
+              name={name}
+              author={author}
+              issuer={issuer}
+              datePublished={datePublished}
+              tags={tags}
+              customFields={customFields}
+            />
+            <MakeClaimButton
+            />
+          </header>
+          <Tabs>
+            <ContentTab label='Content' work={work} />
+            <LinkedClaimsTab label='Linked Claims' />
+            <TechnicalTab label='Technical' />
+          </Tabs>
+        </Fragment>
+        <Graph />
+      </Sidebar>
     </section>
   )
 }
@@ -147,6 +155,39 @@ const BadgeUrl = ({ workId, date }) => {
     </section>
   )
 }
+
+const MakeClaimButton = () => (
+  <button className={classNames.makeClaimButton}>Make a claim</button>
+)
+
+const ContentTab = ({ work }) => (
+  <article>
+    <Content archiveUrl={work?.claim?.archiveUrl}/>
+    <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
+    <Links
+      bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
+      ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
+    />
+  </article>
+)
+
+const LinkedClaimsTab = () => (
+  <article>
+    Linked Claims!
+  </article>
+)
+
+const TechnicalTab = () => (
+  <article>
+    Technical!
+  </article>
+)
+
+const Graph = () => (
+  <figure className={classNames.graph}>
+    Main graph will go here
+  </figure>
+)
 
 const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`

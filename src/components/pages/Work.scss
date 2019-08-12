@@ -1,10 +1,17 @@
+@import 'Buttons';
 @import 'Fonts';
 @import 'Layout';
 
 $main-width: 960px;
+$sidebar-header-padding: 24px;
+
+.sidebarHeader {
+  padding: $sidebar-header-padding;
+  padding-top: $sidebar-header-padding * 2;
+}
 
 .overview {
-  margin-bottom: 70px;
+  margin-bottom: $sidebar-header-padding;
 
   h1 {
     font-size: 24px;
@@ -29,7 +36,20 @@ $main-width: 960px;
   }
 }
 
+.makeClaimButton {
+  @extend %buttonA;
+  border-radius: 0;
+  font-size: 16px;
+  padding: 18px 36px;
+  text-transform: uppercase;
+}
+
 .work {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
   >header {
     @include letterboxed();
     padding-top: 34px;
@@ -177,4 +197,10 @@ $main-width: 960px;
   flex: 1 1 auto;
   align-items: center;
   justify-content: center;
+}
+
+.graph {
+  background-color: #F5F5F5;
+  margin: 0;
+  flex: 1;
 }
