@@ -7,12 +7,11 @@ import { ApiContext } from 'providers/ApiProvider'
 import { Main } from 'components/templates/Main'
 import { Sidebar } from 'components/shared/Sidebar'
 import { Tabs } from 'components/shared/Tabs'
+import { ClaimGraph } from 'components/shared/ClaimGraph'
 
 import { IPFS, Bitcoin, QuillS3 } from 'Images'
 
 import classNames from './Work.scss'
-
-setTimeout(() => window.qa(), 1000)
 
 export const WorkById = ({ id }) => {
   const { useApi } = useContext(ApiContext)
@@ -40,7 +39,7 @@ const Work = ({ work }) => {
 
   return (
     <section className={classNames.work}>
-      <Sidebar scrollable>
+      <Sidebar invertScroll>
         <Fragment>
           <header className={classNames.sidebarHeader}>
             <Overview
@@ -184,9 +183,9 @@ const TechnicalTab = () => (
 )
 
 const Graph = () => (
-  <figure className={classNames.graph}>
-    Main graph will go here
-  </figure>
+  <section className={classNames.graph}>
+    <ClaimGraph />
+  </section>
 )
 
 const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
