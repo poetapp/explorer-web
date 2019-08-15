@@ -24,8 +24,6 @@ export const WorkById = ({ id }) => {
     }
   }, [poetNodeApi])
 
-  console.log(claims)
-
   return (
     <Main>
       {

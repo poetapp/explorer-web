@@ -10,14 +10,14 @@ const grey = '#969696'
 const graphMargin = 24
 const nodeSize = 10
 
-// const claims = [
-//   { origin: 'poet:claims/1', target: 'https://example.com' },
-//   { origin: 'poet:claims/2', target: 'https://example.com' },
-//   { origin: 'poet:claims/3', target: 'poet:claims/1' },
-//   { origin: 'poet:claims/3', target: 'poet:claims/6' },
-//   { origin: 'poet:claims/4', target: 'poet:claims/1' },
-//   { origin: 'poet:claims/5', target: 'poet:claims/3' },
-// ]
+const claims = [
+  { origin: 'poet:claims/1', target: 'https://example.com' },
+  { origin: 'poet:claims/2', target: 'https://example.com' },
+  { origin: 'poet:claims/3', target: 'poet:claims/1' },
+  { origin: 'poet:claims/3', target: 'poet:claims/6' },
+  { origin: 'poet:claims/4', target: 'poet:claims/1' },
+  { origin: 'poet:claims/5', target: 'poet:claims/3' },
+]
 
 const dagreFromClaims = claims => {
   const graph = new dagreD3.graphlib.Graph()
@@ -64,6 +64,10 @@ const Figure = ({ claims }) => {
   const g = useRef(null)
   const graph = dagreFromClaims(claims)
   const [dim, setDim] = useState(null)
+
+  useEffect(() => {
+    console.log('Figure', claims)
+  }, [claims])
 
   const updateDim = () => {
     const { offsetHeight, offsetWidth } = figure.current
