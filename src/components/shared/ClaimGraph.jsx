@@ -10,13 +10,36 @@ const grey = '#969696'
 const graphMargin = 24
 const nodeSize = 10
 
+// const claims = [
+//   { origin: 'poet:claims/1', target: 'https://example.com' },
+//   { origin: 'poet:claims/2', target: 'https://example.com' },
+//   { origin: 'poet:claims/3', target: 'poet:claims/1' },
+//   { origin: 'poet:claims/3', target: 'poet:claims/6' },
+//   { origin: 'poet:claims/4', target: 'poet:claims/1' },
+//   { origin: 'poet:claims/5', target: 'poet:claims/3' },
+// ]
+
+// The following is the exact API response for
+// https://regtest.qa.poetnetwork.net/graph/poet%3Aclaims%2F744f0b9261f1ac57b5ec970a39b229376e8de4e7fb49484030e8f171475d966a
+// but it fails when set from the API. Maybe the initial [] screws it up?
+
 const claims = [
-  { origin: 'poet:claims/1', target: 'https://example.com' },
-  { origin: 'poet:claims/2', target: 'https://example.com' },
-  { origin: 'poet:claims/3', target: 'poet:claims/1' },
-  { origin: 'poet:claims/3', target: 'poet:claims/6' },
-  { origin: 'poet:claims/4', target: 'poet:claims/1' },
-  { origin: 'poet:claims/5', target: 'poet:claims/3' },
+  {
+    "origin": "poet:claims/744f0b9261f1ac57b5ec970a39b229376e8de4e7fb49484030e8f171475d966a",
+    "target": "poet:claims/37e39f7b452a65cf6f525019f43033872744f5f4536d7f9105a5f36a38bee3bf"
+  },
+  {
+    "origin": "poet:claims/acb91b00b2a3e8bb5fbc96c44845e114ceabc8a9d9b31e5dbeacb44482983ae4",
+    "target": "poet:claims/744f0b9261f1ac57b5ec970a39b229376e8de4e7fb49484030e8f171475d966a"
+  },
+  {
+    "origin": "poet:claims/37e39f7b452a65cf6f525019f43033872744f5f4536d7f9105a5f36a38bee3bf",
+    "target": "https://explorer.poetnetwork.net/tokens"
+  },
+  {
+    "origin": "poet:claims/806470c55952dea973d6ccaff77b8abbfd46142644d5aeb8baf907b865cbed52",
+    "target": "poet:claims/37e39f7b452a65cf6f525019f43033872744f5f4536d7f9105a5f36a38bee3bf"
+  }
 ]
 
 const dagreFromClaims = claims => {
@@ -59,7 +82,7 @@ const Figcaption = () => (
   </figcaption>
 )
 
-const Figure = ({ claims }) => {
+const Figure = ({ claims2 }) => {
   const figure = useRef(null)
   const g = useRef(null)
   const graph = dagreFromClaims(claims)
