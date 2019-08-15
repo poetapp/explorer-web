@@ -29,6 +29,7 @@ const TabSelector = ({ setTab, tab, tabs, ...props }) => {
       {tabs.map(t => (
         <TabLabel
           active={t.props.label === tab.props.label}
+          key={t.props.label}
           label={t.props.label}
           onClick={onClick}
           tab={t}

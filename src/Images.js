@@ -9,3 +9,5 @@ export IPFS from 'images/ipfs.png'
 export Bitcoin from 'images/bitcoin.png'
 
 export PoeVerifiedBadge from 'images/poe-verified.svg'
+
+export ClaimWhite from 'images/claim-white.png'

@@ -1,0 +1,28 @@
+$grey: #969696;
+
+.claimGraph {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  padding-top: 40px;
+  margin-top: -40px;
+}
+
+.figcaption {
+  align-self: center;
+  box-sizing: border-box;
+  background: white;
+  border: 1px solid $grey;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.figure {
+  flex: 1 1;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
