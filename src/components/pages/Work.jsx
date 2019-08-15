@@ -20,7 +20,7 @@ export const WorkById = ({ id }) => {
 
   useEffect(() => {
     if (poetNodeApi) {
-      poetNodeApi.graph.get(id).then(setClaims)
+      poetNodeApi.graph.get(encodeURIComponent(`poet:claims/${id}`)).then(setClaims)
     }
   }, [poetNodeApi])
 
