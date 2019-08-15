@@ -16,6 +16,8 @@ const claims = [
 ]
 
 const claimsToElements = claims => {
+  // Find all claims with targets that aren't used as an origin
+  // to any other claim and convert to node
   const targetNodes = claims.reduce((memo, claim) => {
     const claimWithTargetAsOrigin = claims.find(({ origin }) => (
       origin === claim.target
@@ -28,10 +30,12 @@ const claimsToElements = claims => {
     return memo
   }, [])
 
+  // Convert all edge sources to nodes
   const sourceNodes = claims.map(claim => ({ data: {
     id: claim.origin,
   }}))
 
+  // Convert all claim relations to edges
   const edges = claims.map(claim => ({ data: {
     id: [claim.origin, claim.target].join('<>'),
     source: claim.origin,
@@ -72,6 +76,7 @@ const style = [{
     'background-fit': 'contain',
     'background-color': '#F5F5F5',
     'shape': 'rectangle',
+    'label': 'data(id)',
   },
 }, {
   selector: 'node[^background][?selected]',
@@ -136,8 +141,9 @@ const Figure = () => {
     const rootNode = cy.nodes().getElementById('https://example.com')
 
     cy.on('click', ({ target }) => {
+      console.log(target.data('id'))
       selectNode(target)
-      cy.nodes().forEach(ele => ele.data('selected', false))
+      cy.nodes().removeData('selected')
       target.data('selected', true)
       console.log(cy.nodes().first().data())
     })
