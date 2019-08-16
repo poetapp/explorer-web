@@ -63,7 +63,9 @@ const Figure = () => {
   const figure = useRef(null)
   const g = useRef(null)
   const graph = dagreFromClaims(claims)
-  const [dim, setDim] = useState(null)
+  const [dim, setDim] = useState(false)
+  const [selectedNode, setSelectedNode] = useState(false)
+  const [inner, setInner] = useState(false)
 
   const updateDim = () => {
     const { offsetHeight, offsetWidth } = figure.current
@@ -80,7 +82,6 @@ const Figure = () => {
     const transform =  d3.zoomIdentity
       .translate(translateX, translateY)
       .scale(zoomScale)
-
 
     svg.attr('transform', transform.toString())
   }
@@ -101,10 +102,31 @@ const Figure = () => {
     svg.call(zoom)
     render(inner, graph)
     scaleGraph(graph, inner, zoom)
+    setInner(inner)
+
+    inner.selectAll('g.node').attr('pointer-events', 'all').on('click', function(v, i) {
+      setSelectedNode(d3.select(this))
+    })
+
+    if (!selectedNode) {
+      setSelectedNode(inner.selectAll('g.node').filter(datum => datum === 'https://example.com'))
+    }
   }, [dim])
 
+  useEffect(() => {
+    if (inner) {
+      inner.selectAll('g.node').classed('selected', false)
+    }
+
+    if (selectedNode) {
+      selectedNode.classed('selected', true)
+    }
+  }, [selectedNode])
+
+  console.log('selectedNode', selectedNode)
+
   return (
-    <figure className={classNames.figure} ref={figure}>
+    <figure className={classNames.figure} ref={figure} style={{ pointerEvents: 'none' }}>
       <style>{`
         .node rect,
         .node circle,
@@ -115,6 +137,10 @@ const Figure = () => {
           border-radius: ${nodeSize / 2};
         }
 
+        .node.selected circle {
+          fill: #abc;
+        }
+
         .edgePath path {
           stroke: #333;
           fill: #333;
@@ -123,7 +149,7 @@ const Figure = () => {
       `}</style>
 
       {dim && (
-        <svg>
+        <svg { ...dim }>
           <g ref={g} />
         </svg>
       )}
