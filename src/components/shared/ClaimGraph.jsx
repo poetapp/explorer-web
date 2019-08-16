@@ -10,15 +10,6 @@ const grey = '#969696'
 const graphMargin = 24
 const nodeSize = 10
 
-const claims = [
-  { origin: 'poet:claims/1', target: 'https://example.com' },
-  { origin: 'poet:claims/2', target: 'https://example.com' },
-  { origin: 'poet:claims/3', target: 'poet:claims/1' },
-  { origin: 'poet:claims/3', target: 'poet:claims/6' },
-  { origin: 'poet:claims/4', target: 'poet:claims/1' },
-  { origin: 'poet:claims/5', target: 'poet:claims/3' },
-]
-
 const dagreFromClaims = claims => {
   const graph = new dagreD3.graphlib.Graph()
   const nodes = uniq(flatten(claims.map(Object.values)))
@@ -47,9 +38,9 @@ const dagreFromClaims = claims => {
   return graph
 }
 
-export const ClaimGraph = () => (
+export const ClaimGraph = ({ claims }) => (
   <div className={classNames.claimGraph}>
-    <Figure />
+    <Figure claims={claims} />
   </div>
 )
 
@@ -59,13 +50,17 @@ const Figcaption = () => (
   </figcaption>
 )
 
-const Figure = () => {
+const Figure = ({ claims }) => {
   const figure = useRef(null)
   const g = useRef(null)
   const graph = dagreFromClaims(claims)
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
+
+  useEffect(() => {
+    console.log('Figure', claims)
+  }, [claims])
 
   const updateDim = () => {
     const { offsetHeight, offsetWidth } = figure.current
@@ -111,7 +106,7 @@ const Figure = () => {
     if (!selectedNode) {
       setSelectedNode(inner.selectAll('g.node').filter(datum => datum === 'https://example.com'))
     }
-  }, [dim])
+  }, [dim, claims])
 
   useEffect(() => {
     if (inner) {
