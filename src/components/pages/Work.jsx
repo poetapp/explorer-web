@@ -16,22 +16,20 @@ import classNames from './Work.scss'
 export const WorkById = ({ id }) => {
   const { useApi, poetNodeApi } = useContext(ApiContext)
   const work = useApi('workGetById', id)
-  const [claims, setClaims] = useState(false)
+  const [claims, setClaims] = useState([])
 
   useEffect(() => {
     if (poetNodeApi) {
-      poetNodeApi.graph.get(id).then(setClaims)
+      poetNodeApi.graph.get(encodeURIComponent(`poet:claims/${id}`)).then(setClaims)
     }
   }, [poetNodeApi])
-
-  console.log(claims)
 
   return (
     <Main>
       {
         !work
           ? <NoWork />
-          : <Work work={work} />
+          : <Work work={work} claims={claims} />
       }
     </Main>
   )
@@ -43,7 +41,7 @@ const NoWork = () => (
   </section>
 )
 
-const Work = ({ work }) => {
+const Work = ({ work, claims }) => {
   const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, hash, ...customFields }, issuer } = work
 
   return (
@@ -68,7 +66,7 @@ const Work = ({ work }) => {
             <TechnicalTab label='Technical' />
           </Tabs>
         </Fragment>
-        <Graph />
+        <Graph claims={claims} />
       </Sidebar>
     </section>
   )
@@ -191,9 +189,9 @@ const TechnicalTab = () => (
   </article>
 )
 
-const Graph = () => (
+const Graph = ({ claims }) => (
   <section className={classNames.graph}>
-    <ClaimGraph />
+    <ClaimGraph claims={claims} />
   </section>
 )
 
