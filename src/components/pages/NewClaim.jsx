@@ -11,7 +11,7 @@ import { SessionContext } from 'providers/SessionProvider'
 
 import classNames from './NewClaim.scss'
 
-export const NewClaim = () => {
+export const NewClaim = ({ about }) => {
   const { api, isBusy, useApi } = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
   const tokens = useApi('getTokens')
@@ -49,21 +49,22 @@ export const NewClaim = () => {
         <h2>Create a New Claim on the Po.et Network</h2>
         { !token && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <FormAndBanner onSubmit={onSubmit} isBusy={isBusy} disabled={!token} poeAddressVerified={account.poeAddressVerified} />
+          ? <FormAndBanner onSubmit={onSubmit} isBusy={isBusy} disabled={!token} poeAddressVerified={account.poeAddressVerified} about={about} />
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
   )
 }
 
-const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified }) => (
+const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified, about }) => (
   <section className={classNames.formAndBanner}>
-    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={poeAddressVerified} />
+    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={poeAddressVerified} about={about} />
     <Banner render={!poeAddressVerified}/>
   </section>
 )
 
-const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled }) => {
+const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled, about: aboutProp }) => {
+  const [about, setAbout] = useState(aboutProp?.split(','))
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
@@ -99,6 +100,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       author,
       tags,
       content,
+      about,
       ...fields,
     }
 
@@ -106,8 +108,8 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
   }
 
   useEffect(() => {
-    contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
-  }, [selectedFile, content])
+    contentInput.current.setCustomValidity(!about && !content && !selectedFile ? 'Either the content or a file must be provided.' : '')
+  }, [about, selectedFile, content])
 
   useEffect(() => {
     fetch(ContentTypeSchemas[contentType])

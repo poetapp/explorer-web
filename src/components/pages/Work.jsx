@@ -49,7 +49,7 @@ const NoWork = () => (
 )
 
 const Work = ({ work, claims, setWorkId }) => {
-  const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, hash, ...customFields }, issuer } = work
+  const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, about, hash, ...customFields }, id, issuer } = work
 
   return (
     <section className={classNames.work}>
@@ -64,8 +64,7 @@ const Work = ({ work, claims, setWorkId }) => {
               tags={tags}
               customFields={customFields}
             />
-            <MakeClaimButton
-            />
+            <MakeClaimButton claimId={id} />
           </header>
           <Tabs initialTab={2}>
             <ContentTab label='Content' work={work} />
@@ -186,9 +185,17 @@ const BadgeUrl = ({ workId, date }) => {
   )
 }
 
-const MakeClaimButton = () => (
-  <button className={classNames.makeClaimButton}>Make a claim</button>
-)
+const MakeClaimButton = ({ claimId }) => {
+  const href = `/new-claim?about=${encodeURIComponent('poet:claims/' + claimId)}`
+
+  return (
+    <Link to={href}>
+      <button className={classNames.makeClaimButton}>
+        Make a claim
+      </button>
+    </Link>
+  )
+}
 
 const ContentTab = ({ work }) => (
   <article>
