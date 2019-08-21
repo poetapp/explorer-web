@@ -1,4 +1,4 @@
-$grey: #969696;
+$grey: #D0D0D0;
 
 .claimGraph {
   flex: 1;
@@ -14,8 +14,19 @@ $grey: #969696;
   box-sizing: border-box;
   background: white;
   border: 1px solid $grey;
-  padding: 24px;
-  margin: 24px 0;
+  padding: 12px;
+  margin-top: 24px;
+
+  h1 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  >div {
+    color: #434343;
+    font-size: 10px;
+  }
 }
 
 .figure {
