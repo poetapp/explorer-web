@@ -119,8 +119,8 @@ const environmentToUrls = (environment, network) => {
 
   const environmentPrefix = environment === 'production' ? '' : environment + '.'
 
-  const apiUrl = `https://api.${environmentPrefix}poetnetwork.net`
-  const nodeUrl = `https://${network}.${environmentPrefix}poetnetwork.net`
+  const apiUrl = environment !== 'local' ? `https://api.${environmentPrefix}poetnetwork.net` : 'http://localhost:3000'
+  const nodeUrl = environment !== 'local' ? `https://${network}.${environmentPrefix}poetnetwork.net` : 'http://localhost:18080'
 
   return {
     apiUrl,
@@ -128,7 +128,7 @@ const environmentToUrls = (environment, network) => {
   }
 }
 
-export const validEnvironments = ['production', 'qa']
+export const validEnvironments = ['production', 'qa', 'local']
 
 export const isValidEnvironment = (environment) => validEnvironments.includes(environment)
 
@@ -137,7 +137,7 @@ export const assertEnvironment = (environment) => {
     throw new Error(`Argument environment can't be '${environment}'. Must be one of [${validEnvironments.join(', ')}].`)
 }
 
-export const validNetworks = ['mainnet', 'testnet', 'regtest']
+export const validNetworks = ['mainnet', 'testnet', 'regtest', 'local']
 
 export const isValidNetwork = network => validNetworks.includes(network)
 
