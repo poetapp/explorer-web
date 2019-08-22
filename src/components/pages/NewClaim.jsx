@@ -63,7 +63,7 @@ const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified, about }
   </section>
 )
 
-const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled, about: aboutProp }) => {
+const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled, about: aboutProp = '' }) => {
   const [about, setAbout] = useState(aboutProp)
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
