@@ -133,7 +133,7 @@ const Figure = ({ edges, currentClaim, setWorkId }) => {
 
   useEffect(() => {
     updateDim({ figure, setDim })
-    window.addEventListener('resize', () => updateDim({ figure, setDim }))
+    window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
   }, [])
 
   useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, selectNode, currentId }), [dim, edges])
