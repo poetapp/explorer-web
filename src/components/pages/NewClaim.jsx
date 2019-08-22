@@ -76,6 +76,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
   const [contentTypeProperties, setContentTypeProperties] = useState()
   const [customFields, setCustomFields] = useState([])
   const contentInput = useRef()
+  const aboutInput = useRef()
 
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
 
@@ -115,6 +116,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
     const isManySet = props.filter(identity).length > 1
     const msg = isNoneSet ? msgNoneSet : isManySet ? msgTooManySet : ''
     contentInput.current.setCustomValidity(msg)
+    aboutInput.current.setCustomValidity(msg)
   }, [about, selectedFile, content])
 
   useEffect(() => {
@@ -146,7 +148,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
       <label htmlFor="about">About</label>
-      <input type="text" id="about" value={about} onChange={pipe(eventToValue, setAbout)} />
+      <input type="text" id="about" value={about} onChange={pipe(eventToValue, setAbout)} ref={aboutInput} />
       <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
