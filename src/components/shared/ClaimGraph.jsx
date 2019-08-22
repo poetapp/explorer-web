@@ -15,9 +15,9 @@ const isClaim = id => id.startsWith('claim')
 const endsWith = q => str => str.endsWith(q)
 const getWorkId = str => str.split('/').pop()
 
-const dagreFromClaims = claims => {
+const dagreFromEdges = edges => {
   const graph = new dagreD3.graphlib.Graph()
-  const nodes = uniq(flatten(claims.map(Object.values)))
+  const nodes = uniq(flatten(edges.map(Object.values)))
 
   graph.setGraph({
     rankdir: 'BT',
@@ -34,7 +34,7 @@ const dagreFromClaims = claims => {
     shape: 'circle',
   }))
 
-  claims.forEach(claim => graph.setEdge(claim.origin, claim.target, {
+  edges.forEach(({ origin, target }) => graph.setEdge(origin, target, {
     minlen: 2,
   }))
 
@@ -116,7 +116,7 @@ const Figcaption = ({ currentClaim }) => {
 const Figure = ({ claims, currentClaim, setWorkId }) => {
   const figure = useRef(null)
   const g = useRef(null)
-  const graph = dagreFromClaims(claims)
+  const graph = dagreFromEdges(claims)
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
@@ -126,6 +126,7 @@ const Figure = ({ claims, currentClaim, setWorkId }) => {
     setSelectedNode(node)
 
     if (id !== currentId && !isIPFS(id)) {
+      console.log('calling setWorkId', id, getWorkId(id))
       setWorkId(getWorkId(id))
     }
   }
