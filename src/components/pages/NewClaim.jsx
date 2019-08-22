@@ -1,4 +1,4 @@
-import { identity, not, pipe } from 'ramda'
+import { identity, not, pipe, split } from 'ramda'
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -146,7 +146,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
       <label htmlFor="about">About</label>
-      <input type="text" id="about" value={about.join(',')} />
+      <input type="text" id="about" value={about.join(',')} onChange={pipe(eventToValue, split(','), setAbout)} />
       <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
