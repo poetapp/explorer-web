@@ -114,13 +114,13 @@ const Figcaption = ({ currentClaim }) => {
 }
 
 const Figure = ({ edges, currentClaim, setWorkId }) => {
-  const figure = useRef(null)
-  const g = useRef(null)
-  const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
+  const figure = useRef(null)
+  const g = useRef(null)
   const currentId = currentClaim?.id
+  const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
 
   const selectNode = (node, id = currentId) => {
     setSelectedNode(node)
