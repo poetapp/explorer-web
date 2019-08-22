@@ -113,8 +113,8 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
     const msgTooManySet = 'Only one of content, file or about can be set at a time.'
     const props = [about, content, selectedFile]
     const isNoneSet = props.every(not)
-    const isManySet = props.filter(identity).length > 1
-    const msg = isNoneSet ? msgNoneSet : isManySet ? msgTooManySet : ''
+    const isTooManySet = props.filter(identity).length > 1
+    const msg = isNoneSet ? msgNoneSet : isTooManySet ? msgTooManySet : ''
     contentInput.current.setCustomValidity(msg)
     aboutInput.current.setCustomValidity(msg)
   }, [about, selectedFile, content])
