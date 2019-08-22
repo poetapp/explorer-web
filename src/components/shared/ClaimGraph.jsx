@@ -98,7 +98,7 @@ const renderGraph = ({ dim, setInner, selectedNode, selectNode, graph, currentId
 export const ClaimGraph = ({ claims, currentClaim, setWorkId }) => (
   <div className={classNames.claimGraph}>
     <Figcaption currentClaim={currentClaim} />
-    <Figure claims={claims} currentClaim={currentClaim} setWorkId={setWorkId} />
+    <Figure edges={claims} currentClaim={currentClaim} setWorkId={setWorkId} />
   </div>
 )
 
@@ -113,10 +113,10 @@ const Figcaption = ({ currentClaim }) => {
   )
 }
 
-const Figure = ({ claims, currentClaim, setWorkId }) => {
+const Figure = ({ edges, currentClaim, setWorkId }) => {
   const figure = useRef(null)
   const g = useRef(null)
-  const graph = dagreFromEdges(claims)
+  const graph = dagreFromEdges(edges)
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
@@ -136,7 +136,7 @@ const Figure = ({ claims, currentClaim, setWorkId }) => {
     window.addEventListener('resize', () => updateDim({ figure, setDim }))
   }, [])
 
-  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, selectNode, currentId }), [dim, claims])
+  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, selectNode, currentId }), [dim, edges])
 
   useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
 
