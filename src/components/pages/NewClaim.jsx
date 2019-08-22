@@ -139,6 +139,8 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
+      <label htmlFor="about">About</label>
+      <input type="text" id="about" value={about.join(',')} />
       <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
