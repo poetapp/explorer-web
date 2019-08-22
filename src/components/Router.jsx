@@ -40,7 +40,7 @@ export const Router = () => {
         <Route path="/confirm-email" render={pipe(getQueryToken, token => <ConfirmMail token={token}/>)} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
-          <Route path="/new-claim" component={pipe(getQueryAbout, about => <NewClaim about={about}/>)} />
+        <Route path="/new-claim" component={pipe(getQueryAbout, about => <NewClaim about={about}/>)} />
         <Route path="/settings" component={Settings} />
       </Switch>
     </BrowserRouter>
