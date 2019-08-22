@@ -58,13 +58,13 @@ export const NewClaim = ({ about }) => {
 
 const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified, about }) => (
   <section className={classNames.formAndBanner}>
-    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={poeAddressVerified} about={about} />
+    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={poeAddressVerified} initialAbout={about} />
     <Banner render={!poeAddressVerified}/>
   </section>
 )
 
-const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled, about: aboutProp = '' }) => {
-  const [about, setAbout] = useState(aboutProp)
+const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled, initialAbout = '' }) => {
+  const [about, setAbout] = useState(initialAbout)
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
