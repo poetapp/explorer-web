@@ -71,7 +71,7 @@ const scaleGraph = (graph, svg, zoom, dim) => {
   svg.attr('transform', transform.toString())
 }
 
-const renderGraph = ({ dim, setInner, selectedNode, selectNode, graph, currentId }) => {
+const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, currentId }) => {
   if (!dim) return
 
   const render = dagreD3.render()
@@ -87,18 +87,18 @@ const renderGraph = ({ dim, setInner, selectedNode, selectNode, graph, currentId
   const allNodes = inner.selectAll('g.node')
 
   inner.selectAll('g.node').attr('pointer-events', 'all').on('click', function(id, i) {
-    selectNode(d3.select(this), id)
+    onNodeSelected(d3.select(this), id)
   })
 
   if (!selectedNode && !allNodes.empty()) {
-    selectNode(inner.selectAll('g.node').filter(endsWith(currentId)))
+    onNodeSelected(inner.selectAll('g.node').filter(endsWith(currentId)))
   }
 }
 
-export const ClaimGraph = ({ claims, currentClaim, setWorkId }) => (
+export const ClaimGraph = ({ claims, currentClaim, onNodeSelected }) => (
   <div className={classNames.claimGraph}>
     <Figcaption currentClaim={currentClaim} />
-    <Figure edges={claims} currentClaim={currentClaim} setWorkId={setWorkId} />
+    <Figure edges={claims} currentClaim={currentClaim} onNodeSelected={onNodeSelected} />
   </div>
 )
 
@@ -113,7 +113,7 @@ const Figcaption = ({ currentClaim }) => {
   )
 }
 
-const Figure = ({ edges, currentClaim, setWorkId }) => {
+const Figure = ({ edges, currentClaim, onNodeSelected }) => {
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
@@ -122,12 +122,13 @@ const Figure = ({ edges, currentClaim, setWorkId }) => {
   const currentId = currentClaim?.id
   const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
 
-  const selectNode = (node, id = currentId) => {
+  const onNodeSelectedWrapper = (node, id = currentId) => {
     setSelectedNode(node)
 
+    console.log('onNodeSelected', node, id)
     if (id !== currentId && !isIPFS(id)) {
       console.log('calling setWorkId', id, getWorkId(id))
-      setWorkId(getWorkId(id))
+      onNodeSelected(getWorkId(id))
     }
   }
 
@@ -136,7 +137,7 @@ const Figure = ({ edges, currentClaim, setWorkId }) => {
     window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
   }, [])
 
-  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, selectNode, currentId }), [dim, edges])
+  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, currentId }), [dim, edges])
 
   useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
 

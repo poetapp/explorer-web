@@ -72,7 +72,7 @@ const Work = ({ work, claims, setWorkId }) => {
             <TechnicalTab label='Technical' work={work} />
           </Tabs>
         </Fragment>
-        <Graph claims={claims} currentClaim={work} setWorkId={setWorkId} />
+        <Graph claims={claims} currentClaim={work} onNodeSelected={setWorkId} />
       </Sidebar>
     </section>
   )
@@ -255,9 +255,9 @@ const Metadata = ({ work }) => (
   </section>
 )
 
-const Graph = ({ claims, currentClaim, setWorkId }) => (
+const Graph = ({ claims, currentClaim, onNodeSelected }) => (
   <section className={classNames.graph}>
-    <ClaimGraph claims={claims} currentClaim={currentClaim} setWorkId={setWorkId} />
+    <ClaimGraph claims={claims} currentClaim={currentClaim} onNodeSelected={onNodeSelected} />
   </section>
 )
 
