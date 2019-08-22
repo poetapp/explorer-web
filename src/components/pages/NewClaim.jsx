@@ -64,7 +64,7 @@ const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified, about }
 )
 
 const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled, about: aboutProp }) => {
-  const [about, setAbout] = useState(aboutProp?.split(','))
+  const [about, setAbout] = useState(aboutProp)
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
@@ -100,7 +100,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       author,
       tags,
       content,
-      about,
+      about: about && about.split(','),
       ...fields,
     }
 
@@ -146,7 +146,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
       <label htmlFor="about">About</label>
-      <input type="text" id="about" value={about.join(',')} onChange={pipe(eventToValue, split(','), setAbout)} />
+      <input type="text" id="about" value={about} onChange={pipe(eventToValue, setAbout)} />
       <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
