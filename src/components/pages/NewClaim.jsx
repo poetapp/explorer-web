@@ -1,4 +1,4 @@
-import { identity, not, pipe, split } from 'ramda'
+import { identity, not, pipe } from 'ramda'
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
