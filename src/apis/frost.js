@@ -67,5 +67,7 @@ const internalAfterResponse = ({ status, headers, body }) => ({
 const environmentToUrl = (environment) => {
   assertEnvironment(environment)
   const environmentPrefix = environment === 'production' ? '' : environment + '.'
-  return `https://api.${environmentPrefix}poetnetwork.net`
+  return environment !== 'local'
+    ? `https://api.${environmentPrefix}poetnetwork.net`
+    : 'http://localhost:3000'
 }

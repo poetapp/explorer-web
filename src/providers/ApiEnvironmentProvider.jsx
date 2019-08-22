@@ -23,6 +23,10 @@ export const ApiEnvironmentProvider = (props) => {
       setEnvironment('qa')
       setNetwork('testnet')
     }
+    window.local = () => {
+      setEnvironment('local')
+      setNetwork('local')
+    }
   }, [setEnvironment, setNetwork])
 
   useEffect(() => {

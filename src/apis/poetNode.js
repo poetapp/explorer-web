@@ -6,7 +6,9 @@ const environmentToUrl = (environment, network) => {
 
   const environmentPrefix = environment === 'production' ? '' : environment + '.'
 
-  const nodeUrl = `https://${network}.${environmentPrefix}poetnetwork.net`
+  const nodeUrl = environment !== 'local'
+    ? `https://${network}.${environmentPrefix}poetnetwork.net`
+    : 'http://localhost:18080'
 
   return nodeUrl
 }
