@@ -1,4 +1,4 @@
-import { pipe } from 'ramda'
+import { identity, not, pipe } from 'ramda'
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -108,7 +108,13 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
   }
 
   useEffect(() => {
-    contentInput.current.setCustomValidity(!about && !content && !selectedFile ? 'Either the content or a file must be provided.' : '')
+    const msgNoneSet = 'Either the content or a file must be provided, or the about field set.'
+    const msgTooManySet = 'Only one of content, file or about can be set at a time.'
+    const props = [about, content, selectedFile]
+    const isNoneSet = props.every(not)
+    const isManySet = props.filter(identity).length > 1
+    const msg = isNoneSet ? msgNoneSet : isManySet ? msgTooManySet : ''
+    contentInput.current.setCustomValidity(msg)
   }, [about, selectedFile, content])
 
   useEffect(() => {
