@@ -78,9 +78,11 @@ const Work = ({ work, uri, graphEdges }) => {
             <Tab label='Linked Claims'>
               <LinkedClaimsTab />
             </Tab>
-            <Tab label='Technical'>
-              <TechnicalTab work={work} />
-            </Tab>
+            {
+              work && <Tab label='Technical'>
+                <TechnicalTab work={work} />
+              </Tab>
+            }
           </Tabs>
         </Fragment>
         <UriGraph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected}>
