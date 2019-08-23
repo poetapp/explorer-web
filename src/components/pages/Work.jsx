@@ -53,14 +53,13 @@ const NoWork = () => (
 )
 
 const Work = ({ work, graphEdges }) => {
-  console.log('rendering work', work)
   const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, about, hash, ...customFields }, id, issuer } = work
 
   const { history } = useBrowserRouterContext()
 
   const onNodeSelected = (node) => {
-    console.log('onNodeSelected', node)
-    history.push(`/works/${node}`)
+    if (node.startsWith('poet:claims/'))
+      history.push(`/works/${node.split('/')[1]}`)
   }
 
   return (

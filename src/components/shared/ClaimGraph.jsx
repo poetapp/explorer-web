@@ -10,8 +10,6 @@ const grey = '#969696'
 const graphMargin = 24
 const nodeSize = 10
 
-const isIPFS = id => id.startsWith('https://ipfs')
-const isClaim = id => id.startsWith('claim')
 const endsWith = q => str => str.endsWith(q)
 const getWorkId = str => str.split('/').pop()
 
@@ -125,11 +123,8 @@ const Figure = ({ edges, currentClaim, onNodeSelected }) => {
   const onNodeSelectedWrapper = (node, id = currentId) => {
     setSelectedNode(node)
 
-    console.log('onNodeSelected', node, id)
-    if (id !== currentId && !isIPFS(id)) {
-      console.log('calling setWorkId', id, getWorkId(id))
-      onNodeSelected(getWorkId(id))
-    }
+    if (id !== currentId)
+      onNodeSelected(id)
   }
 
   useEffect(() => {
