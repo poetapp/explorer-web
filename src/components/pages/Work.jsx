@@ -270,7 +270,7 @@ const Metadata = ({ work }) => (
   <section className={classNames.metadata}>
     <h1>Metadata</h1>
     <pre>
-      { console.log('metadata werk', work) || JSON.stringify(work, null, 2)}
+      { JSON.stringify(work, null, 2)}
     </pre>
   </section>
 )
