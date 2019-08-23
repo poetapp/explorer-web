@@ -16,13 +16,14 @@ import { TermsOfService } from 'components/pages/TermsOfService'
 import { NewClaim } from 'components/pages/NewClaim'
 import { Settings } from 'components/pages/Settings'
 
+import { BrowserRouterProvider } from 'providers/BrowserRouterProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
 export const Router = () => {
   const [account] = useContext(SessionContext)
 
   return (
-    <BrowserRouter>
+    <BrowserRouterProvider>
       <Switch>
         { account?.id && <Redirect from='/login' to='/'/> }
         { account && <Redirect from='/signup' to='/'/> }
@@ -43,7 +44,7 @@ export const Router = () => {
         <Route path="/new-claim" component={pipe(getQueryAbout, about => <NewClaim about={about}/>)} />
         <Route path="/settings" component={Settings} />
       </Switch>
-    </BrowserRouter>
+    </BrowserRouterProvider>
   )
 }
 
