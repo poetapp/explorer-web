@@ -13,6 +13,82 @@ const nodeSize = 10
 const endsWith = q => str => str.endsWith(q)
 const getWorkId = str => str.split('/').pop()
 
+export const ClaimGraph = ({ claims, currentClaim, onNodeSelected }) => (
+  <div className={classNames.claimGraph}>
+    <Figcaption currentClaim={currentClaim} />
+    <Figure edges={claims} currentClaim={currentClaim} onNodeSelected={onNodeSelected} />
+  </div>
+)
+
+const Figcaption = ({ currentClaim }) => {
+  const { claim: { name, author, hash } } = currentClaim
+
+  return (
+    <figcaption className={classNames.figcaption}>
+      <h1>{name}</h1>
+      <div>{author}</div>
+    </figcaption>
+  )
+}
+
+const Figure = ({ edges, currentClaim, onNodeSelected }) => {
+  const [dim, setDim] = useState(false)
+  const [selectedNode, setSelectedNode] = useState(false)
+  const [inner, setInner] = useState(false)
+  const figure = useRef(null)
+  const g = useRef(null)
+  const currentId = currentClaim?.id
+  const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
+
+  const onNodeSelectedWrapper = (node, id = currentId) => {
+    console.log('onNodeSelectedWrapper', node, id)
+    setSelectedNode(node)
+
+    if (id !== currentId)
+      onNodeSelected(id)
+  }
+
+  useEffect(() => {
+    updateDim({ figure, setDim })
+    window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
+  }, [])
+
+  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, currentId }), [dim, edges])
+
+  useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
+
+  return (
+    <figure className={classNames.figure} ref={figure} style={{ pointerEvents: 'none' }}>
+      <style>{`
+        .node rect,
+        .node circle,
+        .node ellipse {
+          stroke: #333;
+          fill: #fff;
+          stroke-width: 1px;
+          border-radius: ${nodeSize / 2};
+        }
+
+        .node.selected circle {
+          fill: #abc;
+        }
+
+        .edgePath path {
+          stroke: #333;
+          fill: #333;
+          stroke-width: 1.5px;
+        }
+      `}</style>
+
+      {dim && (
+        <svg { ...dim }>
+          <g ref={g} />
+        </svg>
+      )}
+    </figure>
+  )
+}
+
 const dagreFromEdges = edges => {
   const graph = new dagreD3.graphlib.Graph()
   const nodes = uniq(flatten(edges.map(Object.values)))
@@ -91,79 +167,4 @@ const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, curre
   if (!selectedNode && !allNodes.empty()) {
     onNodeSelected(inner.selectAll('g.node').filter(endsWith(currentId)))
   }
-}
-
-export const ClaimGraph = ({ claims, currentClaim, onNodeSelected }) => (
-  <div className={classNames.claimGraph}>
-    <Figcaption currentClaim={currentClaim} />
-    <Figure edges={claims} currentClaim={currentClaim} onNodeSelected={onNodeSelected} />
-  </div>
-)
-
-const Figcaption = ({ currentClaim }) => {
-  const { claim: { name, author, hash } } = currentClaim
-
-  return (
-    <figcaption className={classNames.figcaption}>
-      <h1>{name}</h1>
-      <div>{author}</div>
-    </figcaption>
-  )
-}
-
-const Figure = ({ edges, currentClaim, onNodeSelected }) => {
-  const [dim, setDim] = useState(false)
-  const [selectedNode, setSelectedNode] = useState(false)
-  const [inner, setInner] = useState(false)
-  const figure = useRef(null)
-  const g = useRef(null)
-  const currentId = currentClaim?.id
-  const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
-
-  const onNodeSelectedWrapper = (node, id = currentId) => {
-    setSelectedNode(node)
-
-    if (id !== currentId)
-      onNodeSelected(id)
-  }
-
-  useEffect(() => {
-    updateDim({ figure, setDim })
-    window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
-  }, [])
-
-  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, currentId }), [dim, edges])
-
-  useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
-
-  return (
-    <figure className={classNames.figure} ref={figure} style={{ pointerEvents: 'none' }}>
-      <style>{`
-        .node rect,
-        .node circle,
-        .node ellipse {
-          stroke: #333;
-          fill: #fff;
-          stroke-width: 1px;
-          border-radius: ${nodeSize / 2};
-        }
-
-        .node.selected circle {
-          fill: #abc;
-        }
-
-        .edgePath path {
-          stroke: #333;
-          fill: #333;
-          stroke-width: 1.5px;
-        }
-      `}</style>
-
-      {dim && (
-        <svg { ...dim }>
-          <g ref={g} />
-        </svg>
-      )}
-    </figure>
-  )
 }
