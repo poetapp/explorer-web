@@ -36,7 +36,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
 
   return (
-    <figure className={classNames.figure} ref={figure} style={{ pointerEvents: 'none' }}>
+    <figure className={classNames.figure} ref={figure}>
       <style>{`
         .node rect,
         .node circle,

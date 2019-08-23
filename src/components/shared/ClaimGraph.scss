@@ -9,6 +9,7 @@
 
 .figure {
   flex: 1 1;
+  pointer-events: none;
 
   svg {
     width: 100%;
