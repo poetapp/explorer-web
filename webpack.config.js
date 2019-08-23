@@ -102,6 +102,7 @@ module.exports = {
     historyApiFallback: {
       index: '/index.html',
       verbose: true,
+      disableDotRule: true
     },
   }
 }

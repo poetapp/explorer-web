@@ -33,6 +33,7 @@ export const Router = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
         <Route path="/works/:id" render={({ match }) => <WorkById id={match.params.id} />} />
+        <Route path="/archives/:uri" render={({ match }) => <WorkById uri={decodeURIComponent(match.params.uri)}  />} />
         <Route path="/issuers/:id" render={({ match }) => <IssuerById id={match.params.id} />} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />

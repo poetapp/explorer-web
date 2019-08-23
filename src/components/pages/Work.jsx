@@ -14,18 +14,20 @@ import { IPFS, Bitcoin, QuillS3 } from 'Images'
 
 import classNames from './Work.scss'
 
-export const WorkById = ({ id }) => {
+export const WorkById = ({ id, uri }) => {
   const { api, poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
   const [graphEdges, setGraphEdges] = useState([])
 
   useEffect(() => {
-    if (api) api.workGetById(id).then(setWork)
+    if (api && id) api.workGetById(id).then(setWork)
   }, [api, id])
+
+  console.log('render work by id', id, uri)
 
   useEffect(() => {
     if (poetNodeApi) {
-      poetNodeApi.graph.get(encodeURIComponent(`poet:claims/${id}`)).then(graphEdges => {
+      poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri)).then(graphEdges => {
         if (graphEdges?.length) {
           setGraphEdges(graphEdges)
         } else if (work) {
@@ -60,6 +62,8 @@ const Work = ({ work, graphEdges }) => {
   const onNodeSelected = (node) => {
     if (node.startsWith('poet:claims/'))
       history.push(`/works/${node.split('/')[1]}`)
+    else
+      history.push(`/archives/${encodeURIComponent(node)}`)
   }
 
   return (
