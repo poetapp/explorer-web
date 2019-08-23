@@ -16,8 +16,8 @@ import classNames from './Work.scss'
 
 export const WorkById = ({ id }) => {
   const { api, poetNodeApi } = useContext(ApiContext)
-  const [claims, setClaims] = useState([])
   const [work, setWork] = useState()
+  const [claims, setClaims] = useState([])
 
   useEffect(() => {
     if (api) api.workGetById(id).then(setWork)
