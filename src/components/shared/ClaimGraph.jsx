@@ -44,7 +44,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
           stroke: #333;
           fill: #fff;
           stroke-width: 1px;
-          border-radius: ${nodeSize / 2};
+          border-radius: ${nodeSize / 2}px;
         }
 
         .node.selected circle {
