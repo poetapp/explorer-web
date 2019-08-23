@@ -3,6 +3,7 @@ import React, { Fragment, useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { ApiContext } from 'providers/ApiProvider'
+import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
 
 import { Main } from 'components/templates/Main'
 import { Sidebar } from 'components/shared/Sidebar'
@@ -14,10 +15,13 @@ import { IPFS, Bitcoin, QuillS3 } from 'Images'
 import classNames from './Work.scss'
 
 export const WorkById = ({ id }) => {
-  const { useApiWithDeps, poetNodeApi } = useContext(ApiContext)
-  const [workId, setWorkId] = useState(id)
+  const { api, poetNodeApi } = useContext(ApiContext)
   const [claims, setClaims] = useState([])
-  const work = useApiWithDeps([workId], 'workGetById', workId)
+  const [work, setWork] = useState()
+
+  useEffect(() => {
+    if (api) api.workGetById(id).then(setWork)
+  }, [api, id])
 
   useEffect(() => {
     if (poetNodeApi) {
@@ -36,7 +40,7 @@ export const WorkById = ({ id }) => {
       {
         !work
           ? <NoWork />
-          : <Work work={work} claims={claims} setWorkId={setWorkId} />
+          : <Work work={work} claims={claims} />
       }
     </Main>
   )
@@ -48,8 +52,16 @@ const NoWork = () => (
   </section>
 )
 
-const Work = ({ work, claims, setWorkId }) => {
+const Work = ({ work, claims }) => {
+  console.log('rendering work', work)
   const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, about, hash, ...customFields }, id, issuer } = work
+
+  const { history } = useBrowserRouterContext()
+
+  const onNodeSelected = (node) => {
+    console.log('onNodeSelected', node)
+    history.push(`/works/${node}`)
+  }
 
   return (
     <section className={classNames.work}>
@@ -72,7 +84,7 @@ const Work = ({ work, claims, setWorkId }) => {
             <TechnicalTab label='Technical' work={work} />
           </Tabs>
         </Fragment>
-        <Graph claims={claims} currentClaim={work} onNodeSelected={setWorkId} />
+        <Graph claims={claims} currentClaim={work} onNodeSelected={onNodeSelected} />
       </Sidebar>
     </section>
   )
@@ -250,7 +262,7 @@ const Metadata = ({ work }) => (
   <section className={classNames.metadata}>
     <h1>Metadata</h1>
     <pre>
-      {JSON.stringify(work, null, 2)}
+      { console.log('metadata werk', work) || JSON.stringify(work, null, 2)}
     </pre>
   </section>
 )
