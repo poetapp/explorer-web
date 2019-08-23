@@ -17,7 +17,7 @@ import classNames from './Work.scss'
 export const WorkById = ({ id }) => {
   const { api, poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
-  const [claims, setClaims] = useState([])
+  const [graphEdges, setGraphEdges] = useState([])
 
   useEffect(() => {
     if (api) api.workGetById(id).then(setWork)
@@ -25,11 +25,11 @@ export const WorkById = ({ id }) => {
 
   useEffect(() => {
     if (poetNodeApi) {
-      poetNodeApi.graph.get(encodeURIComponent(`poet:claims/${id}`)).then((claims) => {
-        if (claims?.length) {
-          setClaims(claims)
+      poetNodeApi.graph.get(encodeURIComponent(`poet:claims/${id}`)).then(graphEdges => {
+        if (graphEdges?.length) {
+          setGraphEdges(graphEdges)
         } else if (work) {
-          setClaims([{ origin: `poet:claims/${work?.id}`, target: work?.claim?.archiveUrl }])
+          setGraphEdges([{ origin: `poet:claims/${work?.id}`, target: work?.claim?.archiveUrl }])
         }
       })
     }
@@ -40,7 +40,7 @@ export const WorkById = ({ id }) => {
       {
         !work
           ? <NoWork />
-          : <Work work={work} claims={claims} />
+          : <Work work={work} claims={graphEdges} />
       }
     </Main>
   )
