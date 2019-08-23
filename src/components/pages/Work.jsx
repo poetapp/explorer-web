@@ -73,13 +73,13 @@ const Work = ({ work, uri, graphEdges }) => {
           </header>
           <Tabs>
             <Tab label='Content'>
-              <ContentTab work={work} />
+              <ContentTab work={work} uri={uri} />
             </Tab>
             <Tab label='Linked Claims'>
               <LinkedClaimsTab />
             </Tab>
             {
-              work && <Tab label='Technical'>
+              !uri && <Tab label='Technical'>
                 <TechnicalTab work={work} />
               </Tab>
             }
@@ -213,14 +213,14 @@ const MakeClaimButton = ({ claimId }) => {
   )
 }
 
-const ContentTab = ({ work }) => (
+const ContentTab = ({ work, uri }) => (
   <>
-    <Content archiveUrl={work?.claim?.archiveUrl}/>
-    <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
-    <Links
+    <Content archiveUrl={work?.claim?.archiveUrl || work?.claim?.about?.[0] || uri}/>
+    { !uri && <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/> }
+    { !uri && <Links
       bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
       ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
-    />
+    />}
   </>
 )
 
