@@ -13,10 +13,10 @@ const nodeSize = 10
 const endsWith = q => str => str.endsWith(q)
 const getWorkId = str => str.split('/').pop()
 
-export const ClaimGraph = ({ claims, selectedValue, onNodeSelected }) => (
+export const ClaimGraph = ({ edges, selectedValue, onNodeSelected }) => (
   <div className={classNames.claimGraph}>
     <Figcaption name={selectedValue} author={selectedValue} />
-    <Figure edges={claims} selectedValue={selectedValue} onNodeSelected={onNodeSelected} />
+    <Figure edges={edges} selectedValue={selectedValue} onNodeSelected={onNodeSelected} />
   </div>
 )
 

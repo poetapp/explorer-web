@@ -268,7 +268,7 @@ const Metadata = ({ work }) => (
 
 const Graph = ({ edges, selectedNode, onNodeSelected }) => (
   <section className={classNames.graph}>
-    <ClaimGraph claims={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
+    <ClaimGraph edges={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
   </section>
 )
 
