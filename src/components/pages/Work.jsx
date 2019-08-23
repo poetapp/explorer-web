@@ -8,7 +8,7 @@ import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
 import { Main } from 'components/templates/Main'
 import { Sidebar } from 'components/shared/Sidebar'
 import { Tabs } from 'components/shared/Tabs'
-import { ClaimGraph } from 'components/shared/ClaimGraph'
+import { Graph } from 'components/shared/ClaimGraph'
 
 import { IPFS, Bitcoin, QuillS3 } from 'Images'
 
@@ -83,7 +83,10 @@ const Work = ({ work, graphEdges }) => {
             <TechnicalTab label='Technical' work={work} />
           </Tabs>
         </Fragment>
-        <UriGraph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected} />
+        <UriGraph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected}>
+          <h1>{work?.claim?.name}</h1>
+          <div>{work?.claim?.author}</div>
+        </UriGraph>
       </Sidebar>
     </section>
   )
@@ -266,9 +269,12 @@ const Metadata = ({ work }) => (
   </section>
 )
 
-const UriGraph = ({ edges, selectedNode, onNodeSelected }) => (
+const UriGraph = ({ children, edges, selectedNode, onNodeSelected }) => (
   <section className={classNames.graph}>
-    <ClaimGraph edges={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
+    <figcaption>
+      { children }
+    </figcaption>
+    <Graph edges={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
   </section>
 )
 

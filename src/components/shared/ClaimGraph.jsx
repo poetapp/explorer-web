@@ -10,29 +10,7 @@ const grey = '#969696'
 const graphMargin = 24
 const nodeSize = 10
 
-const endsWith = q => str => str.endsWith(q)
-const getWorkId = str => str.split('/').pop()
-
-export const ClaimGraph = ({ edges, selectedValue, onNodeSelected }) => (
-  <div className={classNames.claimGraph}>
-    <Figcaption name={selectedValue} author={selectedValue} />
-    <Graph edges={edges} selectedValue={selectedValue} onNodeSelected={onNodeSelected} />
-  </div>
-)
-
-const Figcaption = ({ name, author }) => {
-  // const { claim: { name, author, hash } } = caption
-  // TODO: move this component to Work.jsx
-
-  return (
-    <figcaption className={classNames.figcaption}>
-      <h1>{name}</h1>
-      <div>{author}</div>
-    </figcaption>
-  )
-}
-
-const Graph = ({ edges, selectedValue, onNodeSelected }) => {
+export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
