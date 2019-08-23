@@ -3,19 +3,20 @@ import React, { Children, useState } from 'react'
 
 import classNames from './Tabs.scss'
 
-export const Tabs = ({ children, initialTab = 0 }) => {
-  const [tab, setTab] = useState(children[initialTab])
-
-  const labels = Children.map(children, child => console.log('Children.map', child) || child.props.label)
+export const Tabs = ({ children, initialTab }) => {
+  const tabs = Children.map(children, child => child.props.label)
+  const [selectedTab, setSelectedTab] = useState(initialTab || tabs[0])
 
   return (
     <section className={classNames.root}>
       <TabSelector
-        tabs={children}
-        tab={tab}
-        setTab={setTab}
+        tabs={tabs}
+        selectedTab={selectedTab}
+        onSelectionChange={setSelectedTab}
       />
-      <TabContent tab={tab} />
+      <TabContent>
+        { Children.map(children, child => child.props.label === selectedTab && child) }
+      </TabContent>
     </section>
   )
 }
@@ -28,21 +29,19 @@ export const Tab = ({ children, selected }) => {
   )
 }
 
-const TabSelector = ({ tabs, setTab, tab }) => {
-  const onClick = tab => () => {
-    setTab(tab)
-  }
+const TabSelector = ({ tabs, selectedTab, onSelectionChange }) => {
+  const onTabClick = tab => () =>
+    onSelectionChange(tab)
 
   return (
     <section className={classNames.selector}>
       <div className={classNames.selectorRail} />
-      {tabs.map(t => (
+      {tabs.map(label => (
         <TabLabel
-          active={t.props.label === tab.props.label}
-          key={t.props.label}
-          label={t.props.label}
-          onClick={onClick}
-          tab={t}
+          key={label}
+          active={label === selectedTab}
+          label={label}
+          onClick={onTabClick(label)}
         />
       ))}
       <div className={classNames.selectorRail} />
@@ -50,21 +49,17 @@ const TabSelector = ({ tabs, setTab, tab }) => {
   )
 }
 
-const TabLabel = ({ active, label, onClick, tab }) => (
+const TabLabel = ({ active, label, onClick }) => (
   <div
     className={classnames(classNames.label, { [classNames.labelActive]: active })}
-    onClick={onClick(tab)}
+    onClick={onClick}
   >
     {label}
   </div>
 )
 
-const TabContent = ({ tab }) => (
+const TabContent = ({ children }) => (
   <section className={classNames.content}>
-    {tab ? tab : <UknownTab />}
+    { children }
   </section>
-)
-
-const UnknownTab = () => (
-  <span>This content could not be displayed</span>
 )

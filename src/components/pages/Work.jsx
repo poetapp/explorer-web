@@ -77,7 +77,7 @@ const Work = ({ work, graphEdges }) => {
             />
             <MakeClaimButton claimId={id} />
           </header>
-          <Tabs initialTab={2}>
+          <Tabs>
             <Tab label='Content'>
               <ContentTab work={work} />
             </Tab>
