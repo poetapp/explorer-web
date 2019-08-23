@@ -21,17 +21,14 @@ export const Tabs = ({ children, initialTab }) => {
   )
 }
 
-export const Tab = ({ children, selected }) => {
-  return (
-    <section className={classnames(classNames.selected)}>
-      { children }
-    </section>
-  )
-}
+export const Tab = ({ children }) => (
+  <section>
+    { children }
+  </section>
+)
 
 const TabSelector = ({ tabs, selectedTab, onSelectionChange }) => {
-  const onTabClick = tab => () =>
-    onSelectionChange(tab)
+  const onTabClick = tab => () => onSelectionChange(tab)
 
   return (
     <section className={classNames.selector}>
@@ -54,7 +51,7 @@ const TabLabel = ({ active, label, onClick }) => (
     className={classnames(classNames.label, { [classNames.labelActive]: active })}
     onClick={onClick}
   >
-    {label}
+    { label }
   </div>
 )
 
