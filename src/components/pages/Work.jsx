@@ -7,7 +7,7 @@ import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
 
 import { Main } from 'components/templates/Main'
 import { Sidebar } from 'components/shared/Sidebar'
-import { Tabs } from 'components/shared/Tabs'
+import { Tabs, Tab } from 'components/shared/Tabs'
 import { Graph } from 'components/shared/ClaimGraph'
 
 import { IPFS, Bitcoin, QuillS3 } from 'Images'
@@ -78,9 +78,15 @@ const Work = ({ work, graphEdges }) => {
             <MakeClaimButton claimId={id} />
           </header>
           <Tabs initialTab={2}>
-            <ContentTab label='Content' work={work} />
-            <LinkedClaimsTab label='Linked Claims' />
-            <TechnicalTab label='Technical' work={work} />
+            <Tab label='Content'>
+              <ContentTab work={work} />
+            </Tab>
+            <Tab label='Linked Claims'>
+              <LinkedClaimsTab />
+            </Tab>
+            <Tab label='Technical'>
+              <TechnicalTab work={work} />
+            </Tab>
           </Tabs>
         </Fragment>
         <UriGraph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected}>
@@ -212,14 +218,14 @@ const MakeClaimButton = ({ claimId }) => {
 }
 
 const ContentTab = ({ work }) => (
-  <article>
+  <>
     <Content archiveUrl={work?.claim?.archiveUrl}/>
     <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
     <Links
       bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
       ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
     />
-  </article>
+  </>
 )
 
 const LinkedClaimsTab = ({ claims }) => {
@@ -234,12 +240,12 @@ const LinkedClaimsTab = ({ claims }) => {
   ]
 
   return (
-    <article className={classNames.linkedClaims}>
+    <section className={classNames.linkedClaims}>
       <h1>This claim references</h1>
       <LinkedClaimsList linkedClaims={originOfClaims} />
       <h1>Referenced by</h1>
       <LinkedClaimsList linkedClaims={targetOfClaims} />
-    </article>
+    </section>
   )
 }
 
@@ -255,9 +261,9 @@ const LinkedClaimsList = ({ linkedClaims }) => (
 )
 
 const TechnicalTab = ({ work }) => (
-  <article>
+  <section>
     <Metadata work={work} />
-  </article>
+  </section>
 )
 
 const Metadata = ({ work }) => (

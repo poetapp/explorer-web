@@ -1,24 +1,34 @@
 import classnames from 'classnames'
-import React, { useState } from 'react'
+import React, { Children, useState } from 'react'
 
 import classNames from './Tabs.scss'
 
-export const Tabs = ({ children, initialTab = 0, ...props }) => {
+export const Tabs = ({ children, initialTab = 0 }) => {
   const [tab, setTab] = useState(children[initialTab])
+
+  const labels = Children.map(children, child => console.log('Children.map', child) || child.props.label)
 
   return (
     <section className={classNames.root}>
       <TabSelector
-        setTab={setTab}
-        tab={tab}
         tabs={children}
+        tab={tab}
+        setTab={setTab}
       />
       <TabContent tab={tab} />
     </section>
   )
 }
 
-const TabSelector = ({ setTab, tab, tabs, ...props }) => {
+export const Tab = ({ children, selected }) => {
+  return (
+    <section className={classnames(classNames.selected)}>
+      { children }
+    </section>
+  )
+}
+
+const TabSelector = ({ tabs, setTab, tab }) => {
   const onClick = tab => () => {
     setTab(tab)
   }
@@ -49,7 +59,7 @@ const TabLabel = ({ active, label, onClick, tab }) => (
   </div>
 )
 
-const TabContent = ({ tab, ...props }) => (
+const TabContent = ({ tab }) => (
   <section className={classNames.content}>
     {tab ? tab : <UknownTab />}
   </section>
