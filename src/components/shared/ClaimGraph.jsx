@@ -16,7 +16,7 @@ const getWorkId = str => str.split('/').pop()
 export const ClaimGraph = ({ edges, selectedValue, onNodeSelected }) => (
   <div className={classNames.claimGraph}>
     <Figcaption name={selectedValue} author={selectedValue} />
-    <Figure edges={edges} selectedValue={selectedValue} onNodeSelected={onNodeSelected} />
+    <Graph edges={edges} selectedValue={selectedValue} onNodeSelected={onNodeSelected} />
   </div>
 )
 
@@ -32,7 +32,7 @@ const Figcaption = ({ name, author }) => {
   )
 }
 
-const Figure = ({ edges, selectedValue, onNodeSelected }) => {
+const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
