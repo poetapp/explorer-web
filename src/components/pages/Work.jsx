@@ -23,8 +23,6 @@ export const WorkById = ({ id, uri }) => {
     if (api && id) api.workGetById(id).then(setWork)
   }, [api, id])
 
-  console.log('render work by id', id, uri)
-
   useEffect(() => {
     if (poetNodeApi) {
       poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri)).then(graphEdges => {
@@ -40,9 +38,9 @@ export const WorkById = ({ id, uri }) => {
   return (
     <Main>
       {
-        !work
+        !work && !uri
           ? <NoWork />
-          : <Work work={work} graphEdges={graphEdges} />
+          : <Work work={work} uri={uri} graphEdges={graphEdges} />
       }
     </Main>
   )
@@ -54,9 +52,8 @@ const NoWork = () => (
   </section>
 )
 
-const Work = ({ work, graphEdges }) => {
+const Work = ({ work, uri, graphEdges }) => {
   const { history } = useBrowserRouterContext()
-  const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, about, hash, ...customFields }, id, issuer } = work
   const claimUri = work && `poet:claims/${work.id}`
 
   const onNodeSelected = (node) => {
@@ -71,15 +68,8 @@ const Work = ({ work, graphEdges }) => {
       <Sidebar invertScroll>
         <Fragment>
           <header className={classNames.sidebarHeader}>
-            <Overview
-              name={name}
-              author={author}
-              issuer={issuer}
-              datePublished={datePublished}
-              tags={tags}
-              customFields={customFields}
-            />
-            <MakeClaimButton claimId={id} />
+            { work && <Overview work={work} /> }
+            <MakeClaimButton claimId={work?.id} />
           </header>
           <Tabs>
             <Tab label='Content'>
@@ -102,15 +92,15 @@ const Work = ({ work, graphEdges }) => {
   )
 }
 
-const Overview = ({ name, author, issuer, datePublished, tags, customFields }) => {
+const Overview = ({ work }) => {
   const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
   const formatFieldName = fieldName => (
     fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1).replace(/([A-Z])/g, ' $1')
   )
 
   const info = {
-    author,
-    timestamp: formatDate(datePublished),
+    author: work?.claim.author,
+    timestamp: formatDate(work?.claim.datePublished),
     // TODO: Follow up whether these should be included
     // claimMadeBy: <Issuer issuer={issuer} />,
     // tags: tags,
