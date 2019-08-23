@@ -40,7 +40,7 @@ export const WorkById = ({ id }) => {
       {
         !work
           ? <NoWork />
-          : <Work work={work} claims={graphEdges} />
+          : <Work work={work} graphEdges={graphEdges} />
       }
     </Main>
   )
@@ -52,7 +52,7 @@ const NoWork = () => (
   </section>
 )
 
-const Work = ({ work, claims }) => {
+const Work = ({ work, graphEdges }) => {
   console.log('rendering work', work)
   const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, about, hash, ...customFields }, id, issuer } = work
 
@@ -84,7 +84,7 @@ const Work = ({ work, claims }) => {
             <TechnicalTab label='Technical' work={work} />
           </Tabs>
         </Fragment>
-        <Graph claims={claims} currentClaim={work} onNodeSelected={onNodeSelected} />
+        <Graph edges={graphEdges} selectedNode={work} onNodeSelected={onNodeSelected} />
       </Sidebar>
     </section>
   )
@@ -267,9 +267,9 @@ const Metadata = ({ work }) => (
   </section>
 )
 
-const Graph = ({ claims, currentClaim, onNodeSelected }) => (
+const Graph = ({ edges, selectedNode, onNodeSelected }) => (
   <section className={classNames.graph}>
-    <ClaimGraph claims={claims} currentClaim={currentClaim} onNodeSelected={onNodeSelected} />
+    <ClaimGraph claims={edges} currentClaim={selectedNode} onNodeSelected={onNodeSelected} />
   </section>
 )
 
