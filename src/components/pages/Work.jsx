@@ -53,9 +53,9 @@ const NoWork = () => (
 )
 
 const Work = ({ work, graphEdges }) => {
-  const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, about, hash, ...customFields }, id, issuer } = work
-
   const { history } = useBrowserRouterContext()
+  const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, about, hash, ...customFields }, id, issuer } = work
+  const claimUri = work && `poet:claims/${work.id}`
 
   const onNodeSelected = (node) => {
     if (node.startsWith('poet:claims/'))
@@ -83,7 +83,7 @@ const Work = ({ work, graphEdges }) => {
             <TechnicalTab label='Technical' work={work} />
           </Tabs>
         </Fragment>
-        <Graph edges={graphEdges} selectedNode={work} onNodeSelected={onNodeSelected} />
+        <Graph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected} />
       </Sidebar>
     </section>
   )
@@ -268,7 +268,7 @@ const Metadata = ({ work }) => (
 
 const Graph = ({ edges, selectedNode, onNodeSelected }) => (
   <section className={classNames.graph}>
-    <ClaimGraph claims={edges} currentClaim={selectedNode} onNodeSelected={onNodeSelected} />
+    <ClaimGraph claims={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
   </section>
 )
 

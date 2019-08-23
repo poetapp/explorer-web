@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import dagreD3 from 'dagre-d3'
 import * as d3 from 'd3'
-import { flatten, uniq } from 'ramda'
+import { flatten, uniq, equals } from 'ramda'
 
 import classNames from './ClaimGraph.scss'
 import { ClaimWhite } from 'Images'
@@ -13,15 +13,16 @@ const nodeSize = 10
 const endsWith = q => str => str.endsWith(q)
 const getWorkId = str => str.split('/').pop()
 
-export const ClaimGraph = ({ claims, currentClaim, onNodeSelected }) => (
+export const ClaimGraph = ({ claims, selectedValue, onNodeSelected }) => (
   <div className={classNames.claimGraph}>
-    <Figcaption currentClaim={currentClaim} />
-    <Figure edges={claims} currentClaim={currentClaim} onNodeSelected={onNodeSelected} />
+    <Figcaption name={selectedValue} author={selectedValue} />
+    <Figure edges={claims} selectedValue={selectedValue} onNodeSelected={onNodeSelected} />
   </div>
 )
 
-const Figcaption = ({ currentClaim }) => {
-  const { claim: { name, author, hash } } = currentClaim
+const Figcaption = ({ name, author }) => {
+  // const { claim: { name, author, hash } } = caption
+  // TODO: move this component to Work.jsx
 
   return (
     <figcaption className={classNames.figcaption}>
@@ -31,20 +32,19 @@ const Figcaption = ({ currentClaim }) => {
   )
 }
 
-const Figure = ({ edges, currentClaim, onNodeSelected }) => {
+const Figure = ({ edges, selectedValue, onNodeSelected }) => {
   const [dim, setDim] = useState(false)
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
   const figure = useRef(null)
   const g = useRef(null)
-  const currentId = currentClaim?.id
   const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
 
-  const onNodeSelectedWrapper = (node, id = currentId) => {
+  const onNodeSelectedWrapper = (node, id = selectedValue) => {
     console.log('onNodeSelectedWrapper', node, id)
     setSelectedNode(node)
 
-    if (id !== currentId)
+    if (id !== selectedValue)
       onNodeSelected(id)
   }
 
@@ -53,7 +53,7 @@ const Figure = ({ edges, currentClaim, onNodeSelected }) => {
     window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
   }, [])
 
-  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, currentId }), [dim, edges])
+  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, selectedValue }), [dim, edges])
 
   useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
 
@@ -145,7 +145,7 @@ const scaleGraph = (graph, svg, zoom, dim) => {
   svg.attr('transform', transform.toString())
 }
 
-const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, currentId }) => {
+const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, selectedValue }) => {
   if (!dim) return
 
   const render = dagreD3.render()
@@ -165,6 +165,6 @@ const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, curre
   })
 
   if (!selectedNode && !allNodes.empty()) {
-    onNodeSelected(inner.selectAll('g.node').filter(endsWith(currentId)))
+    onNodeSelected(inner.selectAll('g.node').filter(equals(selectedValue)))
   }
 }
