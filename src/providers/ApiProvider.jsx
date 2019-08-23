@@ -68,16 +68,12 @@ export const ApiProvider = props => {
     }))
   }, [account, environment, network])
 
-  const useApi = (endpoint, ...args) => (
-    useApiWithDeps([], endpoint, ...args)
-  )
-
-  const useApiWithDeps = (deps, endpoint, ...args) => {
+  const useApi = (endpoint, ...args) => {
     const [response, setResponse] = useState()
     useEffect(() => {
       if (api && endpoint)
         api[endpoint](...args).then(setResponse)
-    }, [...deps, api, endpoint])
+    }, [api, endpoint])
     return response
   }
 
@@ -86,7 +82,7 @@ export const ApiProvider = props => {
   }, [frostApi])
 
   return (
-    <ApiContext.Provider value={{api, isBusy, useApi, useApiWithDeps, environment, network, frostApi, poetNodeApi}}>
+    <ApiContext.Provider value={{api, isBusy, useApi, environment, network, frostApi, poetNodeApi}}>
       { props.children }
     </ApiContext.Provider>
   )
