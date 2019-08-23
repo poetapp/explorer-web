@@ -1,10 +1,11 @@
 import classnames from 'classnames'
+import { identity } from 'ramda'
 import React, { Children, useState } from 'react'
 
 import classNames from './Tabs.scss'
 
 export const Tabs = ({ children, initialTab }) => {
-  const tabs = Children.map(children, child => child.props.label)
+  const tabs = Children.map(children, child => child?.props?.label).filter(identity)
   const [selectedTab, setSelectedTab] = useState(initialTab || tabs[0])
 
   return (
@@ -15,7 +16,7 @@ export const Tabs = ({ children, initialTab }) => {
         onSelectionChange={setSelectedTab}
       />
       <TabContent>
-        { Children.map(children, child => child.props.label === selectedTab && child) }
+        { Children.map(children, child => child?.props?.label === selectedTab && child) }
       </TabContent>
     </section>
   )
