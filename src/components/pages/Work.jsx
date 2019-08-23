@@ -83,7 +83,7 @@ const Work = ({ work, graphEdges }) => {
             <TechnicalTab label='Technical' work={work} />
           </Tabs>
         </Fragment>
-        <Graph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected} />
+        <UriGraph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected} />
       </Sidebar>
     </section>
   )
@@ -266,7 +266,7 @@ const Metadata = ({ work }) => (
   </section>
 )
 
-const Graph = ({ edges, selectedNode, onNodeSelected }) => (
+const UriGraph = ({ edges, selectedNode, onNodeSelected }) => (
   <section className={classNames.graph}>
     <ClaimGraph edges={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
   </section>
