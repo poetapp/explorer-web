@@ -2,6 +2,8 @@ import moment from 'moment'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
+import { uriToExplorerLink } from 'helpers/links'
+
 import { ApiContext } from 'providers/ApiProvider'
 import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
 
@@ -258,8 +260,6 @@ const LinkedClaimsTab = ({ uri, graphEdges }) => {
     </section>
   )
 }
-
-const uriToExplorerLink = uri => uri.startsWith('poet:claims/') ? `/works/${uri.split('/')[1]}` : `/archives/${encodeURIComponent(uri)}`
 
 const LinkedClaimsList = ({ linkedClaims }) => (
   <ul>
