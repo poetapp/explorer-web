@@ -81,7 +81,7 @@ const Work = ({ work, uri, graphEdges }) => {
               </Tab>
             ) }
             <Tab label='Linked Claims'>
-              <LinkedClaimsTab />
+              <LinkedClaimsTab uri={claimUri || uri} graphEdges={graphEdges}  />
             </Tab>
             { !uri && (
               <Tab label='Technical'>
@@ -229,16 +229,17 @@ const ContentTab = ({ work, uri }) => (
   </>
 )
 
-const LinkedClaimsTab = ({ claims }) => {
-  const originOfClaims = [
-    {name: 'Baz', date: 'July 19th 2019'},
-    {name: 'Qux', date: 'July 19th 2019'},
-  ]
-
-  const targetOfClaims = [
-    {name: 'Foo', date: 'July 19th 2019'},
-    {name: 'Bar', date: 'July 19th 2019'},
-  ]
+const LinkedClaimsTab = ({ uri, graphEdges }) => {
+  const originOfClaims = graphEdges.filter(({ origin }) => origin === uri).map(({ target }) => ({
+    uri: target,
+    name: target,
+    date: 'July 19th 2019',
+  }))
+  const targetOfClaims = graphEdges.filter(({ target }) => target === uri).map(({ origin }) => ({
+    uri: origin,
+    name: origin,
+    date: 'July 19th 2019',
+  }))
 
   return (
     <section className={classNames.linkedClaims}>
@@ -250,11 +251,13 @@ const LinkedClaimsTab = ({ claims }) => {
   )
 }
 
+const uriToExplorerLink = uri => uri.startsWith('poet:claims/') ? `/works/${uri.split('/')[1]}` : `/archives/${encodeURIComponent(uri)}`
+
 const LinkedClaimsList = ({ linkedClaims }) => (
   <ul>
-    {linkedClaims.map(({ name, date }, key) => (
+    {linkedClaims.map(({ name, date, uri }, key) => (
       <li key={key}>
-        <a href='#'>{name}</a>
+        <Link to={uriToExplorerLink(uri)}>{name}</Link>
         <time>{date}</time>
       </li>
     ))}
