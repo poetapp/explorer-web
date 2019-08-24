@@ -73,7 +73,7 @@ const Work = ({ work, uri, graphEdges }) => {
       <Sidebar invertScroll>
         <>
           <header className={classNames.sidebarHeader}>
-            { work && <Overview work={work} /> }
+            <Overview work={work} uri={uri} />
             <MakeClaimButton claimId={work?.id} />
           </header>
           <Tabs>
@@ -101,7 +101,13 @@ const Work = ({ work, uri, graphEdges }) => {
   )
 }
 
-const Overview = ({ work }) => {
+const Overview = ({ work, uri }) => (
+  work
+    ? <WorkOverview work={work} />
+    : <UriOverview uri={uri} />
+)
+
+const WorkOverview = ({ work }) => {
   const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
   const formatFieldName = fieldName => (
     fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1).replace(/([A-Z])/g, ' $1')
@@ -118,8 +124,7 @@ const Overview = ({ work }) => {
 
   return (
     <section className={classNames.overview}>
-      <h1>{name}</h1>
-
+      <h1>{work?.claim?.name}</h1>
       <table>
         <tbody>
           {Object.entries(info).map(([fieldName, fieldValue], key) => (
@@ -133,6 +138,12 @@ const Overview = ({ work }) => {
     </section>
   )
 }
+
+const UriOverview = ({ uri }) => (
+  <section className={classNames.overview}>
+    <h1>{uri}</h1>
+  </section>
+)
 
 const Issuer = ({ issuer }) => {
   const { api } = useContext(ApiContext)
