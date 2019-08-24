@@ -37,13 +37,12 @@ $header-height: 60px;
     vertical-align: top;
 
     th, td {
-      box-sizing: border-box;
       font-size: 12px;
       padding: 0 24px 4px 0;
       vertical-align: top;
       word-wrap: break-word;
       overflow: hidden;
-      text-overflow: scroll;
+      text-overflow: ellipsis;
     }
 
     th {
@@ -70,7 +69,7 @@ $header-height: 60px;
 .work {
   background-color: #fff;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex: 1;
 
   a {
@@ -78,30 +77,30 @@ $header-height: 60px;
     color: #36b074;
   }
 
-  >header {
-    @include letterboxed();
-    padding-top: 34px;
-    padding-bottom: 25px;
-    overflow-wrap: break-word;
-  }
+  .graph {
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0;
 
-  >main {
-    background-image: linear-gradient(180deg, hsla(0, 0%, 100%, .5), hsla(0, 0%, 100%, .5));
-    border-bottom: 1px solid #d3d3d3;
-    border-top: 1px solid #d3d3d3;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-gap: 30px;
-    padding: 50px calc(50% - #{$main-width / 2});
+    figcaption {
+      align-self: center;
+      background: white;
+      border: 1px solid #D0D0D0;
+      padding: 12px;
+      margin-top: 24px;
 
-    h1 {
-      font-size: 17px;
-      font-weight: normal;
-      margin: 0 0 10px;
-    }
+      h1 {
+        margin: 0;
+        font-weight: bold;
+        font-size: 12px;
+      }
 
-    p {
-      font-size: 12px;
+      >div {
+        color: #434343;
+        font-size: 10px;
+      }
     }
   }
 }
@@ -166,6 +165,17 @@ $header-height: 60px;
     border: 1px solid #dfdfdf;
     height: 400px;
   }
+}
+
+.sidebar {
+  width: 35%;
+  overflow-y: scroll;
+}
+
+.invertScroll {
+  max-height: 100vh;
+  margin-top: -$header-height;
+  padding-top: $header-height;
 }
 
 .badgePreview {
@@ -296,34 +306,3 @@ $header-height: 60px;
   }
 }
 
-.graph {
-  background-color: #F5F5F5;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin: 0;
-  max-height: 100vh;
-  margin-top: -$header-height;
-  padding-top: $header-height;
-  box-sizing: border-box;
-
-  figcaption {
-    align-self: center;
-    box-sizing: border-box;
-    background: white;
-    border: 1px solid #D0D0D0;
-    padding: 12px;
-    margin-top: 24px;
-
-    h1 {
-      margin: 0;
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-    >div {
-      color: #434343;
-      font-size: 10px;
-    }
-  }
-}

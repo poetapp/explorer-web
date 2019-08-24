@@ -8,7 +8,6 @@ import { ApiContext } from 'providers/ApiProvider'
 import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
 
 import { Main } from 'components/templates/Main'
-import { Sidebar } from 'components/shared/Sidebar'
 import { Tabs, Tab } from 'components/shared/Tabs'
 import { Graph } from 'components/shared/ClaimGraph'
 
@@ -74,32 +73,30 @@ const Work = ({ work, uri, graphEdges }) => {
 
   return (
     <section className={classNames.work}>
-      <Sidebar invertScroll>
-        <>
-          <header className={classNames.sidebarHeader}>
-            <Overview work={work} uri={uri} />
-            <MakeClaimButton claimId={work?.id} />
-          </header>
-          <Tabs>
-            { (uri || workIsNotAboutClaim) && (
-              <Tab label='Content'>
-                <ContentTab work={work} uri={uri} />
-              </Tab>
-            ) }
-            <Tab label='Linked Claims'>
-              <LinkedClaimsTab uri={claimUri || uri} graphEdges={graphEdges}  />
+      <aside className={classNames.sidebar}>
+        <header className={classNames.sidebarHeader}>
+          <Overview work={work} uri={uri} />
+          <MakeClaimButton claimId={work?.id} />
+        </header>
+        <Tabs>
+          { (uri || workIsNotAboutClaim) && (
+            <Tab label='Content'>
+              <ContentTab work={work} uri={uri} />
             </Tab>
-            { !uri && (
-              <Tab label='Technical'>
-                <TechnicalTab work={work} />
-              </Tab>
-            ) }
-          </Tabs>
-        </>
-        <UriGraph edges={graphEdges} selectedNode={claimUri || uri} onNodeSelected={onNodeSelected}>
-          <GraphAside uri={uri} work={work} />
-        </UriGraph>
-      </Sidebar>
+          ) }
+          <Tab label='Linked Claims'>
+            <LinkedClaimsTab uri={claimUri || uri} graphEdges={graphEdges}  />
+          </Tab>
+          { !uri && (
+            <Tab label='Technical'>
+              <TechnicalTab work={work} />
+            </Tab>
+          ) }
+        </Tabs>
+      </aside>
+      <UriGraph edges={graphEdges} selectedNode={claimUri || uri} onNodeSelected={onNodeSelected}>
+        <GraphAside uri={uri} work={work} />
+      </UriGraph>
     </section>
   )
 }
