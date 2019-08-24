@@ -6,14 +6,12 @@ $green: #36b074;
 }
 
 .selector {
-  box-sizing: border-box;
   display: flex;
 }
 
 .selectorRail {
   width: $spacing;
   border-bottom: $border-grey;
-  box-sizing: border-box;
   align-self: flex-end;
 }
 
@@ -32,7 +30,6 @@ $green: #36b074;
 .labelActive {
   position: relative;
   border-bottom: none;
-  box-sizing: border-box;
 
   &::before {
     border-left: $border-grey;
