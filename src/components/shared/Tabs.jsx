@@ -1,12 +1,17 @@
 import classnames from 'classnames'
 import { identity } from 'ramda'
-import React, { Children, useState } from 'react'
+import React, { Children, useState, useEffect } from 'react'
 
 import classNames from './Tabs.scss'
 
 export const Tabs = ({ children, initialTab }) => {
   const tabs = Children.map(children, child => child?.props?.label).filter(identity)
   const [selectedTab, setSelectedTab] = useState(initialTab || tabs[0])
+
+  useEffect(() => {
+    if (!tabs.includes(selectedTab))
+      setSelectedTab(tabs[0])
+  }, [tabs])
 
   return (
     <section className={classNames.root}>

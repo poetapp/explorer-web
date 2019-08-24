@@ -64,6 +64,8 @@ const Work = ({ work, uri, graphEdges }) => {
       history.push(`/archives/${encodeURIComponent(node)}`)
   }
 
+  const workIsNotAboutClaim = !work?.claim?.about?.[0].startsWith('poet:claims/')
+
   return (
     <section className={classNames.work}>
       <Sidebar invertScroll>
@@ -73,9 +75,11 @@ const Work = ({ work, uri, graphEdges }) => {
             <MakeClaimButton claimId={work?.id} />
           </header>
           <Tabs>
-            <Tab label='Content'>
-              <ContentTab work={work} uri={uri} />
-            </Tab>
+            { (uri || workIsNotAboutClaim) && (
+              <Tab label='Content'>
+                <ContentTab work={work} uri={uri} />
+              </Tab>
+            ) }
             <Tab label='Linked Claims'>
               <LinkedClaimsTab />
             </Tab>
