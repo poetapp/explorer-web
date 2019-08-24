@@ -170,9 +170,9 @@ const WorkOverview = ({ work }) => {
   )
 }
 
-const UriOverview = ({ uri }) => (
+const UriOverview = ({ uri = '' }) => (
   <section className={classNames.overview}>
-    <h1>{uri}</h1>
+    <h1>{ urlIsIpfs(uri) ? ipfsUrlToHash(uri) : uri }</h1>
     <a href={uri} target="_blank">View Content</a>
   </section>
 )

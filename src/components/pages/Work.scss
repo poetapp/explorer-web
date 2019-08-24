@@ -27,6 +27,8 @@ $header-height: 60px;
     margin-top: 0;
     margin-bottom: 24px;
     font-family: $roboto-slab;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   table {
