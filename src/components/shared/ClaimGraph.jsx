@@ -15,7 +15,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
   const figure = useRef(null)
-  const g = useRef(null)
+  // const g = useRef(null)
   const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
 
   const onNodeSelectedWrapper = (node, id = selectedValue) => {
@@ -31,7 +31,9 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
     window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
   }, [])
 
-  useEffect(() => renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, selectedValue }), [dim, edges])
+  useEffect(() => {
+    renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, selectedValue })
+  }, [dim, edges])
 
   useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
 
@@ -58,11 +60,9 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
         }
       `}</style>
 
-      {dim && (
-        <svg { ...dim }>
-          <g ref={g} />
-        </svg>
-      )}
+      <svg>
+        <g/>
+      </svg>
     </figure>
   )
 }
