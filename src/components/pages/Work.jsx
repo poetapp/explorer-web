@@ -21,6 +21,7 @@ export const WorkById = ({ id, uri }) => {
 
   useEffect(() => {
     if (api && id) api.workGetById(id).then(setWork)
+    else if (!id) setWork()
   }, [api, id])
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export const WorkById = ({ id, uri }) => {
   return (
     <Main>
       {
-        !work && !uri
+        !work && !uri && !graphEdges
           ? <NoWork />
           : <Work work={work} uri={uri} graphEdges={graphEdges} />
       }
@@ -85,7 +86,7 @@ const Work = ({ work, uri, graphEdges }) => {
             }
           </Tabs>
         </Fragment>
-        <UriGraph edges={graphEdges} selectedNode={claimUri} onNodeSelected={onNodeSelected}>
+        <UriGraph edges={graphEdges} selectedNode={claimUri || uri} onNodeSelected={onNodeSelected}>
           <h1>{work?.claim?.name}</h1>
           <div>{work?.claim?.author}</div>
         </UriGraph>
@@ -104,7 +105,7 @@ const Overview = ({ work }) => {
     author: work?.claim.author,
     timestamp: formatDate(work?.claim.datePublished),
     // TODO: Follow up whether these should be included
-    // claimMadeBy: <Issuer issuer={issuer} />,
+    claimMadeBy: <Issuer issuer={work?.issuer} />,
     // tags: tags,
     // ...customFields,
   }
