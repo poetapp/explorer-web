@@ -142,6 +142,7 @@ const WorkOverview = ({ work }) => {
 const UriOverview = ({ uri }) => (
   <section className={classNames.overview}>
     <h1>{uri}</h1>
+    <a href={uri} target="_blank">View Content</a>
   </section>
 )
 
