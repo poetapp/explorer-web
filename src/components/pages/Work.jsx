@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React, { Fragment, useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { ApiContext } from 'providers/ApiProvider'
@@ -69,7 +69,7 @@ const Work = ({ work, uri, graphEdges }) => {
   return (
     <section className={classNames.work}>
       <Sidebar invertScroll>
-        <Fragment>
+        <>
           <header className={classNames.sidebarHeader}>
             { work && <Overview work={work} /> }
             <MakeClaimButton claimId={work?.id} />
@@ -89,7 +89,7 @@ const Work = ({ work, uri, graphEdges }) => {
               </Tab>
             ) }
           </Tabs>
-        </Fragment>
+        </>
         <UriGraph edges={graphEdges} selectedNode={claimUri || uri} onNodeSelected={onNodeSelected}>
           <h1>{work?.claim?.name}</h1>
           <div>{work?.claim?.author}</div>
@@ -244,16 +244,16 @@ const LinkedClaimsTab = ({ uri, graphEdges }) => {
   return (
     <section className={classNames.linkedClaims}>
       { originOfClaims?.length > 0 && (
-        <Fragment>
+        <>
           <h1>This claim references</h1>
           <LinkedClaimsList linkedClaims={originOfClaims} />
-        </Fragment>
+        </>
       )}
       { targetOfClaims?.length > 0 && (
-        <Fragment>
+        <>
           <h1>Referenced by</h1>
           <LinkedClaimsList linkedClaims={targetOfClaims} />
-        </Fragment>
+        </>
       )}
     </section>
   )
