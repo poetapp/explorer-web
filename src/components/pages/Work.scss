@@ -55,11 +55,6 @@ $header-height: 60px;
       word-break: break-all;
     }
   }
-
-  a {
-    text-decoration: underline;
-    color: #36b074;
-  }
 }
 
 .makeClaimButton {
@@ -75,6 +70,11 @@ $header-height: 60px;
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  a {
+    text-decoration: underline;
+    color: #36b074;
+  }
 
   >header {
     @include letterboxed();
@@ -113,6 +113,8 @@ $header-height: 60px;
     display: flex;
 
     >a {
+      text-decoration: none;
+      color: #333;
       display: flex;
       align-items: center;
       background: white;

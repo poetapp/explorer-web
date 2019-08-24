@@ -16,6 +16,10 @@ import { IPFS, Bitcoin, QuillS3 } from 'Images'
 
 import classNames from './Work.scss'
 
+const urlIsIpfs = url => url.startsWith('https://ipfs.io/ipfs/')
+
+const ipfsUrlToHash = url => url.split('/').reverse()[0]
+
 export const WorkById = ({ id, uri }) => {
   const { api, poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
@@ -93,13 +97,40 @@ const Work = ({ work, uri, graphEdges }) => {
           </Tabs>
         </>
         <UriGraph edges={graphEdges} selectedNode={claimUri || uri} onNodeSelected={onNodeSelected}>
-          <h1>{work?.claim?.name}</h1>
-          <div>{work?.claim?.author}</div>
+          <GraphAside uri={uri} work={work} />
         </UriGraph>
       </Sidebar>
     </section>
   )
 }
+
+const GraphAside = ({ uri, work }) => (
+  uri
+    ? <GraphAsideUri uri={uri} />
+    : <GraphAsideWork work={work} />
+)
+
+const GraphAsideUri = ({ uri }) => {
+  const isIpfs = urlIsIpfs(uri)
+  const title = isIpfs
+      ? ipfsUrlToHash(uri)
+      : uri
+
+  return (
+    <>
+      <h1>{isIpfs ? 'HASH:' : uri}</h1>
+      { isIpfs && <div>{title}</div> }
+      { isIpfs && <div><a href={uri} target="_blank">View Content</a></div> }
+    </>
+  )
+}
+
+const GraphAsideWork = ({ work }) => (
+  <>
+    <h1>{work?.claim?.name}</h1>
+    <div>{work?.claim?.author}</div>
+  </>
+)
 
 const Overview = ({ work, uri }) => (
   work
