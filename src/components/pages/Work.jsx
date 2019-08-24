@@ -243,10 +243,18 @@ const LinkedClaimsTab = ({ uri, graphEdges }) => {
 
   return (
     <section className={classNames.linkedClaims}>
-      <h1>This claim references</h1>
-      <LinkedClaimsList linkedClaims={originOfClaims} />
-      <h1>Referenced by</h1>
-      <LinkedClaimsList linkedClaims={targetOfClaims} />
+      { originOfClaims?.length > 0 && (
+        <Fragment>
+          <h1>This claim references</h1>
+          <LinkedClaimsList linkedClaims={originOfClaims} />
+        </Fragment>
+      )}
+      { targetOfClaims?.length > 0 && (
+        <Fragment>
+          <h1>Referenced by</h1>
+          <LinkedClaimsList linkedClaims={targetOfClaims} />
+        </Fragment>
+      )}
     </section>
   )
 }
