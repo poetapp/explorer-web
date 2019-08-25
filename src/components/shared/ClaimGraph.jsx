@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import dagreD3 from 'dagre-d3'
 import * as d3 from 'd3'
 import { flatten, uniq, equals } from 'ramda'
@@ -16,7 +16,8 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [inner, setInner] = useState(false)
   const figure = useRef(null)
   // const g = useRef(null)
-  const graph = dagreFromEdges(edges) // TODO: this needn't run on every render!
+
+  const graph = useMemo(() => dagreFromEdges(edges), [edges])
 
   const onNodeSelectedWrapper = (node, id = selectedValue) => {
     console.log('onNodeSelectedWrapper', node, id)
@@ -95,34 +96,6 @@ const dagreFromEdges = edges => {
   return graph
 }
 
-const updateDim = ({ figure, setDim }) => {
-  const { offsetHeight, offsetWidth } = figure.current
-  setDim({ height: offsetHeight, width: offsetWidth })
-}
-
-const activateSelectedNode = ({ selectedNode, inner }) => {
-  if (inner) {
-    inner.selectAll('g.node').classed('selected', false)
-  }
-
-  if (selectedNode) {
-    selectedNode.classed('selected', true)
-  }
-}
-
-const scaleGraph = (graph, svg, zoom, dim) => {
-  const graphWidth = graph.graph().width + graphMargin
-  const graphHeight = graph.graph().height + graphMargin
-  const zoomScale = Math.min(dim.width / graphWidth, dim.height / graphHeight)
-  const translateX = (dim.width / 2) - ((graphWidth * zoomScale) / 2)
-  const translateY = (dim.height / 2) - ((graphHeight * zoomScale) / 2)
-  const transform =  d3.zoomIdentity
-    .translate(translateX, translateY)
-    .scale(zoomScale)
-
-  svg.attr('transform', transform.toString())
-}
-
 const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, selectedValue }) => {
   if (!dim) return
 
@@ -144,5 +117,33 @@ const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, selec
 
   if (!selectedNode && !allNodes.empty()) {
     onNodeSelected(inner.selectAll('g.node').filter(equals(selectedValue)))
+  }
+}
+
+const scaleGraph = (graph, svg, zoom, dim) => {
+  const graphWidth = graph.graph().width + graphMargin
+  const graphHeight = graph.graph().height + graphMargin
+  const zoomScale = Math.min(dim.width / graphWidth, dim.height / graphHeight)
+  const translateX = (dim.width / 2) - ((graphWidth * zoomScale) / 2)
+  const translateY = (dim.height / 2) - ((graphHeight * zoomScale) / 2)
+  const transform =  d3.zoomIdentity
+    .translate(translateX, translateY)
+    .scale(zoomScale)
+
+  svg.attr('transform', transform.toString())
+}
+
+const updateDim = ({ figure, setDim }) => {
+  const { offsetHeight, offsetWidth } = figure.current
+  setDim({ height: offsetHeight, width: offsetWidth })
+}
+
+const activateSelectedNode = ({ selectedNode, inner }) => {
+  if (inner) {
+    inner.selectAll('g.node').classed('selected', false)
+  }
+
+  if (selectedNode) {
+    selectedNode.classed('selected', true)
   }
 }
