@@ -42,7 +42,7 @@ export const WorkById = ({ id, uri }) => {
   }, [poetNodeApi, work])
 
   return (
-    <Main>
+    <Main scrollDisabled={true}>
       {
         !work && !uri && !graphEdges
           ? <NoWork />
