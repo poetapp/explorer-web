@@ -77,7 +77,6 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
     width: nodeSize,
     height: nodeSize,
     shape: node !== rootNode ? 'circle' : 'image',
-    imageUrl: TextDocumentWhite,
   })
 
   nodes.forEach(node => graph.setNode(node, nodeToGraphNode(node)))
@@ -125,7 +124,7 @@ const renderImage = (parent, bbox, node) => {
     .attr("y", 0)
     .attr("width", w)
     .attr("height", h)
-    .attr("xlink:href", node.imageUrl)
+    .attr("xlink:href", TextDocumentWhite)
     .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")")
 
   node.intersect = point =>
