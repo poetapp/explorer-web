@@ -95,7 +95,7 @@ const dagreFromEdges = edges => {
   return graph
 }
 
-const renderGraph = ({ dim, onNodeSelected, graph }) => {
+const renderGraph = ({ graph, dim, onNodeSelected }) => {
   if (!dim) return
 
   const render = dagreD3.render()
