@@ -26,11 +26,13 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   }, [svg, selectedValue])
 
   useEffect(() => {
-    updateDim({ figure, setDim })
-  }, [])
-
-  useEffect(() => {
-    window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
+    const updateDim = () => {
+      const { offsetHeight, offsetWidth } = figure.current
+      setDim({ height: offsetHeight, width: offsetWidth })
+    }
+    updateDim()
+    window.addEventListener('resize', updateDim)
+    return () => window.removeEventListener('resize', updateDim)
   }, [])
 
   useEffect(() => {
@@ -104,11 +106,6 @@ const scaleGraph = (graph, svg, dim) => {
 
   const g = svg.select('svg>g')
   g.attr('transform', transform.toString())
-}
-
-const updateDim = ({ figure, setDim }) => {
-  const { offsetHeight, offsetWidth } = figure.current
-  setDim({ height: offsetHeight, width: offsetWidth })
 }
 
 const GraphStyle = ({ nodeSize }) => (
