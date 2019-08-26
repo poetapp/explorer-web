@@ -100,8 +100,8 @@ const scaleGraph = (graph, svg, size) => {
   const graphWidth = graph.graph().width
   const graphHeight = graph.graph().height
   const zoomScale = Math.min(size.width / graphWidth, size.height / graphHeight)
-  const translateX = (size.width / 2) - ((graphWidth * zoomScale) / 2)
-  const translateY = (size.height / 2) - ((graphHeight * zoomScale) / 2)
+  const translateX = size.width / 2 - graphWidth * zoomScale / 2
+  const translateY = size.height / 2 - graphHeight * zoomScale / 2
   const transform =  d3.zoomIdentity
     .translate(translateX, translateY)
     .scale(zoomScale)
