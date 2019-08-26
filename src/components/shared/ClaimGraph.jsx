@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import dagreD3 from 'dagre-d3'
-import { pipe, not, flatten, uniq, equals } from 'ramda'
+import { pipe, map, equals, not, values, flatten, uniq } from 'ramda'
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 
 import { ClaimWhite } from 'Images'
@@ -10,6 +10,8 @@ import classNames from './ClaimGraph.scss'
 const grey = '#969696'
 const graphMargin = 24
 const nodeSize = 10
+
+const edgesToNodes = pipe(map(values), flatten, uniq)
 
 export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [figureSize, setFigureSize] = useState(false)
@@ -56,7 +58,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
 
 const dagreFromEdges = edges => {
   const graph = new dagreD3.graphlib.Graph()
-  const nodes = uniq(flatten(edges.map(Object.values)))
+  const nodes = edgesToNodes(edges)
 
   graph.setGraph({
     rankdir: 'BT',
