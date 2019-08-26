@@ -10,7 +10,7 @@ import classNames from './Graph.scss'
 const edgesToNodes = pipe(map(values), flatten, uniq)
 
 export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, margin = 24 }) => {
-  const [figureSize, setFigureSize] = useState(false)
+  const [graphSize, setGraphSize] = useState(false)
   const [svg, setSvg] = useState(false)
   const figure = useRef(null)
 
@@ -28,7 +28,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
       return
     const updateFigureSize = () => {
       const { offsetHeight, offsetWidth } = figure.current
-      setFigureSize({ height: offsetHeight, width: offsetWidth })
+      setGraphSize({ height: offsetHeight, width: offsetWidth })
     }
     updateFigureSize()
     window.addEventListener('resize', updateFigureSize)
@@ -40,9 +40,9 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
   }, [edges])
 
   useEffect(() => {
-    if (figureSize && svg)
-      scaleGraph(graph, svg, figureSize)
-  }, [figureSize, svg])
+    if (graphSize && svg)
+      scaleGraph(graph, svg, graphSize)
+  }, [graphSize, svg])
 
   return (
     <figure className={classNames.figure} ref={figure}>
