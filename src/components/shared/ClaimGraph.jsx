@@ -7,8 +7,6 @@ import { ClaimWhite } from 'Images'
 
 import classNames from './ClaimGraph.scss'
 
-const grey = '#969696'
-
 const edgesToNodes = pipe(map(values), flatten, uniq)
 
 export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, margin = 24 }) => {
@@ -67,7 +65,7 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
   graph.setDefaultEdgeLabel(() => ({}))
 
   nodes.forEach(id => graph.setNode(id, {
-    label: '', // id.split('/').pop(),
+    label: '',
     width: nodeSize,
     height: nodeSize,
     shape: 'circle',
