@@ -67,12 +67,14 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
 
   graph.setDefaultEdgeLabel(() => ({}))
 
-  nodes.forEach(value => graph.setNode(value, {
+  const nodeToGraphNode = node => ({
     label: '',
     width: nodeSize,
     height: nodeSize,
-    shape: value !== rootNode ? 'circle' : 'diamond',
-  }))
+    shape: node !== rootNode ? 'circle' : 'diamond',
+  })
+
+  nodes.forEach(node => graph.setNode(node, nodeToGraphNode(node)))
 
   edges.forEach(({ origin, target }) => graph.setEdge(origin, target, {
     minlen: 2,
