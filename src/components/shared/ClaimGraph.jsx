@@ -77,18 +77,16 @@ const renderGraph = ({ graph, dim, onNodeSelected }) => {
   const render = dagreD3.render()
   const svg = d3.select('svg')
   const inner = svg.select('g')
-  const zoom = d3.zoom()
 
-  svg.call(zoom)
   render(inner, graph)
-  scaleGraph(graph, inner, zoom, dim)
+  scaleGraph(graph, inner, dim)
 
   svg.selectAll('g.node').attr('pointer-events', 'all').on('click', onNodeSelected)
 
   return svg
 }
 
-const scaleGraph = (graph, svg, zoom, dim) => {
+const scaleGraph = (graph, svg, dim) => {
   const graphWidth = graph.graph().width + graphMargin
   const graphHeight = graph.graph().height + graphMargin
   const zoomScale = Math.min(dim.width / graphWidth, dim.height / graphHeight)
