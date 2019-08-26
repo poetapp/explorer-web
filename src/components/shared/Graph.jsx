@@ -116,13 +116,15 @@ const GraphStyle = ({ nodeSize }) => (
     {`
       .node rect,
       .node circle,
-      .node ellipse {
+      .node ellipse,
+      .node polygon {
         stroke: #333;
         fill: #fff;
         stroke-width: 1px;
         border-radius: ${nodeSize / 2}px;
       }
 
+      .node.selected polygon,
       .node.selected circle {
         fill: #abc;
       }
