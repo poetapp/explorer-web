@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react'
-import dagreD3 from 'dagre-d3'
 import * as d3 from 'd3'
+import dagreD3 from 'dagre-d3'
 import { pipe, not, flatten, uniq, equals } from 'ramda'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
+
+import { ClaimWhite } from 'Images'
 
 import classNames from './ClaimGraph.scss'
-import { ClaimWhite } from 'Images'
 
 const grey = '#969696'
 const graphMargin = 24
@@ -79,7 +80,7 @@ const renderGraph = ({ graph, dim, onNodeSelected }) => {
   const inner = svg.select('g')
 
   render(inner, graph)
-  scaleGraph(graph, inner, dim)
+  scaleGraph(graph, svg, dim)
 
   svg.selectAll('g.node').attr('pointer-events', 'all').on('click', onNodeSelected)
 
@@ -96,7 +97,8 @@ const scaleGraph = (graph, svg, dim) => {
     .translate(translateX, translateY)
     .scale(zoomScale)
 
-  svg.attr('transform', transform.toString())
+  const g = svg.select('svg>g')
+  g.attr('transform', transform.toString())
 }
 
 const updateDim = ({ figure, setDim }) => {
