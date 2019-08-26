@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 import dagreD3 from 'dagre-d3'
 import * as d3 from 'd3'
-import { flatten, uniq, equals } from 'ramda'
+import { pipe, not, flatten, uniq, equals } from 'ramda'
 
 import classNames from './ClaimGraph.scss'
 import { ClaimWhite } from 'Images'
@@ -28,8 +28,10 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   }
 
   useEffect(() => {
-    if (inner && selectedValue)
-      setSelectedNode(inner.selectAll('g.node').filter(equals(selectedValue)))
+    if (inner && selectedValue) {
+      inner.selectAll('g.node').filter(pipe(equals(selectedValue), not)).classed('selected', false)
+      inner.selectAll('g.node').filter(equals(selectedValue)).classed('selected', true)
+    }
   }, [inner, selectedValue])
 
   useEffect(() => {
@@ -40,8 +42,6 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   useEffect(() => {
     renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, selectedValue })
   }, [dim, edges])
-
-  useEffect(() => activateSelectedNode({ selectedNode, inner }), [selectedNode])
 
   return (
     <figure className={classNames.figure} ref={figure}>
@@ -114,15 +114,9 @@ const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, selec
   scaleGraph(graph, inner, zoom, dim)
   setInner(inner)
 
-  const allNodes = inner.selectAll('g.node')
-
   inner.selectAll('g.node').attr('pointer-events', 'all').on('click', function(id, i) {
     onNodeSelected(d3.select(this), id)
   })
-
-  if (!selectedNode && !allNodes.empty()) {
-    onNodeSelected(inner.selectAll('g.node').filter(equals(selectedValue)))
-  }
 }
 
 const scaleGraph = (graph, svg, zoom, dim) => {
@@ -141,14 +135,4 @@ const scaleGraph = (graph, svg, zoom, dim) => {
 const updateDim = ({ figure, setDim }) => {
   const { offsetHeight, offsetWidth } = figure.current
   setDim({ height: offsetHeight, width: offsetWidth })
-}
-
-const activateSelectedNode = ({ selectedNode, inner }) => {
-  if (inner) {
-    inner.selectAll('g.node').classed('selected', false)
-  }
-
-  if (selectedNode) {
-    selectedNode.classed('selected', true)
-  }
 }
