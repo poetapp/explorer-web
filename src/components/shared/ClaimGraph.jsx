@@ -27,6 +27,9 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
 
   useEffect(() => {
     updateDim({ figure, setDim })
+  }, [])
+
+  useEffect(() => {
     window.addEventListener('resize', () => updateDim({ figure, setDim })) // TODO: useWindowEventListener hook+unhook
   }, [])
 
