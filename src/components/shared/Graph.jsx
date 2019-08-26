@@ -18,8 +18,12 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
 
   useEffect(() => {
     if (svg && selectedValue) {
-      svg.selectAll('g.node').filter(pipe(equals(selectedValue), not)).classed('selected', false)
-      svg.selectAll('g.node').filter(equals(selectedValue)).classed('selected', true)
+      const unselectedNodes = svg.selectAll('g.node').filter(pipe(equals(selectedValue), not))
+      const selectedNodes = svg.selectAll('g.node').filter(equals(selectedValue))
+      unselectedNodes.classed('selected', false)
+      unselectedNodes.select('image').attr('xlink:href', TextDocumentWhite)
+      selectedNodes.classed('selected', true)
+      selectedNodes.select('image').attr('xlink:href', TextDocumentGreen)
     }
   }, [svg, selectedValue])
 
@@ -72,7 +76,8 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
     label: '',
     width: nodeSize,
     height: nodeSize,
-    shape: node !== rootNode ? 'circle' : 'diamond',
+    shape: node !== rootNode ? 'circle' : 'image',
+    imageUrl: TextDocumentWhite,
   })
 
   nodes.forEach(node => graph.setNode(node, nodeToGraphNode(node)))
@@ -98,11 +103,35 @@ const renderGraph = ({ graph, onNodeSelected }) => {
   const svg = d3.select('svg')
   const inner = svg.select('g')
 
+  render.shapes().image = renderImage
   render(inner, graph)
 
   svg.selectAll('g.node').attr('pointer-events', 'all').on('click', onNodeSelected)
 
   return svg
+}
+
+const renderImage = (parent, bbox, node) => {
+  const w = bbox.width
+  const h = bbox.height
+  const points = [
+    { x: 0, y: 0 },
+    { x: w, y: 0 },
+    { x: w, y: -h },
+    { x: 0, y: -h },
+  ]
+  const shapeSvg = parent.insert("image", ":first-child")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", w)
+    .attr("height", h)
+    .attr("xlink:href", node.imageUrl)
+    .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")")
+
+  node.intersect = point =>
+    dagreD3.intersect.rect(node, points);
+
+  return shapeSvg
 }
 
 const scaleGraph = (graph, svg, size) => {
