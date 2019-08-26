@@ -7,9 +7,9 @@ import { uriToExplorerLink } from 'helpers/links'
 import { ApiContext } from 'providers/ApiProvider'
 import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
 
+import { Graph } from 'components/shared/Graph'
 import { Main } from 'components/templates/Main'
 import { Tabs, Tab } from 'components/shared/Tabs'
-import { Graph } from 'components/shared/ClaimGraph'
 
 import { IPFS, Bitcoin, QuillS3 } from 'Images'
 

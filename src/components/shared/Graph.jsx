@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState, useMemo } from 'react'
 
 import { ClaimWhite } from 'Images'
 
-import classNames from './ClaimGraph.scss'
+import classNames from './Graph.scss'
 
 const edgesToNodes = pipe(map(values), flatten, uniq)
 
