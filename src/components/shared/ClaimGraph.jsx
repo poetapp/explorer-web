@@ -12,17 +12,17 @@ const nodeSize = 10
 
 export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [dim, setDim] = useState(false)
-  const [inner, setInner] = useState(false)
+  const [svg, setSvg] = useState(false)
   const figure = useRef(null)
 
   const graph = useMemo(() => dagreFromEdges(edges), [edges])
 
   useEffect(() => {
-    if (inner && selectedValue) {
-      inner.selectAll('g.node').filter(pipe(equals(selectedValue), not)).classed('selected', false)
-      inner.selectAll('g.node').filter(equals(selectedValue)).classed('selected', true)
+    if (svg && selectedValue) {
+      svg.selectAll('g.node').filter(pipe(equals(selectedValue), not)).classed('selected', false)
+      svg.selectAll('g.node').filter(equals(selectedValue)).classed('selected', true)
     }
-  }, [inner, selectedValue])
+  }, [svg, selectedValue])
 
   useEffect(() => {
     updateDim({ figure, setDim })
@@ -30,7 +30,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   }, [])
 
   useEffect(() => {
-    setInner(renderGraph({ dim, graph, onNodeSelected }))
+    setSvg(renderGraph({ dim, graph, onNodeSelected }))
   }, [dim, edges])
 
   return (
@@ -83,9 +83,9 @@ const renderGraph = ({ graph, dim, onNodeSelected }) => {
   render(inner, graph)
   scaleGraph(graph, inner, zoom, dim)
 
-  inner.selectAll('g.node').attr('pointer-events', 'all').on('click', onNodeSelected)
+  svg.selectAll('g.node').attr('pointer-events', 'all').on('click', onNodeSelected)
 
-  return inner
+  return svg
 }
 
 const scaleGraph = (graph, svg, zoom, dim) => {
