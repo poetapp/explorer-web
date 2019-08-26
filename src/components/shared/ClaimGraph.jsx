@@ -35,27 +35,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
 
   return (
     <figure className={classNames.figure} ref={figure}>
-      <style>{`
-        .node rect,
-        .node circle,
-        .node ellipse {
-          stroke: #333;
-          fill: #fff;
-          stroke-width: 1px;
-          border-radius: ${nodeSize / 2}px;
-        }
-
-        .node.selected circle {
-          fill: #abc;
-        }
-
-        .edgePath path {
-          stroke: #333;
-          fill: #333;
-          stroke-width: 1.5px;
-        }
-      `}</style>
-
+      <GraphStyle nodeSize={nodeSize} />
       <svg>
         <g/>
       </svg>
@@ -125,3 +105,28 @@ const updateDim = ({ figure, setDim }) => {
   const { offsetHeight, offsetWidth } = figure.current
   setDim({ height: offsetHeight, width: offsetWidth })
 }
+
+const GraphStyle = ({ nodeSize }) => (
+  <style>
+    {`
+      .node rect,
+      .node circle,
+      .node ellipse {
+        stroke: #333;
+        fill: #fff;
+        stroke-width: 1px;
+        border-radius: ${nodeSize / 2}px;
+      }
+
+      .node.selected circle {
+        fill: #abc;
+      }
+
+      .edgePath path {
+        stroke: #333;
+        fill: #333;
+        stroke-width: 1.5px;
+      }
+    `}
+  </style>
+)
