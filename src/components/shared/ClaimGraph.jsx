@@ -34,7 +34,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   }, [])
 
   useEffect(() => {
-    renderGraph({ dim, graph, setInner, onNodeSelected: onNodeSelectedWrapper })
+    setInner(renderGraph({ dim, graph, onNodeSelected: onNodeSelectedWrapper }))
   }, [dim, edges])
 
   return (
@@ -95,7 +95,7 @@ const dagreFromEdges = edges => {
   return graph
 }
 
-const renderGraph = ({ dim, setInner, onNodeSelected, graph }) => {
+const renderGraph = ({ dim, onNodeSelected, graph }) => {
   if (!dim) return
 
   const render = dagreD3.render()
@@ -106,11 +106,12 @@ const renderGraph = ({ dim, setInner, onNodeSelected, graph }) => {
   svg.call(zoom)
   render(inner, graph)
   scaleGraph(graph, inner, zoom, dim)
-  setInner(inner)
 
   inner.selectAll('g.node').attr('pointer-events', 'all').on('click', function(id, i) {
     onNodeSelected(d3.select(this), id)
   })
+
+  return inner
 }
 
 const scaleGraph = (graph, svg, zoom, dim) => {
