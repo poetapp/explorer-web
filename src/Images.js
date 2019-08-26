@@ -10,4 +10,5 @@ export Bitcoin from 'images/bitcoin.png'
 
 export PoeVerifiedBadge from 'images/poe-verified.svg'
 
-export ClaimWhite from 'images/claim-white.png'
+export TextDocumentWhite from 'images/text-document-white.svg'
+export TextDocumentGreen from 'images/text-document-green.svg'

@@ -3,7 +3,7 @@ import dagreD3 from 'dagre-d3'
 import { pipe, map, equals, not, values, flatten, uniq } from 'ramda'
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 
-import { ClaimWhite } from 'Images'
+import { TextDocumentWhite, TextDocumentGreen } from 'Images'
 
 import classNames from './Graph.scss'
 
