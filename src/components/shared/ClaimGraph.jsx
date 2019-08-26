@@ -8,17 +8,15 @@ import { ClaimWhite } from 'Images'
 import classNames from './ClaimGraph.scss'
 
 const grey = '#969696'
-const graphMargin = 24
-const nodeSize = 10
 
 const edgesToNodes = pipe(map(values), flatten, uniq)
 
-export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
+export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, margin = 24 }) => {
   const [figureSize, setFigureSize] = useState(false)
   const [svg, setSvg] = useState(false)
   const figure = useRef(null)
 
-  const graph = useMemo(() => dagreFromEdges(edges), [edges])
+  const graph = useMemo(() => dagreFromEdges(edges, margin, nodeSize), [edges])
 
   useEffect(() => {
     if (svg && selectedValue) {
@@ -56,14 +54,14 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   )
 }
 
-const dagreFromEdges = edges => {
+const dagreFromEdges = (edges, margin, nodeSize) => {
   const graph = new dagreD3.graphlib.Graph()
   const nodes = edgesToNodes(edges)
 
   graph.setGraph({
     rankdir: 'BT',
-    marginx: graphMargin,
-    marginy: graphMargin,
+    marginx: margin,
+    marginy: margin,
   })
 
   graph.setDefaultEdgeLabel(() => ({}))
