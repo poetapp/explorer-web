@@ -18,9 +18,8 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
 
   const graph = useMemo(() => dagreFromEdges(edges), [edges])
 
-  const onNodeSelectedWrapper = (node, id = selectedValue) => {
-    if (id !== selectedValue)
-      onNodeSelected(id)
+  const onNodeSelectedWrapper = (node, id) => {
+    onNodeSelected(id)
   }
 
   useEffect(() => {
