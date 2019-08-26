@@ -12,7 +12,6 @@ const nodeSize = 10
 
 export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [dim, setDim] = useState(false)
-  const [selectedNode, setSelectedNode] = useState(false)
   const [inner, setInner] = useState(false)
   const figure = useRef(null)
   // const g = useRef(null)
@@ -20,9 +19,6 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const graph = useMemo(() => dagreFromEdges(edges), [edges])
 
   const onNodeSelectedWrapper = (node, id = selectedValue) => {
-    console.log('onNodeSelectedWrapper', node, id)
-    setSelectedNode(node)
-
     if (id !== selectedValue)
       onNodeSelected(id)
   }
@@ -40,7 +36,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   }, [])
 
   useEffect(() => {
-    renderGraph({ dim, graph, setInner, selectedNode, onNodeSelected: onNodeSelectedWrapper, selectedValue })
+    renderGraph({ dim, graph, setInner, onNodeSelected: onNodeSelectedWrapper })
   }, [dim, edges])
 
   return (
@@ -101,7 +97,7 @@ const dagreFromEdges = edges => {
   return graph
 }
 
-const renderGraph = ({ dim, setInner, selectedNode, onNodeSelected, graph, selectedValue }) => {
+const renderGraph = ({ dim, setInner, onNodeSelected, graph }) => {
   if (!dim) return
 
   const render = dagreD3.render()
