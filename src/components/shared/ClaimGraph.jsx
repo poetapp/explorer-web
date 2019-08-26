@@ -17,10 +17,6 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
 
   const graph = useMemo(() => dagreFromEdges(edges), [edges])
 
-  const onNodeSelectedWrapper = (node, id) => {
-    onNodeSelected(id)
-  }
-
   useEffect(() => {
     if (inner && selectedValue) {
       inner.selectAll('g.node').filter(pipe(equals(selectedValue), not)).classed('selected', false)
@@ -34,7 +30,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   }, [])
 
   useEffect(() => {
-    setInner(renderGraph({ dim, graph, onNodeSelected: onNodeSelectedWrapper }))
+    setInner(renderGraph({ dim, graph, onNodeSelected }))
   }, [dim, edges])
 
   return (
@@ -107,9 +103,7 @@ const renderGraph = ({ graph, dim, onNodeSelected }) => {
   render(inner, graph)
   scaleGraph(graph, inner, zoom, dim)
 
-  inner.selectAll('g.node').attr('pointer-events', 'all').on('click', function(id, i) {
-    onNodeSelected(d3.select(this), id)
-  })
+  inner.selectAll('g.node').attr('pointer-events', 'all').on('click', onNodeSelected)
 
   return inner
 }
