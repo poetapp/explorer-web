@@ -24,6 +24,8 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
   }, [svg, selectedValue])
 
   useEffect(() => {
+    if (!figure.current)
+      return
     const updateFigureSize = () => {
       const { offsetHeight, offsetWidth } = figure.current
       setFigureSize({ height: offsetHeight, width: offsetWidth })
@@ -31,7 +33,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
     updateFigureSize()
     window.addEventListener('resize', updateFigureSize)
     return () => window.removeEventListener('resize', updateFigureSize)
-  }, [])
+  }, [figure.current])
 
   useEffect(() => {
     setSvg(renderGraph({ graph, onNodeSelected }))
