@@ -14,7 +14,6 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   const [dim, setDim] = useState(false)
   const [inner, setInner] = useState(false)
   const figure = useRef(null)
-  // const g = useRef(null)
 
   const graph = useMemo(() => dagreFromEdges(edges), [edges])
 
