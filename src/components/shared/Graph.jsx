@@ -58,7 +58,10 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
   const graph = new dagreD3.graphlib.Graph()
   const nodes = edgesToNodes(edges).sort((a, b) => a.localeCompare(b))
   const rootNode = nodes.find(node => !edges.some(({ origin }) => origin === node))
-  const sortedEdges = edges.sort((a, b) => a.origin.localeCompare(b.origin))
+  const sortedEdges = edges.sort((a, b) => {
+    const originComparison = a.origin.localeCompare(b.origin)
+    return originComparison !== 0 ? originComparison : a.target.localeCompare(b.target)
+  })
 
   graph.setGraph({
     rankdir: 'BT',
