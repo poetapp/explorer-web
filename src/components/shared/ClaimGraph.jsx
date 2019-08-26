@@ -12,7 +12,7 @@ const graphMargin = 24
 const nodeSize = 10
 
 export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
-  const [dim, setDim] = useState(false)
+  const [figureSize, setFigureSize] = useState(false)
   const [svg, setSvg] = useState(false)
   const figure = useRef(null)
 
@@ -28,7 +28,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   useEffect(() => {
     const updateDim = () => {
       const { offsetHeight, offsetWidth } = figure.current
-      setDim({ height: offsetHeight, width: offsetWidth })
+      setFigureSize({ height: offsetHeight, width: offsetWidth })
     }
     updateDim()
     window.addEventListener('resize', updateDim)
@@ -40,9 +40,9 @@ export const Graph = ({ edges, selectedValue, onNodeSelected }) => {
   }, [edges])
 
   useEffect(() => {
-    if (dim && svg)
-      scaleGraph(graph, svg, dim)
-  }, [dim, svg])
+    if (figureSize && svg)
+      scaleGraph(graph, svg, figureSize)
+  }, [figureSize, svg])
 
   return (
     <figure className={classNames.figure} ref={figure}>
@@ -94,12 +94,12 @@ const renderGraph = ({ graph, onNodeSelected }) => {
   return svg
 }
 
-const scaleGraph = (graph, svg, dim) => {
+const scaleGraph = (graph, svg, size) => {
   const graphWidth = graph.graph().width + graphMargin
   const graphHeight = graph.graph().height + graphMargin
-  const zoomScale = Math.min(dim.width / graphWidth, dim.height / graphHeight)
-  const translateX = (dim.width / 2) - ((graphWidth * zoomScale) / 2)
-  const translateY = (dim.height / 2) - ((graphHeight * zoomScale) / 2)
+  const zoomScale = Math.min(size.width / graphWidth, size.height / graphHeight)
+  const translateX = (size.width / 2) - ((graphWidth * zoomScale) / 2)
+  const translateY = (size.height / 2) - ((graphHeight * zoomScale) / 2)
   const transform =  d3.zoomIdentity
     .translate(translateX, translateY)
     .scale(zoomScale)
