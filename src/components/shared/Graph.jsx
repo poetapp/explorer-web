@@ -57,6 +57,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
 const dagreFromEdges = (edges, margin, nodeSize) => {
   const graph = new dagreD3.graphlib.Graph()
   const nodes = edgesToNodes(edges)
+  const rootNode = nodes.find(node => !edges.some(({ origin }) => origin === node))
 
   graph.setGraph({
     rankdir: 'BT',
@@ -66,11 +67,11 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
 
   graph.setDefaultEdgeLabel(() => ({}))
 
-  nodes.forEach(id => graph.setNode(id, {
+  nodes.forEach(value => graph.setNode(value, {
     label: '',
     width: nodeSize,
     height: nodeSize,
-    shape: 'circle',
+    shape: value !== rootNode ? 'circle' : 'diamond',
   }))
 
   edges.forEach(({ origin, target }) => graph.setEdge(origin, target, {
