@@ -4,6 +4,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 console.log('Building with WebPack', process.env.NODE_ENV)
 
+const isDevelopmentMode = process.env.NODE_ENV === 'development'
+
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
   template: path.join(__dirname, 'src/index.html'),
   filename: './index.html',
@@ -43,6 +45,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: true,
+              localIdentName: isDevelopmentMode ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64]',
               importLoaders: 2,
             },
           },
