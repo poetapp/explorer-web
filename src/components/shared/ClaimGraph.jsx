@@ -24,13 +24,13 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
   }, [svg, selectedValue])
 
   useEffect(() => {
-    const updateDim = () => {
+    const updateFigureSize = () => {
       const { offsetHeight, offsetWidth } = figure.current
       setFigureSize({ height: offsetHeight, width: offsetWidth })
     }
-    updateDim()
-    window.addEventListener('resize', updateDim)
-    return () => window.removeEventListener('resize', updateDim)
+    updateFigureSize()
+    window.addEventListener('resize', updateFigureSize)
+    return () => window.removeEventListener('resize', updateFigureSize)
   }, [])
 
   useEffect(() => {
