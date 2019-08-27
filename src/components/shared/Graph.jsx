@@ -76,7 +76,7 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
     label: '',
     width: nodeSize,
     height: nodeSize,
-    shape: node !== rootNode ? 'circle' : 'image',
+    shape: node.startsWith('poet:') ? 'circle' : 'image',
   })
 
   nodes.forEach(node => graph.setNode(node, nodeToGraphNode(node)))
