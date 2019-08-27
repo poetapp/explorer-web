@@ -101,7 +101,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       author,
       tags,
       content,
-      ...(about && {about: about.split(',')}),
+      ...(about && {about: about.trim().split(',').map(_ => _.trim())}),
       ...fields,
     }
 

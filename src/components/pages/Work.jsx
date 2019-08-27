@@ -76,7 +76,7 @@ const Work = ({ work, uri, graphEdges }) => {
       <aside className={classNames.sidebar}>
         <header className={classNames.sidebarHeader}>
           <Overview work={work} uri={uri} />
-          <MakeClaimButton claimId={work?.id} />
+          <MakeClaimButton uri={uri || claimUri} />
         </header>
         <Tabs>
           { (uri || workIsNotAboutClaim) && (
@@ -248,8 +248,8 @@ const BadgeUrl = ({ workId, date }) => {
   )
 }
 
-const MakeClaimButton = ({ claimId }) => {
-  const href = `/new-claim?about=${encodeURIComponent('poet:claims/' + claimId)}`
+const MakeClaimButton = ({ uri }) => {
+  const href = `/new-claim?about=${encodeURIComponent(uri)}`
 
   return (
     <Link to={href}>

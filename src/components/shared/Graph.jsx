@@ -61,7 +61,6 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
 const dagreFromEdges = (edges, margin, nodeSize) => {
   const graph = new dagreD3.graphlib.Graph()
   const nodes = edgesToNodes(edges).sort((a, b) => a.localeCompare(b))
-  const rootNode = nodes.find(node => !edges.some(({ origin }) => origin === node))
   const sortedEdges = edges.sort(compareEdgesAlphabetically)
 
   graph.setGraph({
@@ -76,7 +75,7 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
     label: '',
     width: nodeSize,
     height: nodeSize,
-    shape: node !== rootNode ? 'circle' : 'image',
+    shape: node.startsWith('poet:') ? 'circle' : 'image',
     imageUrl: TextDocumentWhite,
   })
 
@@ -125,7 +124,7 @@ const renderImage = (parent, bbox, node) => {
     .attr("y", 0)
     .attr("width", w)
     .attr("height", h)
-    .attr("xlink:href", node.imageUrl)
+    .attr("xlink:href", TextDocumentWhite)
     .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")")
 
   node.intersect = point =>
