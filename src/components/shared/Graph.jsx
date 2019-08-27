@@ -76,6 +76,7 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
     width: nodeSize,
     height: nodeSize,
     shape: node.startsWith('poet:') ? 'circle' : 'image',
+    imageUrl: TextDocumentWhite,
   })
 
   nodes.forEach(node => graph.setNode(node, nodeToGraphNode(node)))
