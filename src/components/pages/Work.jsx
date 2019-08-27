@@ -329,9 +329,11 @@ const Metadata = ({ work }) => (
 
 const UriGraph = ({ children, edges, selectedNode, onNodeSelected }) => (
   <section className={classNames.graph}>
-    <figcaption>
-      { children }
-    </figcaption>
+    <header>
+      <figcaption>
+        { children }
+      </figcaption>
+    </header>
     <Graph edges={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
   </section>
 )
