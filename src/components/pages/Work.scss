@@ -29,6 +29,7 @@ $header-height: 60px;
     font-family: $roboto-slab;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: initial;
   }
 
   table {
