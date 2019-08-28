@@ -28,7 +28,7 @@ export const NewClaim = ({ about }) => {
 
     return {
       ...claim,
-      archiveUrl,
+      about: [archiveUrl],
       hash,
     }
   }
