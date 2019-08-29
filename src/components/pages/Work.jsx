@@ -231,10 +231,6 @@ const MakeClaimButton = ({ uri }) => {
 const ContentTab = ({ work, uri }) => (
   <>
     <Content archiveUrl={work?.claim?.archiveUrl || work?.claim?.about?.[0] || uri}/>
-    { !uri && <Links
-      bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
-      ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
-    />}
   </>
 )
 
@@ -281,6 +277,10 @@ const LinkedClaimsList = ({ linkedClaims }) => (
 
 const TechnicalTab = ({ work }) => (
   <section>
+    <Links
+      bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
+      ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
+    />
     <Metadata work={work} />
   </section>
 )

@@ -118,6 +118,7 @@ $header-height: 60px;
 .links {
   h1 {
     @extend .sidebarH1;
+    margin-top: 0px;
   }
 
   >main {
@@ -305,7 +306,6 @@ $header-height: 60px;
 .metadata {
   h1 {
     @extend .sidebarH1;
-    margin-top: 4px;
   }
 
   pre {
