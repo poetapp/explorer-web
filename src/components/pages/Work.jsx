@@ -23,6 +23,7 @@ export const WorkById = ({ id, uri }) => {
   const { api, poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
   const [graphEdges, setGraphEdges] = useState([])
+  const [graphEdgesWithArchiveUrl, setGraphEdgesWithArchiveUrl] = useState([])
 
   useEffect(() => {
     if (api && id) api.workGetById(id).then(setWork)
@@ -30,22 +31,28 @@ export const WorkById = ({ id, uri }) => {
   }, [api, id])
 
   useEffect(() => {
-    if (poetNodeApi && work) {
-      poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri)).then(graphEdges => {
-        setGraphEdges([
-          ...graphEdges.filter(({ origin, target }) => origin && target),
-          ...(work?.claim?.archiveUrl && [{ origin: `poet:claims/${work?.id}`, target: work?.claim?.archiveUrl }]),
-        ])
-      })
+    if (poetNodeApi) {
+      poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri))
+        .then(graphEdges => graphEdges.filter(({ origin, target }) => origin && target))
+        .then(setGraphEdges)
     }
-  }, [poetNodeApi, work])
+  }, [poetNodeApi])
+
+  useEffect(() => {
+    if (work && graphEdges) {
+      setGraphEdgesWithArchiveUrl([
+        ...graphEdges,
+        ...(work?.claim?.archiveUrl ? [{ origin: `poet:claims/${work?.id}`, target: work?.claim?.archiveUrl }] : []),
+      ])
+    }
+  }, [work, graphEdges])
 
   return (
     <Main scrollDisabled={true}>
       {
-        !work && !uri && !graphEdges
+        !work && !uri
           ? <NoWork />
-          : <Work work={work} uri={uri} graphEdges={graphEdges} />
+          : <Work work={work} uri={uri} graphEdges={graphEdgesWithArchiveUrl} />
       }
     </Main>
   )
