@@ -11,7 +11,7 @@ import { Graph } from 'components/shared/Graph'
 import { Main } from 'components/templates/Main'
 import { Tabs, Tab } from 'components/shared/Tabs'
 
-import { IPFS, Bitcoin, QuillS3 } from 'Images'
+import { IPFS, Bitcoin } from 'Images'
 
 import classNames from './Work.scss'
 
