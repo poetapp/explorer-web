@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { equals } from 'ramda'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -233,14 +234,17 @@ const MakeClaimButton = ({ uri }) => {
 }
 
 const LinkedClaimsTab = ({ uri, graphEdges }) => {
-  const originOfClaims = graphEdges.filter(({ origin }) => origin === uri).map(({ target }) => ({
-    uri: target,
-    name: target,
+  const originOfUris = graphEdges.filter(({ origin }) => origin === uri).map(({ target }) => target)
+  const targetOfUris = graphEdges.filter(({ target }) => target === uri).map(({ origin }) => origin)
+
+  const originOfClaims = originOfUris.map(uri => ({
+    uri,
+    name: uri,
     date: 'July 19th 2019',
   }))
-  const targetOfClaims = graphEdges.filter(({ target }) => target === uri).map(({ origin }) => ({
-    uri: origin,
-    name: origin,
+  const targetOfClaims = targetOfUris.map(uri => ({
+    uri,
+    name: uri,
     date: 'July 19th 2019',
   }))
 
