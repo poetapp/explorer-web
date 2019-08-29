@@ -5,3 +5,5 @@ export const uriToExplorerLink = uri =>
 
 export const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 export const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
+export const urlIsIpfs = url => url.startsWith('https://ipfs.io/ipfs/')
+export const ipfsUrlToHash = url => url.split('/').reverse()[0]

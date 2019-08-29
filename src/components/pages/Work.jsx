@@ -2,7 +2,7 @@ import moment from 'moment'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import { uriToExplorerLink, bitcoinLink, ipfsLink } from 'helpers/links'
+import { uriToExplorerLink, bitcoinLink, ipfsLink, urlIsIpfs, ipfsUrlToHash } from 'helpers/links'
 
 import { ApiContext } from 'providers/ApiProvider'
 import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
@@ -14,10 +14,6 @@ import { Tabs, Tab } from 'components/shared/Tabs'
 import { IPFS, Bitcoin } from 'Images'
 
 import classNames from './Work.scss'
-
-const urlIsIpfs = url => url.startsWith('https://ipfs.io/ipfs/')
-
-const ipfsUrlToHash = url => url.split('/').reverse()[0]
 
 export const WorkById = ({ id, uri }) => {
   const { api, poetNodeApi } = useContext(ApiContext)
