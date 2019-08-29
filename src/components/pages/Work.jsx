@@ -216,44 +216,6 @@ const Content = ({ archiveUrl }) => {
   )
 }
 
-const AuthenticationBadgePreview = ({ workId, date }) => {
-  const formatDate = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
-  return (
-    <section className={classNames.badgePreview}>
-      <h1>Badge Info</h1>
-      <BadgeUrl workId={workId} date={formatDate(date)} />
-      <Badge date={formatDate(date)}/>
-    </section>
-  )
-}
-
-const Badge = ({ date }) => (
-  <section className={classNames.badge}>
-    <img src={QuillS3}/>
-    <h1>Licensed via Po.et</h1>
-    <span>{date}</span>
-  </section>
-)
-
-const BadgeUrl = ({ workId, date }) => {
-  const textarea = useRef()
-  const [copied, setCopied] = useState(false)
-
-  const onCopy = () => {
-    textarea.current?.select()
-    document.execCommand('copy')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 3000)
-  }
-
-  return (
-    <section className={classNames.badgeUrl}>
-      <textarea value={badgeCode({ workId, date })} readOnly={true} ref={textarea} />
-      <button onClick={onCopy}>{!copied ? 'Copy' : 'Copied!'}</button>
-    </section>
-  )
-}
-
 const MakeClaimButton = ({ uri }) => {
   const href = `/new-claim?about=${encodeURIComponent(uri)}`
 
@@ -269,7 +231,6 @@ const MakeClaimButton = ({ uri }) => {
 const ContentTab = ({ work, uri }) => (
   <>
     <Content archiveUrl={work?.claim?.archiveUrl || work?.claim?.about?.[0] || uri}/>
-    { !uri && <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/> }
     { !uri && <Links
       bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
       ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
