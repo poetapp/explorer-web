@@ -217,7 +217,7 @@ const Links = ({ ipfsLink, bitcoinLink }) => (
 
 const ContentTab = ({ uri }) => (
   <section className={classNames.content}>
-    <h1>Content</h1>
+    <h1>Content Preview</h1>
     <main>
       <iframe sandbox="" src={uri} />
     </main>
@@ -289,7 +289,7 @@ const TechnicalTab = ({ work }) => (
 
 const Metadata = ({ work }) => (
   <section className={classNames.metadata}>
-    <h1>Metadata</h1>
+    <h1>Metadata Preview</h1>
     <pre>
       { JSON.stringify(work, null, 2)}
     </pre>
