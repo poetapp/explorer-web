@@ -30,13 +30,12 @@ export const WorkById = ({ id, uri }) => {
   }, [api, id])
 
   useEffect(() => {
-    if (poetNodeApi) {
+    if (poetNodeApi && work) {
       poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri)).then(graphEdges => {
-        if (graphEdges?.length) {
-          setGraphEdges(graphEdges)
-        } else if (work) {
-          setGraphEdges([{ origin: `poet:claims/${work?.id}`, target: work?.claim?.archiveUrl }])
-        }
+        setGraphEdges([
+          ...graphEdges.filter(({ origin, target }) => origin && target),
+          ...(work?.claim?.archiveUrl && [{ origin: `poet:claims/${work?.id}`, target: work?.claim?.archiveUrl }]),
+        ])
       })
     }
   }, [poetNodeApi, work])
