@@ -203,16 +203,14 @@ const Links = ({ ipfsLink, bitcoinLink }) => (
   </section>
 )
 
-const Content = ({ archiveUrl }) => {
-  return (
-    <section className={classNames.content}>
-      <h1>Content</h1>
-      <main>
-        <iframe sandbox="" src={archiveUrl} />
-      </main>
-    </section>
-  )
-}
+const ContentTab = ({ uri }) => (
+  <section className={classNames.content}>
+    <h1>Content</h1>
+    <main>
+      <iframe sandbox="" src={uri} />
+    </main>
+  </section>
+)
 
 const MakeClaimButton = ({ uri }) => {
   const href = `/new-claim?about=${encodeURIComponent(uri)}`
@@ -225,12 +223,6 @@ const MakeClaimButton = ({ uri }) => {
     </Link>
   )
 }
-
-const ContentTab = ({ uri }) => (
-  <>
-    <Content archiveUrl={uri}/>
-  </>
-)
 
 const LinkedClaimsTab = ({ uri, graphEdges }) => {
   const originOfClaims = graphEdges.filter(({ origin }) => origin === uri).map(({ target }) => ({
