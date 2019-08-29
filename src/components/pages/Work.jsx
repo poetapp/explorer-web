@@ -145,17 +145,30 @@ const WorkOverview = ({ work }) => {
     fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1).replace(/([A-Z])/g, ' $1')
   )
 
+  const {
+    author,
+    datePublished,
+    issuer,
+    tags,
+    name,
+    about,
+    hash,
+    dateCreated,
+    archiveUrl,
+    ...customFields
+  } = work?.claim
+
   const info = {
-    author: work?.claim.author,
-    timestamp: formatDate(work?.claim.datePublished),
-    claimMadeBy: <Issuer issuer={work?.issuer} />,
-    // tags: tags,
-    // ...customFields,
+    author,
+    timestamp: formatDate(datePublished),
+    claimMadeBy: <Issuer issuer={issuer} />,
+    tags,
+    ...customFields,
   }
 
   return (
     <section className={classNames.overview}>
-      <h1>{work?.claim?.name}</h1>
+      <h1>{name}</h1>
       <table>
         <tbody>
           {Object.entries(info).map(([fieldName, fieldValue], key) => (
