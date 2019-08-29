@@ -148,7 +148,6 @@ const WorkOverview = ({ work }) => {
   const info = {
     author: work?.claim.author,
     timestamp: formatDate(work?.claim.datePublished),
-    // TODO: Follow up whether these should be included
     claimMadeBy: <Issuer issuer={work?.issuer} />,
     // tags: tags,
     // ...customFields,
@@ -297,53 +296,3 @@ const UriGraph = ({ children, edges, selectedNode, onNodeSelected }) => (
 
 const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
 const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
-const baseUrl = 'https://explorer-mainnet.poetnetwork.net'
-
-const badgeCode = ({ workId, date }) => badgeHTML({ workId, date }) + '\n\n' + badgeCSS
-
-const badgeHTML = ({ workId, date }) => (
-  `<a href="${baseUrl}/works/${workId}" class="poet-badge" >\n` +
-  `  <img src="${QuillS3}" />\n` +
-  `  <h1>Licensed via Po.et</h1>\n` +
-  `  <span>${date}</span>\n` +
-  '</a>'
-)
-
-const badgeCSS = `
-  <style type="text/css">
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
-
-    .poet-badge {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto;
-      grid-column-gap: 8px;
-      align-items: center;
-      background-color: white;
-      padding: 8px 10px;
-      border: 1px solid #dfdfdf;
-      border-radius: 4px;
-      width: 190px;
-      margin-bottom: 15px;
-      text-decoration: none;
-      font-family: "Open Sans";
-      color: #333;
-    }
-
-    .poet-badge img {
-      grid-row: 1 / 3;
-      width: 39px;
-      margin-right: 8px;
-    }
-
-    .poet-badge h1 {
-      margin: 0;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .poet-badge span {
-      font-size: 10px;
-    }
-  </style>
-`
