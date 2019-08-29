@@ -2,7 +2,7 @@ import moment from 'moment'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import { uriToExplorerLink } from 'helpers/links'
+import { uriToExplorerLink, bitcoinLink, ipfsLink } from 'helpers/links'
 
 import { ApiContext } from 'providers/ApiProvider'
 import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
@@ -306,6 +306,3 @@ const UriGraph = ({ children, edges, selectedNode, onNodeSelected }) => (
     <Graph edges={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
   </section>
 )
-
-const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
-const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
