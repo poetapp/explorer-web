@@ -23,6 +23,8 @@ import { IPFS, Bitcoin } from 'Images'
 
 import classNames from './Work.scss'
 
+const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
+
 export const WorkById = ({ id, uri }) => {
   const { api, poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
@@ -144,7 +146,6 @@ const Overview = ({ work, uri }) => (
 )
 
 const WorkOverview = ({ work }) => {
-  const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
   const formatFieldName = fieldName => (
     fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1).replace(/([A-Z])/g, ' $1')
   )
@@ -280,7 +281,7 @@ const LinkedClaimsTab = ({ uri, graphEdges }) => {
       return ({
         uri,
         name: work.claim?.name || uri,
-        date: work.claim?.datePublished,
+        date: formatDate(work.claim?.datePublished),
       })
     }
 
