@@ -1,9 +1,16 @@
 import moment from 'moment'
-import { equals } from 'ramda'
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { uriToExplorerLink, bitcoinLink, ipfsLink, urlIsIpfs, ipfsUrlToHash } from 'helpers/links'
+import {
+  uriToExplorerLink,
+  bitcoinLink,
+  ipfsLink,
+  urlIsIpfs,
+  ipfsUrlToHash,
+  urlIsPoetClaim,
+  poetClaimUrlToClaimId,
+} from 'helpers/links'
 
 import { ApiContext } from 'providers/ApiProvider'
 import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
@@ -66,8 +73,8 @@ const Work = ({ work, uri, graphEdges }) => {
   const claimUri = work && `poet:claims/${work.id}`
 
   const onNodeSelected = (node) => {
-    if (node.startsWith('poet:claims/'))
-      history.push(`/works/${node.split('/')[1]}`)
+    if (urlIsPoetClaim(node))
+      history.push(`/works/${poetClaimUrlToClaimId(node)}`)
     else
       history.push(`/archives/${encodeURIComponent(node)}`)
   }
@@ -234,19 +241,52 @@ const MakeClaimButton = ({ uri }) => {
 }
 
 const LinkedClaimsTab = ({ uri, graphEdges }) => {
-  const originOfUris = graphEdges.filter(({ origin }) => origin === uri).map(({ target }) => target)
-  const targetOfUris = graphEdges.filter(({ target }) => target === uri).map(({ origin }) => origin)
+  const { poetNodeApi } = useContext(ApiContext)
+  const [originOfClaims, setOriginOfClaims] = useState([])
+  const [targetOfClaims, setTargetOfClaims] = useState([])
+  const [originOfUris, setOriginOfUris] = useState([])
+  const [targetOfUris, setTargetOfUris] = useState([])
+  const [claimIds, setClaimIds] = useState()
+  const [works, setWorks] = useState([])
 
-  const originOfClaims = originOfUris.map(uri => ({
-    uri,
-    name: uri,
-    date: 'July 19th 2019',
-  }))
-  const targetOfClaims = targetOfUris.map(uri => ({
-    uri,
-    name: uri,
-    date: 'July 19th 2019',
-  }))
+  useEffect(() => {
+    setOriginOfUris(graphEdges.filter(({ origin }) => origin === uri).map(({ target }) => target))
+    setTargetOfUris(graphEdges.filter(({ target }) => target === uri).map(({ origin }) => origin))
+  }, [uri, graphEdges])
+
+  useEffect(() => {
+    const uris = [...new Set([...originOfUris, ...targetOfUris])]
+    setClaimIds(uris.filter(urlIsPoetClaim).map(poetClaimUrlToClaimId).sort((a, b) => a.localeCompare(b)))
+  }, [originOfUris, targetOfUris])
+
+  useEffect(() => {
+    if (poetNodeApi && claimIds?.length)
+      Promise.all(claimIds.map(poetNodeApi.works.get)).then(setWorks)
+  }, [poetNodeApi, claimIds])
+
+  useEffect(() => {
+    const hydrateUri = uri => urlIsPoetClaim(uri)
+      ? hydrateClaimUri(uri)
+      : hydrateNonClaimUri(uri)
+
+    const hydrateNonClaimUri = uri => ({
+      uri,
+      name: uri,
+      date: '',
+    })
+
+    const hydrateClaimUri = uri => {
+      const work = works.find(work => work.id === poetClaimUrlToClaimId(uri))
+      return ({
+        uri,
+        name: work.claim?.name || uri,
+        date: work.claim?.datePublished,
+      })
+    }
+
+    setOriginOfClaims(originOfUris.map(hydrateUri))
+    setTargetOfClaims(targetOfUris.map(hydrateUri))
+  }, [works])
 
   return (
     <section className={classNames.linkedClaims}>
