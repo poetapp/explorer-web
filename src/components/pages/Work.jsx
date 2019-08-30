@@ -280,14 +280,14 @@ const LinkedClaimsTab = ({ uri, graphEdges }) => {
       const work = works.find(work => work.id === poetClaimUrlToClaimId(uri))
       return ({
         uri,
-        name: work.claim?.name || uri,
-        date: formatDate(work.claim?.datePublished),
+        name: work?.claim?.name || uri,
+        date: formatDate(work?.claim?.datePublished),
       })
     }
 
     setOriginOfClaims(originOfUris.map(hydrateUri))
     setTargetOfClaims(targetOfUris.map(hydrateUri))
-  }, [works])
+  }, [originOfUris, targetOfUris, works])
 
   return (
     <section className={classNames.linkedClaims}>
