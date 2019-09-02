@@ -56,7 +56,7 @@ export const WorkById = ({ id, uri }) => {
   return (
     <Main scrollDisabled={true}>
       {
-        !work && !uri
+        !work && !uri && !graphEdgesWithArchiveUrl?.length
           ? <NoWork />
           : <Work work={work} uri={uri} graphEdges={graphEdgesWithArchiveUrl} />
       }
