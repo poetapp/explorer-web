@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { pipe } from 'ramda'
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -10,6 +11,7 @@ import {
   ipfsUrlToHash,
   urlIsPoetClaim,
   poetClaimUrlToClaimId,
+  claimIdToUri,
 } from 'helpers/links'
 
 import { ApiContext } from 'providers/ApiProvider'
@@ -25,6 +27,8 @@ import classNames from './Work.scss'
 
 const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
 
+const edgeReferencesUri = uri => ({ origin, target }) => origin === uri || target === uri
+
 export const WorkById = ({ id, uri }) => {
   const { poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
@@ -37,12 +41,20 @@ export const WorkById = ({ id, uri }) => {
   }, [poetNodeApi, id])
 
   useEffect(() => {
-    if (poetNodeApi) {
-      poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri))
-        .then(graphEdges => graphEdges.filter(({ origin, target }) => origin && target))
-        .then(setGraphEdges)
-    }
-  }, [poetNodeApi])
+    const graphIncludesUri = uri => graphEdges?.some(edgeReferencesUri(uri))
+    const graphIncludesClaimId = pipe(claimIdToUri, graphIncludesUri)
+
+    if (!poetNodeApi)
+      return
+    if ((uri && graphIncludesUri(uri)))
+      return
+    if (id && graphIncludesClaimId(id))
+      return
+
+    poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri))
+      .then(graphEdges => graphEdges.filter(({ origin, target }) => origin && target))
+      .then(setGraphEdges)
+  }, [poetNodeApi, uri, id])
 
   useEffect(() => {
     if (work && graphEdges) {
