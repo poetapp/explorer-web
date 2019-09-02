@@ -26,15 +26,15 @@ import classNames from './Work.scss'
 const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
 
 export const WorkById = ({ id, uri }) => {
-  const { api, poetNodeApi } = useContext(ApiContext)
+  const { poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
   const [graphEdges, setGraphEdges] = useState([])
   const [graphEdgesWithArchiveUrl, setGraphEdgesWithArchiveUrl] = useState([])
 
   useEffect(() => {
-    if (api && id) api.workGetById(id).then(setWork)
+    if (poetNodeApi && id) poetNodeApi.works.get(id).then(setWork)
     else if (!id) setWork()
-  }, [api, id])
+  }, [poetNodeApi, id])
 
   useEffect(() => {
     if (poetNodeApi) {
