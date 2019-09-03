@@ -82,6 +82,10 @@ const dagreFromEdges = (edges, margin, nodeSize) => {
 
   sortedEdges.forEach(({ origin, target }) => graph.setEdge(origin, target, {
     minlen: 2,
+    curve: d3.curveBasis,
+    // curve: d3.curveBundle,
+    // curve: d3.curveLinear,
+    // curve: d3.curveMonotoneY,
   }))
 
   dagreD3.dagre.layout(graph)
