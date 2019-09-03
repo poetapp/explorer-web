@@ -127,7 +127,7 @@ const renderImage = (parent, bbox, node) => {
     .attr("transform", "translate(" + (-w / 2) + "," + (-h / 2) + ")")
 
   node.intersect = point =>
-    dagreD3.intersect.rect(node, points);
+    dagreD3.intersect.rect(node, point);
 
   return shapeSvg
 }
