@@ -53,7 +53,7 @@ export const WorkById = ({ id, uri }) => {
 
     const filterOutBlankGraphEdges = graphEdges => graphEdges.filter(({ origin, target }) => origin && target)
 
-    poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri))
+    poetNodeApi.graph.get(encodeURIComponent(id ? claimIdToUri(id) : uri))
       .then(filterOutBlankGraphEdges)
       .then(setGraphEdges)
   }, [poetNodeApi, uri, id])
