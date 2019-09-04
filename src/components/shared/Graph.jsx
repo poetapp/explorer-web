@@ -17,14 +17,14 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
   const graph = useMemo(() => dagreFromEdges(edges, margin, nodeSize), [edges, margin, nodeSize])
 
   useEffect(() => {
-    if (svg && selectedValue) {
-      const unselectedNodes = svg.selectAll('g.node').filter(pipe(equals(selectedValue), not))
-      const selectedNodes = svg.selectAll('g.node').filter(equals(selectedValue))
-      unselectedNodes.classed('selected', false)
-      unselectedNodes.select('image').attr('xlink:href', TextDocumentWhite)
-      selectedNodes.classed('selected', true)
-      selectedNodes.select('image').attr('xlink:href', TextDocumentGreen)
-    }
+    if (!svg || !selectedValue)
+      return
+    const unselectedNodes = svg.selectAll('g.node').filter(pipe(equals(selectedValue), not))
+    const selectedNodes = svg.selectAll('g.node').filter(equals(selectedValue))
+    unselectedNodes.classed('selected', false)
+    unselectedNodes.select('image').attr('xlink:href', TextDocumentWhite)
+    selectedNodes.classed('selected', true)
+    selectedNodes.select('image').attr('xlink:href', TextDocumentGreen)
   }, [svg, selectedValue])
 
   useEffect(() => {
