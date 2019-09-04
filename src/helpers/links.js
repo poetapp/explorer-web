@@ -1,6 +1,6 @@
 export const uriToExplorerLink = uri =>
-  uri.startsWith('poet:claims/')
-    ? `/works/${uri.split('/')[1]}`
+  urlIsPoetClaim(uri)
+    ? `/works/${poetClaimUrlToClaimId(uri)}`
     : `/archives/${encodeURIComponent(uri)}`
 
 export const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
