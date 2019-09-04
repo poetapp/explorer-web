@@ -51,8 +51,10 @@ export const WorkById = ({ id, uri }) => {
     if (id && graphIncludesClaimId(id))
       return
 
+    const filterOutBlankGraphEdges = graphEdges => graphEdges.filter(({ origin, target }) => origin && target)
+
     poetNodeApi.graph.get(encodeURIComponent(id ? `poet:claims/${id}` : uri))
-      .then(graphEdges => graphEdges.filter(({ origin, target }) => origin && target))
+      .then(filterOutBlankGraphEdges)
       .then(setGraphEdges)
   }, [poetNodeApi, uri, id])
 
