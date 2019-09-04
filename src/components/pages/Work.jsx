@@ -34,11 +34,17 @@ export const WorkById = ({ id, uri }) => {
   const [work, setWork] = useState()
   const [graphEdges, setGraphEdges] = useState([])
   const [graphEdgesWithArchiveUrl, setGraphEdgesWithArchiveUrl] = useState([])
+  const [workWithArchiveUrl, setArchiveUrl] = useState()
 
   useEffect(() => {
     if (poetNodeApi && id) poetNodeApi.works.get(id).then(setWork)
     else if (!id) setWork()
   }, [poetNodeApi, id])
+
+  useEffect(() => {
+    if (work?.claim?.archiveUrl)
+      setArchiveUrl(work)
+  }, [work])
 
   useEffect(() => {
     const graphIncludesUri = uri => graphEdges?.some(edgeReferencesUri(uri))
@@ -59,13 +65,11 @@ export const WorkById = ({ id, uri }) => {
   }, [poetNodeApi, uri, id])
 
   useEffect(() => {
-    if (work && graphEdges) {
       setGraphEdgesWithArchiveUrl([
         ...graphEdges,
-        ...(work?.claim?.archiveUrl ? [{ origin: claimIdToUri(work?.id), target: work?.claim?.archiveUrl }] : []),
+        ...(workWithArchiveUrl ? [{ origin: claimIdToUri(workWithArchiveUrl.id), target: workWithArchiveUrl.claim.archiveUrl }] : []),
       ])
-    }
-  }, [work, graphEdges])
+  }, [workWithArchiveUrl, graphEdges])
 
   return (
     <Main scrollDisabled={true}>
