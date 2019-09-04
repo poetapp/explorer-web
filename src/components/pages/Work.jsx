@@ -62,7 +62,7 @@ export const WorkById = ({ id, uri }) => {
     if (work && graphEdges) {
       setGraphEdgesWithArchiveUrl([
         ...graphEdges,
-        ...(work?.claim?.archiveUrl ? [{ origin: `poet:claims/${work?.id}`, target: work?.claim?.archiveUrl }] : []),
+        ...(work?.claim?.archiveUrl ? [{ origin: claimIdToUri(work?.id), target: work?.claim?.archiveUrl }] : []),
       ])
     }
   }, [work, graphEdges])
