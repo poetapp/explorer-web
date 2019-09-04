@@ -84,7 +84,7 @@ const NoWork = () => (
 
 const Work = ({ work, uri, graphEdges }) => {
   const { history } = useBrowserRouterContext()
-  const claimUri = work && `poet:claims/${work.id}`
+  const claimUri = work && claimIdToUri(work.id)
 
   const onNodeSelected = (node) => {
     if (urlIsPoetClaim(node))
