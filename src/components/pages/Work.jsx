@@ -236,17 +236,13 @@ const ContentTab = ({ uri }) => (
   </section>
 )
 
-const MakeClaimButton = ({ uri }) => {
-  const href = `/new-claim?about=${encodeURIComponent(uri)}`
-
-  return (
-    <Link to={href}>
-      <button className={classNames.makeClaimButton}>
-        Make a claim
-      </button>
-    </Link>
-  )
-}
+const MakeClaimButton = ({ uri }) => (
+  <Link to={`/new-claim?about=${encodeURIComponent(uri)}`}>
+    <button className={classNames.makeClaimButton}>
+      Make a claim
+    </button>
+  </Link>
+)
 
 const LinkedClaimsTab = ({ uri, graphEdges }) => {
   const { poetNodeApi } = useContext(ApiContext)
