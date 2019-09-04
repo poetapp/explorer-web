@@ -14,7 +14,7 @@ export const Graph = ({ edges, selectedValue, onNodeSelected, nodeSize = 10, mar
   const [svg, setSvg] = useState(false)
   const figure = useRef(null)
 
-  const graph = useMemo(() => dagreFromEdges(edges, margin, nodeSize), [edges])
+  const graph = useMemo(() => dagreFromEdges(edges, margin, nodeSize), [edges, margin, nodeSize])
 
   useEffect(() => {
     if (svg && selectedValue) {
