@@ -1,4 +1,4 @@
-import { pipe } from 'ramda'
+import { identity, not, pipe } from 'ramda'
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ import { SessionContext } from 'providers/SessionProvider'
 
 import classNames from './NewClaim.scss'
 
-export const NewClaim = () => {
+export const NewClaim = ({ about }) => {
   const { api, isBusy, useApi } = useContext(ApiContext)
   const [createdWork, setCreatedWork] = useState(null)
   const tokens = useApi('getTokens')
@@ -28,7 +28,7 @@ export const NewClaim = () => {
 
     return {
       ...claim,
-      archiveUrl,
+      about: [archiveUrl],
       hash,
     }
   }
@@ -49,21 +49,22 @@ export const NewClaim = () => {
         <h2>Create a New Claim on the Po.et Network</h2>
         { !token && tokens?.apiTokens && <h3>You need a mainnet <Link to="/tokens">API Token</Link> in order to create works.</h3> }
         { !createdWork
-          ? <FormAndBanner onSubmit={onSubmit} isBusy={isBusy} disabled={!token} poeAddressVerified={account.poeAddressVerified} />
+          ? <FormAndBanner onSubmit={onSubmit} isBusy={isBusy} disabled={!token} poeAddressVerified={account.poeAddressVerified} about={about} />
           : <Done workId={createdWork.workId}/> }
       </section>
     </Main>
   )
 }
 
-const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified }) => (
+const FormAndBanner = ({ onSubmit, isBusy, disabled, poeAddressVerified, about }) => (
   <section className={classNames.formAndBanner}>
-    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={poeAddressVerified} />
+    <Form onSubmit={onSubmit} isBusy={isBusy} disabled={disabled} archiveUploadEnabled={poeAddressVerified} customFieldsEnabled={poeAddressVerified} initialAbout={about} />
     <Banner render={!poeAddressVerified}/>
   </section>
 )
 
-const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled }) => {
+const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEnabled, initialAbout = '' }) => {
+  const [about, setAbout] = useState(initialAbout)
   const [name, setName] = useState('')
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
@@ -75,6 +76,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
   const [contentTypeProperties, setContentTypeProperties] = useState()
   const [customFields, setCustomFields] = useState([])
   const contentInput = useRef()
+  const aboutInput = useRef()
 
   const submitButtonText = isBusy ? 'Please wait...' : 'Submit'
 
@@ -99,6 +101,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       author,
       tags,
       content,
+      ...(about && {about: about.trim().split(',').map(_ => _.trim())}),
       ...fields,
     }
 
@@ -106,8 +109,15 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
   }
 
   useEffect(() => {
-    contentInput.current.setCustomValidity(!content && !selectedFile ? 'Either the content or a file must be provided.' : '')
-  }, [selectedFile, content])
+    const msgNoneSet = 'Either the content or a file must be provided, or the about field set.'
+    const msgTooManySet = 'Only one of content, file or about can be set at a time.'
+    const props = [about, content, selectedFile]
+    const isNoneSet = props.every(not)
+    const isTooManySet = props.filter(identity).length > 1
+    const msg = isNoneSet ? msgNoneSet : isTooManySet ? msgTooManySet : ''
+    contentInput.current.setCustomValidity(msg)
+    aboutInput.current.setCustomValidity(msg)
+  }, [about, selectedFile, content])
 
   useEffect(() => {
     fetch(ContentTypeSchemas[contentType])
@@ -137,6 +147,8 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       <input type="text" id="author" value={author} onChange={pipe(eventToValue, setAuthor)} required />
       <label htmlFor="content">Content</label>
       <textarea id="content" value={content} onChange={pipe(eventToValue, setContent)} ref={contentInput} disabled={!!selectedFile} />
+      <label htmlFor="about">About</label>
+      <input type="text" id="about" value={about} onChange={pipe(eventToValue, setAbout)} ref={aboutInput} />
       <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />

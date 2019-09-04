@@ -79,7 +79,7 @@ const GlobalNavigation = () => (
   </ul>
 )
 
-export const Main = ({ children }) => {
+export const Main = ({ children, scrollDisabled }) => {
   const [account, setAccount] = useContext(SessionContext)
 
   const clearToken = () => setAccount()
@@ -91,7 +91,7 @@ export const Main = ({ children }) => {
         <GlobalNavigation/>
         <SessionActions account={account} onSignOut={clearToken} />
       </header>
-      <main>
+      <main className={classnames({ [classNames.scrollDisabled]: scrollDisabled })}>
         { children }
       </main>
     </section>

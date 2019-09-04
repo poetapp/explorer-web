@@ -1,25 +1,83 @@
 import moment from 'moment'
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import { pipe } from 'ramda'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import {
+  uriToExplorerLink,
+  bitcoinLink,
+  ipfsLink,
+  urlIsIpfs,
+  ipfsUrlToHash,
+  urlIsPoetClaim,
+  poetClaimUrlToClaimId,
+  claimIdToUri,
+} from 'helpers/links'
+
 import { ApiContext } from 'providers/ApiProvider'
+import { useBrowserRouterContext } from 'providers/BrowserRouterProvider'
 
+import { Graph } from 'components/shared/Graph'
 import { Main } from 'components/templates/Main'
+import { Tabs, Tab } from 'components/shared/Tabs'
 
-import { IPFS, Bitcoin, QuillS3 } from 'Images'
+import { IPFS, Bitcoin } from 'Images'
 
 import classNames from './Work.scss'
 
-export const WorkById = ({ id }) => {
-  const { useApi } = useContext(ApiContext)
-  const work = useApi('workGetById', id)
+const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
+
+const edgeReferencesUri = uri => ({ origin, target }) => origin === uri || target === uri
+
+export const WorkById = ({ id, uri }) => {
+  const { poetNodeApi } = useContext(ApiContext)
+  const [work, setWork] = useState()
+  const [graphEdges, setGraphEdges] = useState([])
+  const [graphEdgesWithArchiveUrl, setGraphEdgesWithArchiveUrl] = useState([])
+  const [archiveUrlGraphEdge, setArchiveUrlGraphEdge] = useState()
+
+  useEffect(() => {
+    if (poetNodeApi && id) poetNodeApi.works.get(id).then(setWork)
+    else if (!id) setWork()
+  }, [poetNodeApi, id])
+
+  useEffect(() => {
+    // See https://github.com/poetapp/explorer-web/issues/706
+    if (work?.claim?.archiveUrl)
+      setArchiveUrlGraphEdge({ origin: claimIdToUri(work.id), target: work.claim.archiveUrl })
+  }, [work])
+
+  useEffect(() => {
+    const graphIncludesUri = uri => graphEdges?.some(edgeReferencesUri(uri))
+    const graphIncludesClaimId = pipe(claimIdToUri, graphIncludesUri)
+
+    if (!poetNodeApi)
+      return
+    if ((uri && graphIncludesUri(uri)))
+      return
+    if (id && graphIncludesClaimId(id))
+      return
+
+    const filterOutBlankGraphEdges = graphEdges => graphEdges.filter(({ origin, target }) => origin && target)
+
+    poetNodeApi.graph.get(encodeURIComponent(id ? claimIdToUri(id) : uri))
+      .then(filterOutBlankGraphEdges)
+      .then(setGraphEdges)
+  }, [poetNodeApi, uri, id])
+
+  useEffect(() => {
+      setGraphEdgesWithArchiveUrl([
+        ...graphEdges,
+        ...(archiveUrlGraphEdge ? [archiveUrlGraphEdge] : []),
+      ])
+  }, [archiveUrlGraphEdge, graphEdges])
 
   return (
-    <Main>
+    <Main scrollDisabled={true}>
       {
-        !work
+        !work && !uri && !graphEdgesWithArchiveUrl?.length
           ? <NoWork />
-          : <Work work={work} />
+          : <Work work={work} uri={uri} graphEdges={graphEdgesWithArchiveUrl} />
       }
     </Main>
   )
@@ -31,50 +89,125 @@ const NoWork = () => (
   </section>
 )
 
-const Work = ({ work }) => {
-  const { claim: { name, author, datePublished, tags, dateCreated, archiveUrl, hash, ...customFields }, issuer } = work
+const Work = ({ work, uri, graphEdges }) => {
+  const { history } = useBrowserRouterContext()
+  const claimUri = work && claimIdToUri(work.id)
+
+  const onNodeSelected = (node) => history.push(uriToExplorerLink(node))
 
   return (
     <section className={classNames.work}>
-      <header>
-        <Overview
-          name={name}
-          author={author}
-          issuer={issuer}
-          datePublished={datePublished}
-          tags={tags}
-          customFields={customFields}
-        />
-        <Links
-          bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
-          ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
-        />
-      </header>
-      <main>
-        <Content archiveUrl={work?.claim?.archiveUrl}/>
-        <AuthenticationBadgePreview workId={work?.id} date={work?.issuanceDate}/>
-      </main>
+      <aside className={classNames.sidebar}>
+        <header className={classNames.sidebarHeader}>
+          <Overview work={work} uri={uri} />
+          <MakeClaimButton uri={uri || claimUri} />
+        </header>
+        <Tabs>
+          { uri && (
+            <Tab label='Content'>
+              <ContentTab uri={uri} />
+            </Tab>
+          ) }
+          <Tab label='Linked Claims'>
+            <LinkedClaimsTab uri={claimUri || uri} graphEdges={graphEdges}  />
+          </Tab>
+          { !uri && (
+            <Tab label='Technical'>
+              <TechnicalTab work={work} />
+            </Tab>
+          ) }
+        </Tabs>
+      </aside>
+      <UriGraph edges={graphEdges} selectedNode={claimUri || uri} onNodeSelected={onNodeSelected}>
+        <GraphAside uri={uri} work={work} />
+      </UriGraph>
     </section>
   )
 }
 
-const Overview = ({ name, author, issuer, datePublished, tags, customFields }) => {
-  const formatDate = date => date && moment(date).format('MMMM Do, YYYY')
-  const formatFieldName = fieldName => fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1)
+const GraphAside = ({ uri, work }) => (
+  uri
+    ? <GraphAsideUri uri={uri} />
+    : <GraphAsideWork work={work} />
+)
+
+const GraphAsideUri = ({ uri }) => {
+  const isIpfs = urlIsIpfs(uri)
+  const title = isIpfs
+      ? ipfsUrlToHash(uri)
+      : uri
+
+  return (
+    <>
+      <h1>{isIpfs ? 'HASH:' : uri}</h1>
+      { isIpfs && <div>{title}</div> }
+      { isIpfs && <div><a href={uri} target="_blank">View Content</a></div> }
+    </>
+  )
+}
+
+const GraphAsideWork = ({ work }) => (
+  <>
+    <h1>{work?.claim?.name}</h1>
+    <div>{work?.claim?.author}</div>
+  </>
+)
+
+const Overview = ({ work, uri }) => (
+  work
+    ? <WorkOverview work={work} />
+    : <UriOverview uri={uri} />
+)
+
+const WorkOverview = ({ work }) => {
+  const formatFieldName = fieldName => (
+    fieldName.slice(0, 1).toUpperCase() + fieldName.slice(1).replace(/([A-Z])/g, ' $1')
+  )
+
+  const {
+    author,
+    datePublished,
+    issuer,
+    tags,
+    name,
+    about,
+    hash,
+    dateCreated,
+    archiveUrl,
+    ...customFields
+  } = work?.claim
+
+  const info = {
+    author,
+    timestamp: formatDate(datePublished),
+    claimMadeBy: <Issuer issuer={issuer} />,
+    tags,
+    ...customFields,
+  }
 
   return (
     <section className={classNames.overview}>
       <h1>{name}</h1>
-      <ul>
-        <li>Author: {author}</li>
-        <li>Claim Made By: <Issuer issuer={issuer}/></li>
-        <li>Date Published: {formatDate(datePublished)}</li>
-        <li>Tags: {tags}</li>
-        { customFields && Object.entries(customFields).map(([key, value]) => <li key={key}>{formatFieldName(key)}: {value}</li>) }
-      </ul>
+      <table>
+        <tbody>
+          {Object.entries(info).map(([fieldName, fieldValue], key) => (
+            <tr key={key}>
+              <th>{formatFieldName(fieldName)}</th>
+              <td>{fieldValue}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   )
 }
+
+const UriOverview = ({ uri = '' }) => (
+  <section className={classNames.overview}>
+    <h1>{ urlIsIpfs(uri) ? ipfsUrlToHash(uri) : uri }</h1>
+    <a href={uri} target="_blank">View Content</a>
+  </section>
+)
 
 const Issuer = ({ issuer }) => {
   const { api } = useContext(ApiContext)
@@ -90,113 +223,137 @@ const Issuer = ({ issuer }) => {
 
 const Links = ({ ipfsLink, bitcoinLink }) => (
   <section className={classNames.links}>
-    <a href={ipfsLink} target="_blank">
-      <img src={IPFS} />View on IPFS</a>
-    <a href={bitcoinLink} target="_blank">
-      <img src={Bitcoin} />View on BTC
-    </a>
+    <h1>Links</h1>
+    <main>
+      <a href={ipfsLink} target="_blank">
+        <img src={IPFS} />View on IPFS</a>
+      <a href={bitcoinLink} target="_blank">
+        <img src={Bitcoin} />View on BTC
+      </a>
+    </main>
   </section>
 )
 
-const Content = ({ archiveUrl }) => {
-  return (
-    <section className={classNames.content}>
-      <h1>Content</h1>
-      <main>
-        <iframe sandbox="" src={archiveUrl} />
-      </main>
-    </section>
-  )
-}
-
-const AuthenticationBadgePreview = ({ workId, date }) => {
-  const formatDate = date => moment(date).format('MM-DD-YY [at] h:mm:ss a')
-  return (
-    <section className={''}>
-      <h1>Authentication Badge Preview</h1>
-      <p>Embed this html and css to your site so readers can easily verify your timestamp.</p>
-      <Badge date={formatDate(date)}/>
-      <BadgeUrl workId={workId} date={formatDate(date)} />
-    </section>
-  )
-}
-
-const Badge = ({ date }) => (
-  <section className={classNames.badge}>
-    <img src={QuillS3}/>
-    <h1>Licensed via Po.et</h1>
-    <span>{date}</span>
+const ContentTab = ({ uri }) => (
+  <section className={classNames.content}>
+    <h1>Content Preview</h1>
+    <main>
+      <iframe sandbox="" src={uri} />
+    </main>
   </section>
 )
 
-const BadgeUrl = ({ workId, date }) => {
-  const textarea = useRef()
-  const [copied, setCopied] = useState(false)
+const MakeClaimButton = ({ uri }) => (
+  <Link to={`/new-claim?about=${encodeURIComponent(uri)}`}>
+    <button className={classNames.makeClaimButton}>
+      Make a claim
+    </button>
+  </Link>
+)
 
-  const onCopy = () => {
-    textarea.current?.select()
-    document.execCommand('copy')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 3000)
-  }
+const LinkedClaimsTab = ({ uri, graphEdges }) => {
+  const { poetNodeApi } = useContext(ApiContext)
+  const [originOfClaims, setOriginOfClaims] = useState([])
+  const [targetOfClaims, setTargetOfClaims] = useState([])
+  const [originOfUris, setOriginOfUris] = useState([])
+  const [targetOfUris, setTargetOfUris] = useState([])
+  const [claimIds, setClaimIds] = useState()
+  const [works, setWorks] = useState([])
+
+  useEffect(() => {
+    setOriginOfUris(graphEdges.filter(({ origin }) => origin === uri).map(({ target }) => target))
+    setTargetOfUris(graphEdges.filter(({ target }) => target === uri).map(({ origin }) => origin))
+  }, [uri, graphEdges])
+
+  useEffect(() => {
+    const uris = [...new Set([...originOfUris, ...targetOfUris])]
+    setClaimIds(uris.filter(urlIsPoetClaim).map(poetClaimUrlToClaimId).sort((a, b) => a.localeCompare(b)))
+  }, [originOfUris, targetOfUris])
+
+  useEffect(() => {
+    if (poetNodeApi && claimIds?.length)
+      Promise.all(claimIds.map(poetNodeApi.works.get)).then(setWorks)
+  }, [poetNodeApi, claimIds])
+
+  useEffect(() => {
+    const hydrateUri = uri => urlIsPoetClaim(uri)
+      ? hydrateClaimUri(uri)
+      : hydrateNonClaimUri(uri)
+
+    const hydrateNonClaimUri = uri => ({
+      uri,
+      name: uri,
+      date: '',
+    })
+
+    const hydrateClaimUri = uri => {
+      const work = works.find(work => work.id === poetClaimUrlToClaimId(uri))
+      return ({
+        uri,
+        name: work?.claim?.name || uri,
+        date: formatDate(work?.claim?.datePublished),
+      })
+    }
+
+    setOriginOfClaims(originOfUris.map(hydrateUri))
+    setTargetOfClaims(targetOfUris.map(hydrateUri))
+  }, [originOfUris, targetOfUris, works])
 
   return (
-    <section className={classNames.badgeUrl}>
-      <textarea value={badgeCode({ workId, date })} readOnly={true} ref={textarea} />
-      <button onClick={onCopy}>{!copied ? 'Copy' : 'Copied!'}</button>
+    <section className={classNames.linkedClaims}>
+      { originOfClaims?.length > 0 && (
+        <>
+          <h1>This claim references</h1>
+          <LinkedClaimsList linkedClaims={originOfClaims} />
+        </>
+      )}
+      { targetOfClaims?.length > 0 && (
+        <>
+          <h1>Referenced by</h1>
+          <LinkedClaimsList linkedClaims={targetOfClaims} />
+        </>
+      )}
     </section>
   )
 }
 
-const bitcoinLink = tx => `https://blockchain.info/tx/${tx}`
-const ipfsLink = ipfsHash => `https://ipfs.poetnetwork.net/ipfs/${ipfsHash}`
-const baseUrl = 'https://explorer-mainnet.poetnetwork.net'
-
-const badgeCode = ({ workId, date }) => badgeHTML({ workId, date }) + '\n\n' + badgeCSS
-
-const badgeHTML = ({ workId, date }) => (
-  `<a href="${baseUrl}/works/${workId}" class="poet-badge" >\n` +
-  `  <img src="${QuillS3}" />\n` +
-  `  <h1>Licensed via Po.et</h1>\n` +
-  `  <span>${date}</span>\n` +
-  '</a>'
+const LinkedClaimsList = ({ linkedClaims }) => (
+  <ul>
+    {linkedClaims.map(({ name, date, uri }, key) => (
+      <li key={key}>
+        <Link to={uriToExplorerLink(uri)}>{name}</Link>
+        <time>{date}</time>
+      </li>
+    ))}
+  </ul>
 )
 
-const badgeCSS = `
-  <style type="text/css">
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+const TechnicalTab = ({ work }) => (
+  <section>
+    <Links
+      bitcoinLink={bitcoinLink(work?.anchor?.transactionId)}
+      ipfsLink={ipfsLink(work?.anchor?.ipfsFileHash)}
+    />
+    <Metadata work={work} />
+  </section>
+)
 
-    .poet-badge {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto;
-      grid-column-gap: 8px;
-      align-items: center;
-      background-color: white;
-      padding: 8px 10px;
-      border: 1px solid #dfdfdf;
-      border-radius: 4px;
-      width: 190px;
-      margin-bottom: 15px;
-      text-decoration: none;
-      font-family: "Open Sans";
-      color: #333;
-    }
+const Metadata = ({ work }) => (
+  <section className={classNames.metadata}>
+    <h1>Metadata Preview</h1>
+    <pre>
+      { JSON.stringify(work, null, 2)}
+    </pre>
+  </section>
+)
 
-    .poet-badge img {
-      grid-row: 1 / 3;
-      width: 39px;
-      margin-right: 8px;
-    }
-
-    .poet-badge h1 {
-      margin: 0;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .poet-badge span {
-      font-size: 10px;
-    }
-  </style>
-`
+const UriGraph = ({ children, edges, selectedNode, onNodeSelected }) => (
+  <section className={classNames.graph}>
+    <header>
+      <figcaption>
+        { children }
+      </figcaption>
+    </header>
+    <Graph edges={edges} selectedValue={selectedNode} onNodeSelected={onNodeSelected} />
+  </section>
+)

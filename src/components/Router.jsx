@@ -16,13 +16,14 @@ import { TermsOfService } from 'components/pages/TermsOfService'
 import { NewClaim } from 'components/pages/NewClaim'
 import { Settings } from 'components/pages/Settings'
 
+import { BrowserRouterProvider } from 'providers/BrowserRouterProvider'
 import { SessionContext } from 'providers/SessionProvider'
 
 export const Router = () => {
   const [account] = useContext(SessionContext)
 
   return (
-    <BrowserRouter>
+    <BrowserRouterProvider>
       <Switch>
         { account?.id && <Redirect from='/login' to='/'/> }
         { account && <Redirect from='/signup' to='/'/> }
@@ -32,6 +33,7 @@ export const Router = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/works" component={Works} />
         <Route path="/works/:id" render={({ match }) => <WorkById id={match.params.id} />} />
+        <Route path="/archives/:uri" render={({ match }) => <WorkById uri={decodeURIComponent(match.params.uri)}  />} />
         <Route path="/issuers/:id" render={({ match }) => <IssuerById id={match.params.id} />} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
@@ -40,11 +42,12 @@ export const Router = () => {
         <Route path="/confirm-email" render={pipe(getQueryToken, token => <ConfirmMail token={token}/>)} />
         <Route path="/tokens" component={Tokens} />
         <Route path="/tos" component={TermsOfService} />
-        <Route path="/new-claim" component={NewClaim} />
+        <Route path="/new-claim" component={pipe(getQueryAbout, about => <NewClaim about={about}/>)} />
         <Route path="/settings" component={Settings} />
       </Switch>
-    </BrowserRouter>
+    </BrowserRouterProvider>
   )
 }
 
 const getQueryToken = ({ location }) => (new URLSearchParams(location.search)).get('token')
+const getQueryAbout = ({ location }) => (new URLSearchParams(location.search)).get('about')

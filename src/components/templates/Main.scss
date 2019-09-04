@@ -1,13 +1,14 @@
 @import 'Buttons';
 
 .main {
+  $header-height: 60px;
   height: 100%;
   display: flex;
   flex-direction: column;
 
   >header {
     flex: 0 0 auto;
-    height: 60px;
+    height: $header-height;
     display: flex;
     align-items: center;
     background-color: white;
@@ -153,5 +154,9 @@
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+
+    &.scrollDisabled {
+      height: calc(100% - #{$header-height});
+    }
   }
 }

@@ -1,0 +1,60 @@
+$spacing: 24px;
+$border-grey: 1px solid #E9E9E9;
+$green: #36b074;
+
+.root {
+}
+
+.selector {
+  display: flex;
+}
+
+.selectorRail {
+  width: $spacing;
+  border-bottom: $border-grey;
+  align-self: flex-end;
+}
+
+.label {
+  position: relative;
+  flex: 1;
+  padding: 6px;
+  text-align: center;
+  border-bottom: $border-grey;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.labelActive {
+  position: relative;
+  border-bottom: none;
+
+  &::before {
+    border-left: $border-grey;
+    border-right: $border-grey;
+    bottom: 0px;
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 4px;
+  }
+
+  &::after {
+    background-color: $green;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    content: '';
+    height: 4px;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    top: 0;
+  }
+}
+
+.content {
+  padding: $spacing;
+}
