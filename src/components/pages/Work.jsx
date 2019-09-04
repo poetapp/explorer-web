@@ -42,6 +42,7 @@ export const WorkById = ({ id, uri }) => {
   }, [poetNodeApi, id])
 
   useEffect(() => {
+    // See https://github.com/poetapp/explorer-web/issues/706
     if (work?.claim?.archiveUrl)
       setArchiveUrlGraphEdge({ origin: claimIdToUri(work.id), target: work.claim.archiveUrl })
   }, [work])
