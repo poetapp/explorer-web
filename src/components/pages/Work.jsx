@@ -86,11 +86,7 @@ const Work = ({ work, uri, graphEdges }) => {
   const { history } = useBrowserRouterContext()
   const claimUri = work && claimIdToUri(work.id)
 
-  const onNodeSelected = (node) => history.push(
-    urlIsPoetClaim(node)
-      ? `/works/${poetClaimUrlToClaimId(node)}`
-      : `/archives/${encodeURIComponent(node)}`
-  )
+  const onNodeSelected = (node) => history.push(uriToExplorerLink(node))
 
   return (
     <section className={classNames.work}>
