@@ -179,7 +179,7 @@ const WorkOverview = ({ work }) => {
   const info = {
     author,
     timestamp: formatDate(datePublished),
-    claimMadeBy: <Issuer issuer={work.issuer} />,
+    claimMadeBy: <Issuer issuer={work?.issuer} />,
     tags,
     ...customFields,
   }
