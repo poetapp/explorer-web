@@ -95,7 +95,10 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
     }), {})
 
     const claim = {
-      '@context': context,
+      '@context': {
+        ...context,
+        description: 'schema:description',
+      },
       name,
       datePublished: date,
       dateCreated: date,
