@@ -65,6 +65,9 @@ export const ApiProvider = props => {
     setPoetNodeApi(PoetNodeApi({
       environment,
       network,
+      fallbackCatch: _ => {
+        toast.error(_.body)
+      },
     }))
   }, [account, environment, network])
 

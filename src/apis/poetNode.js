@@ -1,3 +1,5 @@
+import { identity } from 'ramda'
+
 import { ApiClient } from 'helpers/ApiClient'
 import { assertEnvironment } from 'helpers/api'
 
@@ -13,9 +15,10 @@ const environmentToUrl = (environment, network) => {
   return nodeUrl
 }
 
-export const PoetNodeApi = ({ environment, network }) => ApiClient({
+export const PoetNodeApi = ({ environment, network, fallbackCatch = identity }) => ApiClient({
   url: environmentToUrl(environment, network),
   resources,
+  fallbackCatch,
 })
 
 const resources = {
