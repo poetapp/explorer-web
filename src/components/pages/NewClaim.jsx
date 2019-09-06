@@ -70,6 +70,7 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
   const [content, setContent] = useState('')
   const [tags, setTags] = useState('')
   const [date, setDate] = useState(new Date().toISOString())
+  const [description, setDescription] = useState('')
   const [selectedFile, setSelectedFile] = useState()
   const [contentType, setContentType] = useState(ContentType.Text)
   const [contentTypeSchema, setContentTypeSchema] = useState()
@@ -94,13 +95,17 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
     }), {})
 
     const claim = {
-      '@context': context,
+      '@context': {
+        ...context,
+        description: 'schema:description',
+      },
       name,
       datePublished: date,
       dateCreated: date,
       author,
       tags,
       content,
+      description,
       ...(about && {about: about.trim().split(',').map(_ => _.trim())}),
       ...fields,
     }
@@ -152,6 +157,8 @@ const Form = ({ onSubmit, disabled, isBusy, archiveUploadEnabled, customFieldsEn
       <FileInput render={archiveUploadEnabled} onFileSelected={setSelectedFile} />
       <label htmlFor="tags">Tags</label>
       <input type="text" id="tags" value={tags} onChange={pipe(eventToValue, setTags)} />
+      <label htmlFor="description">Description</label>
+      <input type="text" id="description" value={description} onChange={pipe(eventToValue, setDescription)} />
       <label htmlFor="date">Date Created</label>
       <input type="text" id="date" value={date} onChange={pipe(eventToValue, setDate)} required />
       { customFieldsEnabled && <CustomFields
