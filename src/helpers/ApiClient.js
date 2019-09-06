@@ -41,7 +41,7 @@ export const ApiClient = ({
     unaryFetch,
     parseResponse,
     afterResponse,
-    pickBody
+    pickBody,
   )
 
   const resourceToFetch = (resourceName, resource) => mapObjectEntries(
