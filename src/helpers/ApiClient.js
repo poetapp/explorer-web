@@ -7,7 +7,7 @@ export const ApiClient = ({
   headers,
   resources,
 }) => {
-  const pickBody = _ => _?.body
+  const pickBody = ({ body }) => body
 
   const throwIfNot200 = _ => {
     if (_.status !== 200)
