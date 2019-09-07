@@ -1,5 +1,3 @@
-import { identity } from 'ramda'
-
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 import { asyncPipe, unaryFetch } from './functional'
@@ -8,9 +6,14 @@ export const ApiClient = ({
   url,
   headers,
   resources,
-  afterResponse = identity,
 }) => {
   const pickBody = ({ body }) => body
+
+  const throwIfNot200 = _ => {
+    if (_.status !== 200)
+      throw new ApiClientError(_)
+    return _
+  }
 
   const makeUrl = (resourceName, resource) => ({ url: operationUrl = '', init }) => ({
     url: url + (resource.url || '/' + resourceName) + operationUrl,
@@ -40,13 +43,13 @@ export const ApiClient = ({
     addMethod(method),
     unaryFetch,
     parseResponse,
-    afterResponse,
-    pickBody
+    throwIfNot200,
+    pickBody,
   )
 
   const resourceToFetch = (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, resourceEntryIsOperation),
-    resourceOperationToFetch(resourceName, resource)
+    resourceOperationToFetch(resourceName, resource),
   )
 
   return mapObjectEntries(
@@ -105,3 +108,10 @@ const parseResponse = async response => ({
   body: await parseResponseBody(response),
   headers: response.headers,
 })
+
+export class ApiClientError extends Error {
+  constructor(serverResponse) {
+    super(`Server responded with ${serverResponse.status}.`)
+    this.serverResponse = serverResponse
+  }
+}

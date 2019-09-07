@@ -32,12 +32,13 @@ const edgeReferencesUri = uri => ({ origin, target }) => origin === uri || targe
 export const WorkById = ({ id, uri }) => {
   const { poetNodeApi } = useContext(ApiContext)
   const [work, setWork] = useState()
+  const [workError, setWorkError] = useState()
   const [graphEdges, setGraphEdges] = useState([])
   const [graphEdgesWithArchiveUrl, setGraphEdgesWithArchiveUrl] = useState([])
   const [archiveUrlGraphEdge, setArchiveUrlGraphEdge] = useState()
 
   useEffect(() => {
-    if (poetNodeApi && id) poetNodeApi.works.get(id).then(setWork)
+    if (poetNodeApi && id) poetNodeApi.works.get(id).then(setWork).catch(setWorkError)
     else if (!id) setWork()
   }, [poetNodeApi, id])
 
@@ -75,8 +76,10 @@ export const WorkById = ({ id, uri }) => {
   return (
     <Main scrollDisabled={true}>
       {
-        !work && !uri && !graphEdgesWithArchiveUrl?.length
+        workError
           ? <NoWork />
+          : !work && !uri && !graphEdgesWithArchiveUrl?.length
+          ? <Loading />
           : <Work work={work} uri={uri} graphEdges={graphEdgesWithArchiveUrl} />
       }
     </Main>
@@ -86,6 +89,12 @@ export const WorkById = ({ id, uri }) => {
 const NoWork = () => (
   <section className={classNames.noWork}>
     <div>Work not found? It can take some time for a new claim to sync across nodes, so check back soon!</div>
+  </section>
+)
+
+const Loading = () => (
+  <section className={classNames.noWork}>
+    <div>Loading, please wait.</div>
   </section>
 )
 
