@@ -40,7 +40,7 @@ export const WorkById = ({ id, uri }) => {
   console.log('workError', workError)
 
   useEffect(() => {
-    if (poetNodeApi && id) poetNodeApi.works.get(id).then(setWork) //.catch(setWorkError)
+    if (poetNodeApi && id) poetNodeApi.works.get(id).then(setWork)//.catch(setWorkError)
     else if (!id) setWork()
   }, [poetNodeApi, id])
 
