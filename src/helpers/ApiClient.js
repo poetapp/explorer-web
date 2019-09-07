@@ -1,5 +1,3 @@
-import { identity } from 'ramda'
-
 import { filtersToQueryParams } from './api'
 import { mapObjectEntries, filterObjectEntries } from './object'
 import { asyncPipe, unaryFetch } from './functional'
@@ -8,10 +6,14 @@ export const ApiClient = ({
   url,
   headers,
   resources,
-  afterResponse = identity,
-  fallbackCatch = identity,
 }) => {
   const pickBody = _ => _?.body
+
+  const throwIfNot200 = _ => {
+    if (_.status !== 200)
+      throw new ApiClientError(_)
+    return _
+  }
 
   const makeUrl = (resourceName, resource) => ({ url: operationUrl = '', init }) => ({
     url: url + (resource.url || '/' + resourceName) + operationUrl,
@@ -41,15 +43,9 @@ export const ApiClient = ({
     addMethod(method),
     unaryFetch,
     parseResponse,
-    afterResponse,
+    throwIfNot200,
     pickBody,
   )
-
-  // let useFallbackCatch = true
-  // const myPromise = ...().then(_ => _.status !== 200 && useFallbackCatch ? fallbackCatch(_) : _ })
-  // const originalCatch = myPromise.catch
-  // myPromise.catch = cb => { useFallbackCatch = false; originalCatch(cb); return x; }
-  // return myPromise
 
   const resourceToFetch = (resourceName, resource) => mapObjectEntries(
     filterObjectEntries(resource, resourceEntryIsOperation),
@@ -112,3 +108,10 @@ const parseResponse = async response => ({
   body: await parseResponseBody(response),
   headers: response.headers,
 })
+
+export class ApiClientError extends Error {
+  constructor(serverResponse) {
+    super(`Server responded with ${serverResponse.status}.`)
+    this.serverResponse = serverResponse
+  }
+}
