@@ -2,14 +2,17 @@
 
 .works {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
 
   >li {
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    &:not(:last-of-type) {
-      border-bottom: 1px solid #d4d4d4;
-    }
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    background-color: white;
 
     >h1 {
       display: block;
