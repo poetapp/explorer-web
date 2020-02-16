@@ -40,8 +40,15 @@ export const IssuerById = ({ id, pageSize = 10 }) => {
 }
 
 const Profile = ({ issuer }) => {
-  const { useApi } = useContext(ApiContext)
-  const account = useApi('accountFind', { issuer })
+  const { frostApi } = useContext(ApiContext)
+  const [account, setAccount] = useState()
+
+  useEffect(() => {
+    if (frostApi)
+      frostApi.accounts.find({ issuer }).then(setAccount)
+  }, [frostApi])
+
+  console.log({ account })
 
   return (
     <section className={classNames.profile}>
@@ -49,6 +56,7 @@ const Profile = ({ issuer }) => {
       <h1>{account?.name || 'Po.et User'}</h1>
       <h2>{account?.bio}</h2>
       <span>{account?.email}</span>
+      <span>{account?.ethereumRegistryAddress}</span>
       {account?.ethereumAddress_ && <TipPoe/>}
     </section>
   )
