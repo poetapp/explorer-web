@@ -48,15 +48,13 @@ const Profile = ({ issuer }) => {
       frostApi.accounts.find({ issuer }).then(setAccount)
   }, [frostApi])
 
-  console.log({ account })
-
   return (
     <section className={classNames.profile}>
       <img src={DefaultAvatar}/>
       <h1>{account?.name || 'Po.et User'}</h1>
       <h2>{account?.bio}</h2>
-      <span>{account?.email}</span>
-      <span>{account?.ethereumRegistryAddress}</span>
+      <span className={classNames.email}>{account?.email}</span>
+      <span className={classNames.ethreg}><a href={'https://rinkeby.etherscan.io/address/' + account?.ethereumRegistryAddress}>Registry Writer</a></span>
       {account?.ethereumAddress_ && <TipPoe/>}
     </section>
   )
