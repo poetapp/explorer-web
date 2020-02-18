@@ -42,13 +42,23 @@
         align-items: center;
 
         &:before {
+          content: ' ';
           display: inline-block;
-          content: url('/close-envelope.svg');
           width: 18px;
           height: 18px;
+          background-size: 18px 18px;
           margin-right: 8px;
           opacity: 0.7;
         }
+
+        &.email:before {
+          background-image: url('/close-envelope.svg');
+        }
+
+        &.ethreg:before {
+          background-image: url('/ethereum.svg');
+        }
+
       }
 
       >a {

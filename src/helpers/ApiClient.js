@@ -24,7 +24,7 @@ export const ApiClient = ({
     url,
     init: {
       ...init,
-      headers: { ...headers, ...resource.headers, ...options.headers },
+      headers: withoutUndefinedValues({ ...headers, ...resource.headers, ...options.headers }),
     }
   })
 
@@ -115,3 +115,5 @@ export class ApiClientError extends Error {
     this.serverResponse = serverResponse
   }
 }
+
+const withoutUndefinedValues = o => filterObjectEntries(o, ([k, v]) => v !== undefined)

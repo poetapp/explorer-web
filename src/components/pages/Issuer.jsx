@@ -40,15 +40,21 @@ export const IssuerById = ({ id, pageSize = 10 }) => {
 }
 
 const Profile = ({ issuer }) => {
-  const { useApi } = useContext(ApiContext)
-  const account = useApi('accountFind', { issuer })
+  const { frostApi } = useContext(ApiContext)
+  const [account, setAccount] = useState()
+
+  useEffect(() => {
+    if (frostApi)
+      frostApi.accounts.find({ issuer }).then(setAccount)
+  }, [frostApi])
 
   return (
     <section className={classNames.profile}>
       <img src={DefaultAvatar}/>
       <h1>{account?.name || 'Po.et User'}</h1>
       <h2>{account?.bio}</h2>
-      <span>{account?.email}</span>
+      <span className={classNames.email}>{account?.email}</span>
+      <span className={classNames.ethreg}><a href={'https://rinkeby.etherscan.io/address/' + account?.ethereumRegistryAddress}>Registry Writer</a></span>
       {account?.ethereumAddress_ && <TipPoe/>}
     </section>
   )
